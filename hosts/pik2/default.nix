@@ -13,7 +13,11 @@ in
 
   age.secrets = {
     duckdns.file = "${self}/secrets/duckdns.age";
-    bitwarden.file = "${self}/secrets/bitwarden.age";
+    bitwarden = {
+      file = "${self}/secrets/bitwarden.age";
+      owner = "bitwarden_rs";
+      group = "bitwarden_rs";
+    };
   };
 
   networking = {
