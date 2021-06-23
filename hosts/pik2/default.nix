@@ -92,7 +92,7 @@ in
       websocketAddress = "127.0.0.1";
       webVaultFolder = "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
       webVaultEnabled = true;
-      # dataFolder = "${persistPath}/var/lib/bitwarden_rs";
+      dataFolder = "${persistPath}/var/lib/bitwarden_rs";
     };
     environmentFile = "/run/secrets/bitwarden";
     backupDir = "${persistPath}/backups/vault";
@@ -159,7 +159,7 @@ in
   };
 
   services.calibre-web = {
-    enable = true;
+    enable = false;
     openFirewall = true;
     listen = {
       ip = "127.0.0.1";
