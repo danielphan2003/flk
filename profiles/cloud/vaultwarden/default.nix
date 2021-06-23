@@ -23,7 +23,7 @@ let persistPath = config.boot.persistence.path; in
 
   systemd.services.backup-bitwarden_rs = {
     environment.DATA_FOLDER = config.services.bitwarden_rs.config.dataFolder;
-  }
+  };
 
   services.logrotate.paths.bitwarden_rs = {
     path = "/var/log/bitwarden/*.log";
