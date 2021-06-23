@@ -4,11 +4,18 @@ lib.makeExtensible (self: rec {
 
   pkgs-build = import ./pkgs-build { inherit lib; };
 
+  lists = import ./lists.nix { inherit lib; };
+
+  inherit (lists)
+    appendString
+  ;
+
   inherit (nixos-lib)
     getNormalUsers
     mkCustomI3Rule
     mkFirefoxConfig
     mkPersist
+    persistence
     pywal
   ;
 

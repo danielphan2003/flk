@@ -1,6 +1,6 @@
 { self, ... }: {
   home-manager.users.alita = { suites, ... }: {
-    imports = suites.base;
+    imports = suites.alita;
     programs.git = {
       userEmail = "alita@pik2.duckdns.org";
       userName = "Alita";

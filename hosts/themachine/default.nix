@@ -41,15 +41,6 @@ in
         });
       };
       wine_ov = final: prev: {
-        # wine-staging =
-        #   (prev.wineWowPackages.staging.overrideAttrs
-        #     (_:
-        #       let src = final.srcs.wine-staging;
-        #       in {
-        #         inherit src;
-        #         inherit (src) version;
-        #       })
-        #   ).override { };
         winetricks =
           (prev.winetricks.overrideAttrs
             (_:

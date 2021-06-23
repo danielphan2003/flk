@@ -123,7 +123,7 @@
             mobile = graphics ++ [ laptop ];
 
             play = graphics ++ [
-              # "${graphical}/games"
+              # graphical.games
               network.torrent
               network.chromecast
               misc.disable-mitigations
@@ -132,12 +132,17 @@
             goPlay = play ++ [ laptop ];
 
             pik2 = server ++ [ users.alita ] ++ [
-              # network.stubby
+              # cloud.calibre-web
+              cloud.grafana
+              cloud.vaultwarden
               misc.encryption
+              misc.persistence
+              # network.stubby
             ];
 
             themachine = play ++ [ users.danie ] ++ [
               misc.encryption
+              misc.persistence
             ];
           };
         };
@@ -160,6 +165,8 @@
             academic = play ++ [ winapps ];
 
             coding = academic ++ [ alacritty vscode-with-extensions ];
+
+            alita = base;
 
             danie = coding;
           };
