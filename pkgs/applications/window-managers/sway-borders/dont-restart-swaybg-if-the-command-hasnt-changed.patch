@@ -1,0 +1,144 @@
+diff --git a/include/sway/config.h b/include/sway/config.h
+index ed86993d..68e14179 100644
+--- a/include/sway/config.h
++++ b/include/sway/config.h
+@@ -506,6 +506,7 @@ struct sway_config {
+ 
+ 	// swaybg
+ 	char *swaybg_command;
++	char **swaybg_full_command;
+ 	struct wl_client *swaybg_client;
+ 	struct wl_listener swaybg_client_destroy;
+ 
+@@ -624,6 +625,7 @@ void config_add_swaynag_warning(char *fmt, ...);
+ /**
+  * Free config struct
+  */
++void free_swaybg_full_command(char** cmd);
+ void free_config(struct sway_config *config);
+ 
+ void free_sway_variable(struct sway_variable *var);
+diff --git a/sway/config.c b/sway/config.c
+index 39013865..2d1b6b0e 100644
+--- a/sway/config.c
++++ b/sway/config.c
+@@ -85,6 +85,19 @@ static void free_mode(struct sway_mode *mode) {
+ 	free(mode);
+ }
+ 
++void free_swaybg_full_command(char **cmd) {
++	if (!cmd) {
++		return;
++	}
++
++	char **pos = cmd;
++	while (*pos) {
++		free(*pos);
++		pos++;
++	}
++	free(cmd);
++}
++
+ void free_config(struct sway_config *config) {
+ 	if (!config) {
+ 		return;
+@@ -160,6 +173,7 @@ void free_config(struct sway_config *config) {
+ 	free(config->floating_scroll_right_cmd);
+ 	free(config->font);
+ 	free(config->swaybg_command);
++	free_swaybg_full_command(config->swaybg_full_command);
+ 	free(config->swaynag_command);
+ 	free((char *)config->current_config_path);
+ 	free((char *)config->current_config);
+diff --git a/sway/config/output.c b/sway/config/output.c
+index 7d0ed395..faeffd3c 100644
+--- a/sway/config/output.c
++++ b/sway/config/output.c
+@@ -676,7 +676,35 @@ static void handle_swaybg_client_destroy(struct wl_listener *listener,
+ 	sway_config->swaybg_client = NULL;
+ }
+ 
++static int compare_swaybg_cmd(char **cmd1, char **cmd2) {
++	while (true) {
++		if (*cmd1 == NULL && *cmd2 == NULL) {
++			return 0;
++		} else if (*cmd1 == NULL || *cmd2 == NULL) {
++			return 1;
++		} else if (strcmp(*cmd1, *cmd2) != 0) {
++			return 1;
++		} else {
++			cmd1++;
++			cmd2++;
++		}
++	}
++}
++
+ static bool _spawn_swaybg(char **command) {
++	if (config->swaybg_full_command != NULL &&
++		compare_swaybg_cmd(command, config->swaybg_full_command) == 0) {
++		// We got the same command as before, ignore it
++		free_swaybg_full_command(command);
++		return true;
++	}
++
++	// Save the command for later comparisons
++	if (config->swaybg_full_command != NULL) {
++		free_swaybg_full_command(config->swaybg_full_command);
++	}
++	config->swaybg_full_command = command;
++
+ 	if (config->swaybg_client != NULL) {
+ 		wl_client_destroy(config->swaybg_client);
+ 	}
+@@ -764,30 +792,31 @@ bool spawn_swaybg(void) {
+ 	}
+ 
+ 	size_t i = 0;
+-	cmd[i++] = config->swaybg_command;
++	cmd[i++] = strdup(config->swaybg_command);
+ 	for (int j = 0; j < config->output_configs->length; j++) {
+ 		struct output_config *oc = config->output_configs->items[j];
+ 		if (!oc->background) {
+ 			continue;
+ 		}
+ 		if (strcmp(oc->background_option, "solid_color") == 0) {
+-			cmd[i++] = "-o";
+-			cmd[i++] = oc->name;
+-			cmd[i++] = "-c";
+-			cmd[i++] = oc->background;
++			cmd[i++] = strdup("-o");
++			cmd[i++] = strdup(oc->name);
++			cmd[i++] = strdup("-c");
++			cmd[i++] = strdup(oc->background);
+ 		} else {
+-			cmd[i++] = "-o";
+-			cmd[i++] = oc->name;
+-			cmd[i++] = "-i";
+-			cmd[i++] = oc->background;
+-			cmd[i++] = "-m";
+-			cmd[i++] = oc->background_option;
++			cmd[i++] = strdup("-o");
++			cmd[i++] = strdup(oc->name);
++			cmd[i++] = strdup("-i");
++			cmd[i++] = strdup(oc->background);
++			cmd[i++] = strdup("-m");
++			cmd[i++] = strdup(oc->background_option);
+ 			if (oc->background_fallback) {
+-				cmd[i++] = "-c";
+-				cmd[i++] = oc->background_fallback;
++				cmd[i++] = strdup("-c");
++				cmd[i++] = strdup(oc->background_fallback);
+ 			}
+ 		}
+ 		assert(i <= length);
++		free_output_config(oc);
+ 	}
+ 
+ 	for (size_t k = 0; k < i; k++) {
+@@ -795,6 +824,5 @@ bool spawn_swaybg(void) {
+ 	}
+ 
+ 	bool result = _spawn_swaybg(cmd);
+-	free(cmd);
+ 	return result;
+ }

@@ -1,0 +1,5 @@
+[output HDMI-A-1]
+image=$HOME/pic/wallpaper
+filter=nearest
+scaling-mode=fill
+anchor=center

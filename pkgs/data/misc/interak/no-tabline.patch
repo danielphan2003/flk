@@ -1,0 +1,32 @@
+diff --git a/chrome/window-controls/wc-without-tabline.css b/chrome/window-controls/wc-without-tabline.css
+index bbfc51b..9a52a2a 100644
+--- a/chrome/window-controls/wc-without-tabline.css
++++ b/chrome/window-controls/wc-without-tabline.css
+@@ -1,12 +1,12 @@
+ @import "window-controls.css";
+ 
+-:root:not([inFullscreen]) toolbar#nav-bar {
++/*:root:not([inFullscreen]) toolbar#nav-bar {
+     z-index: 1 !important;
+     position: relative !important;
+     margin-left: calc(
+         var(--wc-right-space) * 2 + 60px
+-    ) !important; /* shift toolbar to the right based on initial width */
+-}
++    ) !important; /* shift toolbar to the right based on initial width 
++}*/
+ 
+ #TabsToolbar .toolbar-items {
+     display: none !important;
+@@ -16,9 +16,9 @@
+     flex-direction: row-reverse;
+ }
+ 
+-#TabsToolbar.browser-toolbar {
++/*#TabsToolbar.browser-toolbar {
+     display: inline-block !important;
+     position: absolute;
+     top: var(--wc-vertical-shift) !important;
+     left: var(--wc-left-space) !important;
+-}
++}*/

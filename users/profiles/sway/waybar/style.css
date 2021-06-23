@@ -1,0 +1,134 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "SF Pro Display", "Font Awesome 5 Free";
+  font-size: 13px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: transparent;
+  color: white;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+#waybar > .horizontal {
+  padding: 10px 10px 0;
+}
+
+#waybar > .horizontal > .horizontal:nth-child(1) {
+  margin-right: 10px;
+}
+
+#workspaces button {
+  margin: 10px 0 0 10px;
+  font-size: 16px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: rgba(74, 85, 104, 0.6);
+}
+
+#workspaces button:hover {
+  background: @color5;
+  box-shadow: inherit;
+  text-shadow: inherit;
+}
+
+#workspaces button.focused {
+  border-top: 2px solid #4a5568;
+}
+
+#workspaces button.urgent {
+  background-color: #e3574d;
+}
+
+#mode {
+  margin: 10px 0 0 10px;
+  font-size: 13px;
+  padding: 0 10px;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+#window {
+  font-weight: 600;
+  margin: 10px 0 0 10px;
+}
+
+#custom-media,
+#idle_inhibitor,
+#tray,
+#pulseaudio,
+#network,
+#memory,
+#cpu,
+#clock,
+#battery,
+#custom-power {
+  margin: 10px 10px 0 0;
+  padding: 7px 15px;
+  color: #ffffff;
+  font-size: 13px;
+  border-radius: 5px;
+}
+
+#backlight {
+  font-size: 15px;
+}
+
+#battery.charging {
+  color: #ffffff;
+  background-color: rgba(38, 166, 91, 0.6);
+}
+
+@keyframes blink {
+  to {
+    background-color: #ffffff;
+    color: black;
+  }
+}
+
+#battery.warning:not(.charging) {
+  background-color: rgba(227, 87, 77, 0.7);
+  color: #ffffff;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+label:focus {
+  background-color: #000000;
+}
+
+#network.disconnected,
+#pulseaudio.muted {
+  background-color: rgba(74, 85, 104, 0.3);
+  color: #e2e8f0;
+}
+
+#custom-media {
+  min-width: 100px;
+  margin: 10px 0 0 10px;
+}
+
+#custom-media.firefox {
+  margin-right: 10px;
+  background-color: #0060df;
+  margin-right: 10px;
+}
+
+#custom-media.spotify {
+  background-color: #1ed760;
+  color: @background;
+}
+
+#idle_inhibitor.activated {
+  background-color: rgba(247, 250, 252, 0.6);
+  color: rgb(74, 85, 104);
+}

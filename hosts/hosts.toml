@@ -1,0 +1,19 @@
+[hosts.themachine]
+network = "lyoko"
+ip_addr = "192.168.1.11"
+ssh_pubkey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQChwVJyCdn/aBvqXyTpuXfo/u75zjd+10YaCa9wLwFrVsEg28QOtVcc8sbDkfxHKCVt0pAY8EDwp5PLs1JkOss0lMAmSaVJMNIwIuhnZ0e8g7vhzo2ckdKpAPISyrC98aw5jws4yTMa6jTi+908xc0Y+d25IrI3mvIT1m3XmI8y22IEBo3hp7UQp6CfapqbCoJrErbFe9i14yJ5PaHfCV6PPKoRmGlg84CRw4S3k9RfKO/kea439cn6UvQocw7u59xemFGcbfC/WWi5mWOrt2L/VhCn87BqSCcDi5pNuByLai9VIPubN62rugwOErh3mf/lf6slHCAlPrLMiiQpHSrnS275/sGOOncG4ZbZ8dNO4j8z7dxKIsuzxBUxSIP5zPcxGEwxEDinaqoyyU1fD59G5QwDW4Od26q2xA/cct7z+REKe/lMyQnjQ99TMNaUB6/DAlaOZ7rzSrCNZYTrq07t1qvk4sH7FM9EMfKYOPvPnWbahoHYoVKTA2LPgsAXCNVZqTkHV6hgwsOVu70ueaGUHAKFVbwyutFjtL0vI0M93J2Wo1QG//DcgiDEtIn2x+LntdWAVC8l8dhEgpqlFcwyReDNJvV7sNAKPghXuUG6574WzHmYn0yyI0SMhQwdYC/V9q3zNAqptvWQv/hdlXmfmVuN49HK9cMBUwYJfWIs2Q=="
+
+[hosts.themachine.wireguard]
+pubkey = ""
+port = 51820
+addr = { v4 = "10.137.8.11", v6 = "1:3:7:8:eace" }
+
+[hosts.pik2]
+network =  "lyoko"
+ip_addr = "192.168.1.2"
+ssh_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPX+ah50jmnLkmDPjSc7fN6+bLVdfPtABgncHgx9qwG5"
+
+[host.pik2.wireguard]
+pubkey = ""
+port = 51820
+addr = { v4 = "10.137.8.2", v6 = "1:3:7:8:beae" }

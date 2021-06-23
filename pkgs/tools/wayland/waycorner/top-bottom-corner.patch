@@ -1,0 +1,30 @@
+diff --git a/src/config.rs b/src/config.rs
+index 8f89a04..1343a66 100644
+--- a/src/config.rs
++++ b/src/config.rs
+@@ -35,8 +35,10 @@ pub struct OutputConfig {
+ #[derive(Clone, Debug, Deserialize)]
+ #[serde(rename_all = "snake_case")]
+ pub enum Location {
++    Top,
+     TopLeft,
+     TopRight,
++    Bottom,
+     BottomRight,
+     BottomLeft,
+ }
+diff --git a/src/wayland.rs b/src/wayland.rs
+index c6a85ab..bc9b677 100644
+--- a/src/wayland.rs
++++ b/src/wayland.rs
+@@ -231,8 +231,10 @@ impl Wayland {
+             .locations
+             .iter()
+             .map(|location| match location {
++                Location::Top => Anchor::Top,
+                 Location::TopLeft => Anchor::Top | Anchor::Left,
+                 Location::TopRight => Anchor::Top | Anchor::Right,
++                Location::Bottom => Anchor::Bottom,
+                 Location::BottomRight => Anchor::Bottom | Anchor::Right,
+                 Location::BottomLeft => Anchor::Bottom | Anchor::Left,
+             })

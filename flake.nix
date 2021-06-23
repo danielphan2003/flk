@@ -1,0 +1,182 @@
+{
+  description = "A highly structured configuration database.";
+
+  inputs =
+    {
+      nixos.url = "nixpkgs/nixos-unstable";
+      latest.url = "nixpkgs";
+      digga.url = "github:divnix/digga/88f0431";
+
+      ci-agent = {
+        url = "github:hercules-ci/hercules-ci-agent";
+        inputs = { nix-darwin.follows = "darwin"; nixos-20_09.follows = "nixos"; nixos-unstable.follows = "latest"; };
+      };
+      darwin.url = "github:LnL7/nix-darwin";
+      darwin.inputs.nixpkgs.follows = "latest";
+      home.url = "github:nix-community/home-manager";
+      home.inputs.nixpkgs.follows = "nixos";
+      naersk.url = "github:nmattia/naersk";
+      naersk.inputs.nixpkgs.follows = "latest";
+      agenix.url = "github:nrdxp/agenix/yubikey";
+      agenix.inputs.nixpkgs.follows = "latest";
+      nixos-hardware.url = "github:nixos/nixos-hardware";
+
+      pkgs.url = "path:./pkgs";
+      pkgs.inputs.nixpkgs.follows = "nixos";
+
+      firefox-nightly.url = "github:colemickens/flake-firefox-nightly/52035b6";
+      firefox-nightly.inputs.nixpkgs.follows = "nixos";
+
+      nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
+    };
+
+  outputs =
+    { self
+    , pkgs
+    , digga
+    , nixos
+    , ci-agent
+    , home
+    , nixos-hardware
+    , nur
+    , agenix
+    , nixpkgs-wayland
+    , firefox-nightly
+    , ...
+    } @ inputs:
+    digga.lib.mkFlake {
+      inherit self inputs;
+
+      channelsConfig = { allowUnfree = true; };
+
+      channels = {
+        nixos = {
+          imports = [ (digga.lib.importers.overlays ./overlays) ];
+          overlays = [
+            ./pkgs/default.nix
+            pkgs.overlay # for `srcs`
+            nur.overlay
+            agenix.overlay
+            nixpkgs-wayland.overlay
+            (final: prev: {
+              firefox-nightly-bin =
+                if prev.system == "x86_64-linux" then firefox-nightly.packages.${prev.system}.firefox-nightly-bin
+                else { };
+            })
+          ];
+        };
+        latest = { };
+      };
+
+      lib = import ./lib { lib = digga.lib // nixos.lib; };
+
+      sharedOverlays = [
+        (final: prev: {
+          lib = prev.lib.extend (lfinal: lprev: {
+            our = self.lib;
+          });
+        })
+      ];
+
+      nixos = {
+        hostDefaults = {
+          system = "x86_64-linux";
+          channelName = "nixos";
+          modules = ./modules/module-list.nix;
+          externalModules = [
+            { lib.our = self.lib; }
+            ci-agent.nixosModules.agent-profile
+            home.nixosModules.home-manager
+            agenix.nixosModules.age
+            ./modules/customBuilds.nix
+          ];
+        };
+
+        imports = [ (digga.lib.importers.hosts ./hosts) ];
+        hosts = {
+          /* set host specific properties here */
+          NixOS = { };
+          pik2 = {
+            system = "aarch64-linux";
+            modules = [ nixos-hardware.nixosModules.raspberry-pi-4 ];
+          };
+          themachine = { };
+        };
+        importables = rec {
+          profiles = digga.lib.importers.rakeLeaves ./profiles // {
+            users = digga.lib.importers.rakeLeaves ./users;
+          };
+          suites = with profiles; rec {
+            base = [ core users.root ];
+
+            server = base ++ [ virt.headless ] ++ [
+              network.networkmanager
+              network.qos
+            ];
+
+            work = server ++ [ virt.minimal ] ++ [
+              develop
+            ];
+
+            graphics = work ++ [ graphical ];
+
+            mobile = graphics ++ [ laptop ];
+
+            play = graphics ++ [
+              # "${graphical}/games"
+              network.torrent
+              network.chromecast
+              misc.disable-mitigations
+            ];
+
+            goPlay = play ++ [ laptop ];
+
+            pik2 = server ++ [ users.alita ] ++ [
+              # network.stubby
+              misc.encryption
+            ];
+
+            themachine = play ++ [ users.danie ] ++ [
+              misc.encryption
+            ];
+          };
+        };
+      };
+
+      home = {
+        modules = ./users/modules/module-list.nix;
+        externalModules = [ ];
+        importables = rec {
+          profiles = digga.lib.importers.rakeLeaves ./users/profiles;
+          suites = with profiles; rec {
+            base = [ direnv git xdg auth ];
+
+            desktop = base ++ [ firefox sway udiskie ];
+
+            producer = desktop ++ [ obs-studio ];
+
+            play = desktop ++ [ ];
+
+            academic = play ++ [ winapps ];
+
+            coding = academic ++ [ alacritty vscode-with-extensions ];
+
+            danie = coding;
+          };
+        };
+      };
+
+      devshell.externalModules = { pkgs, ... }: {
+        packages = [ pkgs.agenix ];
+      };
+
+      homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
+
+      deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations { };
+
+      defaultTemplate = self.templates.flk;
+      templates.flk.path = ./.;
+      templates.flk.description = "flk template";
+    }
+  ;
+}

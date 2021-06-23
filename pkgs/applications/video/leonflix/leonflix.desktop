@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.5.50
+Name=Leonflix
+GenericName=free media thing
+Icon=leonflix
+Exec=leonflix
+Categories=Entertainment;Media
+Keywords=entertainment;flix;media
