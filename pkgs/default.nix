@@ -31,6 +31,8 @@ final: prev: {
 
   spicetify-themes = prev.callPackage ./data/misc/spicetify-themes { };
 
+  dribbblish-dynamic-theme = prev.callPackage ./data/misc/dribbblish-dynamic-theme { };
+
   microsoft-edge-beta = prev.callPackage ./applications/networking/browsers/microsoft-edge {
     channel = "beta";
     version = "91.0.864.37";

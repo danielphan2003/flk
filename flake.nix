@@ -27,7 +27,7 @@
       firefox-nightly.url = "github:colemickens/flake-firefox-nightly/52035b6";
       firefox-nightly.inputs.nixpkgs.follows = "nixos";
 
-      nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
+      nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland/e5d15f8";
     };
 
   outputs =

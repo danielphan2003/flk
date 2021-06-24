@@ -12,6 +12,8 @@
     bling.flake = false;
     caddy.url = "github:caddyserver/caddy/v2.4.1";
     caddy.flake = false;
+    dribbblish-dynamic-theme.url = "github:JulienMaille/dribbblish-dynamic-theme";
+    dribbblish-dynamic-theme.flake = false;
     droidcam.url = "github:aramg/droidcam/v1.7.1";
     droidcam.flake = false;
     dwall-improved.url = "github:GitGangGuy/dynamic-wallpaper-improved";
@@ -42,7 +44,9 @@
     rnix-lsp.flake = false;
     sddm-chili.url = "github:MarianArlt/sddm-chili/0.1.5";
     sddm-chili.flake = false;
-    spicetify-cli.url = "github:khanhas/spicetify-cli/v1.2.1";
+    spicetify-cli-v1.url = "github:khanhas/spicetify-cli/v1.2.1";
+    spicetify-cli-v1.flake = false;
+    spicetify-cli.url = "github:khanhas/spicetify-cli";
     spicetify-cli.flake = false;
     spicetify-themes.url = "github:morpheusthewhite/spicetify-themes";
     spicetify-themes.flake = false;

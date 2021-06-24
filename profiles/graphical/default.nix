@@ -131,15 +131,15 @@ in
     };
   };
 
-  services.cron.systemCronJobs = with pkgs; [
-    "*/20 * * * *      danie      $HOME/.local/bin/wal-set" 
+  services.cron.systemCronJobs = [
+    "*/20 * * * *      danie      $HOME/.local/bin/wal-set >> $HOME/.cache/wal-set.log" 
   ];
 
   i18n.inputMethod = {
     enabled = "ibus";
     ibus.engines = attrValues {
       inherit (pkgs.ibus-engines)
-        # bamboo
+        bamboo
         uniemoji
       ;
     };

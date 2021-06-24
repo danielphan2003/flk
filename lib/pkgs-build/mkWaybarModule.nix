@@ -17,7 +17,7 @@ let
       writeScript "${name}-waybar"
       ''
         #!/usr/bin/env ${bash}/bin/bash
-        . ${module}
+        . ${module} "$@"
         echo -ne "${builtins.toJSON output}"
       '';
 in modulePackage

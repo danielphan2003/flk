@@ -1,6 +1,6 @@
 { lib, coreutils, bash, writeScript
-, feh, procps, libnotify
-, pywalfox, pywal, sway, util-linux
+, feh, procps, util-linux, libnotify
+, pywalfox, pywal, sway, swaybg
 , backgroundDir, colors
 }:
 let
@@ -16,22 +16,31 @@ let
   ];
 in writeScript "wal-set.sh" ''
   #!/usr/bin/env ${bash}/bin/bash
+
   export swaySocket=''${XDG_RUNTIME_DIR:-/run/user/$UID}/sway-ipc.$UID.$(${procps}/bin/pgrep -x sway || ${coreutils}/bin/true).sock
+
   export DISPLAY=:0
 
-  ${pywal}/bin/wal -i "${backgroundDir}" -stne
+  ${pywal}/bin/wal -i "${backgroundDir}" -stneq
+
   . $HOME/.cache/wal/colors.sh
 
-  [ ! -S $swaySocket ] &&
-    ${feh}/bin/feh --bg-fill $(< $HOME/.cache/wal/wal) && exit
+  [ ! -S $swaySocket ] && ${feh}/bin/feh --bg-fill $(< $HOME/.cache/wal/wal) && exit
 
-  ${libnotify}/bin/notify-send "Applying theme for sway ⚡" &
+  PID=$(${procps}/bin/pgrep swaybg)
+
+  # guarantees to run within cron jobs
+  ${sway}/bin/swaymsg -s $swaySocket "exec ${swaybg}/bin/swaybg -i \"$wallpaper\" -m fill"
+
+  ${coreutils}/bin/sleep 1
 
   ${pywalfox}/bin/pywalfox update &
 
-  ${util-linux}/bin/kill -USR2 $(${procps}/bin/pgrep waybar)
+  ${util-linux}/bin/kill $PID
 
-  ${sway}/bin/swaymsg \
-    -s $swaySocket \
-    "${clientColors} ; output \"*\" background \"$wallpaper\" fill"
+  ${libnotify}/bin/notify-send "Applying theme for sway ⚡" &
+
+  ${sway}/bin/swaymsg -s $swaySocket "${clientColors}" &
+
+  ${util-linux}/bin/kill -USR2 $(${procps}/bin/pgrep waybar) &
 ''

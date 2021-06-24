@@ -4,34 +4,36 @@
 
   environment.systemPackages = with pkgs; [
     (spotify-spicetified.override {
-      # spotify-unwrapped = pkgs.spotify-unwrapped-beta;
-      theme = "Dribbblish";
-      colorScheme = "beach-sunset";
-      # injectCss = false;
-      # replaceColors = false;
-      # overwriteAssets = false;
-      # theme = "";
-      legacySupport = true;
+      theme = "ddt";
+      colorScheme = "base";
+      injectCss = true;
+      replaceColors = true;
+      overwriteAssets = true;
+      customThemes = {
+        "ddt" = "${pkgs.dribbblish-dynamic-theme}/theme";
+      };
+      customExtensions = {
+        "ddt.js" = "${pkgs.dribbblish-dynamic-theme}/extensions/dribbblish.js";
+        "ddt-dynamic.js" = "${pkgs.dribbblish-dynamic-theme}/extensions/dribbblish-dynamic.js";
+        "Vibrant.min.js" = "${pkgs.dribbblish-dynamic-theme}/extensions/Vibrant.min.js";
+      };
       enabledCustomApps = [
-        # "lyrics-plus"
-        # "new-releases"
+        "lyrics-plus"
+        "new-releases"
         "reddit"
       ];
       enabledExtensions = [
+        "ddt.js"
+        "ddt-dynamic.js"
+        "Vibrant.min.js"
         "bookmark.js"
         "fullAppDisplay.js"
         "loopyLoop.js"
-        "newRelease.js"
-        "queueAll.js"
+        "popupLyrics.js"
         "shuffle+.js"
         "trashbin.js"
       ];
-      spotifyLaunchFlags = [
-        "--enable-developer-mode"
-      ];
-      # customExtensions = {
-      #   "autoVolume.js" = "${av}/autoVolume.js";
-      # };
+      spotifyLaunchFlags = [ "--enable-developer-mode" ];
     })
   ];
 }

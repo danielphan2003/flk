@@ -7,7 +7,6 @@ final: prev: {
         {
           inherit src;
           inherit (src) version;
-          # patches = [ ../pkgs/applications/window-managers/sway-borders/dont-restart-swaybg-if-the-command-hasnt-changed.patch ];
         })
     ).override { wlroots = final.waylandPkgs.wlroots; };
   };

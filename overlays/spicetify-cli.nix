@@ -1,24 +1,24 @@
-final: prev: {
-  spicetify-cli = { legacySupport ? false }:
-    prev.spicetify-cli.overrideAttrs
-      (_:
-        let src = final.srcs.spicetify-cli;
-        in
-        if legacySupport then {
-          inherit src;
-          inherit (src) version;
-          preInstall = ''
-            mkdir -p $out/share/spicetify
-            cp -r $src/Themes $out/share/spicetify
-          '';
-        }
-        else { });
-  spotify-unwrapped-beta = prev.spotify-unwrapped.overrideAttrs
-    (_:
+final: prev:
+let inherit (final.srcs) spicetify-cli-v1 spicetify-cli; in
+{
+  spicetify-cli = prev.spicetify-cli.overrideAttrs
+    (o:
+      let src = if o ? legacySupport then spicetify-cli-v1 else spicetify-cli; in
+      rec {
+        inherit src;
+        inherit (src) version;
+        postInstall = ''
+          cp -r ${src}/jsHelper ${src}/Themes ${src}/Extensions ${src}/CustomApps ${src}/globals.d.ts ${src}/css-map.json $out/bin
+        '';
+      });
+
+  spotify-unwrapped = prev.spotify-unwrapped.overrideAttrs
+    (o:
       let
         version = "1.1.56.595.g2d2da0de";
         rev = "47";
       in
+      if o ? legacySupport then {} else
       {
         inherit version;
         src = prev.fetchurl {
