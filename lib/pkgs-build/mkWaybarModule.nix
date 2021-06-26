@@ -2,10 +2,10 @@ let
   wrapOutput = k: v: { "\"${k}\"" = '' "${v}" ''; };
 
   defaultOutput =
-    wrapOutput "text" "$TEXT" //
-    wrapOutput "tooltip" "$TOOLTIP" //
-    wrapOutput "class" "$CLASS" //
-    wrapOutput "alt" "$ALT";
+    wrapOutput "text"     "$TEXT" //
+    wrapOutput "tooltip"  "$TOOLTIP" //
+    wrapOutput "class"    "$CLASS" //
+    wrapOutput "alt"      "$ALT";
 
   modulePackage = path:
     { pkgs, overrides ? { }, output ? defaultOutput }:

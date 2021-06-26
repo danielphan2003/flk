@@ -1,5 +1,4 @@
 { lib
-, srcs
 , spotify-unwrapped
 , spicetify-cli
 , spicetify-themes
@@ -75,7 +74,7 @@ let
   '';
 in
 spotify-custom.overrideAttrs (oldAttrs: rec {
-  name = "spotify-spicified-${spotify-unwrapped.version}";
+  name = "spotify-spicified-${spotify-custom.version}";
 
   postInstall = ''
     touch $out/prefs
@@ -83,6 +82,11 @@ spotify-custom.overrideAttrs (oldAttrs: rec {
     mkdir -p Themes Extensions CustomApps
 
     find ${spicetify-themes}/ -maxdepth 1 -type d -exec ln -s {} Themes \;
+
+    ls -la
+    ls -la ${spicetify-themes}
+
+    echo ${extraCommands}
 
     ${extraCommands}
 
@@ -104,7 +108,11 @@ spotify-custom.overrideAttrs (oldAttrs: rec {
       ${optionalConfig "spotify_launch_flags" launchFlagsString} \
       ${legacyConfigs}
 
-    ${spicetify} backup apply enable-devtool update
+    ${spicetify} -c
+
+    cat config-xpui.ini
+
+    ${spicetify} backup apply enable-devtool update -ne
 
     cd $out/share/spotify
 

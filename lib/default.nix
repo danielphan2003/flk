@@ -6,6 +6,8 @@ lib.makeExtensible (self: rec {
 
   lists = import ./lists.nix { inherit lib; };
 
+  trivial = import ./trivial.nix { inherit lib; };
+
   inherit (lists)
     appendString
   ;
@@ -22,5 +24,9 @@ lib.makeExtensible (self: rec {
   inherit (pkgs-build)
     mkWaybarModule
     wrapZshFunctions
+  ;
+
+  inherit (trivial)
+    ifttt
   ;
 })

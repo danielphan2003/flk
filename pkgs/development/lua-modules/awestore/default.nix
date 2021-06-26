@@ -1,13 +1,8 @@
-{ luaPackages, srcs, lib, fetchurl, ... }:
-let src = srcs.awestore;
-in
+{ lib, sources, luaPackages }:
 luaPackages.buildLuarocksPackage rec {
   lua = luaPackages.lua;
 
-  inherit src;
-  inherit (src) version;
-
-  pname = "awestore";
+  inherit (sources.awestore) pname src version;
 
   disabled = (luaPackages.luaOlder "5.1");
   propagatedBuildInputs = [ lua ];
@@ -22,11 +17,10 @@ luaPackages.buildLuarocksPackage rec {
     cp -r $src/src/* "$out/share/lua/${lua.luaversion}/awestore"
   '';
 
-
   meta = with lib; {
     homepage = "https://github.com/K4rakara/awestore";
     description = "Sveltes store API for AwesomeWM";
-    maintainers = with maintainers; [ danielphan2003 ];
+    maintainers = [ danielphan2003 ];
     license.fullName = "MIT/X11";
   };
 }

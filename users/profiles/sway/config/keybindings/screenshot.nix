@@ -14,14 +14,14 @@ let
 in
 {
   # Clip full - copy the whole screen.
-  "Print" = ''exec ${grim} - | ${processScreenshot}'';
+  "Print"           = "exec ${grim} - | ${processScreenshot}";
 
   # Clip part - copy a region of the screen.
-  "${mod}+Shift+S" = ''exec ${grim} -g "$(${slurp} -d)" - | ${processScreenshot}'';
+  "${mod}+Shift+S"  = "exec ${grim} -g \"$(${slurp} -d)\" - | ${processScreenshot}";
 
   # Save full - same as clip full, but saving it for later.
-  "${mod}+Print" = ''exec ${grim} ${grimFormat}'';
+  "${mod}+Print"    = "exec ${grim} ${grimFormat}";
 
   # Save part - same as clip part, but saving it for later.
-  "${mod}+Alt+S" = ''exec ${grim} -g "$(${slurp} -d)" ${grimFormat}'';
+  "${mod}+Alt+S"    = "exec ${grim} -g \"$(${slurp} -d)\" ${grimFormat}";
 }

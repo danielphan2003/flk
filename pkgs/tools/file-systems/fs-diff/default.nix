@@ -1,7 +1,6 @@
 { stdenv }:
-let name = "fs-diff"; in
-stdenv.mkDerivation {
-  inherit name;
+stdenv.mkDerivation rec {
+  name = "fs-diff";
 
   src = ./fs-diff.sh;
 
@@ -10,7 +9,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    install $src $out/bin/${name}
+    install $src $out/bin/fs-diff
   '';
 
   # checkPhase = ''

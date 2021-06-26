@@ -1,36 +1,20 @@
-{ stdenv
-, lib
-, srcs
-, sassc
-, optipng
-, inkscape
-, glib
-  # , libxml2
-, gtk3
-, numix-icon-theme-circle
-  # , gnome3
-, hicolor-icon-theme
+{ stdenv, lib, sources
+, sassc, optipng, inkscape
+, glib, gtk3, numix-icon-theme-circle, hicolor-icon-theme
 }:
-let inherit (srcs) whitesur-icon-theme; in
 stdenv.mkDerivation rec {
-  pname = "whitesur-icon-theme";
-
-  inherit (whitesur-icon-theme) version;
-
-  src = whitesur-icon-theme;
+  inherit (sources.whitesur-icon-theme) pname src version;
 
   buildInputs = [
     sassc
     optipng
     inkscape
     glib
-    # libxml2
     gtk3
   ];
 
   propagatedBuildInputs = [
     numix-icon-theme-circle
-    # gnome3.adwaita-icon-theme
     hicolor-icon-theme
   ];
 

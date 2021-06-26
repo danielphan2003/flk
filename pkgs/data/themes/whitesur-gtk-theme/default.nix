@@ -1,6 +1,6 @@
 { stdenv
 , lib
-, srcs
+, sources
   # options
   # , gtk-engine-murrine
 , sassc
@@ -13,13 +13,8 @@
 , panel ? "default"
 , size ? "default"
 }:
-let inherit (srcs) whitesur-gtk-theme; in
 stdenv.mkDerivation rec {
-  pname = "whitesur-gtk-theme";
-
-  inherit (whitesur-gtk-theme) version;
-
-  src = whitesur-gtk-theme;
+  inherit (sources.whitesur-gtk-theme) pname src version;
 
   buildInputs = [
     # gtk-engine-murrine

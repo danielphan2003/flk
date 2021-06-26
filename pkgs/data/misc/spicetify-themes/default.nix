@@ -1,1 +1,1 @@
-{ srcs }: srcs.spicetify-themes
+{ sources }: sources.spicetify-themes.src

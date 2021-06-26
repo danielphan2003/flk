@@ -1,10 +1,6 @@
-{ lib, stdenv, srcs }:
-let inherit (srcs) rainfox; in
+{ lib, stdenv, sources }:
 stdenv.mkDerivation rec {
-  pname = "rainfox";
-
-  inherit (rainfox) version;
-  src = rainfox;
+  inherit (sources.rainfox) pname src version;
 
   installPhase = ''
     mkdir -p $out/chrome
@@ -15,7 +11,7 @@ stdenv.mkDerivation rec {
     description = "It's like Photon, but better.";
     homepage = "https://github.com/1280px/rainfox";
     license = licenses.mit;
-    maintainers = with maintainers; [ danielphan2003 ];
+    maintainers = [ danielphan2003 ];
     platforms = platforms.all;
   };
 }

@@ -108,7 +108,7 @@
       };
       "update.mode" = "none";
       "dart.previewLsp" = true;
-      "terminal.external.linuxExec" = "${pkgs.alacritty}";
+      "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
       "workbench.startupEditor" = "newUntitledFile";
     };
     keybindings = [
@@ -123,6 +123,10 @@
       {
         key = "ctrl+alt+\\";
         command = "editor.action.goToTypeDefinition";
+      }
+      {
+        key = "ctrl+shift+c";
+        command = "-dendron.copyNoteLink";
       }
     ];
   };

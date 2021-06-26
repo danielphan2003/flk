@@ -26,7 +26,8 @@ rec {
   # Setup spicetify
   spicetify = "SPICETIFY_CONFIG=. ${spicetify-cli-custom}/bin/spicetify-cli";
 
-  extraCommands = makeSpicetifyCommands "Themes" customThemes
+  extraCommands =
+      makeSpicetifyCommands "Themes" customThemes
     + makeSpicetifyCommands "Extensions" customExtensions
     + makeSpicetifyCommands "CustomApps" customApps;
 

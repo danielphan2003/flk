@@ -1,0 +1,178 @@
+# nvfetcher.toml
+
+[any-nix-shell]
+src.git = "https://github.com/haslersn/any-nix-shell"
+fetch.github = "haslersn/any-nix-shell"
+
+[arkenfox-userjs]
+src.git = "https://github.com/arkenfox/user.js"
+fetch.github = "arkenfox/user.js"
+
+[avizo]
+src.git = "https://github.com/misterdanb/avizo"
+fetch.github = "misterdanb/avizo"
+
+[awesome]
+src.git = "https://github.com/awesomeWM/awesome"
+fetch.github = "awesomeWM/awesome"
+
+[awestore]
+src.git = "https://github.com/K4rakara/awestore"
+fetch.github = "K4rakara/awestore"
+
+[bling]
+src.git = "https://github.com/BlingCorp/bling"
+fetch.github = "BlingCorp/bling"
+
+[caddy]
+src.manual = "v2.4.3"
+fetch.github = "caddyserver/caddy"
+
+[cups-pdf]
+src.webpage = "https://www.cups-pdf.de/download.shtml"
+src.regex = "cups-pdf_(.*)\\.tar\\.gz\">cups-pdf_"
+fetch.url = "https://www.cups-pdf.de/src/cups-pdf_$ver.tar.gz"
+
+[dribbblish-dynamic-theme]
+src.git = "https://github.com/JulienMaille/dribbblish-dynamic-theme"
+fetch.github = "JulienMaille/dribbblish-dynamic-theme"
+
+[droidcam]
+src.git = "https://github.com/aramg/droidcam"
+fetch.github = "aramg/droidcam"
+
+[flyingfox]
+src.git = "https://github.com/akshat46/FlyingFox"
+fetch.github = "akshat46/FlyingFox"
+
+[ibus-bamboo]
+src.manual = "v0.7.5-RC2"
+fetch.github = "BambooEngine/ibus-bamboo"
+
+[layout-machi]
+src.git = "https://github.com/xinhaoyuan/layout-machi"
+fetch.github = "xinhaoyuan/layout-machi"
+
+[leonflix]
+src.manual = "1.5.50"
+fetch.url = "https://leonflix.net/downloads/Leonflix.AppImage"
+
+[libinih]
+src.manual = "r53"
+fetch.github = "benhoyt/inih"
+
+[lua-pam]
+src.git = "https://github.com/RMTT/lua-pam"
+fetch.github = "RMTT/lua-pam"
+
+[manix]
+src.git = "https://github.com/mlvzk/manix"
+fetch.github = "mlvzk/manix"
+
+[microsoft-edge-beta]
+src.webpage = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/"
+src.regex = "microsoft-edge-beta_(.*)-1_amd64\\.deb\">microsoft-edge-beta_"
+fetch.url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_$ver-1_amd64.deb"
+
+[microsoft-edge-dev]
+src.webpage = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/"
+src.regex = "microsoft-edge-dev_(.*)-1_amd64\\.deb\">microsoft-edge-dev_"
+fetch.url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_$ver-1_amd64.deb"
+
+[nix-zsh-completions]
+src.git = "https://github.com/Ma27/nix-zsh-completions"
+fetch.github = "Ma27/nix-zsh-completions"
+
+[picom]
+src.git = "https://github.com/yshui/picom"
+fetch.github = "yshui/picom"
+
+[pure]
+src.git = "https://github.com/sindresorhus/pure"
+fetch.github = "sindresorhus/pure"
+
+[pywalfox]
+src.pypi = "pywalfox"
+fetch.pypi = "pywalfox"
+
+[rainfox]
+src.git = "https://github.com/1280px/rainfox"
+fetch.github = "1280px/rainfox"
+
+[redshift]
+src.git = "https://github.com/minus7/redshift"
+fetch.github = "minus7/redshift"
+
+[retroarch]
+src.git = "https://github.com/libretro/retroarch"
+fetch.github = "libretro/retroarch"
+
+[rnix-lsp]
+src.git = "https://github.com/nix-community/rnix-lsp"
+fetch.github = "nix-community/rnix-lsp"
+extract = ["Cargo.lock"]
+
+[sddm-chili]
+src.git = "https://github.com/MarianArlt/sddm-chili"
+fetch.github = "MarianArlt/sddm-chili"
+
+[sf-font-compact]
+src.manual = "0.0.0.20210625"
+fetch.url = "https://developer.apple.com/design/downloads/SF-Font-Compact.dmg"
+
+[sf-font-pro]
+src.manual = "0.0.0.20210625"
+fetch.url = "https://developer.apple.com/design/downloads/SF-Font-Pro.dmg"
+
+[sf-mono]
+src.manual = "0.0.0.20210625"
+fetch.url = "https://developer.apple.com/design/downloads/SF-Mono.dmg"
+
+[ny-font]
+src.manual = "0.0.0.20210625"
+fetch.url = "https://developer.apple.com/design/downloads/NY-Font.dmg"
+
+[spicetify-cli-v1]
+src.manual = "v1.2.1"
+fetch.github = "khanhas/spicetify-cli"
+
+[spicetify-cli]
+src.git = "https://github.com/khanhas/spicetify-cli"
+fetch.github = "khanhas/spicetify-cli"
+
+[spicetify-themes]
+src.git = "https://github.com/morpheusthewhite/spicetify-themes"
+fetch.github = "morpheusthewhite/spicetify-themes"
+
+[spotify]
+src.manual = "1.1.56.595.g2d2da0de"
+fetch.url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_47.snap"
+
+[steamcompmgr]
+src.git = "https://github.com/ChimeraOS/steamos-compositor-plus"
+fetch.github = "ChimeraOS/steamos-compositor-plus"
+
+[sway-borders]
+src.git = "https://github.com/fluix-dev/sway-borders"
+fetch.github = "fluix-dev/sway-borders"
+
+[ventoy]
+src.manual = "1.0.46"
+fetch.url = "https://github.com/ventoy/Ventoy/releases/download/v$ver/ventoy-$ver-linux.tar.gz"
+
+[whitesur-gtk-theme]
+src.git = "https://github.com/vinceliuice/whitesur-gtk-theme"
+fetch.github = "vinceliuice/whitesur-gtk-theme"
+
+[whitesur-icon-theme]
+src.git = "https://github.com/vinceliuice/whitesur-icon-theme"
+fetch.github = "vinceliuice/whitesur-icon-theme"
+
+[widevine-cdm]
+src.webpage = "https://dl.google.com/widevine-cdm/versions.txt"
+src.regex = "(.*)"
+fetch.url = "https://dl.google.com/widevine-cdm/$ver-linux-x64.zip"
+
+[wii-u-gc-adapter]
+src.git = "https://github.com/ToadKing/wii-u-gc-adapter"
+fetch.github = "ToadKing/wii-u-gc-adapter"

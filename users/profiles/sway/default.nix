@@ -21,15 +21,13 @@ in
     xwayland
     swaylock-effects
     swayidle
-    swaybg
     autotiling
 
     # wayland-dependent
     qt5.qtwayland
 
     # wm-independent
-    dwall-improved
-    volnoti
+    avizo
     wmctrl
 
     # misc
@@ -45,6 +43,7 @@ in
     mako
     nwg-launchers
     slurp
+    swaybg
     wdisplays
     wf-recorder
     wl-clipboard
@@ -58,15 +57,15 @@ in
     recursive = true;
   };
 
-  systemd.user.services.volnoti = {
+  systemd.user.services.avizo = {
     Unit = {
-      Description = "volnoti volume notification";
+      Description = "avizo volume notification";
       After = [ "graphical-session-pre.target" ];
       PartOf = [ "graphical-session.target" ];
     };
 
     Service = {
-      ExecStart = "${pkgs.volnoti}/bin/volnoti -n";
+      ExecStart = "${pkgs.avizo}/bin/avizo-service";
     };
 
     Install = {

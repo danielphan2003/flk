@@ -26,7 +26,6 @@
         "ddt.js"
         "ddt-dynamic.js"
         "Vibrant.min.js"
-        "bookmark.js"
         "fullAppDisplay.js"
         "loopyLoop.js"
         "popupLyrics.js"

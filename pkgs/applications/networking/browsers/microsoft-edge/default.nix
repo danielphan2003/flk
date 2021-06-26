@@ -1,42 +1,14 @@
-{ channel ? "beta"
-, version ? "91.0.864.37"
-, hash ? "sha256-G/nNPmy21u15F6JANcV08q7PwbQ1RKzrmlbCxRtNuSI="
-, stdenv
-, fetchurl
-, lib
-, binutils-unwrapped
-, xz
-, gnutar
-, file
-, glibc
-, glib
-, nss
-, nspr
-, atk
-, at_spi2_atk
-, xorg
-, cups
-, dbus_libs
-, expat
-, libdrm
-, libxkbcommon
-, gnome3
-, gnome2
-, cairo
-, gdk-pixbuf
-, mesa
-, alsaLib
-, at_spi2_core
-, libuuid
+{ stdenv, lib, binutils-unwrapped, sources
+, xz, gnutar, file, glibc, glib, nss, nspr
+, atk, at_spi2_atk, xorg, cups, dbus_libs, expat
+, libdrm, libxkbcommon, gnome3, gnome2, cairo, gdk-pixbuf
+, mesa, alsaLib, at_spi2_core, libuuid
+
+, channel ? "beta"
 }:
 stdenv.mkDerivation rec {
   pname = "microsoft-edge-${channel}";
-  inherit version;
-
-  src = fetchurl {
-    url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-${channel}/microsoft-edge-${channel}_${version}-1_amd64.deb";
-    inherit hash;
-  };
+  inherit (sources."${pname}") src version;
 
   unpackCmd = ''
     mkdir -p microsoft-edge-${channel}-${version}

@@ -1,40 +1,15 @@
-{ stdenv
-, lib
-, srcs
-, fetchurl
-, p7zip
-}:
-let version = "1.0";
-in
-stdenv.mkDerivation {
+{ stdenv, lib, sources, p7zip }:
+stdenv.mkDerivation rec {
   name = "otf-apple";
 
   buildInputs = [ p7zip ];
 
-  src =
-    # with srcs; 
-    [
-      # sf-font-pro
-      # sf-mono
-      # sf-font-compacts
-      # ny-font
-      (fetchurl {
-        url = "https://developer.apple.com/design/downloads/SF-Font-Pro.dmg";
-        sha256 = "c0b158d8d777ef65cee37a86822d5adcefa730e1c5da115e41c5f1b4e3a83986";
-      })
-      (fetchurl {
-        url = "https://developer.apple.com/design/downloads/SF-Mono.dmg";
-        sha256 = "sha256-/AvroUYPvg8fbXwPHv9uCd2c2ZaiRZX0fcszJhTs1UE=";
-      })
-      (fetchurl {
-        url = "https://developer.apple.com/design/downloads/SF-Font-Compact.dmg";
-        sha256 = "5e53392ef1bdd17b8daf940745bcc85ad9f01c975eaf1e812a5c0a2d67897ec5";
-      })
-      (fetchurl {
-        url = "https://developer.apple.com/design/downloads/NY-Font.dmg";
-        sha256 = "58058b5dbddb77eec84a0c0b10b41fc544bc7cd50c6cb49874da4197f91afde5";
-      })
-    ];
+  src = with sources; [
+    sf-font-compact.src
+    sf-font-pro.src
+    sf-mono.src
+    ny-font.src
+  ];
 
   sourceRoot = "./";
 

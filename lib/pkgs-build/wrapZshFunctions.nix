@@ -1,6 +1,6 @@
 wrapper:
 { lib, pkgs, ... }:
-pkgs.stdenv.mkDerivation {
+pkgs.stdenv.mkDerivation rec {
   name = "zsh-functions";
   src = ./functions;
 

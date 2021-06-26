@@ -1,13 +1,9 @@
-{ luaPackages, srcs, lib, ... }:
-let src = srcs.layout-machi;
-in
+{ lib, sources, luaPackages }:
 luaPackages.buildLuarocksPackage rec {
   lua = luaPackages.lua;
 
-  inherit src;
-  inherit (src) version;
+  inherit (sources.layout-machi) pname src version;
 
-  pname = "layout-machi";
   disabled = (luaPackages.luaOlder "5.1");
   propagatedBuildInputs = [ lua ];
 
@@ -24,7 +20,7 @@ luaPackages.buildLuarocksPackage rec {
   meta = with lib; {
     homepage = "https://github.com/xinhaoyuan/layout-machi";
     description = "AwesomeWM manual layout with an interactive editor";
-    maintainers = with maintainers; [ danielphan2003 ];
+    maintainers = [ danielphan2003 ];
     license.fullName = "MIT/X11";
   };
 }

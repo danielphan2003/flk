@@ -1,13 +1,6 @@
-{ stdenv, lib, fetchurl, cups, ghostscript }:
-
+{ stdenv, lib, sources, cups, ghostscript }:
 stdenv.mkDerivation rec {
-  pname = "cups-pdf";
-  version = "3.0.1";
-
-  src = fetchurl {
-    url = "https://www.cups-pdf.de/src/${pname}_${version}.tar.gz";
-    sha256 = "0ccmm9crrm07nqzn4aikbys2bflkgzc044j1bvz6j53zzznnk1kk";
-  };
+  inherit (sources.cups-pdf) pname src version;
 
   buildInputs = [ cups ghostscript ];
 

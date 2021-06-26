@@ -1,30 +1,16 @@
-{ stdenv
-, lib
-, srcs
-, meson
-, ninja
-, polkit
-, pkgconfig
-, systemd
-, dbus
-, libinih
-, ...
+{ stdenv, lib, sources
+, systemd, dbus
+, libinih, pkgconfig
+, meson, ninja, polkit
 }:
-let inherit (srcs) gamemode; in
-stdenv.mkDerivation {
-  pname = "gamemode";
-
-  inherit (gamemode) version;
-
-  src = gamemode;
+stdenv.mkDerivation rec {
+  inherit (sources.gamemode) pname src version;
 
   prePatch = ''
     substituteInPlace daemon/gamemode-tests.c --replace "/usr/bin/gamemoderun" $out/bin/gamemoderun
     substituteInPlace daemon/gamemode-gpu.c --replace "/usr/bin/pkexec" ${polkit}/bin/pkexec
     substituteInPlace daemon/gamemode-context.c --replace "/usr/bin/pkexec" ${polkit}/bin/pkexec
-    substituteInPlace lib/gamemode_client.h --replace 'dlopen("' 'dlopen("${
-      placeholder "out"
-    }/lib/'
+    substituteInPlace lib/gamemode_client.h --replace 'dlopen("' 'dlopen("${placeholder "out"}/lib/'
   '';
 
   buildInputs = [ meson ninja pkgconfig systemd dbus libinih ];
@@ -38,10 +24,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Optimise Linux system performance on demand";
     homepage = "https://github.com/FeralInteractive/gamemode";
-    maintainers = [ maintainers.nrdxp ];
+    maintainers = [ danielphan2003 ];
     license = licenses.bsd3;
     platforms = platforms.linux;
     broken = true;
-    inherit version;
   };
 }

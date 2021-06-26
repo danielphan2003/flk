@@ -1,10 +1,6 @@
-{ lib, stdenv, srcs }:
-let inherit (srcs) flyingfox; in
+{ lib, stdenv, sources }:
 stdenv.mkDerivation rec {
-  pname = "flyingfox";
-
-  inherit (flyingfox) version;
-  src = flyingfox;
+  inherit (sources.flyingfox) pname src version;
 
   installPhase = ''
     cp -r ./ $out
@@ -16,7 +12,7 @@ stdenv.mkDerivation rec {
     description = "An opinionated set of configurations for firefox";
     homepage = "https://flyingfox.netlify.app";
     license = licenses.mit;
-    maintainers = with maintainers; [ danielphan2003 ];
+    maintainers = [ danielphan2003 ];
     platforms = platforms.all;
   };
 }

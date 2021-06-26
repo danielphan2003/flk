@@ -26,8 +26,8 @@ in
       rsync
       tig
       tokei
-      # rnix-lsp
-      ;
+      rnix-lsp
+    ;
   };
 
   fonts = {

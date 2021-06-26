@@ -3,7 +3,7 @@ let
   inherit (config) menu terminal;
   mod = config.modifier;
 
-  light = cmd: "exec ${pkgs.light}/bin/light ${cmd}";
+  light = cmd: "exec ${pkgs.avizo}/bin/lightctl ${cmd}";
   power = cmd: "exec ${pkgs.waylandPkgs.nwg-launchers}/bin/nwgbar";
   netMan = cmd: "exec ${pkgs.networkmanager_dmenu}/bin/networkmanager_dmenu ${cmd}";
   clipMan = cmd: "exec ${pkgs.clipman}/bin/clipman ${cmd}";
@@ -42,13 +42,13 @@ in
     "Ctrl+Alt+Delete" = power "-o 0.2";
 
     # Control brightness
-    XF86MonBrightnessUp = light "-A 10";
-    XF86MonBrightnessDown = light "-U 10";
+    XF86MonBrightnessUp   = light "raise";
+    XF86MonBrightnessDown = light "lower";
 
     "${mod}+x" = "exec ${bemenu-screenshare}";
 
     "${mod}+period" = "exec ${pkgs.ibus}/bin/ibus engine uniemoji";
-    "${mod}+colon" = "exec ${pkgs.ibus}/bin/ibus engine uniemoji";
+    "${mod}+colon"  = "exec ${pkgs.ibus}/bin/ibus engine uniemoji";
 
   } // (import ./audio.nix { inherit pkgs mod; })
   // (import ./screenshot.nix { inherit pkgs mod; })

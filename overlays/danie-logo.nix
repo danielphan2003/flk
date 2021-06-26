@@ -1,5 +1,5 @@
 final: prev: {
-  danie-logo = prev.stdenv.mkDerivation {
+  danie-logo = prev.stdenv.mkDerivation rec {
     name = "danie-logo";
     src = ../users/danie/logo.png;
     dontUnpack = true;

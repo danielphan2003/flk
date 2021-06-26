@@ -1,11 +1,6 @@
-{ stdenv, srcs, lib, lua, linux-pam, ... }:
-let src = srcs.lua-pam;
-in
+{ stdenv, lib, sources, lua, linux-pam, ... }:
 stdenv.mkDerivation rec {
-  inherit src;
-  inherit (src) version;
-
-  pname = "lua-pam";
+  inherit (sources.lua-pam) pname src version;
 
   nativeBuildInputs = [ lua linux-pam ];
 
@@ -18,7 +13,7 @@ stdenv.mkDerivation rec {
     description = "A module for lua to use PAM. ";
     homepage = "https://github.com/rmtt/lua-pam";
     license.fullName = "MIT/X11";
-    maintainers = with maintainers; [ danielphan2003 ];
+    maintainers = [ danielphan2003 ];
     platforms = platforms.unix;
   };
 }

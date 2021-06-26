@@ -4,6 +4,7 @@ let
   inherit (pkgs) fetchFromGitHub stdenv gnugrep;
   inherit (builtins) readFile fetchurl;
 
+  # TODO: move this to pkgs
   hosts = stdenv.mkDerivation {
     name = "hosts";
 

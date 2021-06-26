@@ -1,11 +1,6 @@
-{ stdenv, lib, substituteAll, srcs }:
-let inherit (srcs) user-js; in
+{ stdenv, lib, substituteAll, sources }:
 stdenv.mkDerivation rec {
-  pname = "user-js";
-
-  inherit (user-js) version;
-
-  src = user-js;
+  inherit (sources.arkenfox-userjs) pname src version;
 
   dontBuild = true;
 
@@ -17,9 +12,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Firefox privacy, security and anti-fingerprinting";
     homepage = "https://github.com/arkenfox/user.js";
-    maintainers = [ maintainers.danielphan2003 ];
+    maintainers = [ danielphan2003 ];
     platforms = platforms.all;
     license = licenses.mit;
-    inherit version;
   };
 }

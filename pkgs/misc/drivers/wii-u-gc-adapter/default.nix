@@ -1,12 +1,8 @@
-{ lib, stdenv, pkgconfig, libudev, libusb, srcs, ... }:
-let inherit (srcs) wii-u-gc-adapter; in
-stdenv.mkDerivation {
-  pname = "wii-u-gc-adapter";
-  inherit (wii-u-gc-adapter) version;
+{ stdenv, lib, sources, pkgconfig, libudev, libusb }:
+stdenv.mkDerivation rec {
+  inherit (sources.wii-u-gc-adapter) pname src version;
 
   buildInputs = [ pkgconfig libudev libusb ];
-
-  src = wii-u-gc-adapter;
 
   installPhase = ''
     mkdir -p $out/bin
@@ -18,9 +14,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Tool for using the Wii U GameCube Adapter on Linux";
     homepage = "https://github.com/ToadKing/wii-u-gc-adapter";
-    maintainers = [ maintainers.nrdxp ];
+    maintainers = [ danielphan2003 ];
     license = licenses.mit;
     platforms = platforms.linux;
-    inherit version;
   };
 }

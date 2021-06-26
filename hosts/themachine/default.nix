@@ -40,20 +40,8 @@ in
           '';
         });
       };
-      wine_ov = final: prev: {
-        winetricks =
-          (prev.winetricks.overrideAttrs
-            (_:
-              let src = final.srcs.winetricks;
-              in
-              {
-                inherit src;
-                inherit (src) version;
-              })
-          ).override { wine = prev.wineWowPackages.staging; };
-      };
     in
-    [ nmap_ov wine_ov ];
+    [ nmap_ov ];
 
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" ];

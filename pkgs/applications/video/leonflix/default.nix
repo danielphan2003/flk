@@ -1,16 +1,9 @@
-{ appimageTools, fetchurl, srcs, lib, gsettings-desktop-schemas, gtk3 }:
-let
-  pname = "leonflix";
-  version = "1.5.50";
-  name = "${pname}-${version}";
-  desktop = ./leonflix.desktop;
-in
+{ appimageTools, lib, sources, gsettings-desktop-schemas, gtk3 }:
+let inherit (sources.leonflix) pname src version; in
 appimageTools.wrapType2 rec {
-  inherit name;
-  src = fetchurl {
-    url = "https://leonflix.net/downloads/Leonflix.AppImage";
-    sha256 = "0bhyccmd4217p2ndh12lz4dy4cjhgvkm4ml5r32nhxgxycw3r28n";
-  };
+  inherit src;
+
+  name = "${pname}-${version}";
 
   profile = ''
     export LC_ALL=C.UTF-8
@@ -20,11 +13,10 @@ appimageTools.wrapType2 rec {
   multiPkgs = null; # no 32bit needed
   extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
   extraInstallCommands = '' 
-    mv $out/bin/{${name},${pname}} 
-    
+    mv $out/bin/{${name},${pname}}
     # Desktop file
-    mkdir -p "$out/share/applications/"
-    cp "${desktop}" "$out/share/applications/"
+    mkdir -p $out/share/applications
+    cp ${./leonflix.desktop} $out/share/applications
   '';
 
   meta = with lib; {
@@ -33,6 +25,6 @@ appimageTools.wrapType2 rec {
     license = licenses.asl20;
     # Should be cross-platform, but for now we just grab the appimage
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ pacman99 ];
+    maintainers = [ danielphan2003 ];
   };
 }

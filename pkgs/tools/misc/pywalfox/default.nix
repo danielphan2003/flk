@@ -1,15 +1,6 @@
-{ lib, python3Packages }:
-let inherit (python3Packages) buildPythonPackage fetchPypi wrapPython; in
-buildPythonPackage rec {
-  pname = "pywalfox";
-  version = "2.7.3";
-
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-Uf8wmTCJt4tBRCLFfTpJ4azjqFGqKxuhu2w/r71lfb4=";
-  };
-
-  # nativeBuildInputs = [ wrapPython ];
+{ python3Packages, lib, sources }:
+python3Packages.buildPythonApplication rec {
+  inherit (sources.pywalfox) pname src version;
 
   preInstall = ''
     substituteInPlace pywalfox/install.py --replace "/usr" "$out"
@@ -36,6 +27,6 @@ buildPythonPackage rec {
     description = "Native app used alongside the Pywalfox browser extension";
     homepage = "https://github.com/frewacom/pywalfox-native";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ danielphan2003 ];
+    maintainers = [ danielphan2003 ];
   };
 }

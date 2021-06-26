@@ -29,7 +29,7 @@ in
     "${cfgPath}/danie.default/user.js" = {
       text = mkFirefoxConfig {
         inherit firefoxConfig;
-        extraConfig = "${fileContents "${pkgs.user-js}/share/user-js/profiles/user.js"}";
+        extraConfig = "${fileContents "${pkgs.arkenfox-userjs}/share/user-js/profiles/user.js"}";
       };
     };
 

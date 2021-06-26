@@ -1,9 +1,10 @@
 { lib, coreutils, bash, writeScript
 , feh, procps, util-linux, libnotify
-, pywalfox, pywal, sway, swaybg
+, pywalfox, pywal, sway, waylandPkgs
 , backgroundDir, colors
 }:
 let
+  inherit (waylandPkgs) swaybg;
   inherit (lib.our.mkCustomI3Rule) colorSetStr;
 
   clientColors = lib.concatStringsSep " ; " [

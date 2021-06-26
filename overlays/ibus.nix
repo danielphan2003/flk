@@ -5,15 +5,10 @@ final: prev: {
     libnotify = prev.libnotify;
   };
   ibus-engines = prev.ibus-engines // {
-    bamboo = prev.ibus-engines.bamboo.overrideAttrs
-      (o:
-        let src = final.srcs.ibus-bamboo;
-        in
-        {
-          inherit src;
-          inherit (src) version;
-          nativeBuildInputs = o.nativeBuildInputs ++ [ prev.glib prev.gtk3 ];
-          buildInputs = o.buildInputs ++ [ prev.glib ];
-        });
+    bamboo = prev.ibus-engines.bamboo.overrideAttrs (o: rec{
+      inherit (prev.sources.ibus-bamboo) pname version src;
+      nativeBuildInputs = o.nativeBuildInputs ++ (with prev; [ glib gtk3 ]);
+      # buildInputs = o.buildInputs ++ (with prev; [ glib ]);
+    });
   };
 }

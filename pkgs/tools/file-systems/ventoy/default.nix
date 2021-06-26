@@ -1,23 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, makeWrapper
-}:
-let version = "1.0.36";
-in
+{ stdenv, lib, sources, autoPatchelfHook, makeWrapper }:
 stdenv.mkDerivation rec {
-  name = "ventoy";
+  inherit (sources) pname src version;
 
-  src = fetchurl {
-    url = "https://github.com/ventoy/Ventoy/releases/download/v${version}/ventoy-${version}-linux.tar.gz";
-    sha256 = "sha256-TT2ot+FGThHnMlxWk/6S1tCGAH95TF3owQHiZh1JTFg=";
-  };
-
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/bin $out/opt/ventoy
@@ -32,8 +17,7 @@ stdenv.mkDerivation rec {
     description = "An open source tool to create bootable USB drive for ISO files";
     homepage = "https://ventoy.net";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ filalex77 ];
-    # Should be cross-platform, but for now we just grab the appimage
+    maintainers = [ danielphan2003 ];
     platforms = [ "x86_64-linux" ];
   };
 }

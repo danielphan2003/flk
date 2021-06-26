@@ -45,6 +45,6 @@ in nodePackages.${packageName}.override {
 
   meta = with lib; {
     homepage = "https://sindresorhus.com/caprine";
-    maintainers = with maintainers; [ danielphan2003 ];
+    maintainers = [ danielphan2003 ];
   };
 }

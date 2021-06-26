@@ -1,16 +1,8 @@
-{ stdenv
-, srcs
-, lib
-, kernel
-, kmod
-}:
-let inherit (srcs) droidcam; in
+{ stdenv, lib, sources, kernel, kmod }:
 stdenv.mkDerivation rec {
-  inherit (droidcam) version;
+  inherit (sources.droidcam) pname src version;
 
-  name = "v4l2loopback-dc-${version}-${kernel.version}";
-
-  src = droidcam;
+  pname = "v4l2loopback-dc-${version}-${kernel.version}";
 
   sourceRoot = "source/linux/v4l2loopback";
   hardeningDisable = [ "pic" "format" ]; # 1
@@ -26,7 +18,7 @@ stdenv.mkDerivation rec {
     description = "A kernel module to create V4L2 loopback devices";
     homepage = "https://github.com/aramg/droidcam";
     license = licenses.gpl2;
-    maintainers = [ maintainers.makefu ];
+    maintainers = [ danielphan2003 ];
     platforms = platforms.linux;
   };
 }

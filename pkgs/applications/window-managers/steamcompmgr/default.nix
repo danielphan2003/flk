@@ -1,45 +1,24 @@
-{ stdenv
-, libudev
-, SDL
-, SDL_image
-, lib
-, libXdamage
-, libXcomposite
-, libXrender
-, libXext
-, libXxf86vm
-, pkgconfig
-, autoreconfHook
-, gnumake
-, srcs
+{ stdenv, lib, sources
+, SDL, SDL_image
+, libudev, libXext, libXxf86vm
+, libXdamage, libXcomposite, libXrender
+, pkgconfig, autoreconfHook, gnumake
 }:
-let inherit (srcs) steamcompmgr; in
-stdenv.mkDerivation {
-  pname = "steamcompmgr";
-
-  inherit (steamcompmgr) version;
-  src = steamcompmgr;
+stdenv.mkDerivation rec {
+  inherit (sources.steamcompmgr) pname src version;
 
   buildInputs = [
-    libudev
-    SDL
-    SDL_image
-    libXdamage
-    libXcomposite
-    libXrender
-    libXext
-    libXxf86vm
-    pkgconfig
-    autoreconfHook
-    gnumake
+    SDL SDL_image
+    libudev libXext libXxf86vm
+    libXdamage libXcomposite libXrender
+    pkgconfig autoreconfHook gnumake
   ];
 
   meta = with lib; {
     description = "SteamOS Compositor";
-    homepage = "https://github.com/steamos-compositor-plus";
-    maintainers = [ maintainers.nrdxp ];
+    homepage = "https://github.com/ChimeraOS/steamos-compositor-plus";
+    maintainers = [ danielphan2003 ];
     license = licenses.bsd2;
     platforms = platforms.linux;
-    inherit version;
   };
 }

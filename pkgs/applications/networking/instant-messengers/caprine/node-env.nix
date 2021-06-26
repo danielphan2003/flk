@@ -24,7 +24,7 @@ let
   buildNodeSourceDist =
     { name, version, src, ... }:
 
-    stdenv.mkDerivation {
+    stdenv.mkDerivation rec {
       name = "node-tarball-${name}-${version}";
       inherit src;
       buildInputs = [ nodejs ];
@@ -537,7 +537,7 @@ let
     let
       nodeDependencies = buildNodeDependencies args;
     in
-    stdenv.mkDerivation {
+    stdenv.mkDerivation rec {
       name = "node-shell-${name}-${version}";
 
       buildInputs = [ python nodejs ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
