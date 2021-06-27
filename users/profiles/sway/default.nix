@@ -124,6 +124,7 @@ in
       export GTK_IM_MODULE=ibus
       export QT_IM_MODULE=ibus
       export XMODIFIERS=@im=ibus
+      export IBUS_DISCARD_PASSWORD_APPS='firefox,.*chrome.*'
 
       export CHROME_EXECUTABLE="${pkgs.ungoogled-chromium}/bin/chromium-browser"
     '';

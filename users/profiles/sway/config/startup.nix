@@ -9,6 +9,6 @@ in
     { command = "${clipboard-daemon}"; }
     { command = "${import-gsettings}"; always = true; }
     { command = "${coreutils}/bin/mkfifo $$SWAYSOCK.wob && ${coreutils}/bin/tail -f $$SWAYSOCK.wob | ${wob}/bin/wob"; }
-    { command = "${ibus}/bin/ibus-daemon -drx"; always = true; }
+    { command = "${ibus}/bin/ibus-daemon -drxR"; always = true; }
   ];
 }

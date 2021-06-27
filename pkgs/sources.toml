@@ -25,7 +25,7 @@ src.git = "https://github.com/BlingCorp/bling"
 fetch.github = "BlingCorp/bling"
 
 [caddy]
-src.manual = "v2.4.3"
+src.git = "https://github.com/caddyserver/caddy"
 fetch.github = "caddyserver/caddy"
 
 [cups-pdf]
@@ -118,19 +118,19 @@ fetch.github = "MarianArlt/sddm-chili"
 
 [sf-font-compact]
 src.manual = "0.0.0.20210625"
-fetch.url = "https://developer.apple.com/design/downloads/SF-Font-Compact.dmg"
+fetch.url = "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg"
 
 [sf-font-pro]
 src.manual = "0.0.0.20210625"
-fetch.url = "https://developer.apple.com/design/downloads/SF-Font-Pro.dmg"
+fetch.url = "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg"
 
 [sf-mono]
 src.manual = "0.0.0.20210625"
-fetch.url = "https://developer.apple.com/design/downloads/SF-Mono.dmg"
+fetch.url = "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg"
 
 [ny-font]
 src.manual = "0.0.0.20210625"
-fetch.url = "https://developer.apple.com/design/downloads/NY-Font.dmg"
+fetch.url = "https://devimages-cdn.apple.com/design/resources/download/NY.dmg"
 
 [spicetify-cli-v1]
 src.manual = "v1.2.1"

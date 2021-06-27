@@ -16,7 +16,6 @@ let
 in
 {
   keybindings = {
-
     "${mod}+Return" = "exec ${terminal}";
 
     "${mod}+d" = "exec ${menu}";
@@ -46,10 +45,6 @@ in
     XF86MonBrightnessDown = light "lower";
 
     "${mod}+x" = "exec ${bemenu-screenshare}";
-
-    "${mod}+period" = "exec ${pkgs.ibus}/bin/ibus engine uniemoji";
-    "${mod}+colon"  = "exec ${pkgs.ibus}/bin/ibus engine uniemoji";
-
   } // (import ./audio.nix { inherit pkgs mod; })
   // (import ./screenshot.nix { inherit pkgs mod; })
   // (import ./windows.nix { inherit mod; })

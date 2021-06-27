@@ -30,18 +30,16 @@ in
 
   discord-canary = discord-canary.overrideAttrs (_: {
     postFixup = ''
-      # Create electron wrapper
       substituteInPlace $out/bin/discordcanary \
-        --replace "DiscordCanary-wrapped\"" "DiscordCanary-wrapped\" ${flagsCommand}"
+        --replace '"$@"' '${flagsCommand} "$@"'
     '';
   });
 
   signal-desktop = signal-desktop.overrideAttrs (o: {
     postFixup = ''
       ${o.postFixup}
-      # Create electron wrapper
       substituteInPlace $out/bin/signal-desktop-unwrapped \
-        --replace "unwrapped-wrapped\"" "unwrapped-wrapped\" ${flagsCommand}"
+        --replace '"$@"' '${flagsCommand} "$@"'
     '';
   });
 
@@ -50,13 +48,14 @@ in
       ${o.postFixup}
       # Create electron wrapper
       substituteInPlace $out/lib/electron/electron \
-        --replace "electron-wrapped\"" "electron-wrapped\" ${flagsCommand}"
+        --replace '"$@"' '${flagsCommand} "$@"'
     '';
   });
 
   vscodium = vscodium.overrideAttrs (_: {
     postInstall = ''
-      sed -i "s/CLI\"/CLI\" ${flagsCommand}/" $out/bin/codium
+      substituteInPlace $out/bin/codium \
+        --replace '"$@"' '${flagsCommand} "$@"'
     '';
   });
 }

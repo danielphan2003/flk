@@ -22,9 +22,7 @@ in
   hardware.opengl = {
     setLdLibraryPath = true;
     enable = true;
-    extraPackages = [
-      pkgs.libGL_driver
-    ];
+    extraPackages = [ pkgs.libGL_driver ];
   };
 
   hardware.pulseaudio.enable = lib.mkForce false;
@@ -104,7 +102,7 @@ in
 
         # stuffs I wish I could delete
         zoom-us
-        ;
+      ;
     };
   };
 
@@ -137,17 +135,7 @@ in
 
   i18n.inputMethod = {
     enabled = "ibus";
-    ibus.engines = attrValues {
-      inherit (pkgs.ibus-engines)
-        bamboo
-        uniemoji
-      ;
-    };
-  };
-
-  programs.dconf = {
-    enable = true;
-    packages = [ pkgs.ibus ];
+    ibus.engines = with pkgs.ibus-engines; [ bamboo uniemoji ];
   };
 
   programs.gnupg.agent.pinentryFlavor = "gnome3";

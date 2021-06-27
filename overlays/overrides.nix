@@ -12,7 +12,6 @@ channels: final: prev: {
     starship
     sudo
     teamviewer
-    vscodium
   ;
 
   haskellPackages = prev.haskellPackages.override

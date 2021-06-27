@@ -42,14 +42,14 @@
   };
   awesome = {
     pname = "awesome";
-    version = "906dc543e423bac439942e4c755de1e452b9e1ff";
+    version = "d25ca024938652eccd092e3dbc0f9eb25b9b83d4";
     src = fetchgit {
       url = "https://github.com/awesomeWM/awesome";
-      rev = "906dc543e423bac439942e4c755de1e452b9e1ff";
+      rev = "d25ca024938652eccd092e3dbc0f9eb25b9b83d4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0yw4yrhiywgvnxv22mdz57666bdgsqrk4zkb54y6m0v3jy8hnz4l";
+      sha256 = "1rx3v9cfl59glm33cy7xbihk5ffb0waxpasmcx27sbp7nr1q7pgi";
     };
 
   };
@@ -81,14 +81,14 @@
   };
   caddy = {
     pname = "caddy";
-    version = "v2.4.3";
+    version = "191dc86f9e40c12517a133cf2181631c9adec791";
     src = fetchgit {
       url = "https://github.com/caddyserver/caddy";
-      rev = "v2.4.3";
+      rev = "191dc86f9e40c12517a133cf2181631c9adec791";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1hpvczghw1by2yv0ddvfwjm5xq0c6x8fm1rg3wwmp4h2p33maw37";
+      sha256 = "1wlczxkglrm3w1gsz29zq6dkwpiyc3pyb5ip5mlksb2mglqfs8n7";
     };
 
   };
@@ -116,14 +116,14 @@
   };
   droidcam = {
     pname = "droidcam";
-    version = "de5f871f7825393c1526408145c5c227ef991b73";
+    version = "718e575ca2895cec30364cf75ea252832d9d2c86";
     src = fetchgit {
       url = "https://github.com/aramg/droidcam";
-      rev = "de5f871f7825393c1526408145c5c227ef991b73";
+      rev = "718e575ca2895cec30364cf75ea252832d9d2c86";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1rgi3if3v0hksvh6kpyqmwl8f4gk6sa09pwcinq6gklj0wkhakrs";
+      sha256 = "1filw83mslg1anfw43bl5nd81l8fr2rnf4sg868wqrilbcgsppbi";
     };
 
   };
@@ -155,14 +155,14 @@
   };
   layout-machi = {
     pname = "layout-machi";
-    version = "540519f026ea37dc78ec1e9ec195b1b63e866e59";
+    version = "7f5b0b17a5e56ec3ad58d5b7ba33bda0ee38ddc1";
     src = fetchgit {
       url = "https://github.com/xinhaoyuan/layout-machi";
-      rev = "540519f026ea37dc78ec1e9ec195b1b63e866e59";
+      rev = "7f5b0b17a5e56ec3ad58d5b7ba33bda0ee38ddc1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1qyiihah8s1wpn1irkfkknwikm202cvd3b2ljky9jpacvxrz7cza";
+      sha256 = "11r9hh79xg8c0kaa8j3qmni9qsi59sm1rs1smy5k2ll0iy8zpw7w";
     };
 
   };
@@ -249,8 +249,8 @@
     pname = "ny-font";
     version = "0.0.0.20210625";
     src = fetchurl {
-      sha256 = "1rgx3bwrfhfsfjcb8v0csmybqi653ys102qc9b4fwxyvpmfqn1aq";
-      url = "https://developer.apple.com/design/downloads/NY-Font.dmg";
+      sha256 = "1cpk6ysrj346wmm89kd35w2fv8y5z136948fll06ib3mxh1gljp4";
+      url = "https://devimages-cdn.apple.com/design/resources/download/NY.dmg";
     };
 
   };
@@ -317,14 +317,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "0785d4aa7280fc2a9e2ddfdb6db79178c8763da0";
+    version = "2e215bda5bc1e1211b9e860785061fa9e0ec7cd1";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "0785d4aa7280fc2a9e2ddfdb6db79178c8763da0";
+      rev = "2e215bda5bc1e1211b9e860785061fa9e0ec7cd1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1wq6vn13qf5r7ll7lhhmc2ksv20bfdnlndrqm60q2qkn8q6wl4q0";
+      sha256 = "08890g399qd9k2fph2dasxyhaizqvgixzn630kzk9bflprb2kmpk";
     };
 
   };
@@ -339,180 +339,177 @@
       leaveDotGit = false;
       sha256 = "0zxw6ap1kmvmzs8f766k7ayjhmdwy4baylhfmc6j7wyza0way28l";
     };
-    cargoLock = {
-      lockFile = ./rnix-lsp-e1ec7a064cdaa9a362561ab4a14dee60a4f84fbf/Cargo.lock;
-      outputHashes = { };
-    };
-  };
-  sddm-chili = {
-    pname = "sddm-chili";
-    version = "6516d50176c3b34df29003726ef9708813d06271";
-    src = fetchgit {
-      url = "https://github.com/MarianArlt/sddm-chili";
-      rev = "6516d50176c3b34df29003726ef9708813d06271";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "036fxsa7m8ymmp3p40z671z163y6fcsa9a641lrxdrw225ssq5f3";
-    };
+    "Cargo.lock" = builtins.readFile ./rnix-lsp-e1ec7a064cdaa9a362561ab4a14dee60a4f84fbf/Cargo.lock
+      };
+    sddm-chili = {
+      pname = "sddm-chili";
+      version = "6516d50176c3b34df29003726ef9708813d06271";
+      src = fetchgit {
+        url = "https://github.com/MarianArlt/sddm-chili";
+        rev = "6516d50176c3b34df29003726ef9708813d06271";
+        fetchSubmodules = false;
+        deepClone = false;
+        leaveDotGit = false;
+        sha256 = "036fxsa7m8ymmp3p40z671z163y6fcsa9a641lrxdrw225ssq5f3";
+      };
 
-  };
-  sf-font-compact = {
-    pname = "sf-font-compact";
-    version = "0.0.0.20210625";
-    src = fetchurl {
-      sha256 = "1ibyi5kjs2jw5a0ixbsyjwfg1nasr2y4a1wlmy6ppldxy4p3jlsy";
-      url = "https://developer.apple.com/design/downloads/SF-Font-Compact.dmg";
     };
+    sf-font-compact = {
+      pname = "sf-font-compact";
+      version = "0.0.0.20210625";
+      src = fetchurl {
+        sha256 = "1wklslljf8pz3aj2lyzrnqmqyydgdwmn5ywnpssrb2r4fkb7swak";
+        url = "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg";
+      };
 
-  };
-  sf-font-pro = {
-    pname = "sf-font-pro";
-    version = "0.0.0.20210625";
-    src = fetchurl {
-      sha256 = "11irm3iv9wf585g13nn5w4qagvywb8nq51kswg76bvvpszc5icf0";
-      url = "https://developer.apple.com/design/downloads/SF-Font-Pro.dmg";
     };
+    sf-font-pro = {
+      pname = "sf-font-pro";
+      version = "0.0.0.20210625";
+      src = fetchurl {
+        sha256 = "1wy3v2c87cpd9w333w78s6nn7fl5cnbsv8wff01xml6m3wgl7brz";
+        url = "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
+      };
 
-  };
-  sf-mono = {
-    pname = "sf-mono";
-    version = "0.0.0.20210625";
-    src = fetchurl {
-      sha256 = "04gznp6ynn2p67a1lgb5zgs5j4v6gcz8xh94p6f2yzbr23iih1gc";
-      url = "https://developer.apple.com/design/downloads/SF-Mono.dmg";
     };
+    sf-mono = {
+      pname = "sf-mono";
+      version = "0.0.0.20210625";
+      src = fetchurl {
+        sha256 = "04gznp6ynn2p67a1lgb5zgs5j4v6gcz8xh94p6f2yzbr23iih1gc";
+        url = "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg";
+      };
 
-  };
-  spicetify-cli = {
-    pname = "spicetify-cli";
-    version = "13d7813205026274d17f06a7eb6044718351c053";
-    src = fetchgit {
-      url = "https://github.com/khanhas/spicetify-cli";
-      rev = "13d7813205026274d17f06a7eb6044718351c053";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "15x3jkkbsnpvxrcddi423qn7qdyl52778j1886mhpdnhmf5v5n40";
     };
+    spicetify-cli = {
+      pname = "spicetify-cli";
+      version = "242bde5afa936dcdc69efefb2d20c5e8b504e474";
+      src = fetchgit {
+        url = "https://github.com/khanhas/spicetify-cli";
+        rev = "242bde5afa936dcdc69efefb2d20c5e8b504e474";
+        fetchSubmodules = false;
+        deepClone = false;
+        leaveDotGit = false;
+        sha256 = "00v0f2hxa8mxdpgf3y53dc9cfgp63cx4bcqsh69m6cs76hsmz7rn";
+      };
 
-  };
-  spicetify-cli-v1 = {
-    pname = "spicetify-cli-v1";
-    version = "v1.2.1";
-    src = fetchgit {
-      url = "https://github.com/khanhas/spicetify-cli";
-      rev = "v1.2.1";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "1sp482rfwxqgb3mi9m84bjk9cakvc1l7gr498d80vz56z9l8a10w";
     };
+    spicetify-cli-v1 = {
+      pname = "spicetify-cli-v1";
+      version = "v1.2.1";
+      src = fetchgit {
+        url = "https://github.com/khanhas/spicetify-cli";
+        rev = "v1.2.1";
+        fetchSubmodules = false;
+        deepClone = false;
+        leaveDotGit = false;
+        sha256 = "1sp482rfwxqgb3mi9m84bjk9cakvc1l7gr498d80vz56z9l8a10w";
+      };
 
-  };
-  spicetify-themes = {
-    pname = "spicetify-themes";
-    version = "7740b3b14d9f53e3da29f7ce04a98dccc13d2a67";
-    src = fetchgit {
-      url = "https://github.com/morpheusthewhite/spicetify-themes";
-      rev = "7740b3b14d9f53e3da29f7ce04a98dccc13d2a67";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "10jmkl385ny84cfr4df1yp0w4m152rgwlazizbrll9fl61w9x9bm";
     };
+    spicetify-themes = {
+      pname = "spicetify-themes";
+      version = "7740b3b14d9f53e3da29f7ce04a98dccc13d2a67";
+      src = fetchgit {
+        url = "https://github.com/morpheusthewhite/spicetify-themes";
+        rev = "7740b3b14d9f53e3da29f7ce04a98dccc13d2a67";
+        fetchSubmodules = false;
+        deepClone = false;
+        leaveDotGit = false;
+        sha256 = "10jmkl385ny84cfr4df1yp0w4m152rgwlazizbrll9fl61w9x9bm";
+      };
 
-  };
-  spotify = {
-    pname = "spotify";
-    version = "1.1.56.595.g2d2da0de";
-    src = fetchurl {
-      sha256 = "1rghjxj0y0wnmyzbdd2dp7z2skhp153qnl8cqp309gsxx1iiwv5c";
-      url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_47.snap";
     };
+    spotify = {
+      pname = "spotify";
+      version = "1.1.56.595.g2d2da0de";
+      src = fetchurl {
+        sha256 = "1rghjxj0y0wnmyzbdd2dp7z2skhp153qnl8cqp309gsxx1iiwv5c";
+        url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_47.snap";
+      };
 
-  };
-  steamcompmgr = {
-    pname = "steamcompmgr";
-    version = "213d3dc7f54c6b27de43401e3c46ff9522f38988";
-    src = fetchgit {
-      url = "https://github.com/ChimeraOS/steamos-compositor-plus";
-      rev = "213d3dc7f54c6b27de43401e3c46ff9522f38988";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "0jdadr4xg837nascp8q27dv3s1l4hmx0v0xayf55ix89jpl52civ";
     };
+    steamcompmgr = {
+      pname = "steamcompmgr";
+      version = "f8acefeb3ffaab4250fb98127ee08ffb4a7fb84d";
+      src = fetchgit {
+        url = "https://github.com/ChimeraOS/steamos-compositor-plus";
+        rev = "f8acefeb3ffaab4250fb98127ee08ffb4a7fb84d";
+        fetchSubmodules = false;
+        deepClone = false;
+        leaveDotGit = false;
+        sha256 = "0pn5phqv4a2vhmslfcidhrjxwx2yih7bfsavxgqs6a4m5hqbmmd6";
+      };
 
-  };
-  sway-borders = {
-    pname = "sway-borders";
-    version = "e555655f7900e76b0f4cf829c5ebb21c5640d1d2";
-    src = fetchgit {
-      url = "https://github.com/fluix-dev/sway-borders";
-      rev = "e555655f7900e76b0f4cf829c5ebb21c5640d1d2";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "0lnpb74cwdqiig5qx35l2czzr27q60b7qs11g491jmv1yvswgr48";
     };
+    sway-borders = {
+      pname = "sway-borders";
+      version = "e555655f7900e76b0f4cf829c5ebb21c5640d1d2";
+      src = fetchgit {
+        url = "https://github.com/fluix-dev/sway-borders";
+        rev = "e555655f7900e76b0f4cf829c5ebb21c5640d1d2";
+        fetchSubmodules = false;
+        deepClone = false;
+        leaveDotGit = false;
+        sha256 = "0lnpb74cwdqiig5qx35l2czzr27q60b7qs11g491jmv1yvswgr48";
+      };
 
-  };
-  ventoy = {
-    pname = "ventoy";
-    version = "1.0.46";
-    src = fetchurl {
-      sha256 = "1gn4a5j57fwbs3afsv7vmm71kkism6r0rhmngffgk3j1j3lk450p";
-      url = "https://github.com/ventoy/Ventoy/releases/download/v1.0.46/ventoy-1.0.46-linux.tar.gz";
     };
+    ventoy = {
+      pname = "ventoy";
+      version = "1.0.46";
+      src = fetchurl {
+        sha256 = "1gn4a5j57fwbs3afsv7vmm71kkism6r0rhmngffgk3j1j3lk450p";
+        url = "https://github.com/ventoy/Ventoy/releases/download/v1.0.46/ventoy-1.0.46-linux.tar.gz";
+      };
 
-  };
-  whitesur-gtk-theme = {
-    pname = "whitesur-gtk-theme";
-    version = "9065b2096dd83ddb6233712354d39dd6dd9653ae";
-    src = fetchgit {
-      url = "https://github.com/vinceliuice/whitesur-gtk-theme";
-      rev = "9065b2096dd83ddb6233712354d39dd6dd9653ae";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "0nnc3dxwl21cn3h3ikpmlwylypvpr14nc6pf2vkj0q2pyg9njw9g";
     };
+    whitesur-gtk-theme = {
+      pname = "whitesur-gtk-theme";
+      version = "e7a0277111d50291d95942a8c86d745d0312ed3c";
+      src = fetchgit {
+        url = "https://github.com/vinceliuice/whitesur-gtk-theme";
+        rev = "e7a0277111d50291d95942a8c86d745d0312ed3c";
+        fetchSubmodules = false;
+        deepClone = false;
+        leaveDotGit = false;
+        sha256 = "04xr547pj1wc50wjz1baj9vfl449l36jzvqqcazxzvzxl62vqpp7";
+      };
 
-  };
-  whitesur-icon-theme = {
-    pname = "whitesur-icon-theme";
-    version = "c876a52356897fadc846c003c3c3e682983e619e";
-    src = fetchgit {
-      url = "https://github.com/vinceliuice/whitesur-icon-theme";
-      rev = "c876a52356897fadc846c003c3c3e682983e619e";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "174zb18kqj5m2b5gcpfqvzqjrdmi98dyvp2qs1nzxrra7i7s0nv6";
     };
+    whitesur-icon-theme = {
+      pname = "whitesur-icon-theme";
+      version = "c876a52356897fadc846c003c3c3e682983e619e";
+      src = fetchgit {
+        url = "https://github.com/vinceliuice/whitesur-icon-theme";
+        rev = "c876a52356897fadc846c003c3c3e682983e619e";
+        fetchSubmodules = false;
+        deepClone = false;
+        leaveDotGit = false;
+        sha256 = "174zb18kqj5m2b5gcpfqvzqjrdmi98dyvp2qs1nzxrra7i7s0nv6";
+      };
 
-  };
-  widevine-cdm = {
-    pname = "widevine-cdm";
-    version = "4.10.2209.1";
-    src = fetchurl {
-      sha256 = "1mnbxkazjyl3xgvpna9p9qiiyf08j4prdxry51wk8jj5ns6c2zcc";
-      url = "https://dl.google.com/widevine-cdm/4.10.2209.1-linux-x64.zip";
     };
+    widevine-cdm = {
+      pname = "widevine-cdm";
+      version = "4.10.2209.1";
+      src = fetchurl {
+        sha256 = "1mnbxkazjyl3xgvpna9p9qiiyf08j4prdxry51wk8jj5ns6c2zcc";
+        url = "https://dl.google.com/widevine-cdm/4.10.2209.1-linux-x64.zip";
+      };
 
-  };
-  wii-u-gc-adapter = {
-    pname = "wii-u-gc-adapter";
-    version = "64d7ddc511adb12f2eb05bd97294bc51cf51bfab";
-    src = fetchgit {
-      url = "https://github.com/ToadKing/wii-u-gc-adapter";
-      rev = "64d7ddc511adb12f2eb05bd97294bc51cf51bfab";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "1rjqjc344j6lvs6ya5m34i4hv5296xfdxr8pc2bgas46gxhv7336";
     };
+    wii-u-gc-adapter = {
+      pname = "wii-u-gc-adapter";
+      version = "64d7ddc511adb12f2eb05bd97294bc51cf51bfab";
+      src = fetchgit {
+        url = "https://github.com/ToadKing/wii-u-gc-adapter";
+        rev = "64d7ddc511adb12f2eb05bd97294bc51cf51bfab";
+        fetchSubmodules = false;
+        deepClone = false;
+        leaveDotGit = false;
+        sha256 = "1rjqjc344j6lvs6ya5m34i4hv5296xfdxr8pc2bgas46gxhv7336";
+      };
 
-  };
-}
+    };
+  }
