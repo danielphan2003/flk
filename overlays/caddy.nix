@@ -24,7 +24,7 @@ let inherit (prev.lib) flip concatMapStrings; in
       }
     '';
 
-    vendorSha256 = "sha256-vXWe/9GZfdmDaS0wnhc0v7QWH4YFCOnHzLwer2Uz/jE=";
+    vendorSha256 = "sha256-deUq+/6EaevJOKm4AANIS8SPEHSRTQm7X1EKXONIJ84=";
 
     overrideModAttrs = (_: {
       prePatch = "echo '${main}' > cmd/caddy/main.go";
