@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, self, ... }:
 let
   inherit (lib.our) appendString;
   inherit (lib.our.persistence) mkTmpfilesPersist;
