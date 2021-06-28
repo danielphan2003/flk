@@ -5,6 +5,8 @@ let
   persistPath = config.boot.persistence.path;
 in
 {
+  age.secrets.bitwarden.file = "${self}/secrets/bitwarden.age";
+
   services.bitwarden_rs = {
     enable = true;
     dbBackend = "postgresql";
@@ -24,7 +26,6 @@ in
       webVaultFolder = "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
       webVaultEnabled = true;
       databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";
-      dataFolder = "${persistPath}/var/lib/bitwarden_rs";
     };
   };
 
@@ -65,5 +66,16 @@ in
     '';
   };
 
-  age.secrets.bitwarden.file = "${self}/secrets/bitwarden.age";
+  systemd.tmpfiles.rules =
+    lib.mkIf config.boot.persistence.enable
+    (mkTmpfilesPersist {
+      inherit persistPath;
+      paths = appendString "/var/lib/bitwarden_rs/" [
+        "attachments"
+        "icon_cache"
+        "rsa_key.der"
+        "rsa_key.pem"
+        "rsa_key.pub.der"
+      ];
+    });
 }
