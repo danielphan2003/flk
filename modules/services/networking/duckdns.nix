@@ -31,7 +31,7 @@ in
     };
     token = mkOption {
       type = types.str;
-      default = ''''$${lib.toUpper config.networking.hostName}'';
+      default = "$DUCKDNS_GMAIL";
       description = ''
         Token to request update. Setting this to a variable in environmentFile is
         recommended. Default to $HOSTNAME (uppercase, dash converts to underscore sign).

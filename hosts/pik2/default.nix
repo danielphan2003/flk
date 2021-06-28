@@ -46,7 +46,7 @@ in
       (tls-${duckdns.domain}) {
         import common
         tls {
-          dns duckdns {env.${toUpper duckdns.domain}} {
+          dns duckdns {env.DUCKDNS_GMAIL} {
             override_domain ${config.networking.domain}
           }
         }
