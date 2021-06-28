@@ -1,1 +1,103 @@
-uwuwuwuwuwuwuwuwuw
+# My uwu dotfiles - flaky flake flk
+
+uwu - I'm hyperactive so I will write everything in uwu syntax.
+
+## File structure
+
+Follows normal [devos](devos) structure. Many thanks to their template that helped me bootstrap my config across all my machines without spending much time organizing my files.
+
+## Getting started
+
+Add this to your flake (idk if this syntax is correct)
+```nix
+inputs = {
+  ...
+  dan-flk.url = "github:danielphan2003/flk";
+}
+outputs = { dan-flk, ... }:
+...
+  overlays = [ dan-flk.overlay ];
+  externalModules = [ ... ] ++ dan-flk.nixosModules;
+```
+
+Some notes:
+- I'm currently using [nrdxp](nrdxp) agenix for now. For some unknown reasons I could not decrypt my secrets with my Pi. This means (some) secrets created through this flake may not decrypt with an [earlier](divnix-agenix) version of age. See rage v0.6.0 [changelog](rage-v0.6.0-changelog) for more info.
+- Pinning [firefox-nightly](flake-firefox-nightly) and [nixpkgs-wayland](nixpkgs-wayland) since they broke some of my packages in latest commits.
+
+## Features
+
+A lot of [packages](pkgs):
+- [spotify-spicetified](my-spotify-spicetified) (originally [nixpkgs#111946](nixpkgs-spotify-spicetified)). See my [spotify config](my-spotify-config) (currently using custom [dribbblish](ddt) theme).
+- awesomewm plugins including [bling](bling), [layout-machi](layout-machi), [lua-pam](lua-pam), and [awestore](awestore).
+- Firefox tweaks:
+  - [flying-fox](flying-fox): my current firefox theme
+  - [interak](interak): my own very wip theme combining flying-fox, rainfox and pywalfox
+  - [rainfox](rainfox): mostly for the blurred search bar
+  - [arkenfox-userjs](arkenfox-userjs): hardened config
+  - [pywalfox](pywalfox): pywal for firefox.
+- Browsers: Widevine-cdm, Edge Beta and Dev edition. Yes, I'm that evil ;)
+- Messaging app: [caprine](caprine) # TODO: remove it?
+- Wayland packages: [avizo](avizo).
+- Other...
+
+## Eye candies and what not
+- Pywal theming:
+  - Very helpful wallpaper setting [script](wal-set). It reloads pywalfox, sway border colors, seamless wallpaper switching and notify user when everything is done.
+- Wayland:
+  - Ibus [working](sway-startup). Adapted from Arch Wiki's Ibus [integration](arch-wiki-ibus).
+  - Helpful Waybar module [maker](waybar-module-maker). See [waybar-modules](waybar-modules).
+
+# TODOS
+- Move [pkgs](pkgs) to another repo (awaiting auto-update for packages).
+- [Unlock LUKS file systems via Tor](tor-luks-unlock).
+- More...
+
+# Acknowledgements
+- [devos](devos) community and develop branch.
+- [nrdxp](nrdxp): author of [devos](devos).
+- [colemickens](colemickens) for many Wayland packages and Nightly versions of Firefox he provides.
+- [JavaCafe01 dotfiles](JavaCafe01-dotfiles) for my attempt to switch from sway to awesome.
+
+[devos]: https://github.com/divnix/devos
+
+[nrdxp]: https://github.com/nrdxp
+
+[divnix-agenix]: https://github.com/divnix/devos/blob/develop/flake.nix#L23
+
+[rage-v0.6.0-changelog]: https://github.com/str4d/rage/releases/tag/v0.6.0
+
+[firefox-nightly]: https://github.com/colemickens/flake-firefox-nightly
+[nixpkgs-wayland]: https://github.com/colemickens/nixpkgs-wayland
+
+[pkgs]: pkgs
+
+[nixpkgs-spotify-spicetified]: https://github.com/NixOS/nixpkgs/pull/111946
+[my-spotify-spicetified]: pkgs/applications/audio/spotify-spicetified/default.nix
+[my-spotify-config]: profiles/graphical/spotify/default.nix
+[ddt]: https://github.com/JulienMaille/dribbblish-dynamic-theme
+
+[bling]: https://github.com/Nooo37/bling
+[layout-machi]: https://github.com/xinhaoyuan/layout-machi
+[lua-pam]: https://github.com/RMTT/lua-pam
+[awestore]: https://github.com/K4rakara/awestore
+
+[flying-fox]: https://github.com/akshat46/FlyingFox/
+[interak]: pkgs/data/misc/interak/default.nix
+[rainfox]: https://github.com/1280px/rainfox
+[arkenfox-userjs]: https://github.com/arkenfox/user.js
+[pywalfox]: https://github.com/Frewacom/pywalfox-native
+
+[caprine]: https://github.com/sindresorhus/caprine
+
+[avizo]: https://github.com/misterdanb/avizo
+
+[wal-set]: users/profiles/sway/config/scripts/wal-set.nix
+[sway-startup]: users/profiles/sway/config/startup.nix
+[arch-wiki-ibus]: https://wiki.archlinux.org/title/IBus#Integration
+[waybar-module-maker]: lib/pkgs-build/mkWaybarModule.nix
+[waybar-modules]: users/profiles/sway/waybar/modules
+
+[tor-luks-unlock]: https://nixos.wiki/wiki/Remote_LUKS_Unlocking
+
+[colemickens]: https://github.com/colemickens
+[JavaCafe01-dotfiles]: https://github.com/JavaCafe01/DotFiles
