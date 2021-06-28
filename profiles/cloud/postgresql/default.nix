@@ -2,7 +2,7 @@
 let
   inherit (lib.our) appendString;
   inherit (lib.our.persistence) mkTmpfilesPersist;
-  persistDir = config.boot.persistence.path;
+  persistPath = config.boot.persistence.path;
 in
 {
   services.postgresql.enable = true;
