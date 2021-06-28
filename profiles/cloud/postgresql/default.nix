@@ -5,14 +5,13 @@ let
   persistPath = config.boot.persistence.path;
 in
 {
-  services.postgresql.enable = true;
+  services.postgresql = {
+    enable = true;
+    dataDir = lib.mkIf config.boot.persistence.path "${persistPath}/var/lib/postgresql";
+  };
 
   services.postgresqlBackup = {
     enable = true;
     location = "${persistPath}/backups/db";
   };
-
-  systemd.tmpfiles.rules = lib.mkIf config.boot.persistence.enable [
-    "L /var/lib/postgresql - - - - ${persistPath}/var/lib/postgresql"
-  ];
 }
