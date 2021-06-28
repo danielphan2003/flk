@@ -11,10 +11,7 @@ in
 {
   imports = suites.pik2;
 
-  age.secrets = {
-    duckdns.file = "${self}/secrets/duckdns.age";
-    bitwarden.file = "${self}/secrets/bitwarden.age";
-  };
+  age.secrets.duckdns.file = "${self}/secrets/duckdns.age";
 
   networking = {
     domain = "${config.networking.hostName}.duckdns.org";

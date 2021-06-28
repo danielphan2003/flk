@@ -137,6 +137,7 @@
             pik2 = server ++ [ users.alita ] ++ [
               # cloud.calibre-web
               cloud.grafana
+              cloud.postgresql
               cloud.vaultwarden
               misc.encryption
               misc.persistence

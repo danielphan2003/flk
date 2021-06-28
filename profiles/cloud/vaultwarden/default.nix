@@ -21,14 +21,25 @@ in
       websocketAddress = "127.0.0.1";
       webVaultFolder = "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
       webVaultEnabled = true;
-      enableDbWal = false;
+      databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";
+      dataDir = "${persistPath}/var/lib/bitwarden_rs"
     };
-    environmentFile = "/run/secrets/bitwarden";
     backupDir = "${persistPath}/backups/vault";
+    environmentFile = "/run/secrets/bitwarden";
   };
 
   systemd.services.backup-bitwarden_rs = {
-    environment.DATA_FOLDER = lib.mkForce "${persistPath}/var/lib/bitwarden_rs";
+    environment.DATA_FOLDER = lib.mkForce config.services.bitwarden_rs.config.dataDir;
+  };
+
+  services.postgresql = {
+    ensureDatabases = [ "vaultwarden" ];
+    ensureUsers = [{
+      name = "bitwarden_rs";
+      ensurePermissions = {
+        "DATABASE vaultwarden" = "ALL PRIVILEGES";
+      };
+    }];
   };
 
   services.logrotate.paths.bitwarden_rs = {
@@ -58,15 +69,5 @@ in
     '';
   };
 
-  systemd.tmpfiles.rules = lib.mkIf config.boot.persistence.enable (mkTmpfilesPersist {
-    inherit persistPath;
-    paths = appendString "/var/lib/bitwarden_rs/" [
-      "attachments"
-      "db.sqlite3"
-      "icon_cache"
-      "rsa_key.der"
-      "rsa_key.pem"
-      "rsa_key.pub.der"
-    ];
-  });
+  age.secrets.bitwarden.file = "${self}/secrets/bitwarden.age";
 }
