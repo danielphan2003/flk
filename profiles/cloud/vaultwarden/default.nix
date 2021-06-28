@@ -58,7 +58,7 @@ in
     '';
   };
 
-  systemd.tmpfiles.rules = lib.mkIf config.boot.persistence.enable mkTmpfilesPersist {
+  systemd.tmpfiles.rules = lib.mkIf config.boot.persistence.enable (mkTmpfilesPersist {
     inherit persistPath;
     paths = appendString "/var/lib/bitwarden_rs/" [
       "attachments"
@@ -68,5 +68,5 @@ in
       "rsa_key.pem"
       "rsa_key.pub.der"
     ];
-  };
+  });
 }
