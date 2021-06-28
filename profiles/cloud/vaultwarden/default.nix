@@ -1,5 +1,9 @@
 { pkgs, config, lib, ... }:
-let persistPath = config.boot.persistence.path; in
+let
+  inherit (lib.our) appendString;
+  inherit (lib.our.persistence) mkTmpfilesPersist;
+  persistPath = config.boot.persistence.path;
+in
 {
   services.bitwarden_rs = {
     enable = true;
@@ -17,15 +21,15 @@ let persistPath = config.boot.persistence.path; in
       websocketAddress = "127.0.0.1";
       webVaultFolder = "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
       webVaultEnabled = true;
-      # dataFolder = "${persistPath}/var/lib/bitwarden_rs";
+      enableDbWal = false;
     };
     environmentFile = "/run/secrets/bitwarden";
     backupDir = "${persistPath}/backups/vault";
   };
 
-  # systemd.services.backup-bitwarden_rs = {
-  #   environment.DATA_FOLDER = lib.mkForce config.services.bitwarden_rs.config.dataFolder;
-  # };
+  systemd.services.backup-bitwarden_rs = {
+    environment.DATA_FOLDER = lib.mkForce "${persistPath}/var/lib/bitwarden_rs";
+  };
 
   services.logrotate.paths.bitwarden_rs = {
     path = "/var/log/bitwarden/*.log";
@@ -52,5 +56,17 @@ let persistPath = config.boot.persistence.path; in
       # Date format of dateext
       dateformat "-%Y-%m-%d-%s"
     '';
+  };
+
+  systemd.tmpfiles.rules = lib.mkIf config.boot.persistence.enable mkTmpfilesPersist {
+    inherit persistPath;
+    paths = appendString "/var/lib/bitwarden_rs/" [
+      "attachments"
+      "db.sqlite3"
+      "icon_cache"
+      "rsa_key.der"
+      "rsa_key.pem"
+      "rsa_key.pub.der"
+    ];
   };
 }
