@@ -8,7 +8,6 @@ in
   services.bitwarden_rs = {
     enable = true;
     dbBackend = "postgresql";
-    backupDir = "${persistPath}/backups/vault";
     environmentFile = "/run/secrets/bitwarden";
     config = {
       domain = "https://bw.${config.networking.domain}";
@@ -27,10 +26,6 @@ in
       databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";
       dataFolder = "${persistPath}/var/lib/bitwarden_rs";
     };
-  };
-
-  systemd.services.backup-bitwarden_rs = {
-    environment.DATA_FOLDER = lib.mkForce config.services.bitwarden_rs.config.dataFolder;
   };
 
   services.postgresql = {
