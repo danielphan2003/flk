@@ -7,7 +7,7 @@ in
 {
   services.postgresql = {
     enable = true;
-    dataDir = lib.mkIf config.boot.persistence.path "${persistPath}/var/lib/postgresql";
+    dataDir = lib.mkIf config.boot.persistence.enable "${persistPath}/var/lib/postgresql";
   };
 
   services.postgresqlBackup = {
