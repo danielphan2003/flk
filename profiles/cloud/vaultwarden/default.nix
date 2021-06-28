@@ -22,14 +22,14 @@ in
       webVaultFolder = "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
       webVaultEnabled = true;
       databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";
-      dataDir = "${persistPath}/var/lib/bitwarden_rs"
+      dataFolder = "${persistPath}/var/lib/bitwarden_rs";
     };
     backupDir = "${persistPath}/backups/vault";
     environmentFile = "/run/secrets/bitwarden";
   };
 
   systemd.services.backup-bitwarden_rs = {
-    environment.DATA_FOLDER = lib.mkForce config.services.bitwarden_rs.config.dataDir;
+    environment.DATA_FOLDER = lib.mkForce config.services.bitwarden_rs.config.dataFolder;
   };
 
   services.postgresql = {
