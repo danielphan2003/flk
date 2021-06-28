@@ -7,6 +7,9 @@ in
 {
   services.bitwarden_rs = {
     enable = true;
+    dbBackend = "postgresql";
+    backupDir = "${persistPath}/backups/vault";
+    environmentFile = "/run/secrets/bitwarden";
     config = {
       domain = "https://bw.${config.networking.domain}";
       invitationsAllowed = false;
@@ -24,8 +27,6 @@ in
       databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";
       dataFolder = "${persistPath}/var/lib/bitwarden_rs";
     };
-    backupDir = "${persistPath}/backups/vault";
-    environmentFile = "/run/secrets/bitwarden";
   };
 
   systemd.services.backup-bitwarden_rs = {
