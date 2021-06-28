@@ -25,7 +25,7 @@ src.git = "https://github.com/BlingCorp/bling"
 fetch.github = "BlingCorp/bling"
 
 [caddy]
-src.git = "https://github.com/caddyserver/caddy"
+src.manual = "b3d35a4995c98cfadeb0c3a356025dbd3984caef"
 fetch.github = "caddyserver/caddy"
 
 [cups-pdf]

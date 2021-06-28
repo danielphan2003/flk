@@ -81,14 +81,14 @@
   };
   caddy = {
     pname = "caddy";
-    version = "191dc86f9e40c12517a133cf2181631c9adec791";
+    version = "b3d35a4995c98cfadeb0c3a356025dbd3984caef";
     src = fetchgit {
       url = "https://github.com/caddyserver/caddy";
-      rev = "191dc86f9e40c12517a133cf2181631c9adec791";
+      rev = "b3d35a4995c98cfadeb0c3a356025dbd3984caef";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1wlczxkglrm3w1gsz29zq6dkwpiyc3pyb5ip5mlksb2mglqfs8n7";
+      sha256 = "0bs92d2y28q8jxvrxd87b7icq06794k5idm1qmh0xqn9f7la0zqv";
     };
 
   };
@@ -103,14 +103,14 @@
   };
   dribbblish-dynamic-theme = {
     pname = "dribbblish-dynamic-theme";
-    version = "b404e47f65ad6794d3a8867a001df90833f76cf1";
+    version = "71e2b01fc2733cac0cedc8744574c37f64994882";
     src = fetchgit {
       url = "https://github.com/JulienMaille/dribbblish-dynamic-theme";
-      rev = "b404e47f65ad6794d3a8867a001df90833f76cf1";
+      rev = "71e2b01fc2733cac0cedc8744574c37f64994882";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0llisrbg7bamcs58n57hvavbcb3z8cfyll5ka4pwc23mxik6njq3";
+      sha256 = "1myyjj0z0clrqq82smnc72pmrynlp2gavmxbrc3x5y1ysy48xv57";
     };
 
   };
