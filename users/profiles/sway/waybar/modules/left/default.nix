@@ -9,9 +9,9 @@ let
   media = player: icon:
     let
       patternNotDefault = "'^(?!firefox|spotify|vlc)([a-z0-9]+)'";
-      checkPlayer = "$(${pkgs.playerctl}/bin/playerctl -l";
-      checkIfNotDefault = '' [ ! "${checkPlayer} | ${pkgs.ripgrep}/bin/rg --pcre2 ${patternNotDefault})" -eq "" ] '';
-      checkIfDefault = '' [ ${checkPlayer} | ${pkgs.gnugrep}/bin/grep ${player}) ] '';
+      checkPlayer = "${pkgs.playerctl}/bin/playerctl -l";
+      checkIfNotDefault = '' [ "$(${checkPlayer} | ${pkgs.ripgrep}/bin/rg --pcre2 ${patternNotDefault})" ] '';
+      checkIfDefault = '' [ "$(${checkPlayer} | ${pkgs.gnugrep}/bin/grep ${player})" ] '';
     in
     {
       format = "{icon} {}";

@@ -46,7 +46,7 @@ in
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     tmpOnTmpfs = true;
-    kernelPackages = pkgs.linuxPackages_5_10;
+    kernelPackages = pkgs.linuxPackages_5_12;
 
     initrd.availableKernelModules = [
       "amdgpu"

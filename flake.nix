@@ -8,7 +8,11 @@
       digga = {
         url = "github:divnix/digga/develop";
         inputs.nixpkgs.follows = "latest";
+        inputs.deploy.follows = "deploy";
       };
+      bud.url = "github:divnix/bud"; # no need to follow nixpkgs: it never materialises
+      deploy.url = "github:serokell/deploy-rs";
+      deploy.inputs.nixpkgs.follows = "nixos";
 
       ci-agent = {
         url = "github:hercules-ci/hercules-ci-agent";
@@ -16,7 +20,7 @@
       };
       darwin.url = "github:LnL7/nix-darwin";
       darwin.inputs.nixpkgs.follows = "latest";
-      home.url = "github:nix-community/home-manager";
+      home.url = "github:nix-community/home-manager/release-21.05";
       home.inputs.nixpkgs.follows = "nixos";
       naersk.url = "github:nmattia/naersk";
       naersk.inputs.nixpkgs.follows = "latest";
@@ -30,12 +34,15 @@
       firefox-nightly.url = "github:colemickens/flake-firefox-nightly/52035b6";
       firefox-nightly.inputs.nixpkgs.follows = "nixos";
 
-      nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland/e5d15f8";
-    };
+      nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
 
+      anbox.url = "github:samueldr/nixpkgs/feature/anbox-2021-06-refresh";
+    };
+          
   outputs =
     { self
     , digga
+    , bud
     , nixos
     , ci-agent
     , home
@@ -43,10 +50,15 @@
     , nur
     , agenix
     , nvfetcher
-    , nixpkgs-wayland
+    , deploy
     , firefox-nightly
+    , nixpkgs-wayland
+    , samueldr-anbox
     , ...
     } @ inputs:
+    let
+      bud' = bud self;
+    in
     digga.lib.mkFlake {
       inherit self inputs;
 
@@ -59,6 +71,7 @@
             nur.overlay
             agenix.overlay
             nvfetcher.overlay
+            deploy.overlay
             ./pkgs/default.nix
             nixpkgs-wayland.overlay
             (final: prev: {
@@ -92,6 +105,7 @@
             ci-agent.nixosModules.agent-profile
             home.nixosModules.home-manager
             agenix.nixosModules.age
+            (bud.nixosModules.bud bud')
           ];
         };
 
@@ -188,13 +202,20 @@
         ];
       };
 
+      # devshell.modules = [ (import ./shell bud') ];
+
       homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
 
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations { };
 
-      defaultTemplate = self.templates.flk;
-      templates.flk.path = ./.;
-      templates.flk.description = "flk template";
+      defaultTemplate = self.templates.bud;
+      templates.bud.path = ./.;
+      templates.bud.description = "bud template";
+
+    }
+    //
+    {
+      budModules = { devos = import ./pkgs/shell/bud; };
     }
   ;
 }

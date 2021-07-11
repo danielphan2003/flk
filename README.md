@@ -1,53 +1,60 @@
 # My uwu dotfiles - flaky flake flk
 
-uwu - I'm hyperactive so I will write everything in uwu syntax.
-
 ## File structure
 
-Follows normal [devos](devos) structure. Many thanks to their template that helped me bootstrap my config across all my machines without spending much time organizing my files.
+Follows normal [devos](devos) structure. Many thanks to their template that helped me bootstrap my config across all my machines with an actually enjoyable way to manage dotfiles.
 
 ## Getting started
 
-Add this to your flake (idk if this syntax is correct)
+Add this to your flake (idk if the syntax is correct)
 ```nix
-inputs = {
-  ...
-  dan-flk.url = "github:danielphan2003/flk";
+{
+  inputs = {
+    dan-flk.url = "github:danielphan2003/flk";
+  };
+  outputs = { dan-flk, ... }: {
+    overlays = [ dan-flk.overlay ];
+    externalModules = [ dan-flk.nixosModules ];
+  };
 }
-outputs = { dan-flk, ... }:
-...
-  overlays = [ dan-flk.overlay ];
-  externalModules = [ ... ] ++ dan-flk.nixosModules;
 ```
 
 Some notes:
-- I'm currently using [nrdxp](nrdxp) agenix for now. For some unknown reasons I could not decrypt my secrets with my Pi. This means (some) secrets created through this flake may not decrypt with an [earlier](divnix-agenix) version of age. See rage v0.6.0 [changelog](rage-v0.6.0-changelog) for more info.
-- Pinning [firefox-nightly](flake-firefox-nightly) and [nixpkgs-wayland](nixpkgs-wayland) since they broke some of my packages in latest commits.
+- I'm currently using [nrdxp](nrdxp) agenix for now. For some unknown reasons I could not decrypt my secrets with my Pi when using the original repo.
+This means (some) secrets created through this flake may not decrypt with an [earlier](divnix-agenix) version of age. See rage v0.6.0    [changelog](rage-v0.6.0-changelog) for more info.
+- Pinning [flake-firefox-nightly](flake-firefox-nightly) since Nightly build is broken in latest commits.
 
 ## Features
 
 A lot of [packages](pkgs):
-- [spotify-spicetified](my-spotify-spicetified) (originally [nixpkgs#111946](nixpkgs-spotify-spicetified)). See my [spotify config](my-spotify-config) (currently using custom [dribbblish](ddt) theme).
+- [spotify-spicetified](my-spotify-spicetified) (originally [nixpkgs#111946](nixpkgs-spotify-spicetified)). See my [spotify config](my-spotify-config) (currently using a custom [dribbblish](ddt) theme).
 - awesomewm plugins including [bling](bling), [layout-machi](layout-machi), [lua-pam](lua-pam), and [awestore](awestore).
 - Firefox tweaks:
   - [flying-fox](flying-fox): my current firefox theme
-  - [interak](interak): my own very wip theme combining flying-fox, rainfox and pywalfox
+  - [interak](interak): my own (very MUCH wip) theme combining flying-fox, rainfox and pywalfox
   - [rainfox](rainfox): mostly for the blurred search bar
   - [arkenfox-userjs](arkenfox-userjs): hardened config
   - [pywalfox](pywalfox): pywal for firefox.
 - Browsers: Widevine-cdm, Edge Beta and Dev edition. Yes, I'm that evil ;)
-- Messaging app: [caprine](caprine) # TODO: remove it?
+- Messaging app: [caprine](caprine) (unmaintained)
 - Wayland packages: [avizo](avizo).
 - Other...
 
+Some modules that may work for your use case:
+- `boot.persistence`: module to set your persist path and enable persistence handling. Basically a thin wrapper for mt-caret's opt-in state [config](optin-state)
+- `services.candy`: (very MUCH wip) Caddy wrapper with nginx-like declarative web options
+
+Plus overrides and modules from devos's [community](devos-community) branch
+
 ## Eye candies and what not
 - Pywal theming:
-  - Very helpful wallpaper setting [script](wal-set). It reloads pywalfox, sway border colors, seamless wallpaper switching and notify user when everything is done.
+  - Very helpful wallpaper setting [script](wal-set). It reloads pywalfox, sway border colors,
+  along with seamless wallpaper switching and notify user when everything is done.
 - Wayland:
   - Ibus [working](sway-startup). Adapted from Arch Wiki's Ibus [integration](arch-wiki-ibus).
   - Helpful Waybar module [maker](waybar-module-maker). See [waybar-modules](waybar-modules).
 
-# TODOS
+## TODOS
 - Move [pkgs](pkgs) to another repo (awaiting auto-update for packages).
 - [Unlock LUKS file systems via Tor](tor-luks-unlock).
 - More...
@@ -88,6 +95,10 @@ A lot of [packages](pkgs):
 [pywalfox]: https://github.com/Frewacom/pywalfox-native
 
 [caprine]: https://github.com/sindresorhus/caprine
+
+[optin-state]: https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html
+
+[devos-community]: https://github.com/divnix/devos/tree/community
 
 [avizo]: https://github.com/misterdanb/avizo
 

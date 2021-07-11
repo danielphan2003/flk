@@ -24,7 +24,7 @@ in
       inherit (pkgs)
         nixFlakes
         binutils
-        bpytop
+        bottom
         cachix
         coreutils
         croc
@@ -35,7 +35,6 @@ in
         fd
         fs-diff
         git
-        gotop
         gptfdisk
         iptables
         iputils
@@ -109,7 +108,7 @@ in
         se = ifSudo "sudoedit";
 
         # top
-        top = "bpytop";
+        top = "btm";
 
         # systemd
         ctl = "systemctl";

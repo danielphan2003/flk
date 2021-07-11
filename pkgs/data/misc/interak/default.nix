@@ -3,13 +3,13 @@ stdenv.mkDerivation rec {
   pname = "interak";
   version = "0.0.1";
 
-  src = {
+  srcs = rec {
     inherit rainfox pywalfox;
     urlbar-blur = ./urlbar-blur.css;
     flyingfox = flyingfox.overrideAttrs (_: { patches = [ ./no-tabline.patch ]; });
   };
 
-  installPhase = with src; ''
+  installPhase = with srcs; ''
     mkdir -p $out/chrome
     cp ${urlbar-blur} $out/chrome
 

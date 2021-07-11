@@ -69,6 +69,10 @@ fetch.github = "RMTT/lua-pam"
 src.git = "https://github.com/mlvzk/manix"
 fetch.github = "mlvzk/manix"
 
+[meson]
+src.pypi = "meson"
+fetch.pypi = "meson"
+
 [microsoft-edge-beta]
 src.webpage = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/"
 src.regex = "microsoft-edge-beta_(.*)-1_amd64\\.deb\">microsoft-edge-beta_"
@@ -110,7 +114,6 @@ fetch.github = "libretro/retroarch"
 [rnix-lsp]
 src.git = "https://github.com/nix-community/rnix-lsp"
 fetch.github = "nix-community/rnix-lsp"
-extract = ["Cargo.lock"]
 
 [sddm-chili]
 src.git = "https://github.com/MarianArlt/sddm-chili"

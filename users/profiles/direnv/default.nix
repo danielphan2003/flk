@@ -1,7 +1,9 @@
 {
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv = {
+  programs.direnv = {
     enable = true;
-    enableFlakes = true;
+    nix-direnv = {
+      enable = true;
+      enableFlakes = true;
+    };
   };
 }

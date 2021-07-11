@@ -2,7 +2,7 @@
 let inherit (builtins) attrValues;
 in
 {
-  imports = [ ./udev.nix ];
+  imports = [ ./anbox.nix ./udev.nix ];
   environment.systemPackages = attrValues {
     inherit (pkgs)
       retroarchBare
@@ -31,4 +31,5 @@ in
 
   # improve wine performance
   environment.sessionVariables = { WINEDEBUG = "-all"; };
+
 }
