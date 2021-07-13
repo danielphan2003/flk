@@ -70,8 +70,8 @@ let inherit (config.boot.persistence) enable path; in
   };
 
   systemd.tmpfiles.rules = lib.mkIf enable [
-    "/var/lib/bitwarden_rs/rsa_key.der - - - - ${path}/var/lib/bitwarden_rs/rsa_key.der"
-    "/var/lib/bitwarden_rs/rsa_key.pem - - - - ${path}/var/lib/bitwarden_rs/rsa_key.pem"
-    "/var/lib/bitwarden_rs/rsa_key.pub.der - - - - ${path}/var/lib/bitwarden_rs/rsa_key.pub.der"
+    "L /var/lib/bitwarden_rs/rsa_key.der - - - - ${path}/var/lib/bitwarden_rs/rsa_key.der"
+    "L /var/lib/bitwarden_rs/rsa_key.pem - - - - ${path}/var/lib/bitwarden_rs/rsa_key.pem"
+    "L /var/lib/bitwarden_rs/rsa_key.pub.der - - - - ${path}/var/lib/bitwarden_rs/rsa_key.pub.der"
   ];
 }
