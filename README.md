@@ -21,13 +21,16 @@ Add this to your flake (idk if the syntax is correct)
 
 Some notes:
 - I'm currently using [nrdxp](nrdxp) agenix for now. For some unknown reasons I could not decrypt my secrets with my Pi when using the original repo.
-This means (some) secrets created through this flake may not decrypt with an [earlier](divnix-agenix) version of age. See rage v0.6.0    [changelog](rage-v0.6.0-changelog) for more info.
+  This means (some) secrets created through this flake may not decrypt with an [earlier](divnix-agenix) version of age.
+  See rage v0.6.0 [changelog](rage-v0.6.0-changelog) for more info.
+- Pinning [home-manager](home-manager) and [nixos](nrdxp-nixos) as [impermanance](impermanance) only works with `lib.fsBefore` and `filesystems.<name>.depends`. See [profiles/misc/persistence](persistence-profile) for usage.
 - Pinning [flake-firefox-nightly](flake-firefox-nightly) since Nightly build is broken in latest commits.
 
 ## Features
 
 A lot of [packages](pkgs):
-- [spotify-spicetified](my-spotify-spicetified) (originally [nixpkgs#111946](nixpkgs-spotify-spicetified)). See my [spotify config](my-spotify-config) (currently using a custom [dribbblish](ddt) theme).
+- [spotify-spicetified](my-spotify-spicetified) (originally [nixpkgs#111946](nixpkgs-spotify-spicetified)).
+  See my [spotify config](my-spotify-config) (currently using a custom [dribbblish](ddt) theme).
 - awesomewm plugins including [bling](bling), [layout-machi](layout-machi), [lua-pam](lua-pam), and [awestore](awestore).
 - Firefox tweaks:
   - [flying-fox](flying-fox): my current firefox theme
@@ -41,15 +44,14 @@ A lot of [packages](pkgs):
 - Other...
 
 Some modules that may work for your use case:
-- `boot.persistence`: module to set your persist path and enable persistence handling. Basically a thin wrapper for mt-caret's opt-in state [config](optin-state)
+- `boot.persistence`: module to set your persist path and enable persistence handling. Basically a thin wrapper for mt-caret's opt-in state [config](optin-state).
 - `services.candy`: (very MUCH wip) Caddy wrapper with nginx-like declarative web options
 
 Plus overrides and modules from devos's [community](devos-community) branch
 
 ## Eye candies and what not
 - Pywal theming:
-  - Very helpful wallpaper setting [script](wal-set). It reloads pywalfox, sway border colors,
-  along with seamless wallpaper switching and notify user when everything is done.
+  - Very helpful wallpaper setting [script](wal-set). It reloads pywalfox, sway border colors, along with seamless wallpaper switching and notify user when everything is done.
 - Wayland:
   - Ibus [working](sway-startup). Adapted from Arch Wiki's Ibus [integration](arch-wiki-ibus).
   - Helpful Waybar module [maker](waybar-module-maker). See [waybar-modules](waybar-modules).
@@ -72,6 +74,11 @@ Plus overrides and modules from devos's [community](devos-community) branch
 [divnix-agenix]: https://github.com/divnix/devos/blob/develop/flake.nix#L23
 
 [rage-v0.6.0-changelog]: https://github.com/str4d/rage/releases/tag/v0.6.0
+
+[home-manager]: https://github.com/nix-community/home-manager/tree/d370447
+[nrdxp-nixos]: https://github.com/nrdxp/nixpkgs/more-general-fsbefore
+[impermanance]: https://github.com/nix-community/impermanance
+[persistence-profile]: ./profiles/misc/persistence
 
 [firefox-nightly]: https://github.com/colemickens/flake-firefox-nightly
 [nixpkgs-wayland]: https://github.com/colemickens/nixpkgs-wayland

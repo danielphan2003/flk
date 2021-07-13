@@ -1,17 +1,14 @@
 { config, lib, ... }:
-let
-  inherit (lib.our) appendString;
-  inherit (lib.our.persistence) mkTmpfilesPersist;
-  persistPath = config.boot.persistence.path;
-in
+let inherit (config.boot.persistence) enable path; in
 {
-  services.postgresql = {
-    enable = true;
-    dataDir = lib.mkIf config.boot.persistence.enable "${persistPath}/var/lib/postgresql";
-  };
+  services.postgresql.enable = true;
 
-  services.postgresqlBackup = {
-    enable = true;
-    location = "${persistPath}/backups/db";
+  services.postgresqlBackup.enable = true;
+
+  environment.persistence."${path}" = lib.mkIf enable {
+    directories = [
+      "/var/backup/postgresql"
+      "/var/lib/postgresql"
+    ];
   };
 }

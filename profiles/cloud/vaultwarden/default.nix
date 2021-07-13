@@ -1,9 +1,5 @@
 { pkgs, config, lib, self, ... }:
-let
-  inherit (lib.our) appendString;
-  inherit (lib.our.persistence) mkTmpfilesPersist;
-  persistPath = config.boot.persistence.path;
-in
+let inherit (config.boot.persistence) enable path; in
 {
   age.secrets.bitwarden.file = "${self}/secrets/bitwarden.age";
 
@@ -66,16 +62,16 @@ in
     '';
   };
 
-  systemd.tmpfiles.rules =
-    lib.mkIf config.boot.persistence.enable
-    (mkTmpfilesPersist {
-      inherit persistPath;
-      paths = appendString "/var/lib/bitwarden_rs/" [
-        "attachments"
-        "icon_cache"
-        "rsa_key.der"
-        "rsa_key.pem"
-        "rsa_key.pub.der"
-      ];
-    });
+  environment.persistence."${path}" = lib.mkIf enable {
+    directories = [
+      "/var/lib/bitwarden_rs/attachments"
+      "/var/lib/bitwarden_rs/icon_cache"
+    ];
+  };
+
+  systemd.tmpfiles.rules = lib.mkIf enable [
+    "/var/lib/bitwarden_rs/rsa_key.der - - - - ${path}/var/lib/bitwarden_rs/rsa_key.der"
+    "/var/lib/bitwarden_rs/rsa_key.pem - - - - ${path}/var/lib/bitwarden_rs/rsa_key.pem"
+    "/var/lib/bitwarden_rs/rsa_key.pub.der - - - - ${path}/var/lib/bitwarden_rs/rsa_key.pub.der"
+  ];
 }

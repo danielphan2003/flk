@@ -42,14 +42,14 @@
   };
   awesome = {
     pname = "awesome";
-    version = "f473639c5d36358a260be383888e34ac42859ad3";
+    version = "832483dd60ba194f3ae0200ab39a3a548c26e910";
     src = fetchgit {
       url = "https://github.com/awesomeWM/awesome";
-      rev = "f473639c5d36358a260be383888e34ac42859ad3";
+      rev = "832483dd60ba194f3ae0200ab39a3a548c26e910";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0jjjf6xfva3vppb098kp15m1i60da99v79xsh31qzy3d925f95sg";
+      sha256 = "1bcbxsiydlz439af6dq69z8g7rca4jganlz65f3ajrlgqknk86cq";
     };
 
   };
@@ -214,21 +214,12 @@
     };
 
   };
-  meson = {
-    pname = "meson";
-    version = "0.58.1";
-    src = fetchurl {
-      sha256 = "0padn0ykwz8azqiwkhi8p97bl742y8lsjbv0wpqpkkrgcvda6i1i";
-      url = "https://pypi.io/packages/source/m/meson/meson-0.58.1.tar.gz";
-    };
-
-  };
   microsoft-edge-beta = {
     pname = "microsoft-edge-beta";
-    version = "92.0.902.40";
+    version = "92.0.902.45";
     src = fetchurl {
-      sha256 = "17izpgvp5irxzsa0miszla1xd9zi94f8lh6y8y1d7ddl481q7khj";
-      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_92.0.902.40-1_amd64.deb";
+      sha256 = "0384hscys7p795a6pc0w4qxxvgh3pjr56lwgwj8xrr9blx4alcl4";
+      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_92.0.902.45-1_amd64.deb";
     };
 
   };
@@ -265,27 +256,27 @@
   };
   picom = {
     pname = "picom";
-    version = "e92403bd67f44d8bae4fa5b2eb6a2617fe12b7a6";
+    version = "fd381dacff5c755b43effba441fb5706a0f378a4";
     src = fetchgit {
       url = "https://github.com/yshui/picom";
-      rev = "e92403bd67f44d8bae4fa5b2eb6a2617fe12b7a6";
+      rev = "fd381dacff5c755b43effba441fb5706a0f378a4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0xx2qv722wjlxdcs4knm5s11c895hsf2bjhbkz1v3q84yrhyzyfl";
+      sha256 = "0vxl0fqimrw2587g6nw73wl4xflsrp10kga9fjvkcx985r130ccx";
     };
 
   };
   pure = {
     pname = "pure";
-    version = "c05916f3870e2a856607fe6d6ad0cd7fe9b270a8";
+    version = "f4c6d79ba2417d63c8008b6acce628631fd462ec";
     src = fetchgit {
       url = "https://github.com/sindresorhus/pure";
-      rev = "c05916f3870e2a856607fe6d6ad0cd7fe9b270a8";
+      rev = "f4c6d79ba2417d63c8008b6acce628631fd462ec";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0l3q44ybp84bikqcgx4187cm5qfdb0a0mzh5bbw95hyil0g8qg5a";
+      sha256 = "0qfs7rvpyd8jb7x4ziqrkh0b6g9ldds8sn6qbqgrir80vdk90gpa";
     };
 
   };
@@ -326,14 +317,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "0570ed4ca3e02449a1a95bf26a73c3de3bf1aff7";
+    version = "3bc06b0d571e8487ffb56a19318f96958fa50502";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "0570ed4ca3e02449a1a95bf26a73c3de3bf1aff7";
+      rev = "3bc06b0d571e8487ffb56a19318f96958fa50502";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0xirrjl7ynvxvkl0xnbaycdn55l5v95zlyy9f7948bh460y9rw1k";
+      sha256 = "022vjrggjif5lqgizj3m0s2kkk1df2sxs4pvhanld45jm7pkqx1i";
     };
 
   };
@@ -473,29 +464,42 @@
     };
 
   };
-  whitesur-gtk-theme = {
-    pname = "whitesur-gtk-theme";
-    version = "a3b0c1b47060062b7dde4a4311694beb3b26280f";
+  waybar = {
+    pname = "waybar";
+    version = "78aaa5c1b448dc3d744cd6e8cc1a5ee466774107";
     src = fetchgit {
-      url = "https://github.com/vinceliuice/whitesur-gtk-theme";
-      rev = "a3b0c1b47060062b7dde4a4311694beb3b26280f";
+      url = "https://github.com/tiosgz/Waybar";
+      rev = "78aaa5c1b448dc3d744cd6e8cc1a5ee466774107";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1b75s8g2vk36v99zgjk4hyp3agwbwky9vaprqij6w9ncci0fp4mb";
+      sha256 = "0sy3ixjgz4riqakjv4wckl5vp6cbjnad05cjwkyld54s8ykfvsjl";
+    };
+
+  };
+  whitesur-gtk-theme = {
+    pname = "whitesur-gtk-theme";
+    version = "d32b9e2190edf6ebe186d5bb0657e7cadd469ee2";
+    src = fetchgit {
+      url = "https://github.com/vinceliuice/whitesur-gtk-theme";
+      rev = "d32b9e2190edf6ebe186d5bb0657e7cadd469ee2";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0951i7v9axpw18sb0xarrnn3vxkj0hhkxh1h5x1csyshpngzl0c6";
     };
 
   };
   whitesur-icon-theme = {
     pname = "whitesur-icon-theme";
-    version = "5524cca7099ec4c9b485a024d91e27d04a38e0b6";
+    version = "e41a6378590a9d57a6adfc6facefd870a84a7b80";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-icon-theme";
-      rev = "5524cca7099ec4c9b485a024d91e27d04a38e0b6";
+      rev = "e41a6378590a9d57a6adfc6facefd870a84a7b80";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1wblj062250g5xr59p1c80jzlidc5bm2v0b4ikjh4adac25x5n68";
+      sha256 = "0i5xm3b10158560sllpbvzxlhr35ivvl6ah15j10zg1cdmf7iijj";
     };
 
   };

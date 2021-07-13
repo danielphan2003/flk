@@ -16,8 +16,6 @@ lib.makeExtensible (self: rec {
     getNormalUsers
     mkCustomI3Rule
     mkFirefoxConfig
-    mkPersist
-    persistence
     pywal
   ;
 

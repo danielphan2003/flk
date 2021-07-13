@@ -3,7 +3,8 @@
 
   inputs =
     {
-      nixos.url = "nixpkgs/release-21.05";
+      nixos.url = "github:nrdxp/nixpkgs/more-general-fsbefore";
+      nixos-21_05.url = "nixpkgs/release-21.05";
       latest.url = "nixpkgs";
       digga = {
         url = "github:divnix/digga/develop";
@@ -12,16 +13,16 @@
       };
       bud.url = "github:divnix/bud"; # no need to follow nixpkgs: it never materialises
       deploy.url = "github:serokell/deploy-rs";
-      deploy.inputs.nixpkgs.follows = "nixos";
+      deploy.inputs.nixpkgs.follows = "nixos-21_05";
 
       ci-agent = {
         url = "github:hercules-ci/hercules-ci-agent";
-        inputs = { nix-darwin.follows = "darwin"; nixos-20_09.follows = "nixos"; nixos-unstable.follows = "latest"; };
+        inputs = { nix-darwin.follows = "darwin"; nixos-20_09.follows = "nixos-21_05"; nixos-unstable.follows = "latest"; };
       };
       darwin.url = "github:LnL7/nix-darwin";
       darwin.inputs.nixpkgs.follows = "latest";
-      home.url = "github:nix-community/home-manager/release-21.05";
-      home.inputs.nixpkgs.follows = "nixos";
+      home.url = "github:nix-community/home-manager/d370447";
+      home.inputs.nixpkgs.follows = "nixos-21_05";
       naersk.url = "github:nmattia/naersk";
       naersk.inputs.nixpkgs.follows = "latest";
       agenix.url = "github:nrdxp/agenix/yubikey";
@@ -32,15 +33,22 @@
       nvfetcher.inputs.nixpkgs.follows = "latest";
 
       firefox-nightly.url = "github:colemickens/flake-firefox-nightly/52035b6";
-      firefox-nightly.inputs.nixpkgs.follows = "nixos";
+      firefox-nightly.inputs.nixpkgs.follows = "nixos-21_05";
 
       nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
 
       anbox.url = "github:samueldr/nixpkgs/feature/anbox-2021-06-refresh";
+
+      impermanence = {
+        url = "github:nix-community/impermanence";
+        flake = false;
+      };
     };
           
   outputs =
     { self
+    , latest
+    , nixos-21_05
     , digga
     , bud
     , nixos
@@ -106,6 +114,7 @@
             home.nixosModules.home-manager
             agenix.nixosModules.age
             (bud.nixosModules.bud bud')
+            "${inputs.impermanence}/nixos.nix"
           ];
         };
 
@@ -168,7 +177,7 @@
 
       home = {
         imports = [ (digga.lib.importers.modules ./users/modules) ];
-        externalModules = [ ];
+        externalModules = [ "${inputs.impermanence}/home-manager.nix" ];
         importables = rec {
           profiles = digga.lib.importers.rakeLeaves ./users/profiles;
           suites = with profiles; rec {

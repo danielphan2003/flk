@@ -29,6 +29,7 @@ in
     "L /home/danie/docs - - - - /mnt/danie/Documents"
     "L /home/danie/dl - - - - /mnt/danie/Downloads"
     "L /home/danie/mus - - - - /mnt/danie/Music"
+    "L /home/danie/games - - - - /mnt/danie/Games"
     "L /home/danie/pics - - - - /mnt/danie/Pictures"
   ];
 
