@@ -35,7 +35,7 @@ in {
   ];
 
   commands = with pkgs; [
-    (devos (bud {inherit pkgs;}) )
+    (devos (bud {inherit pkgs;}))
     (devos nixUnstable)
     (devos agenix)
     {

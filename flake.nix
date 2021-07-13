@@ -8,6 +8,7 @@
       latest.url = "nixpkgs";
       digga = {
         url = "github:divnix/digga/develop";
+        inputs.nixos-generators.follows = "latest";
         inputs.nixpkgs.follows = "latest";
         inputs.deploy.follows = "deploy";
       };
@@ -224,7 +225,7 @@
     }
     //
     {
-      budModules = { devos = import ./pkgs/shell/bud; };
+      budModules = { devos = import ./pkgs/shells/bud; };
     }
   ;
 }
