@@ -87,6 +87,10 @@ fetch.github = "Ma27/nix-zsh-completions"
 src.git = "https://github.com/yshui/picom"
 fetch.github = "yshui/picom"
 
+[plymouth-themes]
+src.git = "https://github.com/adi1090x/plymouth-themes"
+fetch.github = "adi1090x/plymouth-themes"
+
 [pure]
 src.git = "https://github.com/sindresorhus/pure"
 fetch.github = "sindresorhus/pure"
@@ -154,6 +158,10 @@ fetch.github = "ChimeraOS/steamos-compositor-plus"
 [sway-borders]
 src.git = "https://github.com/fluix-dev/sway-borders"
 fetch.github = "fluix-dev/sway-borders"
+
+[swaylock-effects]
+src.git = "https://github.com/mortie/swaylock-effects"
+fetch.github = "mortie/swaylock-effects"
 
 [ventoy]
 src.manual = "1.0.46"

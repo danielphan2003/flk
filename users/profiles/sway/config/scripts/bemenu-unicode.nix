@@ -1,11 +1,10 @@
-{ bash, coreutils, writeScript
+{ coreutils, writeShellScript
 , libnotify, ydotool
 , sway, waylandPkgs, bemenu-run
 , unicode-emoji
 }:
 let inherit (waylandPkgs) wl-clipboard;
-in writeScript "bemenu-unicode.sh" ''
-  #!/usr/bin/env ${bash}/bin/bash
+in writeShellScript "bemenu-unicode.sh" ''
 
   # Original from Luke Smith:
   # https://github.com/LukeSmithxyz/voidrice/blob/master/.local/bin/dmenuunicode

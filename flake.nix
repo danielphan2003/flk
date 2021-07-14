@@ -22,7 +22,7 @@
       };
       darwin.url = "github:LnL7/nix-darwin";
       darwin.inputs.nixpkgs.follows = "latest";
-      home.url = "github:nix-community/home-manager/d370447";
+      home.url = "github:nix-community/home-manager/release-21.05";
       home.inputs.nixpkgs.follows = "nixos-21_05";
       naersk.url = "github:nmattia/naersk";
       naersk.inputs.nixpkgs.follows = "latest";
@@ -151,7 +151,7 @@
 
             play = graphics ++ [
               # graphical.games
-              network.torrent
+              # network.torrent
               network.chromecast
               misc.disable-mitigations
             ];
@@ -201,18 +201,7 @@
         };
       };
 
-      devshell.externalModules = { pkgs, ... }: {
-        commands = [
-          { package = pkgs.agenix; category = "secrets"; }
-          {
-            name = pkgs.nvfetcher-bin.pname;
-            help = pkgs.nvfetcher-bin.meta.description;
-            command = "cd $DEVSHELL_ROOT/pkgs; ${pkgs.nvfetcher-bin}/bin/nvfetcher -c ./sources.toml --no-output $@; nixpkgs-fmt _sources/";
-          }
-        ];
-      };
-
-      # devshell.modules = [ (import ./shell bud') ];
+      devshell.modules = [ (import ./shell bud') ];
 
       homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
 

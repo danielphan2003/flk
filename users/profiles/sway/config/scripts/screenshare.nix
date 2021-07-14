@@ -1,10 +1,9 @@
-{ bash, coreutils, writeScript
+{ coreutils, writeShellScript
 , sway, waylandPkgs
 , jq, ffmpeg, libnotify, procps
 }:
 let inherit (waylandPkgs) wf-recorder slurp;
-in writeScript "screenshare.sh" ''
-  #!/usr/bin/env ${bash}/bin/bash
+in writeShellScript "screenshare.sh" ''
 
   ## Starts, stops and shows status for screensharing
 

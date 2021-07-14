@@ -1,11 +1,10 @@
 { suites, pkgs, config, lib, hardware, self, ... }:
 let
-  inherit (lib) concatMapStrings mkAfter toUpper;
+  inherit (lib) toUpper;
   inherit (builtins) attrValues readFile toString;
   inherit (config.networking) hostName;
 
   ip = "192.168.1.2";
-  persistPath = config.boot.persistence.path;
   caddyTemplate = readFile ./Caddyfile;
 in
 {
@@ -90,8 +89,6 @@ in
   # Enable GPU acceleration
   hardware.raspberry-pi."4".fkms-3d.enable = true;
 
-  hardware.enableRedistributableFirmware = true;
-
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "Asia/Ho_Chi_Minh";
 
@@ -110,12 +107,10 @@ in
       "broadcom"
       "mdio_bcm_unimac"
       "genet"
-      "vc4"
       "bcm2835_dma"
       "i2c_bcm2835"
       "xhci_pci"
       "nvme"
-      "usb_storage"
       "sd_mod"
       "algif_skcipher"
       "xchacha20"
@@ -125,16 +120,31 @@ in
       "dm-crypt"
       "uas" # necessary for my UAS-enabled NVME-USB adapter
     ];
+
     initrd.supportedFilesystems = [ "btrfs" ];
+
     kernelModules = config.boot.initrd.availableKernelModules;
+
     supportedFilesystems = [ "btrfs" "ntfs" ];
+
+    persistence.path = "/persist";
   };
 
-  services.btrfs.autoScrub.enable = true;
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = [ "/persist" ];
+  };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/boot";
-    fsType = "vfat";
+  fileSystems = {
+    "/boot" = {
+      device = "/dev/disk/by-label/boot";
+      fsType = "vfat";
+    };
+    "/persist" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [ "subvol=persist" "compress=zstd" "noatime" ];
+    };
   };
 
   swapDevices =

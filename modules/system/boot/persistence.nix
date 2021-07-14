@@ -72,9 +72,6 @@ in
       # Once we're done rolling back to a blank snapshot,
       # we can unmount /mnt and continue on the boot process.
       umount /mnt
-      # mkdir -p /persist /etc/ssh
-      # mount -o subvol=persist,compress=zstd,noatime /dev/mapper/system /persist
-      # mount --bind /etc/ssh /persist/etc/ssh
     '';
   };
 

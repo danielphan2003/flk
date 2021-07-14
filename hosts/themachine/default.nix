@@ -84,12 +84,16 @@ in
       enable = true;
       theme = "breeze";
       themePackages = with pkgs; [ libsForQt5.breeze-plymouth ];
+      # theme = "hexagon_dots_alt"; # "connect";
+      # themePackages = [ (pkgs.plymouth-themes.override { inherit (config.boot.plymouth) theme; }) ];
     };
+
+    persistence.path = "/persist";
   };
 
   services.btrfs.autoScrub = {
     enable = true;
-    fileSystems = [ "/mnt/cubum" "/mnt/danie" ];
+    fileSystems = [ "/mnt/cubum" "/mnt/danie" "/persist" ];
   };
 
   fileSystems = {
@@ -106,6 +110,11 @@ in
       device = "/dev/disk/by-label/dandrive";
       fsType = "btrfs";
       options = [ "subvol=danie" "compress=zstd" "nossd" ];
+    };
+    "/persist" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [ "subvol=persist" "compress=zstd" "noatime" ];
     };
   };
 

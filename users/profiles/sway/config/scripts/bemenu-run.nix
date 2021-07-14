@@ -1,6 +1,5 @@
-{ bash, writeScriptBin, bemenu, sway, jq }:
-writeScriptBin "bemenu-run.sh" ''
-  #!/usr/bin/env ${bash}/bin/bash
+{ writeShellScript, bemenu, sway, jq }:
+writeShellScript "bemenu-run.sh" ''
 
   if [ -f "$HOME/.cache/wal/colors.sh" ]; then
     source $HOME/.cache/wal/colors.sh

@@ -1,4 +1,4 @@
-{ lib, coreutils, bash, writeScript
+{ lib, coreutils, writeShellScript
 , feh, procps, util-linux, libnotify
 , pywalfox, pywal, sway, waylandPkgs
 , backgroundDir, colors
@@ -15,8 +15,7 @@ let
     "client.placeholder ${colorSetStr colors.placeholder}"
     "client.background ${colors.background}"
   ];
-in writeScript "wal-set.sh" ''
-  #!/usr/bin/env ${bash}/bin/bash
+in writeShellScript "wal-set.sh" ''
 
   export swaySocket=''${XDG_RUNTIME_DIR:-/run/user/$UID}/sway-ipc.$UID.$(${procps}/bin/pgrep -x sway || ${coreutils}/bin/true).sock
 

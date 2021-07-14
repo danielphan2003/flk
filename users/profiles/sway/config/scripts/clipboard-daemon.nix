@@ -1,7 +1,6 @@
-{ bash, writeScript, ts, libnotify, waylandPkgs }:
+{ writeShellScript, ts, libnotify, waylandPkgs }:
 let inherit (waylandPkgs) wl-clipboard clipman;
-in writeScript "clipboard-daemon.sh" ''
-  #!/usr/bin/env ${bash}/bin/bash
+in writeShellScript "clipboard-daemon.sh" ''
 
   export XDG_RUNTIME_DIR=/run/user/`id -u`
   export WAYLAND_DISPLAY=wayland-1

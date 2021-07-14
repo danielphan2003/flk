@@ -267,6 +267,19 @@
     };
 
   };
+  plymouth-themes = {
+    pname = "plymouth-themes";
+    version = "bf2f570bee8e84c5c20caac353cbe1d811a4745f";
+    src = fetchgit {
+      url = "https://github.com/adi1090x/plymouth-themes";
+      rev = "bf2f570bee8e84c5c20caac353cbe1d811a4745f";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0scgba00f6by08hb14wrz26qcbcysym69mdlv913mhm3rc1szlal";
+    };
+
+  };
   pure = {
     pname = "pure";
     version = "f4c6d79ba2417d63c8008b6acce628631fd462ec";
@@ -452,6 +465,19 @@
       deepClone = false;
       leaveDotGit = false;
       sha256 = "03rzrw710sv9vbl3fhh70n5ypg4jbc7p01p0ys4q1wil1ss7ffj1";
+    };
+
+  };
+  swaylock-effects = {
+    pname = "swaylock-effects";
+    version = "5cb9579faaf5662b111f5722311b701eff1c1d00";
+    src = fetchgit {
+      url = "https://github.com/mortie/swaylock-effects";
+      rev = "5cb9579faaf5662b111f5722311b701eff1c1d00";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "036dkhfqgk7g9vbr5pxgrs66h5fz0rwdsc67i1w51aa9v01r35ca";
     };
 
   };

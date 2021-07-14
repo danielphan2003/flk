@@ -14,17 +14,6 @@ channels: final: prev: {
     teamviewer
   ;
 
-  inherit (channels.anbox)
-    anbox
-    anbox-postmarketos-image
-    buildLinux
-    lxc
-  ;
-
-  kernelPackages = channels.nixos.kernelPackages // {
-    inherit (channels.anbox.kernelPackages) anbox;
-  };
-
   haskellPackages = prev.haskellPackages.override
     (old: {
       overrides = prev.lib.composeExtensions (old.overrides or (_: _: { })) (hfinal: hprev:

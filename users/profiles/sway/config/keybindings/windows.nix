@@ -23,7 +23,7 @@
   "${mod}+Shift+Right"  = "move right";
 
   "${mod}+b" = "splith";
-  "${mod}+v" = "splitv";
+  "${mod}+c" = "splitv";
   "${mod}+f" = "fullscreen toggle";
   "${mod}+a" = "focus parent";
 

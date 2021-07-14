@@ -1,6 +1,4 @@
-{ pkgs, config, lib, self, ... }:
-let inherit (config.boot.persistence) enable path; in
-{
+{ pkgs, config, lib, self, ... }: {
   age.secrets.bitwarden.file = "${self}/secrets/bitwarden.age";
 
   services.bitwarden_rs = {
@@ -61,17 +59,4 @@ let inherit (config.boot.persistence) enable path; in
       dateformat "-%Y-%m-%d-%s"
     '';
   };
-
-  environment.persistence."${path}" = lib.mkIf enable {
-    directories = [
-      "/var/lib/bitwarden_rs/attachments"
-      "/var/lib/bitwarden_rs/icon_cache"
-    ];
-  };
-
-  systemd.tmpfiles.rules = lib.mkIf enable [
-    "L /var/lib/bitwarden_rs/rsa_key.der - - - - ${path}/var/lib/bitwarden_rs/rsa_key.der"
-    "L /var/lib/bitwarden_rs/rsa_key.pem - - - - ${path}/var/lib/bitwarden_rs/rsa_key.pem"
-    "L /var/lib/bitwarden_rs/rsa_key.pub.der - - - - ${path}/var/lib/bitwarden_rs/rsa_key.pub.der"
-  ];
 }

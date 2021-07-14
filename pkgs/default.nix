@@ -61,4 +61,6 @@ final: prev: {
   };
 
   avizo = final.callPackage ./applications/misc/avizo { };
+
+  plymouth-themes = final.callPackage ./data/misc/plymouth-themes { };
 }

@@ -1,6 +1,5 @@
-{ bash, writeScript, bemenu-run, screenshare }:
-writeScript "bemenu-screenshare.sh" ''
-  #!/usr/bin/env ${bash}/bin/bash
+{ writeShellScript, bemenu-run, screenshare }:
+writeShellScript "bemenu-screenshare.sh" ''
 
   ## Shows a dropdown menu to start, stop or view the status of screensharing
 
