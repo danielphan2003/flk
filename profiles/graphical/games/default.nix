@@ -5,9 +5,10 @@ in
   imports = [ ./udev.nix ];
   environment.systemPackages = attrValues {
     inherit (pkgs)
-      retroarchBare
+      multimc
       #pcsx2
       qjoypad
+      retroarchBare
       ;
   };
 
@@ -18,12 +19,10 @@ in
 
   # Launch steam from display managers
   # services.xserver.windowManager.steam = { enable = true; };
-  # programs.steam.enable = true;
+  programs.steam.enable = true;
 
   # 32-bit support needed for steam
   hardware.opengl.driSupport32Bit = true;
-  # services.pipewire.alsa.support32Bit = true;
-  # hardware.pulseaudio.support32Bit = true;
   services.pipewire.alsa.support32Bit = true;
 
   # better for steam proton games

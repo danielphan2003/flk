@@ -167,11 +167,6 @@ fetch.github = "mortie/swaylock-effects"
 src.manual = "1.0.46"
 fetch.url = "https://github.com/ventoy/Ventoy/releases/download/v$ver/ventoy-$ver-linux.tar.gz"
 
-[waybar]
-src.git = "https://github.com/tiosgz/Waybar"
-src.branch = "multi-bar-fix"
-fetch.github = "tiosgz/Waybar"
-
 [whitesur-gtk-theme]
 src.git = "https://github.com/vinceliuice/whitesur-gtk-theme"
 fetch.github = "vinceliuice/whitesur-gtk-theme"

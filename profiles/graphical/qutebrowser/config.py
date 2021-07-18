@@ -265,7 +265,6 @@ for mode in\
     config.bind('<Alt+j>', 'leave-mode', mode=mode)
 
 # Bindings for normal mode
-config.bind(',p', 'spawn --userscript qute-pass -M gopass')
 config.bind(',P', 'set-cmd-text -s :open -p')
 config.bind(',r', 'restart')
 config.bind(',c', 'config-source')

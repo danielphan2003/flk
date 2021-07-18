@@ -43,7 +43,7 @@ in
 
   environment = {
     pathsToLink = [ "/libexec" ];
-    systemPackages = attrValues {
+    systemPackages = attrValues ({
       # gnome and cinnamon
       inherit (pkgs.gnome) file-roller gvfs nautilus networkmanagerapplet;
       inherit (pkgs.cinnamon) nemo;
@@ -76,11 +76,8 @@ in
         xsel
 
         # nice touch
-        etcher
         gparted
-        microsoft-edge-beta
         maim
-        scrcpy
         trash-cli
         youtube-dl
 
@@ -96,14 +93,30 @@ in
         dzen2
         imlib2
         librsvg
-        leonflix
         woeusb
         zathura
-
-        # stuffs I wish I could delete
-        zoom-us
-      ;
-    };
+        ;
+    }
+    //
+    (if pkgs.system == "x86_64-linux"
+    then
+      {
+        inherit (pkgs)
+          etcher
+          leonflix
+          microsoft-edge-beta
+          # I wish I could delete zoom
+          zoom-us
+          ;
+      }
+    else
+      {
+        inherit (pkgs)
+          gnufdisk
+          anup
+          jitsi-meet
+          ;
+      }));
   };
 
   services.dbus.enable = true;
@@ -130,7 +143,7 @@ in
   };
 
   services.cron.systemCronJobs = [
-    "*/20 * * * *      danie      $HOME/.local/bin/wal-set >> $HOME/.cache/wal-set.log" 
+    "*/20 * * * *      danie      $HOME/.local/bin/wal-set >> $HOME/.cache/wal-set.log"
   ];
 
   i18n.inputMethod = {

@@ -22,12 +22,11 @@ in
       less
       lldb
       ncdu
-      gopass
       rsync
       tig
       tokei
       rnix-lsp
-    ;
+      ;
   };
 
   fonts = {
@@ -40,7 +39,7 @@ in
         nerdfonts
         otf-apple
         twitter-color-emoji
-      ;
+        ;
     };
     fontconfig.enable = lib.mkForce true;
     fontconfig.defaultFonts = {

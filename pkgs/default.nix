@@ -20,7 +20,7 @@ final: prev: {
 
   otf-apple = final.callPackage ./data/fonts/otf-apple { };
 
-  ventoy = final.callPackage ./tools/file-systems/ventoy { };
+  # ventoy = final.callPackage ./tools/file-systems/ventoy { };
 
   leonflix = final.callPackage ./applications/video/leonflix { };
 

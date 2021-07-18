@@ -72,7 +72,6 @@ in
 
       rz = "exec zsh";
       v = "$EDITOR";
-      pass = "gopass";
     };
 
     systemPackages = attrValues {

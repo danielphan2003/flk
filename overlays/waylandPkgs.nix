@@ -7,10 +7,6 @@ final: prev: {
       inherit (prev.sources.sway-borders) pname version src;
     });
 
-    waybar = prev.waylandPkgs.waybar.overrideAttrs (_: rec {
-      inherit (prev.sources.waybar) pname version src;
-    });
-    
   };
 
   swaylock-effects = prev.swaylock-effects.overrideAttrs (_: rec {

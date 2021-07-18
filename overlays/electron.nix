@@ -6,7 +6,7 @@ let
     signal-desktop
     electron
     vscodium
-  ;
+    ;
 
   enableWayland = true;
 
@@ -24,38 +24,22 @@ let
   ]) ++ extraOptions;
 
   flagsCommand = prev.lib.concatStringsSep " " flags;
+
+  patchElectron = bin: ''
+    substituteInPlace ${bin} \
+      --replace '"$@"' '${flagsCommand} "$@"'
+  '';
 in
 {
+
   element-desktop = element-desktop.override { electron = final.electron; };
 
-  discord-canary = discord-canary.overrideAttrs (_: {
-    postFixup = ''
-      substituteInPlace $out/bin/discordcanary \
-        --replace '"$@"' '${flagsCommand} "$@"'
-    '';
-  });
+  discord-canary = discord-canary.overrideAttrs (_: { postFixup = patchElectron "$out/bin/discordcanary"; });
 
-  signal-desktop = signal-desktop.overrideAttrs (o: {
-    postFixup = ''
-      ${o.postFixup}
-      substituteInPlace $out/bin/signal-desktop-unwrapped \
-        --replace '"$@"' '${flagsCommand} "$@"'
-    '';
-  });
+  signal-desktop = signal-desktop.overrideAttrs (o: { postFixup = o.postFixup + patchElectron "$out/bin/signal-desktop-unwrapped"; });
 
-  electron = electron.overrideAttrs (o: {
-    postFixup = ''
-      ${o.postFixup}
-      # Create electron wrapper
-      substituteInPlace $out/lib/electron/electron \
-        --replace '"$@"' '${flagsCommand} "$@"'
-    '';
-  });
+  electron = electron.overrideAttrs (o: { postFixup = o.postFixup + patchElectron "$out/lib/electron/electron"; });
 
-  vscodium = vscodium.overrideAttrs (_: {
-    postInstall = ''
-      substituteInPlace $out/bin/codium \
-        --replace '"$@"' '${flagsCommand} "$@"'
-    '';
-  });
+  vscodium = vscodium.overrideAttrs (_: { postInstall = patchElectron "$out/bin/codium"; });
+
 }

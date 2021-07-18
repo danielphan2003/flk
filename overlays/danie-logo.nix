@@ -1,7 +1,7 @@
 final: prev: {
   danie-logo = prev.stdenv.mkDerivation rec {
     name = "danie-logo";
-    src = ../users/danie/logo.png;
+    src = ../home/users/danie/logo.png;
     dontUnpack = true;
     installPhase = ''
       mkdir -p $out/share/sddm/faces
