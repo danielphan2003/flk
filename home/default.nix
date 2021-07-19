@@ -49,6 +49,7 @@ in
         programs.git = {
           userEmail = "alita@pik2.duckdns.org";
           userName = "Alita";
+          signing.signByDefault = false;
         };
       };
 

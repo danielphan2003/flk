@@ -9,7 +9,7 @@
       init.defaultBranch = "main";
     };
 
-    signing.signByDefault = true;
+    signing.signByDefault = lib.mkDefault true;
 
     aliases = {
       a = "add -p";
