@@ -39,7 +39,10 @@ in
         programs.git = {
           userEmail = "danielphan.2003@gmail.com";
           userName = "Daniel Phan";
-          signing.key = gpgKey;
+          signing = {
+            key = gpgKey;
+            signByDefault = true;
+          };
         };
       };
 
@@ -49,7 +52,6 @@ in
         programs.git = {
           userEmail = "alita@pik2.duckdns.org";
           userName = "Alita";
-          signing.signByDefault = false;
         };
       };
 
