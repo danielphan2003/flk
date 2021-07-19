@@ -28,6 +28,7 @@ in
 
       # wm-independent
       avizo
+      # paper
       wmctrl
 
       # misc
@@ -73,18 +74,31 @@ in
   systemd.user.services.avizo = {
     Unit = {
       Description = "avizo volume notification";
-      After = [ "graphical-session-pre.target" ];
       PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
     };
 
     Service = {
       ExecStart = "${pkgs.avizo}/bin/avizo-service";
     };
 
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
+    Install = { WantedBy = [ "graphical-session.target" ]; };
   };
+
+  # systemd.user.services.paper = {
+  #   Unit = {
+  #     Description = "paper wallpaper daemon";
+  #     PartOf = [ "graphical-session.target" ];
+  #     After = [ "graphical-session.target" ];
+  #   };
+
+  #   Service = {
+  #     ExecStart = "${pkgs.paper}/bin/paper";
+  #     Restart = "on-failure";
+  #   };
+
+  #   Install = { WantedBy = [ "graphical-session.target" ]; };
+  # };
 
   wayland.windowManager.sway = {
     enable = true;

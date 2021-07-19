@@ -12,7 +12,6 @@
       leaveDotGit = false;
       sha256 = "0q27rhjhh7k0qgcdcfm8ly5za6wm4rckh633d0sjz87faffkp90k";
     };
-
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
@@ -25,7 +24,6 @@
       leaveDotGit = false;
       sha256 = "19mgz74cz9bl3vffcl9f351qbzwdjd5qmkqacd0brk9kvnbvmvp3";
     };
-
   };
   avizo = {
     pname = "avizo";
@@ -38,7 +36,6 @@
       leaveDotGit = false;
       sha256 = "11sr6ckvrsv6f29ja6f20xw4j1ml2y01mfg2yrsxin7n0641s44b";
     };
-
   };
   awesome = {
     pname = "awesome";
@@ -51,7 +48,6 @@
       leaveDotGit = false;
       sha256 = "1bcbxsiydlz439af6dq69z8g7rca4jganlz65f3ajrlgqknk86cq";
     };
-
   };
   awestore = {
     pname = "awestore";
@@ -64,20 +60,18 @@
       leaveDotGit = false;
       sha256 = "1sirj1cy38v3sg673wy0yphk0vk19qhlzavp53bjf2jvzq8jdqsn";
     };
-
   };
   bling = {
     pname = "bling";
-    version = "921d386b47a23e44509631b772670bb68de6164a";
+    version = "9104455fff48fa80aaa5425d50fbb3b7ad2e7cdd";
     src = fetchgit {
       url = "https://github.com/BlingCorp/bling";
-      rev = "921d386b47a23e44509631b772670bb68de6164a";
+      rev = "9104455fff48fa80aaa5425d50fbb3b7ad2e7cdd";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1nrg1rfgvqsz3dqky65kfam11hcsslj7zkr7rmwl0824xs7s8b7r";
+      sha256 = "09r1njzz8qghr0py0sypygrqw77qg9r3grp67jc8w2y954mhwznh";
     };
-
   };
   caddy = {
     pname = "caddy";
@@ -90,7 +84,6 @@
       leaveDotGit = false;
       sha256 = "0bs92d2y28q8jxvrxd87b7icq06794k5idm1qmh0xqn9f7la0zqv";
     };
-
   };
   cups-pdf = {
     pname = "cups-pdf";
@@ -99,7 +92,6 @@
       sha256 = "0ccmm9crrm07nqzn4aikbys2bflkgzc044j1bvz6j53zzznnk1kk";
       url = "https://www.cups-pdf.de/src/cups-pdf_3.0.1.tar.gz";
     };
-
   };
   dribbblish-dynamic-theme = {
     pname = "dribbblish-dynamic-theme";
@@ -112,7 +104,6 @@
       leaveDotGit = false;
       sha256 = "164f3bc6hkx5grzvqs3j44ng7v3g6ajc7nkz8insl06z3l002jaj";
     };
-
   };
   droidcam = {
     pname = "droidcam";
@@ -125,7 +116,6 @@
       leaveDotGit = false;
       sha256 = "1filw83mslg1anfw43bl5nd81l8fr2rnf4sg868wqrilbcgsppbi";
     };
-
   };
   flyingfox = {
     pname = "flyingfox";
@@ -138,7 +128,6 @@
       leaveDotGit = false;
       sha256 = "0z6q2953cbxngnzbpd0map2r89dywg3xjagav1qzzbpkyqck32w9";
     };
-
   };
   ibus-bamboo = {
     pname = "ibus-bamboo";
@@ -151,20 +140,18 @@
       leaveDotGit = false;
       sha256 = "0ra548xlnmf1fdxah23ic5gbdmfdky41piramzfpgmhafxfggz8p";
     };
-
   };
   layout-machi = {
     pname = "layout-machi";
-    version = "7f5b0b17a5e56ec3ad58d5b7ba33bda0ee38ddc1";
+    version = "5cee31af77493a67516ca27252c3d931efbfcac7";
     src = fetchgit {
       url = "https://github.com/xinhaoyuan/layout-machi";
-      rev = "7f5b0b17a5e56ec3ad58d5b7ba33bda0ee38ddc1";
+      rev = "5cee31af77493a67516ca27252c3d931efbfcac7";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "11r9hh79xg8c0kaa8j3qmni9qsi59sm1rs1smy5k2ll0iy8zpw7w";
+      sha256 = "1a9rfhfd4gw7nhcxm873vhanbcgqshq9wjnrpz908jxpk4bw64b3";
     };
-
   };
   leonflix = {
     pname = "leonflix";
@@ -173,7 +160,6 @@
       sha256 = "0bhyccmd4217p2ndh12lz4dy4cjhgvkm4ml5r32nhxgxycw3r28n";
       url = "https://leonflix.net/downloads/Leonflix.AppImage";
     };
-
   };
   libinih = {
     pname = "libinih";
@@ -186,7 +172,6 @@
       leaveDotGit = false;
       sha256 = "0dqf5j2sw4hq68rqvxbrsf44ygfzx9ypiyzipk4cvp9aimbvsbc6";
     };
-
   };
   lua-pam = {
     pname = "lua-pam";
@@ -199,7 +184,6 @@
       leaveDotGit = false;
       sha256 = "0g5n055gj2ii1pxjfykn3xr0q9knl4hbk0irylsip0r6r76jhz9a";
     };
-
   };
   manix = {
     pname = "manix";
@@ -212,25 +196,22 @@
       leaveDotGit = false;
       sha256 = "1b7xi8c2drbwzfz70czddc4j33s7g1alirv12dwl91hbqxifx8qs";
     };
-
   };
   microsoft-edge-beta = {
     pname = "microsoft-edge-beta";
-    version = "92.0.902.45";
+    version = "92.0.902.49";
     src = fetchurl {
-      sha256 = "0384hscys7p795a6pc0w4qxxvgh3pjr56lwgwj8xrr9blx4alcl4";
-      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_92.0.902.45-1_amd64.deb";
+      sha256 = "1gbnlyy8qpl7asjyfp3qbr74ai4a8aw0abm5620dxkli395ny8v2";
+      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_92.0.902.49-1_amd64.deb";
     };
-
   };
   microsoft-edge-dev = {
     pname = "microsoft-edge-dev";
-    version = "93.0.933.1";
+    version = "93.0.946.1";
     src = fetchurl {
-      sha256 = "0bn7r163dg3lh7y67mkijqiz8b387bfms4knizaa80j7y432f645";
-      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_93.0.933.1-1_amd64.deb";
+      sha256 = "10nhbzmxxgpyag6faziss4s90hk9spm2ckfsavypkj01y62zr6md";
+      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_93.0.946.1-1_amd64.deb";
     };
-
   };
   nix-zsh-completions = {
     pname = "nix-zsh-completions";
@@ -243,7 +224,6 @@
       leaveDotGit = false;
       sha256 = "16r0l7c1jp492977p8k6fcw2jgp6r43r85p6n3n1a53ym7kjhs2d";
     };
-
   };
   ny-font = {
     pname = "ny-font";
@@ -252,20 +232,36 @@
       sha256 = "1cpk6ysrj346wmm89kd35w2fv8y5z136948fll06ib3mxh1gljp4";
       url = "https://devimages-cdn.apple.com/design/resources/download/NY.dmg";
     };
-
   };
-  picom = {
-    pname = "picom";
-    version = "fd381dacff5c755b43effba441fb5706a0f378a4";
+  paper = {
+    pname = "paper";
+    version = "d6df912618ce751dcfeac96b905865d954babbc6";
     src = fetchgit {
-      url = "https://github.com/yshui/picom";
-      rev = "fd381dacff5c755b43effba441fb5706a0f378a4";
+      url = "https://gitlab.com/snakedye/paper.git";
+      rev = "d6df912618ce751dcfeac96b905865d954babbc6";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0vxl0fqimrw2587g6nw73wl4xflsrp10kga9fjvkcx985r130ccx";
+      sha256 = "0mb84vkvnfmw071mgnryvgpvyckvs2421pssblb491rv4fqaw180";
     };
-
+    cargoLock = {
+      lockFile = ./paper-d6df912618ce751dcfeac96b905865d954babbc6/Cargo.lock;
+      outputHashes = {
+        "snui-0.1.0" = "1fkcjj4121gbl6xsmhqb02cbvwqdfl3l9q7bnivl817v88pgs69f";
+      };
+    };
+  };
+  picom = {
+    pname = "picom";
+    version = "057a939431a5e856d001a5b2be9b9ba86738e829";
+    src = fetchgit {
+      url = "https://github.com/yshui/picom";
+      rev = "057a939431a5e856d001a5b2be9b9ba86738e829";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "01apbg9z4195623j5pi2xrc0aqaffkxpkrf8j53rbyi5xlg9i5gx";
+    };
   };
   plymouth-themes = {
     pname = "plymouth-themes";
@@ -278,7 +274,6 @@
       leaveDotGit = false;
       sha256 = "0scgba00f6by08hb14wrz26qcbcysym69mdlv913mhm3rc1szlal";
     };
-
   };
   pure = {
     pname = "pure";
@@ -291,7 +286,6 @@
       leaveDotGit = false;
       sha256 = "0qfs7rvpyd8jb7x4ziqrkh0b6g9ldds8sn6qbqgrir80vdk90gpa";
     };
-
   };
   pywalfox = {
     pname = "pywalfox";
@@ -300,7 +294,6 @@
       sha256 = "0rpdh1k4b37n0gcclr980vz9pw3ihhyy0d0nh3xp959q4xz3vrsr";
       url = "https://pypi.io/packages/source/p/pywalfox/pywalfox-2.7.4.tar.gz";
     };
-
   };
   rainfox = {
     pname = "rainfox";
@@ -313,7 +306,6 @@
       leaveDotGit = false;
       sha256 = "1g39n3gzqq4hgic3w4n20fs8cz4a855scbnmah8pypz3amsnqzr5";
     };
-
   };
   redshift = {
     pname = "redshift";
@@ -326,20 +318,18 @@
       leaveDotGit = false;
       sha256 = "0nbkcw3avmzjg1jr1g9yfpm80kzisy55idl09b6wvzv2sz27n957";
     };
-
   };
   retroarch = {
     pname = "retroarch";
-    version = "3bc06b0d571e8487ffb56a19318f96958fa50502";
+    version = "e5bbd9488f80694afdf40c19bedf492569f8d4f3";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "3bc06b0d571e8487ffb56a19318f96958fa50502";
+      rev = "e5bbd9488f80694afdf40c19bedf492569f8d4f3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "022vjrggjif5lqgizj3m0s2kkk1df2sxs4pvhanld45jm7pkqx1i";
+      sha256 = "0lqfrqydy2a66jd5vm8cfv7amvw8cf6wmay2pr9hfhjjy47q3d8r";
     };
-
   };
   rnix-lsp = {
     pname = "rnix-lsp";
@@ -352,7 +342,10 @@
       leaveDotGit = false;
       sha256 = "0g7562v9hz97x0fmg5d9rw57vls0d7m3kzc9ypys97y2sqy14w4f";
     };
-
+    cargoLock = {
+      lockFile = ./rnix-lsp-55838bd432a7f4c79a33464bf76c73886226d38c/Cargo.lock;
+      outputHashes = { };
+    };
   };
   sddm-chili = {
     pname = "sddm-chili";
@@ -365,7 +358,6 @@
       leaveDotGit = false;
       sha256 = "036fxsa7m8ymmp3p40z671z163y6fcsa9a641lrxdrw225ssq5f3";
     };
-
   };
   sf-font-compact = {
     pname = "sf-font-compact";
@@ -374,7 +366,6 @@
       sha256 = "1wklslljf8pz3aj2lyzrnqmqyydgdwmn5ywnpssrb2r4fkb7swak";
       url = "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg";
     };
-
   };
   sf-font-pro = {
     pname = "sf-font-pro";
@@ -383,7 +374,6 @@
       sha256 = "1wy3v2c87cpd9w333w78s6nn7fl5cnbsv8wff01xml6m3wgl7brz";
       url = "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
     };
-
   };
   sf-mono = {
     pname = "sf-mono";
@@ -392,7 +382,6 @@
       sha256 = "04gznp6ynn2p67a1lgb5zgs5j4v6gcz8xh94p6f2yzbr23iih1gc";
       url = "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg";
     };
-
   };
   spicetify-cli = {
     pname = "spicetify-cli";
@@ -405,7 +394,6 @@
       leaveDotGit = false;
       sha256 = "00v0f2hxa8mxdpgf3y53dc9cfgp63cx4bcqsh69m6cs76hsmz7rn";
     };
-
   };
   spicetify-cli-v1 = {
     pname = "spicetify-cli-v1";
@@ -418,20 +406,18 @@
       leaveDotGit = false;
       sha256 = "1sp482rfwxqgb3mi9m84bjk9cakvc1l7gr498d80vz56z9l8a10w";
     };
-
   };
   spicetify-themes = {
     pname = "spicetify-themes";
-    version = "f3daef1d1fae1dfff3c0486e8b6fdc554dca69d6";
+    version = "691a069fe03933695abadaa53ae5c624564ad5b6";
     src = fetchgit {
       url = "https://github.com/morpheusthewhite/spicetify-themes";
-      rev = "f3daef1d1fae1dfff3c0486e8b6fdc554dca69d6";
+      rev = "691a069fe03933695abadaa53ae5c624564ad5b6";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0km6a3fp7y1b7m5s4504ig5kn3fmn8j33dzyp3piw2f1m36j4z4z";
+      sha256 = "0w3wgfiwq00yr2iam7bx7a7ai7s5fvlvril8gl2g7v84i20cadis";
     };
-
   };
   spotify = {
     pname = "spotify";
@@ -440,7 +426,6 @@
       sha256 = "1rghjxj0y0wnmyzbdd2dp7z2skhp153qnl8cqp309gsxx1iiwv5c";
       url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_47.snap";
     };
-
   };
   steamcompmgr = {
     pname = "steamcompmgr";
@@ -453,20 +438,18 @@
       leaveDotGit = false;
       sha256 = "0pn5phqv4a2vhmslfcidhrjxwx2yih7bfsavxgqs6a4m5hqbmmd6";
     };
-
   };
   sway-borders = {
     pname = "sway-borders";
-    version = "72d4033bc803a786987cc0b9c58da964513d77ba";
+    version = "c28185ab0603a3c82778797d158b391f843e3537";
     src = fetchgit {
       url = "https://github.com/fluix-dev/sway-borders";
-      rev = "72d4033bc803a786987cc0b9c58da964513d77ba";
+      rev = "c28185ab0603a3c82778797d158b391f843e3537";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "03rzrw710sv9vbl3fhh70n5ypg4jbc7p01p0ys4q1wil1ss7ffj1";
+      sha256 = "10bcknyp3drdqgfpimka1sj0cljxifp32j4dddq4s8s4v8d1dbjh";
     };
-
   };
   swaylock-effects = {
     pname = "swaylock-effects";
@@ -479,7 +462,6 @@
       leaveDotGit = false;
       sha256 = "036dkhfqgk7g9vbr5pxgrs66h5fz0rwdsc67i1w51aa9v01r35ca";
     };
-
   };
   ventoy = {
     pname = "ventoy";
@@ -488,46 +470,30 @@
       sha256 = "1gn4a5j57fwbs3afsv7vmm71kkism6r0rhmngffgk3j1j3lk450p";
       url = "https://github.com/ventoy/Ventoy/releases/download/v1.0.46/ventoy-1.0.46-linux.tar.gz";
     };
-
-  };
-  waybar = {
-    pname = "waybar";
-    version = "78aaa5c1b448dc3d744cd6e8cc1a5ee466774107";
-    src = fetchgit {
-      url = "https://github.com/tiosgz/Waybar";
-      rev = "78aaa5c1b448dc3d744cd6e8cc1a5ee466774107";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "0sy3ixjgz4riqakjv4wckl5vp6cbjnad05cjwkyld54s8ykfvsjl";
-    };
-
   };
   whitesur-gtk-theme = {
     pname = "whitesur-gtk-theme";
-    version = "d32b9e2190edf6ebe186d5bb0657e7cadd469ee2";
+    version = "3f0490ab7affe106445ae269c4597d6327f1aa9c";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-gtk-theme";
-      rev = "d32b9e2190edf6ebe186d5bb0657e7cadd469ee2";
+      rev = "3f0490ab7affe106445ae269c4597d6327f1aa9c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0951i7v9axpw18sb0xarrnn3vxkj0hhkxh1h5x1csyshpngzl0c6";
+      sha256 = "0qqdrkw7qjbl1sy9v94ynv02drp70y114hxbpa4ak2kl3ww4xyya";
     };
-
   };
   whitesur-icon-theme = {
     pname = "whitesur-icon-theme";
-    version = "e41a6378590a9d57a6adfc6facefd870a84a7b80";
+    version = "4269b1790c3c09974e3a0f5b855a46739a1ddde7";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-icon-theme";
-      rev = "e41a6378590a9d57a6adfc6facefd870a84a7b80";
+      rev = "4269b1790c3c09974e3a0f5b855a46739a1ddde7";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0i5xm3b10158560sllpbvzxlhr35ivvl6ah15j10zg1cdmf7iijj";
+      sha256 = "10wsbnjd287053msbxs1a4bn46f0zvbq79bj9j0kbqxyh48v1gg7";
     };
-
   };
   widevine-cdm = {
     pname = "widevine-cdm";
@@ -536,7 +502,6 @@
       sha256 = "1mnbxkazjyl3xgvpna9p9qiiyf08j4prdxry51wk8jj5ns6c2zcc";
       url = "https://dl.google.com/widevine-cdm/4.10.2209.1-linux-x64.zip";
     };
-
   };
   wii-u-gc-adapter = {
     pname = "wii-u-gc-adapter";
@@ -549,6 +514,5 @@
       leaveDotGit = false;
       sha256 = "1rjqjc344j6lvs6ya5m34i4hv5296xfdxr8pc2bgas46gxhv7336";
     };
-
   };
 }

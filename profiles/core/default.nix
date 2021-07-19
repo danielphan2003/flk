@@ -189,6 +189,7 @@ in
   services.openssh = {
     enable = true;
     passwordAuthentication = false;
+    allowSFTP = false;
     challengeResponseAuthentication = false;
     kexAlgorithms = [
       "curve25519-sha256@libssh.org"
@@ -212,12 +213,14 @@ in
       MaxAuthTries 3
       MaxSessions 5
 
+      AuthenticationMethods publickey
       HostbasedAuthentication no
       IgnoreRhosts yes
       PermitEmptyPasswords no
 
       AllowAgentForwarding yes
       AllowTcpForwarding no
+      X11Forwarding no
       StreamLocalBindUnlink yes
 
       PermitTTY yes

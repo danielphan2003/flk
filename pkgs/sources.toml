@@ -83,6 +83,11 @@ fetch.url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edg
 src.git = "https://github.com/Ma27/nix-zsh-completions"
 fetch.github = "Ma27/nix-zsh-completions"
 
+[paper]
+src.git = "https://gitlab.com/snakedye/paper.git"
+fetch.git = "https://gitlab.com/snakedye/paper.git"
+cargo_lock = "Cargo.lock"
+
 [picom]
 src.git = "https://github.com/yshui/picom"
 fetch.github = "yshui/picom"
@@ -114,6 +119,7 @@ fetch.github = "libretro/retroarch"
 [rnix-lsp]
 src.git = "https://github.com/nix-community/rnix-lsp"
 fetch.github = "nix-community/rnix-lsp"
+cargo_lock = "Cargo.lock"
 
 [sddm-chili]
 src.git = "https://github.com/MarianArlt/sddm-chili"

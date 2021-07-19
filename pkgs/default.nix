@@ -1,4 +1,4 @@
-final: prev: {
+channels: final: prev: {
   # keep sources this first
   sources = prev.callPackage (import ./_sources/generated.nix) { };
 
@@ -63,4 +63,6 @@ final: prev: {
   avizo = final.callPackage ./applications/misc/avizo { };
 
   plymouth-themes = final.callPackage ./data/misc/plymouth-themes { };
+
+  paper = final.callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
 }
