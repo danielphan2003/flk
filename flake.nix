@@ -3,8 +3,8 @@
 
   nixConfig = {
     extra-experimental-features = "nix-command flakes ca-references";
-    extra-substituters = "https://nrdxp.cachix.org https://nix-community.cachix.org https://cache.nixos.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org";
-    extra-trusted-public-keys = "nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nixbld.m-labs.hk-1:5aSRVA5b320xbNvu30tqxVPXpld73bhtOeH6uAjRyHc= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA=";
+    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://nixbld.m-labs.hk https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org";
+    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA=";
   };
 
   inputs =
@@ -12,7 +12,7 @@
       nixos.url = "nixpkgs/release-21.05";
       latest.url = "nixpkgs";
 
-      digga.url = "github:divnix/digga/develop";
+      digga.url = "github:divnix/digga";
       digga.inputs.nixpkgs.follows = "nixos";
       digga.inputs.nixlib.follows = "nixos";
       digga.inputs.home-manager.follows = "home";
@@ -35,7 +35,7 @@
       nvfetcher.url = "github:berberman/nvfetcher";
       nvfetcher.inputs.nixpkgs.follows = "latest";
       nvfetcher.inputs.flake-compat.follows = "digga/deploy/flake-compat";
-      nvfetcher.inputs.flake-utils.follows = "digga/utils/flake-utils";
+      nvfetcher.inputs.flake-utils.follows = "digga/flake-utils-plus/flake-utils";
 
       ci-agent.url = "github:hercules-ci/hercules-ci-agent";
       ci-agent.inputs.nix-darwin.follows = "darwin";
@@ -53,7 +53,7 @@
       nixpkgs.follows = "nixos";
       nixlib.follows = "digga/nixlib";
       blank.follows = "digga/blank";
-      utils.follows = "digga/utils";
+      flake-utils-plus.follows = "digga/flake-utils-plus";
       flake-utils.follows = "digga/flake-utils";
       # end ANTI CORRUPTION LAYER
 
@@ -72,6 +72,7 @@
 
   outputs =
     { self
+    , latest
     , digga
     , bud
     , nixos
@@ -82,14 +83,13 @@
     , agenix
     , nvfetcher
     , deploy
+
     , firefox-nightly
     , nixpkgs-wayland
     , samueldr-anbox
+
     , ...
     } @ inputs:
-    let
-      bud' = bud self;
-    in
     digga.lib.mkFlake
       {
         inherit self inputs;
@@ -98,7 +98,7 @@
 
         channels = {
           nixos = {
-            imports = [ (digga.lib.importers.overlays ./overlays) ];
+            imports = [ (digga.lib.importOverlays ./overlays) ];
             overlays = [
               digga.overlays.patchedNix
               nur.overlay
@@ -129,82 +129,11 @@
           })
         ];
 
-        nixos = {
-          hostDefaults = {
-            system = "x86_64-linux";
-            channelName = "nixos";
-            imports = [ (digga.lib.importers.modules ./modules) ];
-            externalModules = [
-              { lib.our = self.lib; }
-              digga.nixosModules.nixConfig
-              ci-agent.nixosModules.agent-profile
-              home.nixosModules.home-manager
-              agenix.nixosModules.age
-              (bud.nixosModules.bud bud')
-              "${inputs.impermanence}/nixos.nix"
-            ];
-          };
-
-          imports = [ (digga.lib.importers.hosts ./hosts) ];
-          hosts = {
-            /* set host specific properties here */
-            NixOS = { };
-            pik2 = {
-              system = "aarch64-linux";
-              modules = [ nixos-hardware.nixosModules.raspberry-pi-4 ];
-            };
-            themachine = { };
-          };
-          importables = rec {
-            profiles = digga.lib.importers.rakeLeaves ./profiles // {
-              users = digga.lib.importers.rakeLeaves ./home/users;
-            };
-            suites = with profiles; rec {
-              base = [ core users.root ];
-
-              server = base ++ [ virt.headless ] ++ [
-                network.networkmanager
-                network.qos
-              ];
-
-              work = server ++ [ virt.minimal ] ++ [
-                develop
-              ];
-
-              graphics = work ++ [ graphical ];
-
-              mobile = graphics ++ [ laptop ];
-
-              play = graphics ++ [
-                # graphical.games
-                # network.torrent
-                network.chromecast
-                misc.disable-mitigations
-              ];
-
-              goPlay = play ++ [ laptop ];
-
-              pik2 = server ++ [ users.alita ] ++ [
-                # cloud.calibre-web
-                cloud.grafana
-                cloud.postgresql
-                cloud.vaultwarden
-                misc.encryption
-                misc.persistence
-                # network.stubby
-              ];
-
-              themachine = play ++ [ users.danie ] ++ [
-                misc.encryption
-                misc.persistence
-              ];
-            };
-          };
-        };
+        nixos = ./nixos;
 
         home = ./home;
 
-        devshell.modules = [ (import ./shell bud') ];
+        devshell = ./shell;
 
         homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
 

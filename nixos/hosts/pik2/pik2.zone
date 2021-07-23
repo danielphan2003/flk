@@ -1,0 +1,119 @@
+$TTL 60
+
+$ORIGIN milo.
+@       IN      SOA     pik2.wg.milo.	me@christine.website. (
+                        2021012300	    ; serial number YYMMDDNN
+                        28800           ; Refresh
+                        7200            ; Retry
+                        864000          ; Expire
+                        86400           ; Min TTL
+                        )
+
+; hosts
+
+;;; cloud servers
+
+pik2.cloud.milo.  IN A 198.27.67.207
+minipaas.cloud.milo. IN A 165.227.53.75
+lufta.cloud          IN A 135.181.162.99
+firgu.cloud          IN A 149.248.59.1
+
+;;; hexagone
+
+keanu.hexagone.milo.        IN  A 192.168.0.158
+128.0.168.192.in-addr.arpa. IN  PTR keanu.hexagone.milo.
+
+luna.hexagone.milo.         IN  A   192.168.0.108
+108.0.168.192.in-addr.arpa. IN  PTR luna.hexagone.milo.
+
+chrysalis.hexagone.milo.	IN	A	192.168.0.127
+127.0.168.192.in-addr.arpa.	IN	PTR	chrysalis.hexagone.milo.
+
+shachi.hexagone.milo.       IN  A   192.168.0.177
+177.0.168.192.in-addr.arpa. IN  PTR shachi.hexagone.milo.
+
+;;; wireguard prefix
+
+;; core
+
+pik2.wg.milo. IN A 10.77.0.1
+pik2.wg.milo. IN AAAA fda2:d982:1da2::
+1.0.77.10.in-addr.arpa. IN PTR pik2.wg.milo.
+
+minipaas.wg.milo. IN A 10.77.0.8
+minipaas.wg.milo. IN AAAA fda2:d982:1da2::8
+8.0.77.10.in-addr.arpa. IN PTR minipaas.wg.milo.
+
+chrysalis.wg.milo.      IN A    10.77.2.2
+chrysalis.wg.milo.      IN AAAA fda2:d982:1da2:ed22:9064:6df9:4855:611d
+2.2.77.10.in-addr.arpa. IN PTR  chrysalis.wg.milo.
+
+shachi.wg.milo.         IN A    10.77.2.8
+shachi.wg.milo.         IN AAAA fda2:d982:1da2:ed22:a601:31ef:e676:e9bd
+8.2.77.10.in-addr.apra. IN PTR  shachi.wg.milo.
+
+keanu.wg.milo.          IN A    10.77.2.1
+keanu.wg.milo.          IN AAAA fda2:d982:1da2:ed22:c815:3632:42fc:a1d2
+1.2.77.10.in-addr.arpa. IN PTR  keanu.wg.milo.
+
+lufta.wg                IN A    10.77.3.1
+lufta.wg                IN AAAA fda2:d982:1da2:180d:b7a4:9c5c:989b:ba02
+
+firgu.wg                IN A    10.77.3.2
+firgu.wg                IN AAAA fda2:d982:1da2:180d:8b49:c521:5fb2:5e55
+
+;; client devices
+
+la-tahorskami.wg.milo.  IN A 10.77.1.1
+1.1.77.10.in-addr.arpa. IN PTR la-tahorskami.wg.milo.
+
+la-selbeifonxa.wg.milo. IN A 10.77.1.2
+2.1.77.10.in-addr.arpa. IN PTR la-selbeifonxa.wg.milo.
+
+om.wg.milo. IN A 10.77.1.3
+3.1.77.10.in-addr.arpa. IN PTR om.wg.milo.
+
+senpai.wg.milo. IN A 10.77.1.4
+4.1.77.10.in-addr.arpa. IN PTR senpai.wg.milo.
+
+;; apps
+drone IN  CNAME pik2.wg.milo.
+certs IN  CNAME pik2.wg.milo.
+mi.milo.    IN  CNAME chrysalis.wg.milo.
+grafana IN CNAME chrysalis.wg.milo.
+xesite IN CNAME keanu.wg.milo.
+goproxy          IN CNAME keanu.wg.milo.
+printerfacts     IN CNAME keanu.wg.milo.
+hlang            IN CNAME keanu.wg.milo.
+lewa             IN CNAME keanu.wg.milo.
+
+; chrysalis
+home		IN	CNAME	pik2.wg.milo.
+catest		IN	CNAME	pik2.wg.milo.
+
+; pik2
+sl.pik2.milo. IN CNAME lufta.wg.milo.
+derpiback.milo. IN CNAME pik2.wg.milo.
+
+; hacks!
+xena.greedo.xeserv.us. IN CNAME pik2.wg.milo.
+
+yhyujfo4qk5ce3nteihjxrdhwc64yx3p5s3ubl7heovj3c67uornlpad.onion. IN CNAME pik2.wg.milo.
+
+;;; go.
+go.milo. IN CNAME pik2.wg.milo.
+g.o. IN CNAME pik2.wg.milo.
+
+;; IRC
+
+irc.milo. IN CNAME keanu.wg.milo.
+
+;; start
+start   IN  CNAME chrysalis.wg.milo.
+keyzen  IN  CNAME chrysalis.wg.milo.
+
+;; maymayz
+seinfeld.irc. IN  CNAME irc.within.website.
+
+; cloudhopMC
+mc.cloudhop.  IN  A     207.115.66.238

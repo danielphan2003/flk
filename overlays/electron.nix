@@ -26,6 +26,8 @@ let
   flagsCommand = prev.lib.concatStringsSep " " flags;
 
   patchElectron = bin: ''
+    # wrapProgram ${bin} \
+    #   --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
     substituteInPlace ${bin} \
       --replace '"$@"' '${flagsCommand} "$@"'
   '';

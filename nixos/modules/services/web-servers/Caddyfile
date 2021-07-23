@@ -1,0 +1,121 @@
+# Add gzip compression to requests
+(encoding) {
+  encode gzip zstd
+}
+
+# Add Security headers
+(SecurityHeaders) {
+  # Server name removing
+  -Server
+  ## Server site.com
+  X-Content-Type-Options "nosniff"
+
+  # Disallow the site to be rendered within a frame (clickjacking protection)
+  X-Frame-Options "SAMEORIGIN"
+  Referrer-Policy "no-referrer"
+  # Referrer-Policy "no-referrer-when-downgrade"
+
+  # Enable HTTP Strict Transport Security (HSTS)
+  Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Enable cross-site filter (XSS) and tell browser to block detected attacks
+  X-Xss-Protection "1; mode=block"
+
+  Cache-Control "no-cache, no-store"
+  Feature-Policy `
+    accelerometer 'none';
+    ambient-light-sensor 'none';
+    autoplay 'none';
+    camera 'none';
+    encrypted-media 'none';
+    focus-without-user-activation 'none';
+    geolocation 'none';
+    gyroscope 'none';
+    magnetometer 'none';
+    microphone 'none';
+    midi 'none';
+    payment 'none';
+    picture-in-picture 'none';
+    speaker 'none';
+    sync-xhr 'none';
+    usb 'none';
+    vr 'none'
+  `
+
+  Permissions-Policy `
+    accelerometer=(),
+    ambient-light-sensor=(),
+    autoplay=(),
+    camera=(),
+    encrypted-media=(),
+    focus-without-user-activation=(),
+    geolocation=(),
+    gyroscope=(),
+    magnetometer=(),
+    microphone=(),
+    midi=(),
+    payment=(),
+    picture-in-picture=(),
+    speaker=(),
+    sync-xhr=(),
+    usb=(),
+    vr=()
+  `
+
+  Content-Security-Policy `
+    upgrade-insecure-requests;
+    base-uri 'self';
+    default-src 'none';
+    font-src 'self';
+    form-action 'self';
+    frame-ancestors 'self';
+    object-src 'self';
+    require-trusted-types-for 'script';
+    script-src 'self';
+    style-src 'self';
+  `
+
+  X-Permitted-Cross-Domain-Policies "none"
+  X-Download-Options "noopen"
+  X-Forwarded-Proto "https"
+}
+
+(logging) {
+  log {
+    output file /var/log/caddy/caddy-{args.0}-access.log {
+      roll true
+      roll_size 1Mib
+      roll_local_time true
+      roll_keep_for 7d
+    }
+  }
+}
+
+(errors) {
+  handle_errors {
+    rewrite * /{http.error.status_code}
+    reverse_proxy https://httpstatusdogs.com {
+      header_up Host httpstatusdogs.com
+    }
+  }
+}
+
+(NoSearchHeader) {
+  header {
+    X-Robots-Tag "noindex, noarchive, nofollow"
+  }
+}
+
+(common) {
+  header {
+    import SecurityHeaders
+  }
+  import encoding
+  import errors
+}
+
+(reverseProxy) {
+  reverse_proxy {args.0} {
+    header_up X-Real-IP {remote_host}
+  }
+}

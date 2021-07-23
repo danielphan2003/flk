@@ -1,6 +1,12 @@
 final: prev:
 {
   vscode-extensions = with final.vscode-utils; prev.vscode-extensions // {
+    astro-build.astro-vscode = extensionFromVscodeMarketplace {
+      name = "astro-vscode";
+      publisher = "astro-build";
+      version = "0.5.0";
+      sha256 = "ipPn29T6EUBNLd9OsfJbeU76n2TViBjy18Lk+lH0yJQ=";
+    };
     roscop.activefileinstatusbar = extensionFromVscodeMarketplace {
       name = "ActiveFileInStatusBar";
       publisher = "RoscoP";
@@ -198,6 +204,12 @@ final: prev:
       publisher = "tamasfe";
       version = "0.9.1";
       sha256 = "phuj7xeTRvLsAHw6b6xrIWPI3YITAoD04VGem/s8yiU=";
+    };
+    bradlc.vscode-tailwindcss = extensionFromVscodeMarketplace {
+      name = "vscode-tailwindcss";
+      publisher = "bradlc";
+      version = "0.6.13";
+      sha256 = "xJXrAJGhai5TDZ2h4D7XWhLedn8MNMHA/FeehUTNGyU=";
     };
   };
 }

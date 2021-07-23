@@ -1,0 +1,64 @@
+# Use custom format
+format = """
+$hostname$time$cmd_duration$git_branch$git_commit$git_state$git_status$package
+  $directory$character"""
+
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 10
+
+# Disable the newline at the start of the prompt
+add_newline = false
+
+[hostname]
+ssh_only = false
+format =  "[⟪ $hostname ⟫](bold green) "
+# trim_at = ".companyname.com"
+disabled = false
+
+[character]
+success_symbol = "[➜](bold green) "
+error_symbol = "[✗](bold red) "
+
+[cmd_duration]
+min_time = 500
+format = "took [$duration](bold yellow) "
+
+[time]
+disabled = false
+format = 'at [🕙 $time](bold yellow) '
+time_format = "%T"
+#utc_time_offset = "-5"
+#time_range = "10:00:00-14:00:00"
+
+[directory]
+format = "[$path]($style)[$read_only]($read_only_style) "
+truncation_length = 8
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = "🌱 "
+#truncation_length = 4
+#truncation_symbol = ""
+
+[git_commit]
+commit_hash_length = 4
+tag_symbol = "🔖 "
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+cherry_pick = "[🍒 PICKING](bold red)"
+
+#[git_status]
+#conflicted = "🏳"
+#ahead = "🏎💨 ${count}"
+#behind = "😰 ${count}"
+#diverged = "😵 (⇕⇡${ahead_count}⇣${behind_count})"
+#untracked = "🤷‍"
+#stashed = "📦"
+#modified = "📝"
+#staged = '[++\($count\)](green)'
+#renamed = "👅"
+#deleted = "🗑"
+
+[package]
+format = "via [🎁 $version](208 bold) "

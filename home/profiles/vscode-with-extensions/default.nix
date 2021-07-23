@@ -40,6 +40,8 @@
       github.vscode-codeql
       tamasfe.even-better-toml
       arrterian.nix-env-selector
+      astro-build.astro-vscode
+      bradlc.vscode-tailwindcss
     ];
     userSettings = {
       "workbench.iconTheme" = "material-icon-theme";
@@ -110,6 +112,13 @@
       "dart.previewLsp" = true;
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
       "workbench.startupEditor" = "newUntitledFile";
+      "editor.quickSuggestions" = {
+        "strings" = true;
+      };
+      "css.validate" = false;
+      "tailwindCSS.includeLanguages" = {
+        "astro" = "html";
+      };
     };
     keybindings = [
       {

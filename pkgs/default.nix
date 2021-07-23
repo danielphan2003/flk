@@ -64,5 +64,5 @@ channels: final: prev: {
 
   plymouth-themes = final.callPackage ./data/misc/plymouth-themes { };
 
-  paper = final.callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
+  # paper = final.callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
 }

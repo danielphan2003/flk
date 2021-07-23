@@ -20,8 +20,9 @@ Add this to your flake (idk if the syntax is correct)
 ```
 
 Some notes:
-- I'm currently using [nrdxp](nrdxp) agenix for now. For some unknown reasons I could not decrypt my secrets with my Pi when using the original repo.
-  This means (some) secrets created through this flake may not decrypt with an [earlier](divnix-agenix) version of age.
+- ~~I'm currently using [nrdxp](nrdxp) agenix for now. For some unknown reasons I could not decrypt my secrets with my Pi when using the original repo.~~
+  ~~This means (some) secrets created through this flake may not decrypt with an [earlier](divnix-agenix) version of age.~~
+  Recent commits of my repo *magically* fix agenix secret decryption. I don't really understand what happened but it works. For now?
   See rage v0.6.0 [changelog](rage-v0.6.0-changelog) for more info.
 - Pinning [home-manager](home-manager) and [nixos](nrdxp-nixos) as [impermanance](impermanance) only works with `lib.fsBefore` and `filesystems.<name>.depends`. See [profiles/misc/persistence](persistence-profile) for usage.
 - Pinning [flake-firefox-nightly](flake-firefox-nightly) since Nightly build is broken in latest commits.

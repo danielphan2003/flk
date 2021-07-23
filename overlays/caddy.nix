@@ -6,6 +6,7 @@ let
     , sources
     , caddy
     , plugins ? [ ]
+    , vendorSha256 ? "sha256-oNJA0lU6PqArLCuPBiyV9Vaps0Q3ZpVg2cMIPxUfpqg="
     }:
     prev.buildGoModule rec {
       inherit (sources.caddy) pname src version;
@@ -26,7 +27,7 @@ let
         }
       '';
 
-      vendorSha256 = "sha256-deUq+/6EaevJOKm4AANIS8sPEHSRTQm7XlEkXONiJ84=";
+      inherit vendorSha256;
 
       overrideModAttrs = (_: {
         prePatch = "echo '${main}' > cmd/caddy/main.go";

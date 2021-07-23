@@ -6,6 +6,5 @@
       help = "Copy the desired template to DEST";
       script = ./get.bash;
     };
-    rebuild.script = lib.mkForce ./rebuild.bash;
   };
 }

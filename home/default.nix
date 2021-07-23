@@ -1,12 +1,12 @@
-{ self, ... }:
+{ self, inputs, ... }:
 let
-  imp = self.inputs.digga.lib.importers;
+  inherit (inputs) digga;
 in
 {
-  imports = [ (imp.modules ./modules) ];
+  imports = [ (digga.lib.importModules ./modules) ];
 
   importables = rec {
-    profiles = imp.rakeLeaves ./profiles;
+    profiles = digga.lib.rakeLeaves ./profiles;
     suites = with profiles; rec {
 
       base = [ direnv git xdg auth ];

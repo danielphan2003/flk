@@ -3,13 +3,11 @@ channels: final: prev: {
   __dontExport = true; # overrides clutter up actual creations
 
   inherit (channels.latest)
-    android-tools
     anup
     cachix
     czkawka
     dmenu
     nixpkgs-fmt
-    platform-tools
     qutebrowser
     rage
     starship
