@@ -3,6 +3,8 @@ final: prev: {
 
   freerdp = final.waylandPkgs.wlfreerdp;
 
+  eww = prev.eww.override { enableWayland = true; };
+
   waylandPkgs = prev.waylandPkgs // {
 
     sway-unwrapped = prev.waylandPkgs.sway-unwrapped.overrideAttrs (_: rec {

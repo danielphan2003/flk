@@ -1,4 +1,3 @@
-{ ... }:
 {
   input."type:keyboard" = {
     xkb_layout = "us";

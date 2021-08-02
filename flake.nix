@@ -10,7 +10,7 @@
   inputs =
     {
       nixos.url = "nixpkgs/release-21.05";
-      latest.url = "nixpkgs";
+      latest.url = "nixpkgs/nixos-unstable";
 
       digga.url = "github:divnix/digga";
       digga.inputs.nixpkgs.follows = "nixos";
@@ -57,7 +57,7 @@
       flake-utils.follows = "digga/flake-utils";
       # end ANTI CORRUPTION LAYER
 
-      firefox-nightly.url = "github:colemickens/flake-firefox-nightly/52035b6";
+      firefox-nightly.url = "github:colemickens/flake-firefox-nightly";
       firefox-nightly.inputs.nixpkgs.follows = "nixos";
 
       nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
@@ -67,6 +67,13 @@
       impermanence = {
         url = "github:nix-community/impermanence";
         flake = false;
+      };
+
+      qnr.url = "github:divnix/quick-nix-registry";
+
+      rust = {
+        url = "github:oxalica/rust-overlay";
+        inputs.nixpkgs.follows = "nixos";
       };
     };
 
@@ -87,6 +94,8 @@
     , firefox-nightly
     , nixpkgs-wayland
     , samueldr-anbox
+    , qnr
+    , rust
 
     , ...
     } @ inputs:
@@ -103,6 +112,7 @@
               digga.overlays.patchedNix
               nur.overlay
               agenix.overlay
+              rust.overlay
               nvfetcher.overlay
               deploy.overlay
               ./pkgs/default.nix
@@ -146,7 +156,7 @@
       }
     //
     {
-      budModules = { devos = import ./pkgs/shells/bud; };
+      budModules = { devos = import ./bud; };
     }
   ;
 }

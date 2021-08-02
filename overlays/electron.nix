@@ -11,10 +11,13 @@ let
   enableWayland = true;
 
   extraOptions = [
-    "--enable-vulkan"
-    "--ignore-gpu-blocklist"
+    "--enable-accelerated-mjpeg-decode"
+    "--enable-accelerated-video"
     "--enable-gpu-rasterization"
+    "--enable-native-gpu-memory-buffers"
+    "--enable-vulkan"
     "--enable-zero-copy"
+    "--ignore-gpu-blocklist"
   ];
 
   flags = (prev.lib.optionals enableWayland [
@@ -26,15 +29,13 @@ let
   flagsCommand = prev.lib.concatStringsSep " " flags;
 
   patchElectron = bin: ''
-    # wrapProgram ${bin} \
-    #   --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
     substituteInPlace ${bin} \
       --replace '"$@"' '${flagsCommand} "$@"'
   '';
 in
 {
 
-  element-desktop = element-desktop.override { electron = final.electron; };
+  element-desktop = element-desktop.override { inherit (final) electron; };
 
   discord-canary = discord-canary.overrideAttrs (_: { postFixup = patchElectron "$out/bin/discordcanary"; });
 

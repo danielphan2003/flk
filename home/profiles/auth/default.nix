@@ -1,5 +1,4 @@
 { lib, pkgs, ... }: {
-
   services.gnome-keyring = {
     enable = true;
     components = [ "secrets" "ssh" ];
@@ -15,5 +14,4 @@
   };
 
   programs.gpg.enable = true;
-
 }

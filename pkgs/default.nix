@@ -2,6 +2,10 @@ channels: final: prev: {
   # keep sources this first
   sources = prev.callPackage (import ./_sources/generated.nix) { };
 
+  vscode-utils = prev.vscode-utils // (prev.callPackage ./misc/vscode-extensions/vscode-utils.nix { });
+
+  vscode-extensions = prev.vscode-extensions // (final.callPackage ./misc/vscode-extensions { });
+
   sddm-chili =
     final.callPackage ./applications/display-managers/sddm/themes/chili { };
 
@@ -64,5 +68,7 @@ channels: final: prev: {
 
   plymouth-themes = final.callPackage ./data/misc/plymouth-themes { };
 
-  # paper = final.callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
+  paper = final.callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
+
+  eww = final.callPackage ./applications/misc/eww { inherit (channels.latest) makeRustPlatform; };
 }

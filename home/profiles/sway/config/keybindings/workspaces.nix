@@ -1,4 +1,4 @@
-{ mod, lib, ... }:
+{ mod }:
 {
   "${mod}+1" = "workspace number 1";
   "${mod}+2" = "workspace number 2";

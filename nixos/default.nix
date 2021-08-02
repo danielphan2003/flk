@@ -16,6 +16,20 @@ in
       agenix.nixosModules.age
       bud.nixosModules.bud
       "${impermanence}/nixos.nix"
+      qnr.nixosModules.local-registry
+      {
+        # Enable quick-nix-registry
+        nix.localRegistry.enable = true;
+
+        # Cache the default nix registry locally, to avoid extraneous registry updates from nix cli.
+        nix.localRegistry.cacheGlobalRegistry = true;
+
+        # Set an empty global registry.
+        nix.localRegistry.noGlobalRegistry = false;
+
+        # Set timeout
+        systemd.services.sync-nixpkgs.serviceConfig.TimeoutSec = 400;
+      }
     ];
   };
 

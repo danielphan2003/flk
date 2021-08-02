@@ -1,4 +1,4 @@
-{ mod, ... }: {
+{ mod }: {
   # Kill focused window
   "Mod1+F4" = "kill";
 

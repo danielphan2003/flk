@@ -1,9 +1,16 @@
 args@{ pkgs, lib, ... }:
 let
-  modules-left = import ./left args;
-  modules-center = import ./center args;
-  modules-right = import ./right args;
+  left = import ./left args;
+  center = import ./center args;
+  right = import ./right args;
+
+  modules-list = left // center // right;
+
+  modules = builtins.removeAttrs
+    modules-list
+    [ "modules-left" "modules-center" "modules-right" ];
 in
-lib.recursiveUpdate
-  (lib.recursiveUpdate modules-left modules-center)
-  modules-right
+{
+  inherit (modules-list) modules-left modules-center modules-right;
+  inherit modules;
+}

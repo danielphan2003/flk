@@ -15,10 +15,7 @@ in
 
   services.gpg-agent.pinentryFlavor = "gnome3";
 
-  home.file.".local/bin/wal-set".source = wal-set;
-
   home.packages = attrValues ({
-
     inherit (pkgs)
       # sway-dependent
       xwayland
@@ -28,7 +25,7 @@ in
 
       # wm-independent
       avizo
-      # paper
+      paper
       wmctrl
 
       # misc
@@ -58,7 +55,6 @@ in
       wofi
       wtype
       ;
-
   }
   //
   (lib.optionalAttrs
@@ -71,34 +67,7 @@ in
     recursive = true;
   };
 
-  systemd.user.services.avizo = {
-    Unit = {
-      Description = "avizo volume notification";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-
-    Service = {
-      ExecStart = "${pkgs.avizo}/bin/avizo-service";
-    };
-
-    Install = { WantedBy = [ "graphical-session.target" ]; };
-  };
-
-  # systemd.user.services.paper = {
-  #   Unit = {
-  #     Description = "paper wallpaper daemon";
-  #     PartOf = [ "graphical-session.target" ];
-  #     After = [ "graphical-session.target" ];
-  #   };
-
-  #   Service = {
-  #     ExecStart = "${pkgs.paper}/bin/paper";
-  #     Restart = "on-failure";
-  #   };
-
-  #   Install = { WantedBy = [ "graphical-session.target" ]; };
-  # };
+  services.avizo.enable = true;
 
   wayland.windowManager.sway = {
     enable = true;
@@ -152,8 +121,10 @@ in
       export QT_IM_MODULE=ibus
       export XMODIFIERS=@im=ibus
       export IBUS_DISCARD_PASSWORD_APPS='firefox,.*chrome.*'
-
     '';
-    #export CHROME_EXECUTABLE="${pkgs.ungoogled-chromium}/bin/chromium-browser"
-  } // (import ./config { inherit pkgs config lib; });
+
+    config = import ./config { inherit pkgs config lib; };
+  };
+
+  home.file.".local/bin/wal-set".source = wal-set;
 }

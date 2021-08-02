@@ -24,8 +24,7 @@ Some notes:
   ~~This means (some) secrets created through this flake may not decrypt with an [earlier](divnix-agenix) version of age.~~
   Recent commits of my repo *magically* fix agenix secret decryption. I don't really understand what happened but it works. For now?
   See rage v0.6.0 [changelog](rage-v0.6.0-changelog) for more info.
-- Pinning [home-manager](home-manager) and [nixos](nrdxp-nixos) as [impermanance](impermanance) only works with `lib.fsBefore` and `filesystems.<name>.depends`. See [profiles/misc/persistence](persistence-profile) for usage.
-- Pinning [flake-firefox-nightly](flake-firefox-nightly) since Nightly build is broken in latest commits.
+- Pinning [paper](paper) as [nvfetcher](nvfetcher) does not generate outputHash for [snui](snui) dependency.
 
 ## Features
 
@@ -41,6 +40,9 @@ A lot of [packages](pkgs):
   - [pywalfox](pywalfox): pywal for firefox.
 - Browsers: Widevine-cdm, Edge Beta and Dev edition. Yes, I'm that evil ;)
 - Messaging app: [caprine](caprine) (unmaintained)
+- VS Code extensions: tracked via [nvfetcher](nvfetcher), passthru proper meta options such as license, homepage, description, downloadPage and
+  changelog. No need to manually add entries to vscode-extensions, define it inside [pkgs/sources.toml](pkgs/sources.toml) instead. Extension
+  namespace and name are automatically detected, so no need to passthru those options.
 - Wayland packages: [avizo](avizo).
 - Other...
 
@@ -56,6 +58,7 @@ Plus overrides and modules from devos's [community](devos-community) branch
 - Wayland:
   - Ibus [working](sway-startup). Adapted from Arch Wiki's Ibus [integration](arch-wiki-ibus).
   - Helpful Waybar module [maker](waybar-module-maker). See [waybar-modules](waybar-modules).
+  - (very MUCH wip) [river](river) declarative config.
 
 ## TODOS
 - Move [pkgs](pkgs) to another repo (awaiting auto-update for packages).
@@ -75,6 +78,10 @@ Plus overrides and modules from devos's [community](devos-community) branch
 [divnix-agenix]: https://github.com/divnix/devos/blob/develop/flake.nix#L23
 
 [rage-v0.6.0-changelog]: https://github.com/str4d/rage/releases/tag/v0.6.0
+
+[paper]: https://gitlab.com/snakedye/paper
+[nvfetcher]: https://github.com/berberman/nvfetcher
+[snui]: https://gitlab.com/snakedye/snui
 
 [home-manager]: https://github.com/nix-community/home-manager/tree/d370447
 [nrdxp-nixos]: https://github.com/nrdxp/nixpkgs/more-general-fsbefore
@@ -115,6 +122,7 @@ Plus overrides and modules from devos's [community](devos-community) branch
 [arch-wiki-ibus]: https://wiki.archlinux.org/title/IBus#Integration
 [waybar-module-maker]: lib/pkgs-build/mkWaybarModule.nix
 [waybar-modules]: users/profiles/sway/waybar/modules
+[river]: https://github.com/ifreund/river
 
 [tor-luks-unlock]: https://nixos.wiki/wiki/Remote_LUKS_Unlocking
 

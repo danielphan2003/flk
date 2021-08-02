@@ -7,6 +7,7 @@ channels: final: prev: {
     cachix
     czkawka
     dmenu
+    lib
     nixpkgs-fmt
     qutebrowser
     rage

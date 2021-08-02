@@ -1,0 +1,260 @@
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+//Global Styles
+window {
+  color: #b1af9e;
+  font-family: CascadiaCode;
+}
+trough {
+  all: unset;
+  background-color: #333232;
+  border-radius: 50px;
+  min-height: 4px;
+}
+trough progress,
+highlight {
+  min-height: 4px;
+  border-radius: 50px;
+  background-color: #dcbb8c;
+}
+.seperator trough {
+  all: unset;
+  min-height: 1px;
+  margin: 0px 15px 0px 15px;
+  background-color: #474747;
+}
+.calendar {
+  padding: 10px;
+}
+calendar {
+  all: unset;
+  padding: 10px;
+}
+expander {
+  all: unset;
+  color: transparent;
+}
+calendar:selected {
+  color: #dcbb8c;
+}
+.widget {
+  background-color: #262525;
+  border-radius: 10px;
+  padding: 35px;
+  margin: 5px;
+}
+.volume-indicator {
+  margin: 10px;
+  padding: 10px 15px 10px 15px;
+  border-radius: 10px;
+  border: 1px solid #333232;
+  background-color: #262525;
+  // box-shadow: 0px 0px 5px 0.2px  rgba(0,0,0,0.3);
+}
+.muted,
+.muted progress trough highlight {
+  color: #6f6f6f;
+  background-color: transparent;
+}
+.hub {
+  background-color: #262525;
+  animation-duration: 0.1s;
+  border: 2px solid #333232;
+  border-radius: 10px 10px 0px 0px;
+}
+.notification {
+  font-family: CascadiaMono;
+  font-size: 11px;
+  border-radius: 5px;
+  background-color: #262525;
+  border: 1px solid #333232;
+}
+.notif {
+  background-color: #333232;
+  border-radius: 5px;
+}
+.item {
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+  font-size: 12px;
+}
+.item label {
+  margin: 5px;
+  font-size: 12px;
+}
+.icons button {
+  background-color: #333232;
+  border-radius: 15px;
+  padding: 15px;
+}
+.icons button:hover {
+  background-color: #ad936e;
+}
+.item button {
+  all: unset;
+  padding: 15px;
+  border-radius: 5px;
+  border-radius: 10px;
+}
+.button:hover {
+  background-color: #474747;
+}
+
+/*
+ * Configuration for the eww hub
+*/
+.user {
+  all: unset;
+  margin: 25px;
+}
+.icon {
+  color: #f0c674;
+  font-size: 22px;
+}
+.indicator label {
+  font-size: 20px;
+}
+.indicator scale slider {
+  all: unset;
+  min-height: 10px;
+  margin: -6px;
+  border-radius: 100%;
+  background-color: #474747;
+}
+/*
+ * Media cluster
+*/
+.media .song_cover {
+  background-size: contain;
+  border-radius: 7px;
+}
+.mpc button {
+  all: unset;
+  color: #dcbb8c;
+  border-radius: 10px;
+  padding: 7px 0px 7px 0px;
+}
+.mpc button:hover {
+  background-color: #333232;
+}
+/*
+ * System status
+*/
+.status scale trough {
+  padding: 2px;
+  opacity: 0.5;
+  min-height: 8px;
+}
+.status label {
+  font-size: 26px;
+}
+.ram trough highlight {
+  background-color: #b76666;
+}
+.cpu trough highlight {
+  background-color: #717e88;
+}
+.gpu trough highlight {
+  background-color: #8d987e;
+}
+.layout {
+  border-radius: 5px;
+  padding: 0px 8px 0px 8px;
+}
+.layout:hover {
+  background-color: #414141;
+  border-radius: 5px;
+  padding: 0px 8px 0px 8px;
+}
+.layout image {
+  border: none;
+}
+/*
+ * Config for power buttons
+*/
+.power button {
+  padding: 5px 20px 5px 20px;
+  color: #6f6f6f;
+}
+.power button:hover {
+  color: #8d987e;
+}
+/*
+ * Config for eww bar
+*/
+.bar {
+  background-color: #262525;
+  font-size: 11px;
+  padding: 0px 15px 0px 15px;
+  border-bottom: 2px solid #333232;
+}
+.pacman {
+  color: #d59877;
+}
+.none {
+  color: #474747;
+}
+.tray {
+  all: unset;
+  font-size: 11px;
+}
+.left button {
+  all: unset;
+  color: #b0b4bc;
+  font-size: 10px;
+  font-weight: bold;
+}
+.bar .Paused,
+.null {
+  opacity: 0.3;
+}
+.bar .Playing,
+.notified {
+  color: #dcbb8c;
+}
+.bar button {
+  all: unset;
+  padding: 5px;
+  min-height: 6px;
+  font-weight: bold;
+}
+.link button {
+  font-size: 14px;
+}
+.link button:hover {
+  opacity: 0.5;
+}
+.tags {
+  font-size: 12px;
+  color: #494949;
+}
+.tags .active {
+  color: #dcbb8c;
+  font-weight: bold;
+}
+.tags .occupied {
+  color: #98967e;
+}
+.tags button:hover {
+  opacity: 0.6;
+}

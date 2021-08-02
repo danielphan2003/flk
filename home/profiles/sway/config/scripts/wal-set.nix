@@ -8,6 +8,7 @@
 , pywalfox
 , pywal
 , sway
+, paper
 , waylandPkgs
 , backgroundDir
 , colors
@@ -37,20 +38,20 @@ writeShellScript "wal-set.sh" ''
 
   [ ! -S $swaySocket ] && ${feh}/bin/feh --bg-fill $(< $HOME/.cache/wal/wal) && exit
 
-  PID=$(${procps}/bin/pgrep swaybg)
+  PID=$(${procps}/bin/pgrep paper)
 
   # guarantees to run within cron jobs
-  ${sway}/bin/swaymsg -s $swaySocket "exec ${swaybg}/bin/swaybg -i \"$wallpaper\" -m fill"
+  ${sway}/bin/swaymsg -s $swaySocket "exec ${paper}/bin/paper -i '$wallpaper'"
 
-  ${coreutils}/bin/sleep 1
+  ${coreutils}/bin/sleep 0.2
 
   ${pywalfox}/bin/pywalfox update &
-
-  ${util-linux}/bin/kill $PID
 
   ${libnotify}/bin/notify-send "Applying theme for sway ⚡" &
 
   ${sway}/bin/swaymsg -s $swaySocket "${clientColors}" &
 
   ${util-linux}/bin/kill -USR2 $(${procps}/bin/pgrep waybar) &
+
+  ${util-linux}/bin/kill $PID
 ''

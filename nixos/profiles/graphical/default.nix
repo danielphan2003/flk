@@ -11,6 +11,7 @@ let
 in
 {
   imports = [
+    ./browsers
     ./gtk
     ./im
     ./qutebrowser
@@ -143,7 +144,7 @@ in
   };
 
   services.cron.systemCronJobs = [
-    "*/20 * * * *      danie      $HOME/.local/bin/wal-set >> $HOME/.cache/wal-set.log"
+    "*/20 * * * *      danie      $HOME/.local/bin/wal-set >> /tmp/wal-set.log"
   ];
 
   i18n.inputMethod = {

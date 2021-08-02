@@ -1,0 +1,44 @@
+<!-- The main eww configuration file. This is where your widgets and how they appear on the screen and what they
+contain are defined. -->
+
+<eww>
+  <includes>
+    <file path="./modules/eww-notif.xml"/>
+    <file path="./modules/eww-volume.xml"/>
+    <file path="./modules/eww-hub.xml"/>
+    <file path="./modules/eww-bar.xml"/>
+  </includes>
+
+  <windows>
+    <window name="hub" stacking="fg">
+      <geometry anchor="bottom center" x="0" y="0" width="35%" height="0"/> <!--Specifies geometry-->
+      <widget>
+        <hub/> <!--This is the def we created earlier-->
+      </widget>
+    </window>
+    <window name="notification" stacking="fg">
+      <geometry anchor="top right" x="0" y="0" width="400" height="0"/> <!--Specifies geometry-->
+      <widget>
+        <notification-widget/> <!--This is the def we created earlier-->
+      </widget>
+    </window>
+    <window name="bar1" screen="1" stacking="bt" exclusive="true">
+      <geometry anchor="top center" x="0" y="0" width="100%" height="40"/> <!--Specifies geometry-->
+      <widget>
+        <bar1/> <!--This is the def we created earlier-->
+      </widget>
+    </window>
+    <window name="bar0" screen="0" stacking="bt" exclusive="true">
+      <geometry anchor="top center" x="0" y="0" width="100%" height="40"/> <!--Specifies geometry-->
+      <widget>
+        <bar0/> <!--This is the def we created earlier-->
+      </widget>
+    </window>
+    <window name="volume-indicator" stacking="fg">
+      <geometry anchor="top center" x="0" y="15" width="250" height="15"/> <!--Specifies geometry-->
+      <widget>
+        <indicator/> <!--This is the def we created earlier-->
+      </widget>
+    </window>
+  </windows>
+</eww>

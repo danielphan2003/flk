@@ -8,10 +8,9 @@ in
   importables = rec {
     profiles = digga.lib.rakeLeaves ./profiles;
     suites = with profiles; rec {
-
       base = [ direnv git xdg auth ];
 
-      desktop = base ++ [ firefox sway udiskie ];
+      desktop = base ++ [ browsers.firefox browsers.exts.uget sway udiskie ];
 
       producer = desktop ++ [ obs-studio ];
 
@@ -19,13 +18,11 @@ in
 
       academic = play ++ [ winapps ];
 
-      coding = academic ++ [ alacritty vscode-with-extensions ];
-
+      coding = academic ++ [ alacritty browsers.chromium vscodium idea ];
     };
   };
 
   users = {
-
     nixos = { suites, ... }: { imports = suites.base; };
 
     danie = { suites, ... }:
@@ -46,14 +43,12 @@ in
         };
       };
 
-    alita = { suites, ... }:
-      {
-        imports = suites.base;
-        programs.git = {
-          userEmail = "alita@pik2.duckdns.org";
-          userName = "Alita";
-        };
+    alita = { suites, ... }: {
+      imports = suites.base;
+      programs.git = {
+        userEmail = "alita@pik2.duckdns.org";
+        userName = "Alita";
       };
-
+    };
   };
 }

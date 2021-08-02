@@ -1,4 +1,4 @@
-{ pkgs, mod, ... }:
+{ pkgs, mod }:
 let
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   volumectl = "${pkgs.avizo}/bin/volumectl";

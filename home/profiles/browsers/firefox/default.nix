@@ -8,14 +8,7 @@ let
   cfgPath = "${mozPath}/firefox";
 in
 {
-  home.packages = with pkgs; [
-    firefox-nightly-bin
-    # ungoogled-chromium
-  ];
-
-  # home.sessionVariables.CHROME_EXECUTABLE = "${pkgs.ungoogled-chromium}/bin/chromium-browser";
-
-  services.uget-integrator.enable = true;
+  home.packages = with pkgs; [ firefox-nightly-bin ];
 
   home.file = {
     "${cfgPath}/profiles.ini".text = ''

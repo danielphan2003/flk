@@ -1,0 +1,31 @@
+<eww>
+  <definitions>
+    <def name="indicator">
+      <box valign="center"
+        halign="fill"
+        style="font-size: 26px"
+        spacing="25"
+        class="volume-indicator" orientation="h" space-evenly="false">
+        <volume_icon/>
+        <volume_indicator/>
+      </box>
+    </def>
+    <def name="volume_icon">
+        <label class="{{if muted then 'muted' else 'unmuted'}}"
+          halign="center"
+          valign="center"
+            text="{{if muted then '\ufc5d' else if volume &lt; 30 then '\ufc5c' else if volume &lt; 60 then '\ufa7f' else '\ufa7d'}}"></label>
+    </def>
+    <def name="volume_indicator">
+      <box class="{{if muted then 'muted' else 'unmuted'}}"
+        space-evenly="false" spacing="15" halign="center">
+        <progress orientation="h" flipped="false" style="min-height: 6px;" width="300" valign="center" value="{{volume}}"/>
+      </box>
+    </def>
+  </definitions>
+  <variables>
+    <script-var name="volume">tail -f /tmp/ewwpipe</script-var>
+    <var name="overlay">true</var>
+    <var name="muted">false</var>
+  </variables>
+</eww>

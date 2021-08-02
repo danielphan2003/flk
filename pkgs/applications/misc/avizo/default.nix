@@ -1,9 +1,23 @@
-{ stdenv, lib, sources
-, dbus, glib, gtk3, gobject-introspection
-, gtk-layer-shell, vala, makeWrapper
-, pkg-config, meson, ninja
-, light, pulseaudio, procps, gnugrep
-, coreutils, gawk, gnused
+{ stdenv
+, lib
+, sources
+, dbus
+, glib
+, gtk3
+, gobject-introspection
+, gtk-layer-shell
+, vala
+, makeWrapper
+, pkg-config
+, meson
+, ninja
+, light
+, pulseaudio
+, procps
+, gnugrep
+, coreutils
+, gawk
+, gnused
 }:
 stdenv.mkDerivation rec {
   inherit (sources.avizo) pname src version;
@@ -13,13 +27,19 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config meson ninja makeWrapper ];
 
   buildInputs = [
-    dbus glib gtk3 gobject-introspection
-    gtk-layer-shell vala
+    dbus
+    glib
+    gtk3
+    gobject-introspection
+    gtk-layer-shell
+    vala
   ];
 
   preFixup = ''
-    wrapProgram $out/bin/volumectl --prefix PATH : ${lib.makeBinPath [ pulseaudio gnugrep gawk gnused coreutils gawk ]}
-    wrapProgram $out/bin/lightctl --prefix PATH : ${lib.makeBinPath [ light procps gnugrep coreutils gawk ]}
+    wrapProgram $out/bin/volumectl \
+      --prefix PATH : ${lib.makeBinPath [ pulseaudio gnugrep gawk gnused coreutils gawk ]}
+    wrapProgram $out/bin/lightctl \
+      --prefix PATH : ${lib.makeBinPath [ light procps gnugrep coreutils gawk ]}
   '';
 
   meta = with lib; {

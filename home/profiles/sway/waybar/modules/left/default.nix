@@ -36,28 +36,27 @@ in
     "custom/media#vlc"
     "custom/media#other"
   ];
-  modules = {
-    "sway/workspaces" = {
-      all-outputs = true;
-      format = "{icon}";
-      format-icons = {
-        "1" = "";
-        "2" = "";
-        "3" = "";
-        "4" = "";
-        "5" = "";
-        "6" = "";
-        "9" = "";
-        "10" = "";
-        "22" = "";
-        focused = "";
-        urgent = "";
-        default = "";
-      };
+  "sway/workspaces" = {
+    all-outputs = true;
+    format = "{icon}";
+    format-icons = {
+      "1" = "";
+      "2" = "";
+      "3" = "";
+      "4" = "";
+      "5" = "";
+      "6" = "";
+      "9" = "";
+      "10" = "";
+      "22" = "";
+      focused = "";
+      urgent = "";
+      default = "";
     };
-    "custom/media#firefox" = media "firefox" "";
-    "custom/media#spotify" = media "spotify" "";
-    "custom/media#vlc" = media "vlc" "嗢";
-    "custom/media#other" = media "other" "";
   };
+
+  "custom/media#firefox" = media "firefox" "";
+  "custom/media#spotify" = media "spotify" "";
+  "custom/media#vlc" = media "vlc" "嗢";
+  "custom/media#other" = media "other" "";
 }
