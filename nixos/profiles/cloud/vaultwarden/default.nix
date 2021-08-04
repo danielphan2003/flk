@@ -1,5 +1,5 @@
 { pkgs, config, lib, self, ... }: {
-  age.secrets.bitwarden.file = "${self}/secrets/bitwarden.age";
+  age.secrets.bitwarden.file = "${self}/secrets/nixos/profiles/cloud/bitwarden.age";
 
   services.bitwarden_rs = {
     enable = true;

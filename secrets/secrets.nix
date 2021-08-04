@@ -16,11 +16,16 @@ in
 {
   # "secret.age".publicKeys = allKeys;
 
-  "root.age".publicKeys = allKeys;
-  "alita.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
-  "danie.age".publicKeys = [ danie themachine ];
+  "home/users/root.age".publicKeys = allKeys;
+  "home/users/alita.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
+  "home/users/danie.age".publicKeys = [ danie themachine ];
 
-  "accounts.age".publicKeys = defaultUsers ++ [ themachine ];
-  "bitwarden.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
-  "duckdns.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
+  "home/profiles/accounts.age".publicKeys = defaultUsers ++ [ themachine ];
+
+  "home/profiles/wayvnc/config.age".publicKeys = allKeys;
+  "home/profiles/wayvnc/key.pem.age".publicKeys = allKeys;
+  "home/profiles/wayvnc/cert.pem.age".publicKeys = allKeys;
+
+  "nixos/profiles/cloud/bitwarden.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
+  "nixos/profiles/cloud/duckdns.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
 }

@@ -5,8 +5,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ lua linux-pam ];
 
   installPhase = ''
-    mkdir -p $out/lib
-    install -Dm 755 liblua_pam.so -t "$out/lib"
+    mkdir -p $out/lib/lua-pam
+    install -Dm 755 liblua_pam.so -t "$out/lib/lua-pam"
   '';
 
   meta = with lib; {

@@ -3,8 +3,6 @@
 with lib;
 
 let
-  inherit (builtins) readFile fetchurl;
-
   cfg = config.security.mitigations;
 
   cmdline = ''

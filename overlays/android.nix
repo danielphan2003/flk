@@ -1,10 +1,10 @@
 channels: final: prev: {
   # track https://github.com/NixOS/nixpkgs/pull/125600
-  inherit (channels.anbox)
-    anbox
-    anbox-postmarketos-image
-    # buildLinux
-    ;
+  # inherit (channels.anbox)
+  #   anbox
+  #   anbox-postmarketos-image
+  #   # buildLinux
+  #   ;
 
   # linuxPackagesFor = kernel:
   #   (prev.linuxPackagesFor kernel).makeExtensible (self: with self; rec {

@@ -3,11 +3,26 @@
 
   age.secrets = {
     accounts = {
-      file = "${self}/secrets/accounts.age";
+      file = "${self}/secrets/home/profiles/accounts.age";
       owner = "danie";
       group = "users";
     };
-    danie.file = "${self}/secrets/danie.age";
+    danie.file = "${self}/secrets/home/users/danie.age";
+    "wayvnc/config" = {
+      file = "${self}/secrets/home/profiles/wayvnc/config.age";
+      owner = "danie";
+      group = "users";
+    };
+    "wayvnc/key.pem" = {
+      file = "${self}/secrets/home/profiles/wayvnc/key.pem.age";
+      owner = "danie";
+      group = "users";
+    };
+    "wayvnc/cert.pem" = {
+      file = "${self}/secrets/home/profiles/wayvnc/cert.pem.age";
+      owner = "danie";
+      group = "users";
+    };
   };
 
   environment.systemPackages = with pkgs; [ danie-logo ];

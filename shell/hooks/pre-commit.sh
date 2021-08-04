@@ -10,8 +10,15 @@ fi
 
 diff="git diff-index --name-only --cached $against --diff-filter d"
 
+lua_files=($($diff -- '*.nix'))
 nix_files=($($diff -- '*.nix'))
 all_files=($($diff))
+
+# Format staged lua files.
+if [[ -n "${lua_files[@]}" ]]; then
+  stylua "${lua_files[@]}" \
+  && git add "${lua_files[@]}"
+fi
 
 # Format staged nix files.
 if [[ -n "${nix_files[@]}" ]]; then

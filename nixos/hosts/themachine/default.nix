@@ -1,8 +1,10 @@
-{ pkgs, lib, suites, config, ... }:
+{ pkgs, lib, suites, config, self, ... }:
 let ip = "192.168.1.11";
 in
 {
   imports = suites.themachine ++ [ ../../profiles/graphical/games ];
+
+  age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
 
   networking = {
     usePredictableInterfaceNames = false;
@@ -15,6 +17,13 @@ in
     ];
     useDHCP = false;
     defaultGateway = "192.168.1.1";
+    firewall.allowedTCPPorts = [ 5901 ];
+    firewall.allowedUDPPorts = [ 5901 ];
+  };
+
+  services.duckdns = {
+    enable = true;
+    domain = "themachinix";
   };
 
   services.fwupd.enable = true;

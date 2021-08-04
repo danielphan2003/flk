@@ -67,6 +67,10 @@ fetch.url = "https://leonflix.net/downloads/Leonflix.AppImage"
 src.manual = "r53"
 fetch.github = "benhoyt/inih"
 
+[light]
+src.git = "https://github.com/haikarainen/light"
+fetch.github = "haikarainen/light"
+
 [lua-pam]
 src.git = "https://github.com/RMTT/lua-pam"
 fetch.github = "RMTT/lua-pam"
@@ -200,22 +204,22 @@ fetch.github = "ToadKing/wii-u-gc-adapter"
 
 #### OpenVsx extensions
 
-[awesome-flutter-snippets]
+[vscode-extensions-awesome-flutter-snippets]
 src.openvsx = "Nash.awesome-flutter-snippets"
 fetch.openvsx = "Nash.awesome-flutter-snippets"
 passthru = { license = "asl20", homepage = "https://github.com/Neevash/awesome-flutter-snippets", description = "Awesome Flutter Snippets is a collection snippets and shortcuts for commonly used Flutter functions and classes" }
 
-[bracket-pair-colorizer-2]
+[vscode-extensions-bracket-pair-colorizer-2]
 src.openvsx = "CoenraadS.bracket-pair-colorizer-2"
 fetch.openvsx = "CoenraadS.bracket-pair-colorizer-2"
 passthru = { license = "mit", homepage = "https://github.com/CoenraadS/Bracket-Pair-Colorizer-2", description = "A customizable extension for colorizing matching brackets" }
 
-[codeql]
+[vscode-extensions-codeql]
 src.openvsx = "GitHub.vscode-codeql"
 fetch.openvsx = "GitHub.vscode-codeql"
 passthru = { license = "mit", homepage = "https://github.com/github/vscode-codeql", description = "CodeQL for Visual Studio Code" }
 
-[codesnap]
+[vscode-extensions-codesnap]
 src.openvsx = "adpyke.codesnap"
 fetch.openvsx = "adpyke.codesnap"
 passthru = { license = "mit", homepage = "https://github.com/kufii/CodeSnap", description = "📷 Take beautiful screenshots of your code" }
@@ -225,159 +229,159 @@ passthru = { license = "mit", homepage = "https://github.com/kufii/CodeSnap", de
 # fetch.openvsx = "vscode.cpp"
 # passthru = { publisher = "vscode", name = "cpp" }
 
-[dart-code]
+[vscode-extensions-dart-code]
 src.openvsx = "Dart-Code.dart-code"
 fetch.openvsx = "Dart-Code.dart-code"
 passthru = { license = "mit", homepage = "https://github.com/Dart-Code/Dart-Code", description = "Dart language support and debugger for Visual Studio Code." }
 
-[dendron]
+[vscode-extensions-dendron]
 src.openvsx = "dendron.dendron"
 fetch.openvsx = "dendron.dendron"
 passthru = { license = "agpl3Only", homepage = "https://github.com/dendronhq/dendron", description = "Dendron is a hierarchal note taking tool that grows as you do. " }
 
-[discord-presence]
+[vscode-extensions-discord-presence]
 src.openvsx = "icrawl.discord-vscode"
 fetch.openvsx = "icrawl.discord-vscode"
 passthru = { license = "mit", homepage = "https://github.com/iCrawl/discord-vscode", description = "Update your discord status with a rich presence." }
 
-[dotenv]
+[vscode-extensions-dotenv]
 src.openvsx = "mikestead.dotenv"
 fetch.openvsx = "mikestead.dotenv"
 passthru = { license = "mit", homepage = "https://github.com/mikestead/vscode-dotenv", description = "Support for dotenv file syntax" }
 
-[eslint]
+[vscode-extensions-eslint]
 src.openvsx = "dbaeumer.vscode-eslint"
 fetch.openvsx = "dbaeumer.vscode-eslint"
 passthru = { license = "mit", homepage = "https://github.com/Microsoft/vscode-eslint", description = "Integrates ESLint JavaScript into VS Code." }
 
-[even-better-toml]
+[vscode-extensions-even-better-toml]
 src.openvsx = "tamasfe.even-better-toml"
 fetch.openvsx = "tamasfe.even-better-toml"
 passthru = { license = "mit", homepage = "https://github.com/tamasfe/taplo", description = "Fully-featured TOML support" }
 
-[flutter]
+[vscode-extensions-flutter]
 src.openvsx = "Dart-Code.flutter"
 fetch.openvsx = "Dart-Code.flutter"
 passthru = { license = "mit", homepage = "https://github.com/Dart-Code/Flutter", description = "Flutter support and debugger for Visual Studio Code." }
 
-[gitlens]
+[vscode-extensions-gitlens]
 src.openvsx = "eamodio.gitlens"
 fetch.openvsx = "eamodio.gitlens"
 passthru = { license = "mit", homepage = "https://github.com/eamodio/vscode-gitlens", description = "Supercharge the Git capabilities built into Visual Studio Code — Visualize code authorship at a glance via Git blame annotations and code lens, seamlessly navigate and explore Git repositories, gain valuable insights via powerful comparison commands, and so much more" }
 
-[html-css-class-completion]
+[vscode-extensions-html-css-class-completion]
 src.openvsx = "Zignd.html-css-class-completion"
 fetch.openvsx = "Zignd.html-css-class-completion"
 passthru = { license = "mit", homepage = "https://github.com/Zignd/HTML-CSS-Class-Completion", description = "CSS class name completion for the HTML class attribute based on the definitions found in your workspace." }
 
-[Kotlin]
+[vscode-extensions-Kotlin]
 src.openvsx = "mathiasfrohlich.Kotlin"
 fetch.openvsx = "mathiasfrohlich.Kotlin"
 passthru = { license = "asl20", homepage = "https://github.com/mathiasfrohlich/vscode-kotlin", description = "Kotlin language support for VS Code" }
 
-[Material-theme]
+[vscode-extensions-Material-theme]
 src.openvsx = "zhuangtongfa.material-theme"
 fetch.openvsx = "zhuangtongfa.material-theme"
 passthru = { license = "mit", homepage = "https://github.com/Binaryify/OneDark-Pro", description = "Atom's iconic One Dark theme for Visual Studio Code" }
 
-[markdown-all-in-one]
+[vscode-extensions-markdown-all-in-one]
 src.openvsx = "yzhang.markdown-all-in-one"
 fetch.openvsx = "yzhang.markdown-all-in-one"
 passthru = { license = "mit", homepage = "https://github.com/yzhang-gh/vscode-markdown", description = "All you need to write Markdown (keyboard shortcuts, table of contents, auto preview and more)" }
 
-[markdown-preview-enhanced]
+[vscode-extensions-markdown-preview-enhanced]
 src.openvsx = "shd101wyy.markdown-preview-enhanced"
 fetch.openvsx = "shd101wyy.markdown-preview-enhanced"
 passthru = { license = "ncsa", homepage = "https://github.com/shd101wyy/vscode-markdown-preview-enhanced", description = "Markdown Preview Enhanced ported to vscode" }
 
-[material-icon-theme]
+[vscode-extensions-material-icon-theme]
 src.openvsx = "PKief.material-icon-theme"
 fetch.openvsx = "PKief.material-icon-theme"
 passthru = { license = "mit", homepage = "https://github.com/PKief/vscode-material-icon-theme", description = "Material Design Icons for Visual Studio Code" }
 
-[nix-env-selector]
+[vscode-extensions-nix-env-selector]
 src.openvsx = "arrterian.nix-env-selector"
 fetch.openvsx = "arrterian.nix-env-selector"
 passthru = { license = "mit", homepage = "https://github.com/arrterian/nix-env-selector", description = "Allows switch environment for Visual Studio Code and extensions based on Nix config file." }
 
-[output-colorizer]
+[vscode-extensions-output-colorizer]
 src.openvsx = "IBM.output-colorizer"
 fetch.openvsx = "IBM.output-colorizer"
 passthru = { license = "mit", homepage = "https://github.com/IBM-Bluemix/vscode-log-output-colorizer", description = "Syntax highlighting for log files" }
 
-[prettier]
+[vscode-extensions-prettier]
 src.openvsx = "esbenp.prettier-vscode"
 fetch.openvsx = "esbenp.prettier-vscode"
 passthru = { license = "mit", homepage = "https://github.com/prettier/prettier-vscode", description = "Code formatter using prettier" }
 
-[pubspec-assist]
+[vscode-extensions-pubspec-assist]
 src.openvsx = "jeroen-meijer.pubspec-assist"
 fetch.openvsx = "jeroen-meijer.pubspec-assist"
 passthru = { license = "mit", homepage = "https://github.com/jeroen-meijer/pubspec-assist", description = "Easily add and update dependencies to your Dart and Flutter project." }
 
-[python]
+[vscode-extensions-python]
 src.openvsx = "ms-python.python"
 fetch.openvsx = "ms-python.python"
 passthru = { license = "mit", homepage = "https://github.com/Microsoft/vscode-python", description = "Linting, Debugging (multi-threaded, remote), Intellisense, Jupyter Notebooks, code formatting, refactoring, unit tests, snippets, and more." }
 
-[rest-client]
+[vscode-extensions-rest-client]
 src.openvsx = "humao.rest-client"
 fetch.openvsx = "humao.rest-client"
 passthru = { license = "mit", homepage = "https://github.com/Huachao/vscode-restclient", description = "REST Client for Visual Studio Code" }
 
-[rust]
+[vscode-extensions-rust]
 src.openvsx = "rust-lang.rust"
 fetch.openvsx = "rust-lang.rust"
 passthru = { license = '[ "mit", "asl20" ]', homepage = "https://github.com/rust-lang/rls-vscode", description = "Rust for Visual Studio Code (powered by Rust Language Server/Rust Analyzer). Provides lints, code completion and navigation, formatting and more." }
 
-[svelte]
+[vscode-extensions-svelte]
 src.openvsx = "svelte.svelte-vscode"
 fetch.openvsx = "svelte.svelte-vscode"
 passthru = { license = "mit", homepage = "https://github.com/sveltejs/language-tools", description = "Svelte language support for VS Code" }
 
-[tailwindcss]
+[vscode-extensions-tailwindcss]
 src.openvsx = "bradlc.vscode-tailwindcss"
 fetch.openvsx = "bradlc.vscode-tailwindcss"
 passthru = { license = "mit", homepage = "https://github.com/tailwindlabs/tailwindcss-intellisense", description = "Intelligent Tailwind CSS tooling for VS Code" }
 
-[versionlens]
+[vscode-extensions-versionlens]
 src.openvsx = "pflannery.vscode-versionlens"
 fetch.openvsx = "pflannery.vscode-versionlens"
 passthru = { license = "isc", homepage = "https://gitlab.com/versionlens/vscode-versionlens", description = "Shows the latest version for each package using code lens" }
 
 #### VsMarketplace extensions
 
-[ActiveFileInStatusBar]
+[vscode-extensions-ActiveFileInStatusBar]
 src.vsmarketplace = "RoscoP.ActiveFileInStatusBar"
 fetch.vsmarketplace = "RoscoP.ActiveFileInStatusBar"
 passthru = { license = "mit" }
 
-[astro]
+[vscode-extensions-astro]
 src.vsmarketplace = "astro-build.astro-vscode"
 fetch.vsmarketplace = "astro-build.astro-vscode"
 passthru = { license = "mit" }
 
-[css-initial-value]
+[vscode-extensions-css-initial-value]
 src.vsmarketplace = "dzhavat.css-initial-value"
 fetch.vsmarketplace = "dzhavat.css-initial-value"
 passthru = { license = "mit" }
 
-[nixpkgs-fmt]
+[vscode-extensions-nixpkgs-fmt]
 src.vsmarketplace = "B4dM4n.nixpkgs-fmt"
 fetch.vsmarketplace = "B4dM4n.nixpkgs-fmt"
 passthru = { license = "mit" }
 
-[pascal]
+[vscode-extensions-pascal]
 src.vsmarketplace = "alefragnani.pascal"
 fetch.vsmarketplace = "alefragnani.pascal"
 passthru = { license = "mit" }
 
-[pascal-formatter]
+[vscode-extensions-pascal-formatter]
 src.vsmarketplace = "alefragnani.pascal-formatter"
 fetch.vsmarketplace = "alefragnani.pascal-formatter"
 passthru = { license = "mit" }
 
-[react-native]
+[vscode-extensions-react-native]
 src.vsmarketplace = "msjsdiag.vscode-react-native"
 fetch.vsmarketplace = "msjsdiag.vscode-react-native"
 passthru = { license = "mit" }

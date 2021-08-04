@@ -20,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   preFixup = ''
-    wrapProgram $out/bin/pywalfox-daemon.sh --prefix PYTHONPATH : $PYTHONPATH 
+    wrapProgram $out/bin/pywalfox-daemon.sh --prefix PYTHONPATH : $PYTHONPATH
   '';
 
   meta = with lib; {

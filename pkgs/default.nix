@@ -1,13 +1,38 @@
-channels: final: prev: {
-  # keep sources this first
-  sources = prev.callPackage (import ./_sources/generated.nix) { };
+channels: final: prev:
+let
+  sources = (import ./_sources/generated.nix) { inherit (final) fetchurl fetchgit; };
 
-  vscode-utils = prev.vscode-utils // (prev.callPackage ./misc/vscode-extensions/vscode-utils.nix { });
+  mkVimPlugin = plugin:
+    final.vimUtils.buildVimPluginFrom2Nix {
+      inherit (plugin) pname version src;
+    };
 
-  vscode-extensions = prev.vscode-extensions // (final.callPackage ./misc/vscode-extensions { });
+  mkVscodeExtension = extension:
+    final.vscode-utils.mkVscodeExtension extension { };
 
-  sddm-chili =
-    final.callPackage ./applications/display-managers/sddm/themes/chili { };
+  newPkgsSet = pkgSet:
+    let
+      prefix = "${pkgSet}-";
+
+      pkgSetchannel = {
+        "vimPlugins" = mkVimPlugin;
+        "vscode-extensions" = mkVscodeExtension;
+      }.${pkgSet};
+
+
+      pkgsInSources = final.lib.mapAttrs' (name: value: final.lib.nameValuePair (final.lib.removePrefix prefix name) (value)) (final.lib.filterAttrs (n: v: final.lib.hasPrefix prefix n) sources);
+    in
+    final.lib.mapAttrs (n: v: pkgSetchannel v) pkgsInSources;
+
+in
+{
+  inherit sources;
+
+  vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
+
+  vscode-extensions = prev.vscode-extensions // (newPkgsSet "vscode-extensions");
+
+  sddm-chili = final.callPackage ./applications/display-managers/sddm/themes/chili { };
 
   pure = final.callPackage ./shells/zsh/pure { };
 
@@ -15,8 +40,7 @@ channels: final: prev: {
 
   libinih = final.callPackage ./development/libraries/libinih { };
 
-  steamcompmgr =
-    final.callPackage ./applications/window-managers/steamcompmgr { };
+  steamcompmgr = final.callPackage ./applications/window-managers/steamcompmgr { };
 
   fs-diff = final.callPackage ./tools/file-systems/fs-diff { };
 
@@ -40,11 +64,11 @@ channels: final: prev: {
 
   dribbblish-dynamic-theme = final.callPackage ./data/misc/dribbblish-dynamic-theme { };
 
-  microsoft-edge-beta =
-    final.callPackage ./applications/networking/browsers/microsoft-edge { };
+  microsoft-edge-channel = final.callPackage ./applications/networking/browsers/microsoft-edge { };
 
-  microsoft-edge-dev =
-    final.callPackage ./applications/networking/browsers/microsoft-edge { channel = "dev"; };
+  microsoft-edge-beta = final.microsoft-edge-channel "beta";
+
+  microsoft-edge-dev = final.microsoft-edge-channel "dev";
 
   arkenfox-userjs = final.callPackage ./data/misc/arkenfox-userjs { };
 

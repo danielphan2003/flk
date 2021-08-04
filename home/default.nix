@@ -18,7 +18,7 @@ in
 
       academic = play ++ [ winapps ];
 
-      coding = academic ++ [ alacritty browsers.chromium vscodium idea ];
+      coding = academic ++ [ alacritty browsers.chromium vscodium idea awesome ];
     };
   };
 
@@ -41,6 +41,7 @@ in
             signByDefault = true;
           };
         };
+        services.wayvnc.addr = "themachinix.duckdns.org";
       };
 
     alita = { suites, ... }: {

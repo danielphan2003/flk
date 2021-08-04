@@ -2,8 +2,6 @@
 let inherit (builtins) attrValues readFile;
 in
 {
-  sound.enable = true;
-
   environment = {
     etc."xdg/qutebrowser/config.py".text =
       let mpv = "${pkgs.mpv}/bin/mpv";
@@ -26,13 +24,4 @@ in
         qute qutebrowser mpv youtubeDL;
     };
   };
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      # wrapper to specify config file
-      qute = prev.writeShellScriptBin "qute" ''
-        QUTE_DARKMODE_VARIANT=qt_515_2 QT_QPA_PLATFORMTHEME= exec ${final.qutebrowser}/bin/qutebrowser -C /etc/xdg/qutebrowser/config.py "$@"
-      '';
-    })
-  ];
 }

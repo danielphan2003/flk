@@ -1,7 +1,7 @@
 { hmUsers, self, ... }: {
   home-manager.users = { inherit (hmUsers) alita; };
 
-  age.secrets.alita.file = "${self}/secrets/alita.age";
+  age.secrets.alita.file = "${self}/secrets/home/users/alita.age";
 
   users.users.alita = {
     description = "default";

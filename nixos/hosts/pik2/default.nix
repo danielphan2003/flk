@@ -10,7 +10,7 @@ in
 {
   imports = suites.pik2;
 
-  age.secrets.duckdns.file = "${self}/secrets/duckdns.age";
+  age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
 
   networking = {
     domain = "${config.networking.hostName}.duckdns.org";

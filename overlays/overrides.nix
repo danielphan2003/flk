@@ -12,6 +12,7 @@ channels: final: prev: {
     qutebrowser
     rage
     starship
+    stylua
     sudo
     teamviewer
     ;

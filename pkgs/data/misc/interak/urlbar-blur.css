@@ -11,7 +11,7 @@
 #urlbar-container {
   border-radius: 10px 10px 10px 10px !important;
   /* padding-top: 0px !important;
-		padding-bottom: 0px !important;*/
+    padding-bottom: 0px !important;*/
 }
 #urlbar-input-container,
 #searchbar {
@@ -58,7 +58,7 @@
 #urlbar[breakout][breakout-extend][open] {
   background-image: url(image/noise-512x512.png) !important;
   background-color: #1e1e1ebf !important;
- -webkit-backdrop-filter: blur(32px) !important;
+  -webkit-backdrop-filter: blur(32px) !important;
   backdrop-filter: blur(32px) !important;
 }
 

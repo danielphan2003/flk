@@ -1,13 +1,37 @@
-{ stdenv, lib, binutils-unwrapped, sources
-, xz, gnutar, file, glibc, glib, nss, nspr
-, atk, at_spi2_atk, xorg, cups, dbus_libs, expat
-, libdrm, libxkbcommon, gnome3, gnome2, cairo, gdk-pixbuf
-, mesa, alsaLib, at_spi2_core, libuuid
-
-, channel ? "beta"
+{ stdenv
+, lib
+, binutils-unwrapped
+, sources
+, xz
+, gnutar
+, file
+, glibc
+, glib
+, nss
+, nspr
+, atk
+, at_spi2_atk
+, xorg
+, cups
+, dbus_libs
+, expat
+, libdrm
+, libxkbcommon
+, gnome3
+, gnome2
+, cairo
+, gdk-pixbuf
+, mesa
+, alsaLib
+, at_spi2_core
+, libuuid
 }:
+
+channel:
+
 stdenv.mkDerivation rec {
   pname = "microsoft-edge-${channel}";
+
   inherit (sources."${pname}") src version;
 
   unpackCmd = ''

@@ -43,6 +43,7 @@ in
       help = pkgs.nvfetcher-bin.meta.description;
       command = "cd $DEVSHELL_ROOT/pkgs; ${pkgs.nvfetcher-bin}/bin/nvfetcher -c ./sources.toml --no-output $@";
     }
+    (linter stylua)
     (linter nixpkgs-fmt)
     (linter editorconfig-checker)
     # (docs python3Packages.grip) too many deps

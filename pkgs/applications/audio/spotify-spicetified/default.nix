@@ -50,7 +50,7 @@ let
       enabledCustomApps
       enabledExtensions
       spotifyLaunchFlags
-    ;
+      ;
   };
   inherit (helpers)
     boolToString
@@ -61,7 +61,7 @@ let
     customAppsString
     launchFlagsString
     optionalConfig
-  ;
+    ;
   legacyConfigs = optionalString legacySupport '' \
     fastUser_switching            ${boolToString fastUserSwitching} \
     visualization_high_framerate  ${boolToString visualizationHighFramerate} \

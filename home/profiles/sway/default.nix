@@ -69,6 +69,11 @@ in
 
   services.avizo.enable = true;
 
+  services.wayvnc = {
+    enable = true;
+    configFile = "/run/secrets/wayvnc/config";
+  };
+
   wayland.windowManager.sway = {
     enable = true;
 
@@ -80,6 +85,11 @@ in
     systemdIntegration = true;
 
     extraConfig = ''
+      mode passthrough {
+        bindsym Mod4+Pause mode default
+      }
+      bindsym Mod4+Pause mode passthrough
+
       set $φ 38 ppt
       set $Φ 62 ppt
       seat seat0 xcursor_theme Bibata_Ice 24

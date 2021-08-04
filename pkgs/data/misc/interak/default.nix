@@ -1,21 +1,20 @@
 { lib, stdenv, flyingfox, rainfox, pywalfox }:
+let
+  inherit rainfox pywalfox;
+  urlbar-blur = ./urlbar-blur.css;
+  flyingfox-no-tabline = flyingfox.overrideAttrs (_: { patches = [ ./no-tabline.patch ]; });
+in
 stdenv.mkDerivation rec {
   pname = "interak";
   version = "0.0.1";
 
-  srcs = rec {
-    inherit rainfox pywalfox;
-    urlbar-blur = ./urlbar-blur.css;
-    flyingfox = flyingfox.overrideAttrs (_: { patches = [ ./no-tabline.patch ]; });
-  };
-
-  installPhase = with srcs; ''
+  installPhase = ''
     mkdir -p $out/chrome
     cp ${urlbar-blur} $out/chrome
 
-    ln -s ${flyingfox}/chrome $out/chrome/flyingfox
-    ln -s ${rainfox}/chrome   $out/chrome/rainfox
-    ln -s ${pywalfox}/chrome  $out/chrome/pywalfox
+    ln -s ${flyingfox-no-tabline}/chrome $out/chrome/flyingfox
+    ln -s ${rainfox}/chrome $out/chrome/rainfox
+    ln -s ${pywalfox}/chrome $out/chrome/pywalfox
   '';
 
   meta = with lib; {

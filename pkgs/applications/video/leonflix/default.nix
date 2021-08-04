@@ -12,7 +12,7 @@ appimageTools.wrapType2 rec {
 
   multiPkgs = null; # no 32bit needed
   extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
-  extraInstallCommands = '' 
+  extraInstallCommands = ''
     mv $out/bin/{${name},${pname}}
     # Desktop file
     mkdir -p $out/share/applications

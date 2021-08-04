@@ -7,8 +7,8 @@ let
     flatten forEach genList imap0 remove
     concatImapStrings concatStringsSep optionalString
     mod replaceStrings splitString toInt
-  ;
-  
+    ;
+
   bars = config.programs.waybar.settings;
 
   trimModule = module:
@@ -18,8 +18,8 @@ let
         (replaceStrings [ "#" ] [ "." ]));
 
   mergeModules = left: center: right:
-    forEach 
-      (genList (x: "sway/workspaces" ) (workspaces - 1) ++ left ++ center ++ right)
+    forEach
+      (genList (x: "sway/workspaces") (workspaces - 1) ++ left ++ center ++ right)
       trimModule;
 
   ifttt =
@@ -38,7 +38,7 @@ let
         }
       '')
       list;
-  
+
   toColor = x:
     toString (if x < 15 then x + 1 else mod x 16);
 
@@ -49,7 +49,8 @@ let
 
   colors = listToCss
     (flatten (map mapColorToBar bars));
-in ''
+in
+''
   @import url('file://${pywalPath}');
   ${colors}
   ${fileContents style}

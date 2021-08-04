@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  inherit (builtins) attrValues readFile;
+  inherit (builtins) attrValues;
   theme = "Materia-dark";
   themePkgs = pkgs.materia-theme;
   font = "SF Pro Display 11";
@@ -11,14 +11,18 @@ let
 in
 {
   imports = [
+    ./awesome
     ./browsers
     ./gtk
     ./im
+    ./picom
     ./qutebrowser
     ./spotify
     ./wayland
     ./wine
   ];
+
+  sound.enable = true;
 
   hardware.opengl = {
     setLdLibraryPath = true;
@@ -79,6 +83,7 @@ in
         # nice touch
         gparted
         maim
+        tigervnc
         trash-cli
         youtube-dl
 
