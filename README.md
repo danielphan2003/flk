@@ -93,6 +93,8 @@ Plus overrides and modules from devos's [community][devos-community] branch
 ## Eye candies and what not
 - Pywal theming:
   - Very helpful wallpaper setting [script][wal-set]. It reloads pywalfox, sway border colors, along with seamless wallpaper switching and notify user when everything is done.
+- X11:
+  - AwesomeWM: formatted and based on [the-glorious-dotfiles][the-glorious-dotfiles]
 - Wayland:
   - Latest packages from [`nixpkgs-wayland`][nixpkgs-wayland].
   - ~~Ibus [working][sway-startup]. Adapted from Arch Wiki's Ibus [integration][arch-wiki-ibus].~~ Seems broken, please open a PR for fixing this permanantly.
@@ -101,7 +103,7 @@ Plus overrides and modules from devos's [community][devos-community] branch
   - (very MUCH wip) [river][river] declarative config.
 
 ## TODOS
-- Implement GitHub GitHub [workflows](auto-update-pkgs-workflow) to automatically update packages.
+- Implement GitHub GitHub [workflows][auto-update-pkgs-workflow] to automatically update packages.
 - [Unlock LUKS file systems via Tor][tor-luks-unlock].
 - Pass the `nix flake check`.
 - More...
@@ -164,6 +166,7 @@ Plus overrides and modules from devos's [community][devos-community] branch
 
 [wal-set]: users/profiles/sway/config/scripts/wal-set.nix
 [sway-startup]: users/profiles/sway/config/startup.nix
+[the-glorious-dotfiles]: https://github.com/manilarome/the-glorious-dotfiles
 [arch-wiki-ibus]: https://wiki.archlinux.org/title/IBus#Integration
 [waybar-module-maker]: lib/pkgs-build/mkWaybarModule.nix
 [waybar-modules]: users/profiles/sway/waybar/modules
