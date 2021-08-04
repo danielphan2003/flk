@@ -5,6 +5,7 @@ on:
       - main
       - trying
       - staging
+      - fix-nix-flake-check
 jobs:
   check:
     runs-on: ubuntu-latest
