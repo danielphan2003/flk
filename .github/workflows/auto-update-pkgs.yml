@@ -23,8 +23,7 @@ jobs:
       with:
         name: dan-cfg
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      # - name: Run Flake Check
-      #   run: nix -Lv flake check
+      - run: nix -Lv flake check
       - run: nix -Lv flake show
       - run: nix -Lv develop --command bud nvfetcher-github
       - name: Commit changes
