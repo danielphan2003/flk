@@ -38,6 +38,7 @@ in
     email = "danielphan.2003+acme@gmail.com";
     package = pkgs.caddy.override {
       plugins = [ "github.com/caddy-dns/duckdns" ];
+      vendorSha256 = "sha256-deUq+/6EaevJOKm4AANIS8sPEHSRTQm7XlEkXONiJ84=";
     };
     config = with config.services; ''
       ${caddyTemplate}

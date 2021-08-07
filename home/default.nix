@@ -5,6 +5,10 @@ in
 {
   imports = [ (digga.lib.importModules ./modules) ];
 
+  externalModules = with inputs; [
+    "${impermanence}/home-manager.nix"
+  ];
+
   importables = rec {
     profiles = digga.lib.rakeLeaves ./profiles;
     suites = with profiles; rec {

@@ -95,4 +95,6 @@ in
   paper = final.callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
 
   eww = final.callPackage ./applications/misc/eww { inherit (channels.latest) makeRustPlatform; };
+
+  caddy = final.callPackage ./servers/caddy { };
 }

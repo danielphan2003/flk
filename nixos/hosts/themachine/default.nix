@@ -7,6 +7,7 @@ in
   age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
 
   networking = {
+    domain = "themachinix.duckdns.org";
     usePredictableInterfaceNames = false;
     wireless.enable = false;
     interfaces."eth0".ipv4.addresses = [
@@ -31,8 +32,6 @@ in
 
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
-
-  security.mitigations.acceptRisk = true;
 
   nix.maxJobs = 4;
 
@@ -118,6 +117,7 @@ in
     "/mnt/danie" = {
       device = "/dev/disk/by-label/dandrive";
       fsType = "btrfs";
+      neededForBoot = true;
       options = [ "subvol=danie" "compress=zstd" "nossd" ];
     };
     "/persist" = {

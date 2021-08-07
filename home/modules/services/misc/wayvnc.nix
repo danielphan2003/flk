@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.services.wayvnc;
-  inherit (cfg) addr configFile;
+  inherit (cfg) addr configFile maxFps;
 in
 {
   options = {
@@ -31,6 +31,13 @@ in
           Custom path where wayvnc should look for its config.
         '';
       };
+      maxFps = mkOption {
+        type = types.int;
+        default = 30;
+        description = ''
+          Set the rate limit.
+        '';
+      };
     };
   };
   config = mkIf cfg.enable {
@@ -46,6 +53,7 @@ in
       Service = {
         ExecStart = ''${pkgs.waylandPkgs.wayvnc}/bin/wayvnc \
           ${optionalString (configFile != "") "-C ${configFile}"} \
+          -f ${assert asserts.assertMsg (maxFps > 0) "Rate limit for WayVNC must be a positive integer!"; toString maxFps} \
           ${addr}
         '';
       };

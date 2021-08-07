@@ -82,11 +82,12 @@ A lot of [packages][pkgs]:
 - VS Code extensions: Utilizing [vs-ext][vs-ext]. See [`pkgs/default.nix`][vs-ext-example] for how to add a new `vscode-extensions` pkgsSet to your overlay.
 - Wayland packages: [avizo][avizo].
 - Android: my (very MUCH vip) take on [anbox][anbox]. I cannot find anything that works. Please open an issue if you know any alternatives.
+- [Caddy][caddy] with plugins! See [pkgs/servers/caddy][caddy-with-plugins] for usage.
 - Other...
 
 Some modules that may work for your use case:
 - `boot.persistence`: module to set your persist path and enable persistence handling. Basically a thin wrapper for mt-caret's opt-in state [config][optin-state].
-- `services.candy`: (very MUCH wip) Caddy wrapper with nginx-like declarative web options
+- `services.candy`: (very MUCH wip) [Caddy][caddy] wrapper with nginx-like declarative web options.
 
 Plus overrides and modules from devos's [community][devos-community] branch
 
@@ -157,6 +158,8 @@ Plus overrides and modules from devos's [community][devos-community] branch
 [vs-ext]: https://github.com/divnix/vs-ext
 [vs-ext-example]: ./pkgs/default.nix#L33
 
+[caddy]: https://caddyserver.com
+[caddy-with-plugins]: ./pkgs/servers/caddy/default.nix
 [optin-state]: https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html
 
 [devos-community]: https://github.com/divnix/devos/tree/community

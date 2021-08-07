@@ -1,37 +1,37 @@
-{ pkgs, hmUsers, self, ... }: {
-  home-manager.users = { inherit (hmUsers) danie; };
+{ self, hmUsers, pkgs, lib, ... }: let user = "danie"; in {
+  home-manager.users."${user}" = hmUsers."${user}";
 
   age.secrets = {
     accounts = {
       file = "${self}/secrets/home/profiles/accounts.age";
-      owner = "danie";
+      owner = user;
       group = "users";
     };
-    danie.file = "${self}/secrets/home/users/danie.age";
+    danie.file = "${self}/secrets/home/users/${user}.age";
     "wayvnc/config" = {
       file = "${self}/secrets/home/profiles/wayvnc/config.age";
-      owner = "danie";
+      owner = user;
       group = "users";
     };
     "wayvnc/key.pem" = {
       file = "${self}/secrets/home/profiles/wayvnc/key.pem.age";
-      owner = "danie";
+      owner = user;
       group = "users";
     };
     "wayvnc/cert.pem" = {
       file = "${self}/secrets/home/profiles/wayvnc/cert.pem.age";
-      owner = "danie";
+      owner = user;
       group = "users";
     };
   };
 
-  environment.systemPackages = with pkgs; [ danie-logo ];
+  environment.systemPackages = [ pkgs."${user}-logo" ];
 
-  users.users.danie = {
+  users.users."${user}" = {
     description = "Daniel Phan";
     isNormalUser = true;
     extraGroups = [ "wheel" "libvirtd" "kvm" "adbusers" "input" "podman" ];
-    passwordFile = "/run/secrets/danie";
-    openssh.authorizedKeys.keyFiles = [ "${self}/secrets/ssh/danie.pub" ];
+    passwordFile = "/run/secrets/${user}";
+    openssh.authorizedKeys.keyFiles = [ "${self}/secrets/ssh/${user}.pub" ];
   };
 }

@@ -15,14 +15,14 @@
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "404d1d466a35fada3050222261a85c0bf422a887";
+    version = "92b7fb81d0ca6bfd58aeca175749b4bd2777ef20";
     src = fetchgit {
       url = "https://github.com/arkenfox/user.js";
-      rev = "404d1d466a35fada3050222261a85c0bf422a887";
+      rev = "92b7fb81d0ca6bfd58aeca175749b4bd2777ef20";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0bx66yjp2k9m87dr86dzm8xiiwgl2wd6zngbcrvnl43pw9d4zrj6";
+      sha256 = "1b47qf3yc1nbrgmg2nqv8qi6929bjplxnw3x9wg8qn2s4gn5y03b";
     };
   };
   avizo = {
@@ -130,7 +130,9 @@
     };
     cargoLock = {
       lockFile = ./eww-142894c3ce65fca7e823188aaad4a16b2b5c6dee/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+        
+      };
     };
   };
   flyingfox = {
@@ -235,10 +237,10 @@
   };
   microsoft-edge-dev = {
     pname = "microsoft-edge-dev";
-    version = "94.0.972.0";
+    version = "94.0.972.2";
     src = fetchurl {
-      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_94.0.972.0-1_amd64.deb";
-      sha256 = "0x4mkh22p12cd55aaw4vxa2y28aia1dzqyjajkhan72ls4h7kaij";
+      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_94.0.972.2-1_amd64.deb";
+      sha256 = "09ny208wnc9rlxk6k0yjir2vw52xxk08x07f3ycm3mrz37snnkiv";
     };
   };
   nix-zsh-completions = {
@@ -349,14 +351,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "7b75dc4f9b302c833949cbe2d5dcc5402a0578cc";
+    version = "1661d4e9690a3a82e60620cc40093397f99015a5";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "7b75dc4f9b302c833949cbe2d5dcc5402a0578cc";
+      rev = "1661d4e9690a3a82e60620cc40093397f99015a5";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "08idlssig5d8hzbq9vw9ni3fxysxlvdr05p6p4925wymznxng2bw";
+      sha256 = "1dp5gll26lj4bkdxarc45xmlc5flgnv42q3gk3z8wfkss2jk1lws";
     };
   };
   rnix-lsp = {
@@ -372,7 +374,9 @@
     };
     cargoLock = {
       lockFile = ./rnix-lsp-1fdd7cf9bf56b8ad2dddcfd27354dae8aef2b453/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+        
+      };
     };
   };
   sddm-chili = {
@@ -437,14 +441,14 @@
   };
   spicetify-themes = {
     pname = "spicetify-themes";
-    version = "6e09413e46d16e1a2013172d12c233bdee0bbab5";
+    version = "519198d17b75f5007ea09c0a341681c1cd2b944e";
     src = fetchgit {
       url = "https://github.com/morpheusthewhite/spicetify-themes";
-      rev = "6e09413e46d16e1a2013172d12c233bdee0bbab5";
+      rev = "519198d17b75f5007ea09c0a341681c1cd2b944e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "06hxpz30l5aryjwgc48351h84lx08p5fa3f8xay5hd93qsg1jwr1";
+      sha256 = "1phz9wmdb753ljw442z76yzf33sc1and9hbjkk496krgr61a6wg7";
     };
   };
   spotify = {
@@ -521,10 +525,10 @@
   };
   vscode-extensions-Material-theme = {
     pname = "vscode-extensions-Material-theme";
-    version = "3.11.2";
+    version = "3.11.3";
     src = fetchurl {
-      url = "https://open-vsx.org/api/zhuangtongfa/material-theme/3.11.2/file/zhuangtongfa.material-theme-3.11.2.vsix";
-      sha256 = "129v2hpxyvsjw8y4yfv0mld10k40mn9v9wrbdpcjbm3lhhh8rb6a";
+      url = "https://open-vsx.org/api/zhuangtongfa/material-theme/3.11.3/file/zhuangtongfa.material-theme-3.11.3.vsix";
+      sha256 = "0fz686y1xx4vrrknxjld3wbkw5rw4jriwx9c1cjz4hf1x5wvg9ly";
     };
     homepage = "https://github.com/Binaryify/OneDark-Pro";
     license = "mit";
@@ -715,10 +719,10 @@
   };
   vscode-extensions-material-icon-theme = {
     pname = "vscode-extensions-material-icon-theme";
-    version = "4.8.0";
+    version = "4.9.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/PKief/material-icon-theme/4.8.0/file/PKief.material-icon-theme-4.8.0.vsix";
-      sha256 = "0y6vdmaspyn8pq1fb82p3b5gkxk083krwx5cag6sac5fsm5wrkpi";
+      url = "https://open-vsx.org/api/PKief/material-icon-theme/4.9.0/file/PKief.material-icon-theme-4.9.0.vsix";
+      sha256 = "1yn2x5775g9zsfarxp6hswi18jvqlpjywwxnmsc0k3nhc8ygsn8a";
     };
     homepage = "https://github.com/PKief/vscode-material-icon-theme";
     license = "mit";
@@ -775,10 +779,10 @@
   };
   vscode-extensions-prettier = {
     pname = "vscode-extensions-prettier";
-    version = "8.0.1";
+    version = "8.1.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/esbenp/prettier-vscode/8.0.1/file/esbenp.prettier-vscode-8.0.1.vsix";
-      sha256 = "07k2i87bg03dqwpnslg497gzrs86sbl513hky2psq7zy0pv0yayj";
+      url = "https://open-vsx.org/api/esbenp/prettier-vscode/8.1.0/file/esbenp.prettier-vscode-8.1.0.vsix";
+      sha256 = "0inx5dcbsgxfys2hw5m2y6js4zcdsi5kw4s45a1l8vjhqqgqy30r";
     };
     homepage = "https://github.com/prettier/prettier-vscode";
     license = "mit";
@@ -808,10 +812,10 @@
   };
   vscode-extensions-react-native = {
     pname = "vscode-extensions-react-native";
-    version = "1.5.2";
+    version = "1.6.0";
     src = fetchurl {
-      url = "https://msjsdiag.gallery.vsassets.io/_apis/public/gallery/publisher/msjsdiag/extension/vscode-react-native/1.5.2/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      sha256 = "108idvfqqydyr64ja7lrjl6iys62zcivd3hsjdyq2f28v9xks26m";
+      url = "https://msjsdiag.gallery.vsassets.io/_apis/public/gallery/publisher/msjsdiag/extension/vscode-react-native/1.6.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      sha256 = "1y7ingbsb6vz5jf1c697nw749lywprsz6ac6vvlj5q8qjki4vafh";
     };
     license = "mit";
   };
@@ -839,10 +843,10 @@
   };
   vscode-extensions-svelte = {
     pname = "vscode-extensions-svelte";
-    version = "105.3.3";
+    version = "105.3.4";
     src = fetchurl {
-      url = "https://open-vsx.org/api/svelte/svelte-vscode/105.3.3/file/svelte.svelte-vscode-105.3.3.vsix";
-      sha256 = "0lj4v8b818k64v2vlrrjkhpix7x9jli67hp8wnrnsh0dk2c0zaqk";
+      url = "https://open-vsx.org/api/svelte/svelte-vscode/105.3.4/file/svelte.svelte-vscode-105.3.4.vsix";
+      sha256 = "0q9gcxn5rwnkh8hkn0f8czkcxvxw54q3rgyfc752vqg16pn1jlk4";
     };
     homepage = "https://github.com/sveltejs/language-tools";
     license = "mit";
@@ -872,14 +876,14 @@
   };
   whitesur-gtk-theme = {
     pname = "whitesur-gtk-theme";
-    version = "fe20127688bce4beb7ae4c7a9cd0400e82ee3589";
+    version = "bbaf0d46645b4d98b4ccd91f9eedaa73f7be4b99";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-gtk-theme";
-      rev = "fe20127688bce4beb7ae4c7a9cd0400e82ee3589";
+      rev = "bbaf0d46645b4d98b4ccd91f9eedaa73f7be4b99";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0psnd8hznly8icf94w23cin5gg745bxs6mn8dv1648a8bl1wphqh";
+      sha256 = "1lpim3a600fhs6d8iywdsmxg4mg27af30awwn54q1qsc0nxddysj";
     };
   };
   whitesur-icon-theme = {

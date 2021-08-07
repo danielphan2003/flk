@@ -14,7 +14,6 @@ channels: final: prev: {
     starship
     stylua
     sudo
-    teamviewer
     ;
 
   haskellPackages = prev.haskellPackages.override

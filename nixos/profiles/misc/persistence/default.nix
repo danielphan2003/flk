@@ -18,6 +18,8 @@ in
 
   boot.persistence.enable = true;
 
+  programs.fuse.userAllowOther = true;
+
   environment.persistence."${path}" = {
     directories = with config; [
       "/etc/nixos"

@@ -1,13 +1,16 @@
-{ hmUsers, self, ... }: {
-  home-manager.users = { inherit (hmUsers) alita; };
+{ self, hmUsers, ... }: let user = "alita"; in {
+  home-manager.users."${user}" = hmUsers."${user}";
 
-  age.secrets.alita.file = "${self}/secrets/home/users/alita.age";
+  age.secrets."${user}".file = "${self}/secrets/home/users/${user}.age";
 
-  users.users.alita = {
-    description = "default";
+  users.users."${user}" = {
+    description = "Alita";
     isNormalUser = true;
     extraGroups = [ "wheel" "libvirtd" "kvm" "adbusers" "input" "podman" ];
-    passwordFile = "/run/secrets/alita";
-    openssh.authorizedKeys.keyFiles = [ "${self}/secrets/ssh/danie.pub" ];
+    passwordFile = "/run/secrets/${user}";
+    openssh.authorizedKeys.keyFiles = [
+      "${self}/secrets/ssh/${user}.pub"
+      "${self}/secrets/ssh/danie.pub"
+    ];
   };
 }

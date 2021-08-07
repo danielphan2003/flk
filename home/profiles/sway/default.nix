@@ -58,7 +58,7 @@ in
   }
   //
   (lib.optionalAttrs
-    (pkgs.system == "x86_64-linux")
+    (builtins.elem pkgs.system pkgs.waylandPkgs.lavalauncher.meta.platforms)
     { inherit (pkgs.waylandPkgs) lavalauncher; }
   ));
 
@@ -72,6 +72,7 @@ in
   services.wayvnc = {
     enable = true;
     configFile = "/run/secrets/wayvnc/config";
+    maxFps = 60;
   };
 
   wayland.windowManager.sway = {

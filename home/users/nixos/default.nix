@@ -1,8 +1,7 @@
-{ hmUsers, ... }:
-{
-  home-manager.users = { inherit (hmUsers) nixos; };
+{ hmUsers, ... }: let user = "nixos"; in {
+  home-manager.users."${user}" = hmUsers."${user}";
 
-  users.users.nixos = {
+  users.users."${user}" = {
     uid = 1000;
     password = "nixos";
     description = "default";

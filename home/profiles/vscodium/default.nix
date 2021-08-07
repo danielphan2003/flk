@@ -1,11 +1,12 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }:
+let inherit (builtins) attrValues; in
+{
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [
       jnoortheen.nix-ide
       # matklad.rust-analyzer
-      ms-python.python
       # ms-vscode.cpptools
 
       ActiveFileInStatusBar
@@ -44,7 +45,16 @@
       svelte
       tailwindcss
       versionlens
-    ];
+    ]
+    ++
+    (if (builtins.elem pkgs.system pkgs.vscodium.meta.platforms)
+      && (pkgs.system != "aarch64-linux")
+    then
+      [
+        ms-python.python
+      ]
+    else
+      [ ]);
     userSettings = import ./userSettings.nix { inherit pkgs; };
     keybindings = import ./keybindings.nix;
   };

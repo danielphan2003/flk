@@ -128,7 +128,6 @@ in
   services.dbus.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.gvfs.enable = true;
-  services.teamviewer.enable = true;
   services.xbanish.enable = true;
 
   services.xserver = {

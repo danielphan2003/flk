@@ -157,6 +157,8 @@
         templates.bud.path = ./.;
         templates.bud.description = "bud template";
 
+        supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+
       }
     //
     {
