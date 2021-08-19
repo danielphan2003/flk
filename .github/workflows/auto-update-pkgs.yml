@@ -7,7 +7,7 @@ on:
   schedule:
     - cron: "0 * 7 * *"
 jobs:
-  check:
+  update_pkgs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.4
