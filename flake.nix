@@ -10,7 +10,6 @@
   inputs =
     {
       nixos.url = "nixpkgs/release-21.05";
-      nixpkgs.url = "nixpkgs/release-21.05";
       latest.url = "nixpkgs/nixos-unstable";
 
       digga.url = "github:divnix/digga";
@@ -87,7 +86,6 @@
     , digga
     , bud
     , nixos
-    , nixpkgs
     , ci-agent
     , home
     , nixos-hardware
@@ -135,7 +133,6 @@
             ];
           };
           latest = { };
-          nixpkgs = { };
         };
 
         lib = import ./lib { lib = digga.lib // nixos.lib; };

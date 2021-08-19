@@ -1,4 +1,13 @@
-{ pkgs, lib, budUtils, ... }: {
+{ pkgs, lib, budUtils, ... }:
+let
+  writeBashWithNixPaths = paths: name: script:
+    pkgs.writers.writeBash name ''
+      export PATH="${lib.makeBinPath paths}"
+      export NIX_PATH="$NIX_PATH:${toString pkgs.path}"
+      source ${script}
+    '';
+in
+{
   bud.cmds = with pkgs; {
     get = {
       writer = budUtils.writeBashWithPaths [ nixUnstable git coreutils ];
@@ -7,7 +16,7 @@
       script = ./get.bash;
     };
     nvfetcher-github = {
-      writer = budUtils.writeBashWithPaths [ nvfetcher-bin coreutils git nixUnstable ];
+      writer = writeBashWithNixPaths [ nvfetcher-bin coreutils git nixUnstable ];
       synopsis = "nvfetcher-github";
       help = "Auto update with nvfetcher on github action";
       script = ./nvfetcher-github.bash;
