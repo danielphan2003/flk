@@ -7,7 +7,7 @@
       script = ./get.bash;
     };
     nvfetcher-github = {
-      writer = budUtils.writeBashWithPaths [ nvfetcher-bin coreutils git ];
+      writer = budUtils.writeBashWithPaths [ nvfetcher-bin coreutils git nixUnstable ];
       synopsis = "nvfetcher-github";
       help = "Auto update with nvfetcher on github action";
       script = ./nvfetcher-github.bash;

@@ -30,19 +30,7 @@ jobs:
 
     # - run: nix -Lv flake check
 
-    - run: nix -Lv develop --command bud nvfetcher-github -l changelog
-
-    - name: COMMIT_MSG
-      run: |
-        changelog=$(find . -type f -name "changelog")
-        if [[ ! -z "$(cat $changelog)" ]]; then
-          echo "COMMIT_MSG<<EOF" >>$GITHUB_ENV
-          echo "$(cat $changelog)" >>$GITHUB_ENV
-          echo "EOF" >>$GITHUB_ENV
-          rm -rf $changelog
-        else
-          rm -rf $changelog
-        fi
+    - run: nix -Lv develop --command bud nvfetcher-github
 
     - name: Commit changes
       if: ${{ env.COMMIT_MSG != null }}
