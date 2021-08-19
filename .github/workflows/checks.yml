@@ -1,4 +1,4 @@
-name: "Try check"
+name: "Check & Cachix"
 on:
   push:
     branches:
