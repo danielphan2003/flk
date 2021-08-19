@@ -1,11 +1,14 @@
-{ lib, stdenv, sources, theme ? "*" }:
+{ lib, stdenv, sources, theme ? "angular" }:
 stdenv.mkDerivation {
-  inherit (sources.plymouth-themes) pname version src;
+  inherit (sources.plymouth-themes) version src;
+
+  pname = "${sources.plymouth-themes.pname}-${theme}";
 
   installPhase = ''
     mkdir -p $out/share/plymouth/themes
     cp -r pack_**/${theme} $out/share/plymouth/themes
-    sed "s@\/usr\/@$out\/@" $out/share/plymouth/themes/*${theme}/${theme}.plymouth
+    substituteInPlace $out/share/plymouth/themes/${theme}/${theme}.plymouth \
+      --replace "/usr" "$out"
   '';
 
   meta = with lib; {

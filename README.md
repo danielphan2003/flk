@@ -68,7 +68,7 @@ Some notes:
 ## Features
 
 A lot of [packages][pkgs]:
-- [spotify-spicetified][my-spotify-spicetified] (originally [nixpkgs#111946][nixpkgs-spotify-spicetified]).
+- [spotify-spicetified][my-spotify-spicetified] (based on [nixpkgs#111946][nixpkgs-spotify-spicetified]).
   See my [spotify config][my-spotify-config] (currently using a custom [dribbblish][ddt] theme).
 - awesomewm plugins including [bling][bling], [layout-machi][layout-machi], [lua-pam][lua-pam], and [awestore][awestore].
 - Firefox tweaks:
@@ -77,12 +77,21 @@ A lot of [packages][pkgs]:
   - [rainfox][rainfox]: mostly for the blurred search bar
   - [arkenfox-userjs][arkenfox-userjs]: hardened config
   - [pywalfox][pywalfox]: pywal for firefox.
-- Browsers: Widevine-cdm, Edge Beta and Dev edition. Yes, I'm that evil ;)
+- Browsers: Widevine-cdm, Edge Beta and Dev edition. Yes, I'm that evil ;). Surprisingly, it works on the latest rev!
 - Messaging app: [caprine][caprine] (unmaintained)
 - VS Code extensions: Utilizing [vs-ext][vs-ext]. See [`pkgs/default.nix`][vs-ext-example] for how to add a new `vscode-extensions` pkgsSet to your overlay.
 - Wayland packages: [avizo][avizo].
 - Android: my (very MUCH vip) take on [anbox][anbox]. I cannot find anything that works. Please open an issue if you know any alternatives.
 - [Caddy][caddy] with plugins! See [pkgs/servers/caddy][caddy-with-plugins] for usage.
+- [eww][eww] with latest master. Enjoy lisping :).
+  - Some other hm services for `eww` are available at [home/modules/services/misc](./home/modules/services/misc), including a service for dynamically add music control to each app and remove them when closed, as well as a yuck-lang syntax highlighter in vim.
+- QoL font (Segue UI). This unbreaks websites and avoid rendering text with ugly serif fonts.
+- [Plymouth themes][plymouth-themes] from [adi1090x][adi1090x].
+- [ntfs2btrfs][ntfs2btrfs] tool and (very MUCH wip) [quibble][quibble] efi. Mostly my attempt to create the ultimate Windows VM running on btrfs.
+- [Paper][paper] wallpaper switcher for Wayland.
+- Fonts:
+  - Apple fonts: including NY and SF variants.
+  - Segue UI: this is a huge plus. Apparently a lot of websites uses this font whenever possible, and revert back to whatever font your system is using, or may not be installed yet. Therefore, it is best for this font to be installed by default.
 - Other...
 
 Some modules that may work for your use case:
@@ -94,11 +103,12 @@ Plus overrides and modules from devos's [community][devos-community] branch
 ## Eye candies and what not
 - Pywal theming:
   - Very helpful wallpaper setting [script][wal-set]. It reloads pywalfox, sway border colors, along with seamless wallpaper switching and notify user when everything is done.
+- Gnome: bare minimum for now.
 - X11:
-  - AwesomeWM: formatted and based on [the-glorious-dotfiles][the-glorious-dotfiles]
+  - AwesomeWM: formatted and based on [the-glorious-dotfiles][the-glorious-dotfiles].
 - Wayland:
   - Latest packages from [`nixpkgs-wayland`][nixpkgs-wayland].
-  - ~~Ibus [working][sway-startup]. Adapted from Arch Wiki's Ibus [integration][arch-wiki-ibus].~~ Seems broken, please open a PR for fixing this permanantly.
+  - Ibus, ibus-bamboo, and ibus-uniemoji latest [working][sway-startup] flawlessly. Adapted from Arch Wiki's Ibus [integration][arch-wiki-ibus]. Note that shortcut for switching inputs only works on X11 apps, but you can still type normally on Wayland. An [eww][eww] bar might fix this.
   - Helpful Waybar module [maker][waybar-module-maker]. See [waybar-modules][waybar-modules].
   - Working [vnc][repo-root-vnc] module and keymap passthrough with [wayvnc][wayvnc].
   - (very MUCH wip) [river][river] declarative config.
@@ -160,6 +170,16 @@ Plus overrides and modules from devos's [community][devos-community] branch
 
 [caddy]: https://caddyserver.com
 [caddy-with-plugins]: ./pkgs/servers/caddy/default.nix
+[eww]: https://github.com/elkowar/eww
+
+[plymouth-themes]: https://github.com/adi1090x/plymouth-themes
+[adi1090x]: https://github.com/adi1090x
+
+[ntfs2btrfs]: https://github.com/maharmstone/ntfs2btrfs
+[quibble]: https://github.com/maharmstone/quibble
+
+[paper]: https://gitlab.com/snakedye/paper
+
 [optin-state]: https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html
 
 [devos-community]: https://github.com/divnix/devos/tree/community

@@ -23,7 +23,7 @@
 //Global Styles
 window {
   color: #b1af9e;
-  font-family: CascadiaCode;
+  font-family: Iosevka Nerd Font;
 }
 trough {
   all: unset;
@@ -204,7 +204,7 @@ calendar:selected {
 */
 .bar {
   background-color: #262525;
-  font-size: 11px;
+  font-size: 14px;
   padding: 0px 15px 0px 15px;
   border-bottom: 2px solid #333232;
 }
@@ -224,11 +224,11 @@ calendar:selected {
   font-size: 10px;
   font-weight: bold;
 }
-.bar .Paused,
+.bar .paused,
 .null {
   opacity: 0.3;
 }
-.bar .Playing,
+.bar .playing,
 .notified {
   color: #dcbb8c;
 }

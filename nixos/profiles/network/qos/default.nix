@@ -1,3 +1,5 @@
+{ config, ... }:
+let inherit (builtins) hashString substring; in
 {
   ## Enable BBR module
   boot.kernelModules = [ "tcp_bbr" ];
@@ -40,5 +42,6 @@
 
   networking.firewall.allowPing = false;
 
-  services.tlp.enable = true;
+  # needed for zfs. 4 random bytes (in hex). Nicer implementation suggested by gytis-ivaskevicius/nixfiles
+  networking.hostId = substring 0 8 (hashString "md5" config.networking.hostName);
 }

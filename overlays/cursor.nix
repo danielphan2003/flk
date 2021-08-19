@@ -1,7 +1,6 @@
 final: prev: {
-  # set default cursor theme when installed
-  cursor = prev.writeTextDir "share/icons/default/index.theme" ''
+  buildCursorTheme = cursor: prev.writeTextDir "share/icons/default/index.theme" ''
     [icon theme]
-    Inherits=Bibata_Ice
+    Inherits=${cursor}
   '';
 }

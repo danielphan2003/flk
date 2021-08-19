@@ -46,6 +46,7 @@ in
   "${mod}+x" = "exec ${bemenu-screenshare}";
 }
 // (import ./audio.nix { inherit pkgs mod; })
+// (import ./games.nix { inherit pkgs mod; })
 // (import ./screenshot.nix { inherit pkgs mod; })
 // (import ./windows.nix { inherit mod; })
   // (import ./workspaces.nix { inherit mod; })

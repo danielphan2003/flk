@@ -43,7 +43,6 @@ fetch.github = "aramg/droidcam"
 
 [eww]
 src.git = "https://github.com/elkowar/eww"
-src.branch = "config_rework"
 fetch.github = "elkowar/eww"
 cargo_lock = "Cargo.lock"
 
@@ -51,8 +50,12 @@ cargo_lock = "Cargo.lock"
 src.git = "https://github.com/akshat46/FlyingFox"
 fetch.github = "akshat46/FlyingFox"
 
+[ibus]
+src.git = "https://github.com/ibus/ibus/"
+fetch.github = "ibus/ibus"
+
 [ibus-bamboo]
-src.manual = "v0.7.5-RC2"
+src.git = "https://github.com/BambooEngine/ibus-bamboo"
 fetch.github = "BambooEngine/ibus-bamboo"
 
 [layout-machi]
@@ -93,9 +96,14 @@ fetch.url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edg
 src.git = "https://github.com/Ma27/nix-zsh-completions"
 fetch.github = "Ma27/nix-zsh-completions"
 
+[ntfs2btrfs]
+src.git = "https://github.com/maharmstone/ntfs2btrfs"
+fetch.github = "maharmstone/ntfs2btrfs"
+
 [paper]
-src.manual = "fc970583d56590fd149b652f12650239fb1d9856"
-fetch.git = "https://gitlab.com/snakedye/paper"
+src.git = "https://gitlab.com/danielphan2003/paper"
+src.branch = "remove-redundant-ref"
+fetch.git = "https://gitlab.com/danielphan2003/paper"
 cargo_lock = "Cargo.lock"
 
 [picom]
@@ -113,6 +121,10 @@ fetch.github = "sindresorhus/pure"
 [pywalfox]
 src.pypi = "pywalfox"
 fetch.pypi = "pywalfox"
+
+[quibble]
+src.git = "https://github.com/maharmstone/quibble"
+fetch.github = "maharmstone/quibble"
 
 [rainfox]
 src.git = "https://github.com/1280px/rainfox"
@@ -135,6 +147,10 @@ cargo_lock = "Cargo.lock"
 src.git = "https://github.com/MarianArlt/sddm-chili"
 fetch.github = "MarianArlt/sddm-chili"
 
+[segue-ui-linux]
+src.git = "https://github.com/mrbvrz/segoe-ui-linux"
+fetch.github = "mrbvrz/segoe-ui-linux"
+
 [sf-font-compact]
 src.manual = "0.0.0.20210625"
 fetch.url = "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg"
@@ -151,12 +167,8 @@ fetch.url = "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.d
 src.manual = "0.0.0.20210625"
 fetch.url = "https://devimages-cdn.apple.com/design/resources/download/NY.dmg"
 
-[spicetify-cli-v1]
-src.manual = "v1.2.1"
-fetch.github = "khanhas/spicetify-cli"
-
 [spicetify-cli]
-src.git = "https://github.com/khanhas/spicetify-cli"
+src.manual = "v2.5.0"
 fetch.github = "khanhas/spicetify-cli"
 
 [spicetify-themes]
@@ -172,12 +184,17 @@ src.git = "https://github.com/ChimeraOS/steamos-compositor-plus"
 fetch.github = "ChimeraOS/steamos-compositor-plus"
 
 [sway-borders]
-src.git = "https://github.com/fluix-dev/sway-borders"
-fetch.github = "fluix-dev/sway-borders"
+src.git = "https://github.com/danielphan2003/sway-borders"
+src.branch = "replace-layer-surface-destroy-with-close"
+fetch.github = "danielphan2003/sway-borders"
 
 [swaylock-effects]
 src.git = "https://github.com/mortie/swaylock-effects"
 fetch.github = "mortie/swaylock-effects"
+
+[uniemoji]
+src.git = "https://github.com/salty-horse/ibus-uniemoji"
+fetch.github = "salty-horse/ibus-uniemoji"
 
 [ventoy]
 src.manual = "1.0.46"
@@ -199,6 +216,16 @@ fetch.url = "https://dl.google.com/widevine-cdm/$ver-linux-x64.zip"
 [wii-u-gc-adapter]
 src.git = "https://github.com/ToadKing/wii-u-gc-adapter"
 fetch.github = "ToadKing/wii-u-gc-adapter"
+
+[ydotool]
+src.git = "https://github.com/ReimuNotMoe/ydotool"
+fetch.github = "ReimuNotMoe/ydotool"
+
+### Vim Plugins
+
+[vimPlugins-yuck]
+src.git = "https://github.com/elkowar/yuck.vim"
+fetch.github = "elkowar/yuck.vim"
 
 ### VS Code Extensions
 

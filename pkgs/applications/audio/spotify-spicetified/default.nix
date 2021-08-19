@@ -38,12 +38,10 @@
 }:
 let
   inherit (lib) optionalString;
-  spicetify-cli-custom = spicetify-cli.overrideAttrs (o: { inherit legacySupport; });
-  spotify-custom = spotify-unwrapped.overrideAttrs (o: { inherit legacySupport; });
   helpers = import ./helpers.nix {
     inherit
       lib
-      spicetify-cli-custom
+      spicetify-cli
       customApps
       customExtensions
       customThemes
@@ -54,7 +52,6 @@ let
   };
   inherit (helpers)
     boolToString
-    spicetify
     extraCommands
     customAppsFixupCommands
     extensionString
@@ -73,8 +70,13 @@ let
     lyric_force_no_sync           ${boolToString lyricForceNoSync}
   '';
 in
-spotify-custom.overrideAttrs (oldAttrs: rec {
-  name = "spotify-spicified-${spotify-custom.version}";
+spotify-unwrapped.overrideAttrs (oldAttrs: rec {
+  name = "spotify-spicified-${spotify-unwrapped.version}";
+
+  nativeBuildInputs = [ spicetify-cli ];
+
+  # Setup spicetify
+  SPICETIFY_CONFIG = ".";
 
   postInstall = ''
     touch $out/prefs
@@ -83,14 +85,9 @@ spotify-custom.overrideAttrs (oldAttrs: rec {
 
     find ${spicetify-themes}/ -maxdepth 1 -type d -exec ln -s {} Themes \;
 
-    ls -la
-    ls -la ${spicetify-themes}
-
-    echo ${extraCommands}
-
     ${extraCommands}
 
-    ${spicetify} config \
+    spicetify config \
       spotify_path                    "$out/share/spotify" \
       prefs_path                      "$out/prefs" \
       inject_css                      ${boolToString injectCss} \
@@ -108,18 +105,16 @@ spotify-custom.overrideAttrs (oldAttrs: rec {
       ${optionalConfig "spotify_launch_flags" launchFlagsString} \
       ${legacyConfigs}
 
-    ${spicetify} -c
+    spicetify -c
 
-    cat config-xpui.ini
-
-    ${spicetify} backup apply enable-devtool update -ne
+    spicetify backup apply enable-devtool update -ne
 
     cd $out/share/spotify
 
     ${customAppsFixupCommands}
   '';
 
-  meta = spotify-custom.meta // {
-    priority = (spotify-custom.meta.priority or 0) - 1;
+  meta = spotify-unwrapped.meta // {
+    priority = (spotify-unwrapped.meta.priority or 0) - 1;
   };
 })

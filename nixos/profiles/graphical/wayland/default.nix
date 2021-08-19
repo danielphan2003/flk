@@ -5,6 +5,10 @@
     settings.Wayland.SessionDir = "${pkgs.sway}/share/wayland-sessions";
   };
 
+  services.cron.systemCronJobs = [
+    "*/20 * * * *      danie      $HOME/.local/bin/wal-set >> /tmp/wal-set.log"
+  ];
+
   xdg.portal.wlr = {
     enable = true;
     settings = {

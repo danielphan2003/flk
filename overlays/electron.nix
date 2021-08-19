@@ -43,6 +43,6 @@ in
 
   electron = electron.overrideAttrs (o: { postFixup = o.postFixup + patchElectron "$out/lib/electron/electron"; });
 
-  vscodium = vscodium.overrideAttrs (_: { postInstall = patchElectron "$out/bin/codium"; });
+  # vscodium = vscodium.overrideAttrs (_: { postInstall = patchElectron "$out/bin/codium"; });
 
 }

@@ -6,7 +6,7 @@ let inherit (builtins) attrValues; in
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [
       jnoortheen.nix-ide
-      # matklad.rust-analyzer
+      matklad.rust-analyzer-nightly
       # ms-vscode.cpptools
 
       ActiveFileInStatusBar
@@ -41,7 +41,7 @@ let inherit (builtins) attrValues; in
       python
       react-native
       rest-client
-      rust
+      # rusts
       svelte
       tailwindcss
       versionlens

@@ -17,5 +17,9 @@ final: prev: {
     inherit (final.sources.swaylock-effects) pname version src;
   });
 
+  ydotool = prev.ydotool.overrideAttrs (_: rec {
+    inherit (final.sources.ydotool) pname version src;
+  });
+
   sway = prev.sway.override { inherit (final.waylandPkgs) sway-unwrapped; };
 }

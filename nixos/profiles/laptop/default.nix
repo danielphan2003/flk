@@ -14,6 +14,13 @@ in
 
   hardware.bluetooth.enable = true;
 
+  networking.networkmanager.wifi = {
+    backend = "iwd";
+    macAddress = "stable";
+  };
+
+  networking.wireless.enable = true;
+
   # to enable brightness keys 'keys' value may need updating per device
   programs.light.enable = true;
   services.actkbd = {
@@ -22,12 +29,12 @@ in
       {
         keys = [ 225 ];
         events = [ "key" ];
-        command = "/run/current-system/sw/bin/light -A 5";
+        command = "${pkgs.light}/bin/light -A 5";
       }
       {
         keys = [ 224 ];
         events = [ "key" ];
-        command = "/run/current-system/sw/bin/light -U 5";
+        command = "${pkgs.light}/bin/light -U 5";
       }
     ];
   };
@@ -42,11 +49,14 @@ in
   services.timesyncd.enable = false;
 
   # power management features
-  services.tlp.enable = true;
-  services.tlp.settings = {
-    CPU_SCALING_GOVERNOR_ON_AC = "performance";
-    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-    CPU_HWP_ON_AC = "performance";
+  services.tlp = {
+    enable = !config.services.power-profiles-daemon.enable;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_HWP_ON_AC = "performance";
+    };
   };
+
   services.logind.lidSwitch = "suspend";
 }

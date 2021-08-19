@@ -7,45 +7,7 @@ let
   cursorPkgs = pkgs.bibata-cursors;
   icon = "Papirus";
   iconPkgs = pkgs.papirus-icon-theme;
-
-  linuxSpecific =
-    if lib.hasInfix "linux" pkgs.system
-    then
-      {
-        home.persistence."/mnt/danie" = {
-          directories = [
-            ".gnupg"
-            ".ssh"
-            ".nixops"
-            ".local/share/keyrings"
-            ".local/share/direnv"
-            "av"
-            "docs"
-            "dl"
-            "mus"
-            "games"
-            "pics"
-          ];
-          allowOther = true;
-        };
-
-        xdg.userDirs = {
-          enable = true;
-          desktop = "$HOME/desk";
-          documents = "$HOME/docs";
-          download = "$HOME/dl";
-          music = "$HOME/mus";
-          pictures = "$HOME/pics";
-          publicShare = "$HOME/pub";
-          templates = "$HOME/docs/templates";
-          videos = "$HOME/av";
-        };
-      }
-    else { };
 in
-# linuxSpecific
-# //
-# lib.recursiveUpdate linuxSpecific
 {
   home.packages = with pkgs; [ xdg_utils ];
   home.sessionVariables = {
@@ -73,4 +35,30 @@ in
     gtk-xft-hintstyle=hintfull
     gtk-xft-rgba=none
   '';
+
+  systemd.user.tmpfiles.rules = [
+    "L /home/danie/.gnupg - - - - /mnt/danie/.gnupg"
+    "L /home/danie/.ssh - - - - /mnt/danie/.ssh"
+    "L /home/danie/.nixops - - - - /mnt/danie/.nixops"
+    "L /home/danie/.local/share/keyrings - - - - /mnt/danie/.local/share/keyrings"
+    "L /home/danie/.local/share/direnv - - - - /mnt/danie/.local/share/direnv"
+    "L /home/danie/av - - - - /mnt/danie/av"
+    "L /home/danie/docs - - - - /mnt/danie/docs"
+    "L /home/danie/dl - - - - /mnt/danie/dl"
+    "L /home/danie/mus - - - - /mnt/danie/mus"
+    "L /home/danie/games - - - - /mnt/danie/games"
+    "L /home/danie/pics - - - - /mnt/danie/pics"
+  ];
+
+  xdg.userDirs = {
+    enable = true;
+    desktop = "$HOME/desk";
+    documents = "$HOME/docs";
+    download = "$HOME/dl";
+    music = "$HOME/mus";
+    pictures = "$HOME/pics";
+    publicShare = "$HOME/pub";
+    templates = "$HOME/docs/templates";
+    videos = "$HOME/av";
+  };
 }

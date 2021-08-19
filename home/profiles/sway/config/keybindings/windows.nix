@@ -27,9 +27,9 @@
   "${mod}+f" = "fullscreen toggle";
   "${mod}+a" = "focus parent";
 
-  "${mod}+e" = "layout toggle split";
-  "${mod}+w" = "layout tabbed";
-  "${mod}+s" = "layout stacking";
+  # "${mod}+e" = "layout toggle split";
+  # "${mod}+w" = "layout tabbed";
+  # "${mod}+s" = "layout stacking";
 
   "${mod}+space" = "focus mode_toggle";
   "${mod}+Shift+space" = "floating toggle";

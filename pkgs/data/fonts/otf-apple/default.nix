@@ -27,10 +27,17 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out/share/fonts/opentype/{SF\ Pro,SF\ Mono,SF\ Compact,New\ York}
-    cp -a fonts/SF-Pro*.otf $out/share/fonts/opentype/SF\ Pro
-    cp -a fonts/SF-Mono*.otf $out/share/fonts/opentype/SF\ Mono
-    cp -a fonts/SF-Compact*.otf $out/share/fonts/opentype/SF\ Compact
-    cp -a fonts/NewYork*.otf $out/share/fonts/opentype/New\ York
+    mkdir -p $out/share/fonts/opentype/{"SF Pro","SF Mono","SF Compact","New York"}
+    cp -a fonts/SF-Pro*.otf "$out/share/fonts/opentype/SF Pro"
+    cp -a fonts/SF-Mono*.otf "$out/share/fonts/opentype/SF Mono"
+    cp -a fonts/SF-Compact*.otf "$out/share/fonts/opentype/SF Compact"
+    cp -a fonts/NewYork*.otf "$out/share/fonts/opentype/New York"
   '';
+
+  meta = with lib; {
+    description = "Install SF and NY font on linux";
+    maintainers = [ danielphan2003 ];
+    license = licenses.unfree;
+    platforms = platforms.all;
+  };
 }

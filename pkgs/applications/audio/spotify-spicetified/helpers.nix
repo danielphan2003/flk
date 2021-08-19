@@ -1,5 +1,4 @@
 { lib
-, spicetify-cli-custom
 
 , customApps
 , customExtensions
@@ -23,11 +22,8 @@ rec {
   makeSpicetifyCommands = type: value:
     lineBreakConcat (makeLnCommands type value);
 
-  # Setup spicetify
-  spicetify = "SPICETIFY_CONFIG=. ${spicetify-cli-custom}/bin/spicetify-cli";
-
   extraCommands =
-      makeSpicetifyCommands "Themes" customThemes
+    makeSpicetifyCommands "Themes" customThemes
     + makeSpicetifyCommands "Extensions" customExtensions
     + makeSpicetifyCommands "CustomApps" customApps;
 

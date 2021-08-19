@@ -10,7 +10,8 @@
   virtualisation = {
     libvirtd = {
       enable = true;
-      qemuRunAsRoot = false;
+      # qemuRunAsRoot = false;
+      qemuOvmf = true;
       onBoot = "ignore";
       allowedBridges = [
         "virbr0"

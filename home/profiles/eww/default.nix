@@ -1,7 +1,8 @@
 { pkgs, lib, ... }: {
-  home.packages = with pkgs; [ eww ];
-  xdg.configFile."eww" = {
-    source = ./config;
-    recursive = true;
-  };
+  services.eww-mpris.enable = true;
+  services.eww.enable = true;
+  # xdg.configFile."eww" = {
+  #   source = ./config;
+  #   # recursive = true;
+  # };
 }

@@ -1,0 +1,81 @@
+(defwidget bar [monitor]
+  (box :class "bar" :halign "fill"
+    (left)
+    (tags :monitor monitor)
+    (tray)))
+
+(defwidget left []
+  (box :class "left" :orientation "h" :space-evenly false :spacing 15 :halign "start"
+    (vsplit)
+    (music)))
+
+(defwidget vsplit []
+  (box :class "vsplit"
+    "|"))
+
+(defwidget music []
+  (literal :content mpris))
+
+(defwidget tags [monitor]
+  (box :class "tags" :spacing 20 :space-evenly false :halign "center"
+    (tag :monitor monitor :number 1)
+    (tag :monitor monitor :number 2)
+    (tag :monitor monitor :number 3)
+    (tag :monitor monitor :number 4)
+    (tag :monitor monitor :number 5)
+    (tag :monitor monitor :number 6)
+    (tag :monitor monitor :number 7)))
+
+(defwidget tag [monitor number]
+  (button
+    :class "${tag-state == number ? 'active' : 'inactive'}"
+    :onclick "swaymsg workspace number ${number}"
+    number))
+
+(defwidget tray []
+  (box :class "tray" :orientation "h" :space-evenly false :spacing 15 :halign "end"
+    (recorder-indicator)))
+
+(defwidget recorder-indicator []
+  (button :class "recorder-indicator" :halign "end" :visible recorder
+    :onclick "kill -INT $(pgrep wf-recorder)"
+    "recording"))
+
+(defwidget time []
+  (button :class "time" :halign "end"
+    :onclick "makoctl restore"
+    :onrightclick "snock &"
+    time))
+
+(defwidget ime-option [name slot]
+  (button :class "ime-${name}" :halign "end"
+    :onclick "ibus engine ${name}"
+    slot))
+
+(defwidget ime []
+  (box :class "ime" :orientation "h" :space-evenly true :spacing 15 :halign "end"
+    (ime-option :name "Bamboo"
+      :slot "VN")
+    (ime-option :name "xkb:us::eng"
+      :slot "EN")))
+
+(deflisten tag-state
+  "scripts/current-workspace.bash")
+
+;;(deflisten tag-state
+  ;;"swaymsg -m -t subscribe '[ \"workspace\" ]' | jq 'if .change == \"focus\" then .current.num else \"\" end' | tail -f")
+
+(defvar recorder false)
+(defvar mpris "")
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "4%")
+  :reserve (struts :side "top" :distance "4%")
+  (bar))
+
+(defwindow ime
+  :stacking "ov"
+  :geometry (geometry :x "0%" :y "0%" :width "100px" :heigt "20px")
+  (ime))

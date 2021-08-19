@@ -21,6 +21,7 @@ in
       lazygit
       less
       lldb
+      ntfs2btrfs
       ncdu
       rsync
       tig
@@ -38,6 +39,7 @@ in
         meslo-lgs-nf
         nerdfonts
         otf-apple
+        ttf-segue-ui
         twitter-color-emoji
         ;
     };

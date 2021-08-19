@@ -3,8 +3,8 @@
 
   nixConfig = {
     extra-experimental-features = "nix-command flakes ca-references";
-    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org";
-    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA=";
+    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dram.cachix.org";
+    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY=";
   };
 
   inputs =
@@ -69,14 +69,15 @@
         flake = false;
       };
 
+      nix-dram.url = "github:dramforever/nix-dram";
+      nix-dram.inputs.nixpkgs.follows = "nixos";
+
       qnr.url = "github:divnix/quick-nix-registry";
 
-      rust = {
-        url = "github:oxalica/rust-overlay";
-        inputs.nixpkgs.follows = "nixos";
-      };
-
       vs-ext.url = "github:divnix/vs-ext";
+
+      fenix.url = "github:nix-community/fenix";
+      fenix.inputs.nixpkgs.follows = "latest";
     };
 
   outputs =
@@ -96,8 +97,9 @@
     , firefox-nightly
     , nixpkgs-wayland
     , samueldr-anbox
+    , nix-dram
     , qnr
-    , rust
+    , fenix
     , vs-ext
 
     , ...
@@ -115,11 +117,12 @@
               digga.overlays.patchedNix
               nur.overlay
               agenix.overlay
-              rust.overlay
+              fenix.overlay
               nvfetcher.overlay
               deploy.overlay
               vs-ext.overlay
               ./pkgs/default.nix
+              nix-dram.overlay
               nixpkgs-wayland.overlay
               (final: prev: {
                 firefox-nightly-bin =

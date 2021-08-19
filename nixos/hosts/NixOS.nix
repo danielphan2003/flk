@@ -1,4 +1,4 @@
-{ suites, ... }:
+{ suites, config, ... }:
 {
   ### root password is empty by default ###
   imports = suites.base;
@@ -7,7 +7,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
-    domain = "nixos.uwu";
+    domain = config.networking.hostName;
     networkmanager.enable = true;
   };
 

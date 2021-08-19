@@ -16,13 +16,13 @@ in
 
       desktop = base ++ [ browsers.firefox browsers.exts.uget sway udiskie ];
 
-      producer = desktop ++ [ obs-studio ];
+      streaming = desktop ++ [ obs-studio ];
 
       play = desktop ++ [ ];
 
       academic = play ++ [ winapps ];
 
-      coding = academic ++ [ alacritty browsers.chromium vscodium idea awesome ];
+      coding = academic ++ [ alacritty browsers.chromium browsers.edge vscodium idea awesome eww neovim ];
     };
   };
 
@@ -46,6 +46,7 @@ in
           };
         };
         services.wayvnc.addr = "themachinix.duckdns.org";
+        home.sessionVariables.BROWSER = "chromium-browser";
       };
 
     alita = { suites, ... }: {

@@ -54,15 +54,18 @@ in
     ];
   };
 
-  systemd.tmpfiles.rules = with config; [ ]
-    ++ optionals
-    networking.networkmanager.enable
+  systemd.tmpfiles.rules = with config;
     [
-      "L /var/lib/NetworkManager/secret_key - - - - ${path}/var/lib/NetworkManager/secret_key"
-      "L /var/lib/NetworkManager/seen-bssids - - - - ${path}/var/lib/NetworkManager/seen-bssids"
-      "L /var/lib/NetworkManager/timestamps - - - - ${path}/var/lib/NetworkManager/timestamps"
-      "L /var/lib/NetworkManager/NetworkManager.state - - - - ${path}/var/lib/NetworkManager/NetworkManager.state"
+      "L /root/.local/share/nix/trusted-settings.json - - - - ${path}/root/.local/share/nix/trusted-settings.json"
     ]
+    ++ optionals
+      networking.networkmanager.enable
+      [
+        "L /var/lib/NetworkManager/secret_key - - - - ${path}/var/lib/NetworkManager/secret_key"
+        "L /var/lib/NetworkManager/seen-bssids - - - - ${path}/var/lib/NetworkManager/seen-bssids"
+        "L /var/lib/NetworkManager/timestamps - - - - ${path}/var/lib/NetworkManager/timestamps"
+        "L /var/lib/NetworkManager/NetworkManager.state - - - - ${path}/var/lib/NetworkManager/NetworkManager.state"
+      ]
   ;
 
   fileSystems."/etc/ssh" = {

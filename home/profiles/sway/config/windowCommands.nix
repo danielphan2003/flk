@@ -6,6 +6,7 @@ let inherit (lib.our.mkCustomI3Rule) rule floatingNoBorder; in
     move down 60px
   }''
     { app_id = "waybar"; })
+  (rule "sticky enable" { app_id = "eww"; })
   (rule "floating enable, sticky enable, resize set 384 216" { title = "^Picture-in-Picture$"; })
   (rule "floating enable, resize set 1000 600" { app_id = "zoom"; title = "^(?!Zoom Meeting$)"; })
   (floatingNoBorder { class = "jetbrains-toolbox"; })

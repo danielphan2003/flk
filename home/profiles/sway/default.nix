@@ -7,7 +7,13 @@ let
   };
 in
 {
-  imports = [ ./gammastep ./kanshi ./mako ./waybar ];
+  imports = [
+    ./gammastep
+    ./kanshi
+    ./mako
+    ./nwg-launchers
+    ./waybar
+  ];
 
   qt.platformTheme = "gtk";
 
@@ -51,6 +57,7 @@ in
       wdisplays
       wf-recorder
       wl-clipboard
+      wlvncc
       wlr-randr
       wofi
       wtype
@@ -61,11 +68,6 @@ in
     (builtins.elem pkgs.system pkgs.waylandPkgs.lavalauncher.meta.platforms)
     { inherit (pkgs.waylandPkgs) lavalauncher; }
   ));
-
-  xdg.configFile."nwg-launchers" = {
-    source = ./nwg-launchers;
-    recursive = true;
-  };
 
   services.avizo.enable = true;
 

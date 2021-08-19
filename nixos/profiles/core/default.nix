@@ -17,6 +17,19 @@ in
   documentation.nixos.enable = false;
 
   nix.systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+  nix.package = lib.mkForce pkgs.nix-dram;
+
+  nix.localRegistry = {
+    # Enable quick-nix-registry
+    enable = true;
+    # Cache the default nix registry locally, to avoid extraneous registry updates from nix cli.
+    cacheGlobalRegistry = true;
+    # Set an empty global registry.
+    noGlobalRegistry = false;
+  };
+
+  # Set timeout
+  systemd.services.sync-nixpkgs.serviceConfig.TimeoutSec = 400;
 
   environment = {
 

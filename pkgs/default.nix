@@ -2,9 +2,10 @@ channels: final: prev:
 let
   sources = (import ./_sources/generated.nix) { inherit (final) fetchurl fetchgit; };
 
-  mkVimPlugin = plugin:
+  mkVimPlugin = prefix: plugin:
     final.vimUtils.buildVimPluginFrom2Nix {
-      inherit (plugin) pname version src;
+      inherit (plugin) version src;
+      pname = final.lib.removePrefix prefix plugin.pname;
     };
 
   mkVscodeExtension = extension:
@@ -15,7 +16,7 @@ let
       prefix = "${pkgSet}-";
 
       pkgSetchannel = {
-        "vimPlugins" = mkVimPlugin;
+        "vimPlugins" = mkVimPlugin prefix;
         "vscode-extensions" = mkVscodeExtension;
       }.${pkgSet};
 
@@ -31,6 +32,8 @@ in
   vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
 
   vscode-extensions = prev.vscode-extensions // (newPkgsSet "vscode-extensions");
+
+  alsa-lib = prev.alsaLib;
 
   sddm-chili = final.callPackage ./applications/display-managers/sddm/themes/chili { };
 
@@ -48,6 +51,8 @@ in
 
   otf-apple = final.callPackage ./data/fonts/otf-apple { };
 
+  ttf-segue-ui = final.callPackage ./data/fonts/ttf-segue-ui { };
+
   # ventoy = final.callPackage ./tools/file-systems/ventoy { };
 
   leonflix = final.callPackage ./applications/video/leonflix { };
@@ -64,11 +69,9 @@ in
 
   dribbblish-dynamic-theme = final.callPackage ./data/misc/dribbblish-dynamic-theme { };
 
-  microsoft-edge-channel = final.callPackage ./applications/networking/browsers/microsoft-edge { };
+  microsoft-edge-beta = final.callPackage ./applications/networking/browsers/microsoft-edge { gconf = prev.gnome2.GConf; };
 
-  microsoft-edge-beta = final.microsoft-edge-channel "beta";
-
-  microsoft-edge-dev = final.microsoft-edge-channel "dev";
+  microsoft-edge-dev = final.microsoft-edge-beta.override { channel = "dev"; };
 
   arkenfox-userjs = final.callPackage ./data/misc/arkenfox-userjs { };
 
@@ -94,7 +97,18 @@ in
 
   paper = final.callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
 
-  eww = final.callPackage ./applications/misc/eww { inherit (channels.latest) makeRustPlatform; };
+  eww = channels.latest.callPackage ./applications/misc/eww {
+    inherit (final) sources;
+    makeRustPlatform = (channels.latest.makeRustPlatform {
+      inherit (final.fenix.latest) cargo rustc;
+    });
+  };
+
+  eww-mpris = final.callPackage ./applications/misc/eww/mpris.nix { };
 
   caddy = final.callPackage ./servers/caddy { };
+
+  ntfs2btrfs = final.callPackage ./tools/file-systems/ntfs2btrfs { };
+
+  quibble = final.callPackage ./applications/virtualization/quibble { };
 }

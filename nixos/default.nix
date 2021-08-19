@@ -17,19 +17,6 @@ in
       bud.nixosModules.bud
       "${impermanence}/nixos.nix"
       qnr.nixosModules.local-registry
-      {
-        # Enable quick-nix-registry
-        nix.localRegistry.enable = true;
-
-        # Cache the default nix registry locally, to avoid extraneous registry updates from nix cli.
-        nix.localRegistry.cacheGlobalRegistry = true;
-
-        # Set an empty global registry.
-        nix.localRegistry.noGlobalRegistry = false;
-
-        # Set timeout
-        systemd.services.sync-nixpkgs.serviceConfig.TimeoutSec = 400;
-      }
     ];
   };
 
@@ -40,8 +27,29 @@ in
     pik2 = {
       system = "aarch64-linux";
       modules = with inputs; [ nixos-hardware.nixosModules.raspberry-pi-4 ];
+      tests = [
+        {
+          name = "pik2-Test";
+          machine = { ... }: { };
+          testScript = ''
+            start_all()
+            pik2.wait_for_unit("multi-user.target")
+          '';
+        }
+      ];
     };
-    themachine = { };
+    themachine = {
+      tests = [
+        {
+          name = "themachine-Test";
+          machine = { ... }: { };
+          testScript = ''
+            start_all()
+            themachine.wait_for_unit("multi-user.target")
+          '';
+        }
+      ];
+    };
   };
 
   importables = rec {
@@ -51,42 +59,110 @@ in
     suites = with profiles; rec {
       base = [ core users.root ];
 
-      server = base ++ [ virt.headless ] ++ [
-        network.networkmanager
-        network.qos
+      ephemeral-crypt = with misc; [
+        persistence
+        encryption
       ];
 
-      work = server ++ [ virt.minimal ] ++ [
-        develop
+      server = base
+        ++
+        [
+          network.dns
+          network.qos
+          virt.headless
+        ];
+
+      work = server
+        ++
+        [
+          network.networkmanager
+          develop
+          virt.minimal
+        ];
+
+      graphics = work
+        ++
+        [
+          graphical.drivers
+          graphical.qutebrowser
+        ]
+        ++
+        (with apps; [
+          gnome
+          qt
+        ]);
+
+      modern = graphics
+        ++
+        (with graphical; [
+          gtk
+          pipewire
+          sddm
+          wayland
+        ]);
+
+      legacy = graphics
+        ++
+        (with graphical; [
+          awesome
+          picom
+        ])
+        ++
+        (with apps; [
+          x11
+        ]);
+
+      producer = with apps; [
+        im
+        spotify
       ];
 
-      graphics = work ++ [ graphical ];
+      mobile = [ laptop ];
 
-      mobile = graphics ++ [ laptop ];
-
-      play = graphics ++ [
-        # graphical.games
-        # network.torrent
+      play = [
+        graphical.games
         network.chromecast
-        misc.disable-mitigations
-      ];
+      ]
+      ++
+      (with apps; [
+        wine
+      ]);
 
-      goPlay = play ++ [ laptop ];
+      goPlay = play ++ mobile;
 
-      pik2 = server ++ [ users.alita ] ++ [
-        # cloud.calibre-web
-        cloud.grafana
-        cloud.postgresql
-        cloud.vaultwarden
-        misc.encryption
-        misc.persistence
-        # network.stubby
-      ];
+      ### Hosts
 
-      themachine = play ++ [ users.danie ] ++ [
-        misc.encryption
-        misc.persistence
-      ];
+      pik2 = [ users.alita ]
+        ++ ephemeral-crypt
+        ++ server
+        ++
+        [
+          # cloud.calibre-web
+          cloud.grafana
+          cloud.postgresql
+          cloud.vaultwarden
+          # network.stubby
+        ];
+
+      themachine = [ users.danie ]
+        ++ ephemeral-crypt
+        ++ modern
+        ++ producer
+        ++ play
+        ++
+        [
+          graphical.themes.sefia
+          misc.disable-mitigations
+        ]
+        ++
+        (with apps; [
+          chill.reading
+          chill.watching
+          chill.weebs
+          meeting
+          tools
+          vpn
+        ]);
     };
   };
 }
