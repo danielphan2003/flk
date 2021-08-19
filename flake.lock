@@ -93,13 +93,11 @@
     "bud_2": {
       "inputs": {
         "devshell": [
-          "vs-ext",
           "digga",
           "devshell"
         ],
         "nixpkgs": [
-          "vs-ext",
-          "nixpkgs"
+          "nixos"
         ]
       },
       "locked": {
@@ -340,16 +338,15 @@
         "devshell": "devshell_3",
         "flake-utils": "flake-utils_3",
         "flake-utils-plus": "flake-utils-plus_2",
-        "home-manager": "home-manager",
+        "home-manager": [
+          "home"
+        ],
         "nixlib": [
-          "vs-ext",
-          "digga",
-          "nixpkgs"
+          "nixos"
         ],
         "nixos-generators": "nixos-generators_2",
         "nixpkgs": [
-          "vs-ext",
-          "nixpkgs"
+          "nixos"
         ]
       },
       "locked": {
@@ -605,28 +602,6 @@
         "type": "github"
       }
     },
-    "home-manager": {
-      "inputs": {
-        "nixpkgs": [
-          "vs-ext",
-          "digga",
-          "nixlib"
-        ]
-      },
-      "locked": {
-        "lastModified": 1626356862,
-        "narHash": "sha256-4ONLWH4UygF4pI0XBej8+2OMUrdb8HsUUFsiRDFmjrk=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "c476cc61b2dd8c7f868b213b7757b565bdf2bb7d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "impermanence": {
       "flake": false,
       "locked": {
@@ -678,9 +653,7 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
-          "digga",
-          "deploy",
-          "nixpkgs"
+          "latest"
         ]
       },
       "locked": {
@@ -721,10 +694,7 @@
     "naersk_3": {
       "inputs": {
         "nixpkgs": [
-          "vs-ext",
-          "digga",
-          "deploy",
-          "nixpkgs"
+          "latest"
         ]
       },
       "locked": {

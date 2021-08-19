@@ -130,7 +130,9 @@
     };
     cargoLock = {
       lockFile = ./eww-7ffebf69033ca9d9254de50cda9b669933201d72/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+        
+      };
     };
   };
   flyingfox = {
@@ -408,7 +410,9 @@
     };
     cargoLock = {
       lockFile = ./rnix-lsp-1fdd7cf9bf56b8ad2dddcfd27354dae8aef2b453/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+        
+      };
     };
   };
   sddm-chili = {
