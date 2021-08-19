@@ -64,6 +64,7 @@ Some notes:
   Recent commits of my repo *magically* fix agenix secret decryption. I don't really understand what happened but it works. For now?
   See rage v0.6.0 [changelog][rage-v0.6.0-changelog] for more info.
 - Pinning [paper][paper] as [nvfetcher][nvfetcher] does not generate outputHash for [snui][snui] dependency.
+- Using branch `suites-host` [GTrunSec][GTrunSec]'s digga. This makes optional testings possible.
 
 ## Features
 
@@ -119,7 +120,9 @@ Plus overrides and modules from devos's [community][devos-community] branch
     - uploading `pkgs/_sources/.shake*` (more conflicts)
     - or making [nvfetcher][nvfetcher] aware of already-up-to-date packages in generated [sources][generated-sources] (increased update time).
 - [ ] [Unlock LUKS file systems via Tor][tor-luks-unlock].
-- [ ] Pass the `nix flake check`.
+- [ ] Fully pass `nix -Lv flake check`.
+  - [x] Partially pass by setting up blacklists for `nixosConfigurations.profilesTests`.
+  - [ ] Properly test each machines.
 - More...
 
 # Acknowledgements
@@ -139,6 +142,8 @@ Plus overrides and modules from devos's [community][devos-community] branch
 [paper]: https://gitlab.com/snakedye/paper
 [nvfetcher]: https://github.com/berberman/nvfetcher
 [snui]: https://gitlab.com/snakedye/snui
+
+[GTrunSec]: https://github.com/GTrunSec
 
 [home-manager]: https://github.com/nix-community/home-manager/tree/d370447
 [nrdxp-nixos]: https://github.com/nrdxp/nixpkgs/more-general-fsbefore

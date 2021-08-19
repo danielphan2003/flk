@@ -1,4 +1,4 @@
-{ suites, pkgs, config, lib, hardware, self, ... }:
+{ pkgs, lib, suites, config, self, ... }:
 let
   inherit (lib) toUpper;
   inherit (builtins) attrValues readFile toString;

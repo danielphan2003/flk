@@ -318,15 +318,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1628381346,
-        "narHash": "sha256-udQ9DBdUoZZW5vLuYgaAR00VIvHiWEoT4khhF4o3gqw=",
-        "owner": "divnix",
+        "lastModified": 1629000462,
+        "narHash": "sha256-43RrRXs1dl8Ej2h9UoGHb9xKNSaYSt7GR2zeHFXPxe8=",
+        "owner": "GTrunSec",
         "repo": "digga",
-        "rev": "dbc88a75a2e2dbdeb0b482d1522f215aa68325e5",
+        "rev": "11108bebc9422f4fae342c638b111719fa2e806a",
         "type": "github"
       },
       "original": {
-        "owner": "divnix",
+        "owner": "GTrunSec",
+        "ref": "suites-host",
         "repo": "digga",
         "type": "github"
       }

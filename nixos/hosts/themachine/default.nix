@@ -2,7 +2,7 @@
 let ip = "192.168.1.11";
 in
 {
-  imports = suites.themachine ++ [ ../../profiles/graphical/games ];
+  imports = suites.themachine;
 
   age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
 

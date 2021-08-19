@@ -1,9 +1,22 @@
-{ appimageTools, lib, sources, gsettings-desktop-schemas, gtk3 }:
-let inherit (sources.leonflix) pname src version; in
-appimageTools.wrapType2 rec {
-  inherit src;
+{ appimageTools, lib, sources, makeDesktopItem, gsettings-desktop-schemas, gtk3 }:
+let
+  inherit (sources.leonflix) pname src version;
 
   name = "${pname}-${version}";
+
+  desktopItem = makeDesktopItem {
+    name = "Leonflix";
+    exec = pname;
+    icon = pname;
+    comment = "free media thing";
+    desktopName = "Leonflix";
+    genericName = "Leonflix";
+    categories = lib.concatMapStrings (x: x + ";")
+      [ "AudioVideo" ];
+  };
+in
+appimageTools.wrapType2 {
+  inherit name src;
 
   profile = ''
     export LC_ALL=C.UTF-8
@@ -13,10 +26,9 @@ appimageTools.wrapType2 rec {
   multiPkgs = null; # no 32bit needed
   extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
   extraInstallCommands = ''
-    mv $out/bin/{${name},${pname}}
-    # Desktop file
-    mkdir -p $out/share/applications
-    cp ${./leonflix.desktop} $out/share/applications
+    mv $out/bin/${name} $out/bin/${pname}
+    mkdir -p $out/share/applications/
+    ln -s ${desktopItem}/share/applications/* $out/share/applications/
   '';
 
   meta = with lib; {

@@ -12,7 +12,7 @@
       nixos.url = "nixpkgs/release-21.05";
       latest.url = "nixpkgs/nixos-unstable";
 
-      digga.url = "github:divnix/digga";
+      digga.url = "github:GTrunSec/digga/suites-host";
       digga.inputs.nixpkgs.follows = "nixos";
       digga.inputs.nixlib.follows = "nixos";
       digga.inputs.home-manager.follows = "home";

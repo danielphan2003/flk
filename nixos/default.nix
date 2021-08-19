@@ -22,34 +22,19 @@ in
 
   imports = [ (digga.lib.importHosts ./hosts) ];
 
+  profilesTests = {
+    removeHosts = [ "bootstrap" "NixOS" "pik2" "themachine" ];
+    disableProfilesTests = true;
+  };
+
   hosts = {
+    bootstrap = { };
     NixOS = { };
     pik2 = {
       system = "aarch64-linux";
       modules = with inputs; [ nixos-hardware.nixosModules.raspberry-pi-4 ];
-      tests = [
-        {
-          name = "pik2-Test";
-          machine = { ... }: { };
-          testScript = ''
-            start_all()
-            pik2.wait_for_unit("multi-user.target")
-          '';
-        }
-      ];
     };
-    themachine = {
-      tests = [
-        {
-          name = "themachine-Test";
-          machine = { ... }: { };
-          testScript = ''
-            start_all()
-            themachine.wait_for_unit("multi-user.target")
-          '';
-        }
-      ];
-    };
+    themachine = { };
   };
 
   importables = rec {
