@@ -41,7 +41,6 @@ let
   helpers = import ./helpers.nix {
     inherit
       lib
-      spicetify-cli
       customApps
       customExtensions
       customThemes
@@ -70,10 +69,10 @@ let
     lyric_force_no_sync           ${boolToString lyricForceNoSync}
   '';
 in
-spotify-unwrapped.overrideAttrs (oldAttrs: rec {
-  name = "spotify-spicified-${spotify-unwrapped.version}";
+spotify-unwrapped.overrideAttrs (o: rec {
+  pname = "spotify-spicified";
 
-  nativeBuildInputs = [ spicetify-cli ];
+  nativeBuildInputs = o.nativeBuildInputs ++ [ spicetify-cli ];
 
   # Setup spicetify
   SPICETIFY_CONFIG = ".";
@@ -87,7 +86,7 @@ spotify-unwrapped.overrideAttrs (oldAttrs: rec {
 
     ${extraCommands}
 
-    spicetify config \
+    spicetify-cli config \
       spotify_path                    "$out/share/spotify" \
       prefs_path                      "$out/prefs" \
       inject_css                      ${boolToString injectCss} \
@@ -105,9 +104,9 @@ spotify-unwrapped.overrideAttrs (oldAttrs: rec {
       ${optionalConfig "spotify_launch_flags" launchFlagsString} \
       ${legacyConfigs}
 
-    spicetify -c
+    spicetify-cli -c
 
-    spicetify backup apply enable-devtool update -ne
+    spicetify-cli backup apply enable-devtool update -ne
 
     cd $out/share/spotify
 

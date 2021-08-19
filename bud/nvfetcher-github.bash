@@ -2,6 +2,7 @@ cd $FLAKEROOT/pkgs
 nvfetcher -c ./sources.toml -l changelog --no-output
 if [ ! -z "$(cat changelog)" ]; then
   echo "COMMIT_MSG<<EOF" >>$GITHUB_ENV
+  echo "pkgs: auto update on $(date +"%Y/%m/%d @ %H:%M:%S")" >>$GITHUB_ENV
   echo "$(cat changelog)" >>$GITHUB_ENV
   echo "EOF" >>$GITHUB_ENV
   rm -rf changelog

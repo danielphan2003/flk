@@ -114,9 +114,12 @@ Plus overrides and modules from devos's [community][devos-community] branch
   - (very MUCH wip) [river][river] declarative config.
 
 ## TODOS
-- Implement GitHub GitHub [workflows][auto-update-pkgs-workflow] to automatically update packages.
-- [Unlock LUKS file systems via Tor][tor-luks-unlock].
-- Pass the `nix flake check`.
+- [x] Automatically update packages via [workflows][auto-update-pkgs-workflow].
+  - [ ] Commit message could be smaller, but it requires:
+    - uploading `pkgs/_sources/.shake*` (more conflicts)
+    - or making [nvfetcher][nvfetcher] aware of already-up-to-date packages in generated [sources][generated-sources] (increased update time).
+- [ ] [Unlock LUKS file systems via Tor][tor-luks-unlock].
+- [ ] Pass the `nix flake check`.
 - More...
 
 # Acknowledgements
@@ -198,6 +201,7 @@ Plus overrides and modules from devos's [community][devos-community] branch
 [river]: https://github.com/ifreund/river
 
 [auto-update-pkgs-workflow]: ./.github/workflows/auto-update-pkgs.yml
+[generated-sources]: pkgs/_sources/generated.nix
 [tor-luks-unlock]: https://nixos.wiki/wiki/Remote_LUKS_Unlocking
 
 [colemickens]: https://github.com/colemickens
