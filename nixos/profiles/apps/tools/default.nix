@@ -12,6 +12,7 @@
         pavucontrol
         pulsemixer
         playerctl
+        pueue
         pywal
         trash-cli
         woeusb

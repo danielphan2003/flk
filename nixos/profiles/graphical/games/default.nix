@@ -7,7 +7,7 @@ in
   environment.systemPackages = attrValues {
     inherit (pkgs)
       multimc
-      #pcsx2
+      # pcsx2
       qjoypad
       retroarchBare
       ;

@@ -31,6 +31,7 @@ in
     ++ optionals services.bitwarden_rs.enable [ "/var/lib/bitwarden_rs" ]
     ++ optionals services.fail2ban.enable [ "/var/lib/fail2ban" ]
     ++ optionals services.hercules-ci-agent.enable [ "/var/lib/hercules-ci-agent" ]
+    ++ optionals services.minecraft-server.enable [ "/var/lib/minecraft" ]
     ++ optionals services.postgresql.enable [ "/var/lib/postgresql" ]
     ++ optionals services.postgresqlBackup.enable [ "/var/backup/postgresql" ]
     ++ optionals

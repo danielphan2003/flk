@@ -124,6 +124,7 @@ in
         [
           # cloud.calibre-web
           cloud.grafana
+          cloud.minecraft
           cloud.postgresql
           cloud.vaultwarden
           # network.stubby

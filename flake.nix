@@ -78,6 +78,9 @@
 
       fenix.url = "github:nix-community/fenix";
       fenix.inputs.nixpkgs.follows = "latest";
+
+      rnix-lsp.url = "github:nix-community/rnix-lsp";
+      rnix-lsp.inputs.nixpkgs.follows = "latest";
     };
 
   outputs =
@@ -101,6 +104,7 @@
     , qnr
     , fenix
     , vs-ext
+    , rnix-lsp
 
     , ...
     } @ inputs:
@@ -129,6 +133,7 @@
                   if prev.system == "x86_64-linux"
                   then firefox-nightly.packages.${prev.system}.firefox-nightly-bin
                   else prev.firefox;
+                inherit (rnix-lsp.packages.${prev.system}) rnix-lsp;
               })
             ];
           };

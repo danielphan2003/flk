@@ -80,6 +80,12 @@ in
           import NoSearchHeader
         }
 
+        @minecraft host mc.${config.networking.domain}
+        handle @minecraft {
+          import reverseProxy 127.0.0.1:${toString minecraft-server.serverProperties.server-port}
+          import NoSearchHeader
+        }
+
         # Fallback for otherwise unhandled domains
         handle {
           respond "404 Not Found! Or is it...?" 200

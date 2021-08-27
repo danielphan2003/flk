@@ -92,6 +92,11 @@ src.webpage = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-e
 src.regex = "microsoft-edge-dev_(.*)-1_amd64\\.deb\">microsoft-edge-dev_"
 fetch.url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_$ver-1_amd64.deb"
 
+[multimc-cracked]
+src.manual = "9069e9c9d0b7951c310fdcc8bdc70ebc422a7634"
+fetch.github = "AfoninZ/MultiMC5-Cracked"
+git.fetchSubmodules = true
+
 [nix-zsh-completions]
 src.git = "https://github.com/Ma27/nix-zsh-completions"
 fetch.github = "Ma27/nix-zsh-completions"
@@ -101,9 +106,8 @@ src.git = "https://github.com/maharmstone/ntfs2btrfs"
 fetch.github = "maharmstone/ntfs2btrfs"
 
 [paper]
-src.git = "https://gitlab.com/danielphan2003/paper"
-src.branch = "remove-redundant-ref"
-fetch.git = "https://gitlab.com/danielphan2003/paper"
+src.git = "https://gitlab.com/snakedye/paper"
+fetch.git = "https://gitlab.com/snakedye/paper"
 cargo_lock = "Cargo.lock"
 
 [picom]

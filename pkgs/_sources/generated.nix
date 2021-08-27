@@ -15,14 +15,14 @@
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "00fa8f1b50dbc717ef9cc702679f3829d91fee05";
+    version = "2a9cf32f45d0aabc4a6ac70f3a4a0b8f8e25a1ad";
     src = fetchgit {
       url = "https://github.com/arkenfox/user.js";
-      rev = "00fa8f1b50dbc717ef9cc702679f3829d91fee05";
+      rev = "2a9cf32f45d0aabc4a6ac70f3a4a0b8f8e25a1ad";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0c0g907f2hpkwpmczbvrjka5m5yx94j0c9cv7yk9afqa97ad993s";
+      sha256 = "14w970n7kil49yd3d41zpi6bgjyn5kx5mq57li6p2dllx66rj9cj";
     };
   };
   avizo = {
@@ -63,14 +63,14 @@
   };
   bling = {
     pname = "bling";
-    version = "bda2e5564369f0d06777f5eb773c88432679d849";
+    version = "0fb85341916b6de1c5cd6ddf3e8472292a93a303";
     src = fetchgit {
       url = "https://github.com/BlingCorp/bling";
-      rev = "bda2e5564369f0d06777f5eb773c88432679d849";
+      rev = "0fb85341916b6de1c5cd6ddf3e8472292a93a303";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0rjhs1r18lwg0g72kzb702fihqijz397my0v2j5990r6r55baidw";
+      sha256 = "0q5vdl6hjq5mizsqjwzcyb1aq57fgqw9xidqwn43m73mrakcr9ak";
     };
   };
   caddy = {
@@ -119,20 +119,18 @@
   };
   eww = {
     pname = "eww";
-    version = "7ffebf69033ca9d9254de50cda9b669933201d72";
+    version = "291239af15d78171d09aafb9e3281d0dc03bca8d";
     src = fetchgit {
       url = "https://github.com/elkowar/eww";
-      rev = "7ffebf69033ca9d9254de50cda9b669933201d72";
+      rev = "291239af15d78171d09aafb9e3281d0dc03bca8d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0kyy9hkn2y61ynic2x8qddp96nz3vgwniwaq5fxl1bnfpxch1k4w";
+      sha256 = "07sy36zf3jjxis8ql4jx5jy3lkc3nascdqdgjiabsfwhkckyf6f4";
     };
     cargoLock = {
-      lockFile = ./eww-7ffebf69033ca9d9254de50cda9b669933201d72/Cargo.lock;
-      outputHashes = {
-        
-      };
+      lockFile = ./eww-291239af15d78171d09aafb9e3281d0dc03bca8d/Cargo.lock;
+      outputHashes = { };
     };
   };
   flyingfox = {
@@ -149,26 +147,26 @@
   };
   ibus = {
     pname = "ibus";
-    version = "bc265fb6c3792573db142c72cfcb36227c384d82";
+    version = "cfb263f04f82a83dd94f6eedcd5017d40a4a1a05";
     src = fetchgit {
       url = "https://github.com/ibus/ibus";
-      rev = "bc265fb6c3792573db142c72cfcb36227c384d82";
+      rev = "cfb263f04f82a83dd94f6eedcd5017d40a4a1a05";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1rgx5sqr408bmwvmx75jgj8nfb9mrzfhha2vlclrk38vzwhsyb4j";
+      sha256 = "0lhmybzf6jsn70cf9z13x1w3cpbfsl9zzmr9ig83xaw875smax5q";
     };
   };
   ibus-bamboo = {
     pname = "ibus-bamboo";
-    version = "565c172dbd654e282c41325cc6cf1543fad5b461";
+    version = "bb4e7a2622b434cb551c796b2af3d66dde0a34d7";
     src = fetchgit {
       url = "https://github.com/BambooEngine/ibus-bamboo";
-      rev = "565c172dbd654e282c41325cc6cf1543fad5b461";
+      rev = "bb4e7a2622b434cb551c796b2af3d66dde0a34d7";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1qvinzcy1j9c5z1v1q5h19rk8rxar968gjkz3vcgksa3vjrlpxbf";
+      sha256 = "039aijlricvdjjcchxcgxx6mcchkk01aav4p2injv3ckap08zg18";
     };
   };
   layout-machi = {
@@ -241,10 +239,10 @@
   };
   microsoft-edge-beta = {
     pname = "microsoft-edge-beta";
-    version = "93.0.961.24";
+    version = "93.0.961.27";
     src = fetchurl {
-      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_93.0.961.24-1_amd64.deb";
-      sha256 = "0jpqn8a1y6c6yzn3lzf8f717ic8q490ywym7llyvhcsn28ybswrs";
+      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_93.0.961.27-1_amd64.deb";
+      sha256 = "0l27ii9xr0swzacqqcjnasshykccrlzxd2vcbl1avrn8lfnqfvmk";
     };
   };
   microsoft-edge-dev = {
@@ -253,6 +251,18 @@
     src = fetchurl {
       url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_94.0.982.2-1_amd64.deb";
       sha256 = "14s0a2bxqixswmq39akn9dfw1y0323j71kknhmv31hbfl4d8bjmb";
+    };
+  };
+  multimc-cracked = {
+    pname = "multimc-cracked";
+    version = "9069e9c9d0b7951c310fdcc8bdc70ebc422a7634";
+    src = fetchgit {
+      url = "https://github.com/AfoninZ/MultiMC5-Cracked";
+      rev = "9069e9c9d0b7951c310fdcc8bdc70ebc422a7634";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0nyf3gm0r3k3dbi4bd21g2lj840nkhz43pnlfjcz199y2f3zbdbl";
     };
   };
   nix-zsh-completions = {
@@ -289,17 +299,17 @@
   };
   paper = {
     pname = "paper";
-    version = "c93e629e470ca434ab52f78a9e4ea67fe46f3e56";
+    version = "c16a9e3dc42f8680f6fa6430a433ed73d949a7d6";
     src = fetchgit {
-      url = "https://gitlab.com/danielphan2003/paper";
-      rev = "c93e629e470ca434ab52f78a9e4ea67fe46f3e56";
+      url = "https://gitlab.com/snakedye/paper";
+      rev = "c16a9e3dc42f8680f6fa6430a433ed73d949a7d6";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "01icq0ww631cdga0isibvn4b8cmw35pk51r0xw10rkkzrhhjpw57";
+      sha256 = "1g5drzgigh6alcfyb1vcap30kccc0b6a4fv17fnr97n23phzv8dl";
     };
     cargoLock = {
-      lockFile = ./paper-c93e629e470ca434ab52f78a9e4ea67fe46f3e56/Cargo.lock;
+      lockFile = ./paper-c16a9e3dc42f8680f6fa6430a433ed73d949a7d6/Cargo.lock;
       outputHashes = {
         "snui-0.1.0" = "14hpcrg4srvrkrkygsb73jwi2bvikg6zlk7zgzhh36c271vc1w89";
       };
@@ -307,14 +317,14 @@
   };
   picom = {
     pname = "picom";
-    version = "78e8666498490ae25349a44f156d0811b30abb70";
+    version = "ee7d96101d17f3160fcb80b7aa767b75f06662ec";
     src = fetchgit {
       url = "https://github.com/yshui/picom";
-      rev = "78e8666498490ae25349a44f156d0811b30abb70";
+      rev = "ee7d96101d17f3160fcb80b7aa767b75f06662ec";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0lx30w9ccrivnm05i1m67wvhkiw166i8v0gdj6ql6jganrwnwzwk";
+      sha256 = "13fam0k20sd2xbkia70rb2jvxyl6g5r2bvdd9bcnr0n6isz60ais";
     };
   };
   plymouth-themes = {
@@ -387,32 +397,30 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "97144833cb6b011934690b777e5c2dc88aab591d";
+    version = "1a2ee91117e2bd3029f3a88c46becb3c3799867c";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "97144833cb6b011934690b777e5c2dc88aab591d";
+      rev = "1a2ee91117e2bd3029f3a88c46becb3c3799867c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1pk97dyvf9xlm1mrjl56svm8gazsbsslc54d3awaan0bjd1s9rvp";
+      sha256 = "00baj5dccqsc742igr7h63mip94gdzmfgyz488s124b0xl6s08bg";
     };
   };
   rnix-lsp = {
     pname = "rnix-lsp";
-    version = "1fdd7cf9bf56b8ad2dddcfd27354dae8aef2b453";
+    version = "8a00223428f3fcc9dbe639fb0d1d4a062c341b98";
     src = fetchgit {
       url = "https://github.com/nix-community/rnix-lsp";
-      rev = "1fdd7cf9bf56b8ad2dddcfd27354dae8aef2b453";
+      rev = "8a00223428f3fcc9dbe639fb0d1d4a062c341b98";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0rv9k3f70i4dhqzxfjiknh85d93wml6kajmhln7dk5piap46jj63";
+      sha256 = "0ppmv3ikhdhhqkk79yvp3d5jcfpkpgcsafwr4yyk4swgsyysr4ga";
     };
     cargoLock = {
-      lockFile = ./rnix-lsp-1fdd7cf9bf56b8ad2dddcfd27354dae8aef2b453/Cargo.lock;
-      outputHashes = {
-        
-      };
+      lockFile = ./rnix-lsp-8a00223428f3fcc9dbe639fb0d1d4a062c341b98/Cargo.lock;
+      outputHashes = { };
     };
   };
   sddm-chili = {
@@ -477,14 +485,14 @@
   };
   spicetify-themes = {
     pname = "spicetify-themes";
-    version = "bc61341d5327507b457e12c93246a719432289d8";
+    version = "92464df26cef09f3beba283dc7bde66ac8b9be30";
     src = fetchgit {
       url = "https://github.com/morpheusthewhite/spicetify-themes";
-      rev = "bc61341d5327507b457e12c93246a719432289d8";
+      rev = "92464df26cef09f3beba283dc7bde66ac8b9be30";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1m5r91ajj04a161vj9qlzfq6rh87favqjpgyfi8b7ja7wmic8z7j";
+      sha256 = "11z76bc1fp71y5ncwx6wv6md5f8pm25aaz7macq2fbppaxnx9yv1";
     };
   };
   spotify = {
@@ -669,10 +677,10 @@
   };
   vscode-extensions-dendron = {
     pname = "vscode-extensions-dendron";
-    version = "0.55.1";
+    version = "0.56.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/dendron/dendron/0.55.1/file/dendron.dendron-0.55.1.vsix";
-      sha256 = "1nka28zr7p21kjsi1xgaimaswwp72wqq3464r0090wyqgvhrrq1j";
+      url = "https://open-vsx.org/api/dendron/dendron/0.56.0/file/dendron.dendron-0.56.0.vsix";
+      sha256 = "103abxcards02cjg5k42w82xvyxnqbi5j0y1fyqjcjvz1jird6d5";
     };
     homepage = "https://github.com/dendronhq/dendron";
     license = "agpl3Only";
@@ -768,10 +776,10 @@
   };
   vscode-extensions-markdown-preview-enhanced = {
     pname = "vscode-extensions-markdown-preview-enhanced";
-    version = "0.5.22";
+    version = "0.6.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/shd101wyy/markdown-preview-enhanced/0.5.22/file/shd101wyy.markdown-preview-enhanced-0.5.22.vsix";
-      sha256 = "0a17wpf8gj48nf6hpmy9b1v87n0l4z1fls50m0s4piinh9h17791";
+      url = "https://open-vsx.org/api/shd101wyy/markdown-preview-enhanced/0.6.0/file/shd101wyy.markdown-preview-enhanced-0.6.0.vsix";
+      sha256 = "1cc5siach8b4lc801rcsas0f5phnk8g5w8r9b066ngi4w0wxs7dn";
     };
     homepage = "https://github.com/shd101wyy/vscode-markdown-preview-enhanced";
     license = "ncsa";
@@ -779,10 +787,10 @@
   };
   vscode-extensions-material-icon-theme = {
     pname = "vscode-extensions-material-icon-theme";
-    version = "4.9.0";
+    version = "4.10.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/PKief/material-icon-theme/4.9.0/file/PKief.material-icon-theme-4.9.0.vsix";
-      sha256 = "1yn2x5775g9zsfarxp6hswi18jvqlpjywwxnmsc0k3nhc8ygsn8a";
+      url = "https://open-vsx.org/api/PKief/material-icon-theme/4.10.0/file/PKief.material-icon-theme-4.10.0.vsix";
+      sha256 = "02ghvkiprp5c0lylvg9ix5zgkgpsfbx5z3xz0c15l6xnar64idn7";
     };
     homepage = "https://github.com/PKief/vscode-material-icon-theme";
     license = "mit";
@@ -850,10 +858,10 @@
   };
   vscode-extensions-pubspec-assist = {
     pname = "vscode-extensions-pubspec-assist";
-    version = "2.1.0";
+    version = "2.3.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/jeroen-meijer/pubspec-assist/2.1.0/file/jeroen-meijer.pubspec-assist-2.1.0.vsix";
-      sha256 = "0gxzdbg2zkz27c7i6rpvyybwxlpx2njxllz4hffy16bhnc0sd8hz";
+      url = "https://open-vsx.org/api/jeroen-meijer/pubspec-assist/2.3.0/file/jeroen-meijer.pubspec-assist-2.3.0.vsix";
+      sha256 = "1lm293jq6as3qcgir6hjgkfkhwzwa07g4apqh190nywvyi0680p0";
     };
     homepage = "https://github.com/jeroen-meijer/pubspec-assist";
     license = "mit";
@@ -903,10 +911,10 @@
   };
   vscode-extensions-svelte = {
     pname = "vscode-extensions-svelte";
-    version = "105.3.4";
+    version = "105.3.5";
     src = fetchurl {
-      url = "https://open-vsx.org/api/svelte/svelte-vscode/105.3.4/file/svelte.svelte-vscode-105.3.4.vsix";
-      sha256 = "0q9gcxn5rwnkh8hkn0f8czkcxvxw54q3rgyfc752vqg16pn1jlk4";
+      url = "https://open-vsx.org/api/svelte/svelte-vscode/105.3.5/file/svelte.svelte-vscode-105.3.5.vsix";
+      sha256 = "109d0ph714z4g7p1np8k3a4phnx093syv8pyd3lmfyr70zkm8vp3";
     };
     homepage = "https://github.com/sveltejs/language-tools";
     license = "mit";
@@ -914,10 +922,10 @@
   };
   vscode-extensions-tailwindcss = {
     pname = "vscode-extensions-tailwindcss";
-    version = "0.6.13";
+    version = "0.6.14";
     src = fetchurl {
-      url = "https://open-vsx.org/api/bradlc/vscode-tailwindcss/0.6.13/file/bradlc.vscode-tailwindcss-0.6.13.vsix";
-      sha256 = "1nm24wmjyc0ida3j6hzdmaq6dpzj1bh84lv2hbdw63pfdg3xwbd6";
+      url = "https://open-vsx.org/api/bradlc/vscode-tailwindcss/0.6.14/file/bradlc.vscode-tailwindcss-0.6.14.vsix";
+      sha256 = "06xgnvv0g7z3afm6ywds0xh1kvmxwcprlwrp4cihsfjky8sjakhf";
     };
     homepage = "https://github.com/tailwindlabs/tailwindcss-intellisense";
     license = "mit";
@@ -936,26 +944,26 @@
   };
   whitesur-gtk-theme = {
     pname = "whitesur-gtk-theme";
-    version = "26d7d7bccf25cb8b9482d38775165db652b79e5e";
+    version = "87506545d666c2967512f5cab6564466f1670870";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-gtk-theme";
-      rev = "26d7d7bccf25cb8b9482d38775165db652b79e5e";
+      rev = "87506545d666c2967512f5cab6564466f1670870";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0m218lmvhf0lrx4lmh82hwikgywzylg243r48a5rdkgyk5kd6awq";
+      sha256 = "0ij0gj0wdn43mvhr4wx485ys7yngd2sl99sds2in8nbn7l5g1zp6";
     };
   };
   whitesur-icon-theme = {
     pname = "whitesur-icon-theme";
-    version = "290f214420403ada62245b936f715e8895f6619c";
+    version = "9a1d1a076a85fbbb8f314d80c9a4b00191a5cbc4";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-icon-theme";
-      rev = "290f214420403ada62245b936f715e8895f6619c";
+      rev = "9a1d1a076a85fbbb8f314d80c9a4b00191a5cbc4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "13ijwb40qb0h54v3b3kiszz8pbdp6c55j7a0zsh007b0hz0rgjdl";
+      sha256 = "17j29j3g66s31hvlh99rl7d3y2x8szvkz8yqjprzj7mlgplxpf9v";
     };
   };
   widevine-cdm = {

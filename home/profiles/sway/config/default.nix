@@ -23,7 +23,9 @@ let inherit (lib.our.mkCustomI3Rule) assign colorRule; in
 
   focus.followMouse = false;
 
-  window.border = 0;
+  window.border = 1;
+
+  floating.titlebar = true;
 
   defaultWorkspace = "workspace number 1";
 
