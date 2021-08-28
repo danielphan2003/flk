@@ -1,13 +1,28 @@
-{ pkgs, lib, self, ... }: {
-  age.secrets.minecraft-whitelist = {
-    file = "${self}/secrets/nixos/profiles/cloud/minecraft/whitelist.age";
+{ pkgs, lib, self, ... }:
+let
+  mkMcSecret = file: {
+    inherit file;
     owner = "minecraft";
     group = "nogroup";
   };
+in
+{
+  age.secrets = {
+    minecraft-ops = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/ops.age";
+    minecraft-whitelist = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/whitelist.age";
+  };
 
   systemd.tmpfiles.rules = [
-    "L /run/secrets/minecraft-whitelist - - - - /var/lib/minecraft/whitelist.json"
+    "L+ /run/secrets/minecraft-ops - - - - /var/lib/minecraft/ops.json"
+    "L+ /run/secrets/minecraft-whitelist - - - - /var/lib/minecraft/whitelist.json"
   ];
+
+  systemd.services.minecraft-server = with config.services.minecraft-server; {
+    serviceConfig = {
+      ExecStart = lib.mkForce
+        "${pkgs.coreutils}/bin/unlink /var/lib/minecraft/whitelist.json; ${package}/bin/minecraft-server ${jvmOpts}";
+    };
+  };
 
   services.minecraft-server = {
     enable = true;

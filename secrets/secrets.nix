@@ -30,4 +30,5 @@ in
   "nixos/profiles/cloud/duckdns.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
 
   "nixos/profiles/cloud/minecraft/whitelist.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
+  "nixos/profiles/cloud/minecraft/ops.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
 }
