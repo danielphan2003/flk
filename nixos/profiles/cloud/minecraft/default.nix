@@ -17,10 +17,6 @@ in
     minecraft-whitelist = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/whitelist.age";
   };
 
-  systemd.tmpfiles.rules = [
-    "L+ /run/secrets/minecraft-ops - - - - /var/lib/minecraft/ops.json"
-  ];
-
   systemd.services.minecraft-server = {
     serviceConfig = {
       ExecStart = lib.mkForce mcPkg;
