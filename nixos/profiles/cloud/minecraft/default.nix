@@ -1,4 +1,14 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, self, ... }: {
+  age.secrets.minecraft-whitelist = {
+    file = "${self}/secrets/nixos/profiles/cloud/minecraft/whitelist.age";
+    owner = "minecraft";
+    group = "nogroup";
+  };
+
+  systemd.tmpfiles.rules = [
+    "L /run/secrets/minecraft-whitelist - - - - /var/lib/minecraft/whitelist.json"
+  ];
+
   services.minecraft-server = {
     enable = true;
     declarative = true;
@@ -17,10 +27,6 @@
       enforce-whitelist = true;
       enable-rcon = false;
       prevent-proxy-connections = true;
-    };
-
-    whitelist = {
-      harolddan2003 = "6973ee58-4347-4a8e-a9b4-e93ae85a6584";
     };
 
     jvmOpts = lib.concatStringsSep " " [
