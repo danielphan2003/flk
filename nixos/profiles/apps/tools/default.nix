@@ -4,6 +4,7 @@
       inherit (pkgs)
         czkawka
         ffmpeg-full
+        glfw
         gnufdisk
         gparted
         libnotify
