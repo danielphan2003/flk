@@ -1,10 +1,15 @@
-{ pkgs, lib, self, ... }:
+{ pkgs, lib, config, self, ... }:
 let
   mkMcSecret = file: {
     inherit file;
     owner = "minecraft";
     group = "nogroup";
   };
+  mcPkg = pkgs.writeShellScript "minecraft-server" (with config.services.minecraft-server; ''
+    ${pkgs.coreutils}/bin/unlink /var/lib/minecraft/whitelist.json
+    ln -s /run/secrets/minecraft-whitelist /var/lib/minecraft/whitelist.json
+    ${package}/bin/minecraft-server ${jvmOpts} $@
+  '');
 in
 {
   age.secrets = {
@@ -14,13 +19,11 @@ in
 
   systemd.tmpfiles.rules = [
     "L+ /run/secrets/minecraft-ops - - - - /var/lib/minecraft/ops.json"
-    "L+ /run/secrets/minecraft-whitelist - - - - /var/lib/minecraft/whitelist.json"
   ];
 
-  systemd.services.minecraft-server = with config.services.minecraft-server; {
+  systemd.services.minecraft-server = {
     serviceConfig = {
-      ExecStart = lib.mkForce
-        "${pkgs.coreutils}/bin/unlink /var/lib/minecraft/whitelist.json; ${package}/bin/minecraft-server ${jvmOpts}";
+      ExecStart = lib.mkForce mcPkg;
     };
   };
 
