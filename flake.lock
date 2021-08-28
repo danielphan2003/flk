@@ -978,11 +978,11 @@
         "globalRegistry": "globalRegistry"
       },
       "locked": {
-        "lastModified": 1627502350,
-        "narHash": "sha256-pzWa6osCCQM5xdf8hi9c3jk/nflrAibFU1CLFrYDHPE=",
+        "lastModified": 1627589359,
+        "narHash": "sha256-h0UhOgGtHwEcb2looQXIFPNmRwiFtXo4bEuBboPJzJo=",
         "owner": "divnix",
         "repo": "quick-nix-registry",
-        "rev": "b2809b79ff5c271fc0005ca77e1ca22fa22fed32",
+        "rev": "9f1beb3e4de2e538b14ed8ddc71b706fd33b08dd",
         "type": "github"
       },
       "original": {

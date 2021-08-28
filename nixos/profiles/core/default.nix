@@ -28,9 +28,6 @@ in
     noGlobalRegistry = false;
   };
 
-  # Set timeout
-  systemd.services.sync-nixpkgs.serviceConfig.TimeoutSec = 400;
-
   environment = {
 
     systemPackages = attrValues {
