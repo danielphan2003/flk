@@ -110,6 +110,11 @@ src.git = "https://gitlab.com/snakedye/paper"
 fetch.git = "https://gitlab.com/snakedye/paper"
 cargo_lock = "Cargo.lock"
 
+[papermc]
+src.webpage = "https://papermc.io/api/v2/projects/paper/version_group/1.17/builds"
+src.regex = "\"build\":(\\d+),"
+fetch.url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/$ver/downloads/paper-1.17.1-$ver.jar"
+
 [picom]
 src.git = "https://github.com/yshui/picom"
 fetch.github = "yshui/picom"
