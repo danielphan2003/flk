@@ -37,7 +37,10 @@ in
 
   element-desktop = element-desktop.override { inherit (final) electron; };
 
-  discord-canary = discord-canary.overrideAttrs (_: { postFixup = patchElectron "$out/bin/discordcanary"; });
+  discord-canary = discord-canary.overrideAttrs (_: rec {
+    inherit (final.sources.discord-canary) pname src version;
+    postFixup = patchElectron "$out/bin/discordcanary";
+  });
 
   signal-desktop = signal-desktop.overrideAttrs (o: { postFixup = o.postFixup + patchElectron "$out/bin/signal-desktop-unwrapped"; });
 

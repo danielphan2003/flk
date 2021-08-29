@@ -15,14 +15,14 @@
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "908638c9dc8f1d66c373617915220c126ed05147";
+    version = "a1b4aa6000b691930df59bc214d40d2f89c6ca90";
     src = fetchgit {
       url = "https://github.com/arkenfox/user.js";
-      rev = "908638c9dc8f1d66c373617915220c126ed05147";
+      rev = "a1b4aa6000b691930df59bc214d40d2f89c6ca90";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0nxz4rh8kq3sr80clnas28qf68k5vwgsdnqhdldc2fnmdqz2dzvm";
+      sha256 = "1mk29mzq4irsq0sc4c421dp3nprxgiynmxkl3sayl4kvldakv8x7";
     };
   };
   avizo = {
@@ -93,6 +93,14 @@
       sha256 = "0ccmm9crrm07nqzn4aikbys2bflkgzc044j1bvz6j53zzznnk1kk";
     };
   };
+  discord-canary = {
+    pname = "discord-canary";
+    version = "0.0.128";
+    src = fetchurl {
+      url = "https://dl-canary.discordapp.net/apps/linux/0.0.128/discord-canary-0.0.128.tar.gz";
+      sha256 = "18xd2mglb75wpc9cb8p4hlydl86gyd5g15585h84x9jsr421h3bk";
+    };
+  };
   dribbblish-dynamic-theme = {
     pname = "dribbblish-dynamic-theme";
     version = "28d977631f8d240074b9a6a0852e714a751a7f87";
@@ -159,14 +167,14 @@
   };
   ibus-bamboo = {
     pname = "ibus-bamboo";
-    version = "3c488b6d3e5596b7f68c9cf7a6ce43531a175ae4";
+    version = "d3767c9ef9bb9a02adf2af3d1809bb2caa0051dc";
     src = fetchgit {
       url = "https://github.com/BambooEngine/ibus-bamboo";
-      rev = "3c488b6d3e5596b7f68c9cf7a6ce43531a175ae4";
+      rev = "d3767c9ef9bb9a02adf2af3d1809bb2caa0051dc";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "14ynmqgj2haqs44nlxp9gwnq1kklm4hk00sl8jddya8yjmgika76";
+      sha256 = "0xmf5p2jdphddkaf0kx9jjfyh1yc2gx6pig5jk8wjr4aizgsp5mj";
     };
   };
   layout-machi = {
@@ -317,10 +325,10 @@
   };
   papermc = {
     pname = "papermc";
-    version = "226";
+    version = "228";
     src = fetchurl {
-      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/226/downloads/paper-1.17.1-226.jar";
-      sha256 = "15krwz4micc1sisn1wls43zdyalzsr45ic94y978pdsbixrndbi2";
+      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/228/downloads/paper-1.17.1-228.jar";
+      sha256 = "1xmi9cvqxkzizxnqccma49jksi79jyrhbdf4i6yplynds9k3xfdn";
     };
   };
   picom = {
@@ -413,22 +421,6 @@
       deepClone = false;
       leaveDotGit = false;
       sha256 = "03hp887dwb2y20bg1750j5a744cc0z8vv71bfbrpadym21h0la0h";
-    };
-  };
-  rnix-lsp = {
-    pname = "rnix-lsp";
-    version = "8a00223428f3fcc9dbe639fb0d1d4a062c341b98";
-    src = fetchgit {
-      url = "https://github.com/nix-community/rnix-lsp";
-      rev = "8a00223428f3fcc9dbe639fb0d1d4a062c341b98";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "0ppmv3ikhdhhqkk79yvp3d5jcfpkpgcsafwr4yyk4swgsyysr4ga";
-    };
-    cargoLock = {
-      lockFile = ./rnix-lsp-8a00223428f3fcc9dbe639fb0d1d4a062c341b98/Cargo.lock;
-      outputHashes = { };
     };
   };
   sddm-chili = {
@@ -952,14 +944,14 @@
   };
   whitesur-gtk-theme = {
     pname = "whitesur-gtk-theme";
-    version = "847cc8d4b402c717eb14f07712940ac062588b50";
+    version = "4e89b9d1b4adcf01a8958d6a1eca389aba18883e";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-gtk-theme";
-      rev = "847cc8d4b402c717eb14f07712940ac062588b50";
+      rev = "4e89b9d1b4adcf01a8958d6a1eca389aba18883e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1apla36ilbgha2lwl6hsms9r3ga3ag7hk6mj7fm04kcqs8jn6i4k";
+      sha256 = "03s8cgr0kpmwr3dnn95r2gyvpnc1db8ncdkdq2s7k0sn875h4bqv";
     };
   };
   whitesur-icon-theme = {
