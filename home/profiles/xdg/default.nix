@@ -10,6 +10,7 @@ let
 in
 {
   home.packages = with pkgs; [ xdg_utils ];
+
   home.sessionVariables = {
     __GL_SHADER_DISK_CACHE_PATH = "$XDG_CACHE_HOME/nv";
     ASPELL_CONF = ''
