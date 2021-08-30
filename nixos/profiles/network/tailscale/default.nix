@@ -1,10 +1,14 @@
-{ pkgs, config, self, ... }:
+{ pkgs, lib, config, self, ... }:
 let
   inherit (config.networking) hostName;
   tailscale-age-key = "${self}/secrets/nixos/profiles/network/tailscale/${hostName}.age";
 in
 {
   age.secrets."tailscale-${hostName}".file = tailscale-age-key;
+
+  networking.search = [ "danielphan-2003.gmail.com.beta.tailscale.net" ];
+
+  networking.nameservers = lib.mkBefore [ "100.100.100.100" ];
 
   networking.firewall = {
     trustedInterfaces = [ "tailscale0" ];
