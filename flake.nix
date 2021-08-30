@@ -81,6 +81,9 @@
 
       rnix-lsp.url = "github:nix-community/rnix-lsp";
       rnix-lsp.inputs.nixpkgs.follows = "latest";
+
+      gomod2nix.url = "github:tweag/gomod2nix";
+      gomod2nix.inputs.nixpkgs.follows = "latest";
     };
 
   outputs =
@@ -102,10 +105,11 @@
     , samueldr-anbox
     , nix-dram
     , qnr
-    , fenix
     , vs-ext
     , rnix-lsp
 
+    , fenix
+    , gomod2nix
     , ...
     } @ inputs:
     digga.lib.mkFlake
@@ -121,13 +125,16 @@
               digga.overlays.patchedNix
               nur.overlay
               agenix.overlay
-              fenix.overlay
               nvfetcher.overlay
               deploy.overlay
-              vs-ext.overlay
-              ./pkgs/default.nix
-              nix-dram.overlay
+
               nixpkgs-wayland.overlay
+              nix-dram.overlay
+              vs-ext.overlay
+
+              fenix.overlay
+              gomod2nix.overlay
+
               (final: prev: {
                 firefox-nightly-bin =
                   if prev.system == "x86_64-linux"
@@ -135,6 +142,8 @@
                   else prev.firefox;
                 inherit (rnix-lsp.packages.${prev.system}) rnix-lsp;
               })
+
+              ./pkgs/default.nix
             ];
           };
           latest = { };

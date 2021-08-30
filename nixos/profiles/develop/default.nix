@@ -27,6 +27,8 @@ in
       tig
       tokei
       rnix-lsp
+
+      gomod2nix
       ;
   };
 

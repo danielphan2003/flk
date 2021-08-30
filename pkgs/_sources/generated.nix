@@ -15,14 +15,14 @@
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "a1b4aa6000b691930df59bc214d40d2f89c6ca90";
+    version = "283bfd744ac1d7cb102e542b92b12f98d1a095b8";
     src = fetchgit {
       url = "https://github.com/arkenfox/user.js";
-      rev = "a1b4aa6000b691930df59bc214d40d2f89c6ca90";
+      rev = "283bfd744ac1d7cb102e542b92b12f98d1a095b8";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1mk29mzq4irsq0sc4c421dp3nprxgiynmxkl3sayl4kvldakv8x7";
+      sha256 = "1zzy5d8nfsqw713rzagw712d97f66w8p5vmmlxa3hxfyqnk12ywv";
     };
   };
   avizo = {
@@ -325,10 +325,10 @@
   };
   papermc = {
     pname = "papermc";
-    version = "228";
+    version = "229";
     src = fetchurl {
-      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/228/downloads/paper-1.17.1-228.jar";
-      sha256 = "1xmi9cvqxkzizxnqccma49jksi79jyrhbdf4i6yplynds9k3xfdn";
+      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/229/downloads/paper-1.17.1-229.jar";
+      sha256 = "0dx0w2mmml1ifx4203b5bcznf788gv0g5w837gjsxykp5hg8lr5f";
     };
   };
   picom = {
@@ -413,14 +413,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "2474fe3c2e757b9cecffacc780c3f548c26bb7c5";
+    version = "cd126f0236bb429d9f5eeb40234296eb72899774";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "2474fe3c2e757b9cecffacc780c3f548c26bb7c5";
+      rev = "cd126f0236bb429d9f5eeb40234296eb72899774";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "03hp887dwb2y20bg1750j5a744cc0z8vv71bfbrpadym21h0la0h";
+      sha256 = "0xvw0klzm3xg662vn9bgaahzvfrs9d8ydlzgpfzi8xqf65hczz90";
     };
   };
   sddm-chili = {
@@ -942,28 +942,40 @@
     license = "isc";
     description = "Shows the latest version for each package using code lens";
   };
-  whitesur-gtk-theme = {
-    pname = "whitesur-gtk-theme";
-    version = "4e89b9d1b4adcf01a8958d6a1eca389aba18883e";
+  wgcf = {
+    pname = "wgcf";
+    version = "e7aa8a850c31dc93ed7bb2e4a65eca2dfa30c387";
     src = fetchgit {
-      url = "https://github.com/vinceliuice/whitesur-gtk-theme";
-      rev = "4e89b9d1b4adcf01a8958d6a1eca389aba18883e";
+      url = "https://github.com/ViRb3/wgcf";
+      rev = "e7aa8a850c31dc93ed7bb2e4a65eca2dfa30c387";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "03s8cgr0kpmwr3dnn95r2gyvpnc1db8ncdkdq2s7k0sn875h4bqv";
+      sha256 = "0fhvdk43vyn1nj5sr96hi5l468qi9dilq1kp01lhzhf4dvyzhx2n";
+    };
+  };
+  whitesur-gtk-theme = {
+    pname = "whitesur-gtk-theme";
+    version = "9ca944e9233a30626857d68c80e5485dfac23962";
+    src = fetchgit {
+      url = "https://github.com/vinceliuice/whitesur-gtk-theme";
+      rev = "9ca944e9233a30626857d68c80e5485dfac23962";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1pdpxavjfb27y07az9b8hvlawvppgksjnwb22rgb6xz1h4j3qkkl";
     };
   };
   whitesur-icon-theme = {
     pname = "whitesur-icon-theme";
-    version = "9a1d1a076a85fbbb8f314d80c9a4b00191a5cbc4";
+    version = "8fd881099dccc776fa594fbe5ca5c1b5ad4c4e2e";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-icon-theme";
-      rev = "9a1d1a076a85fbbb8f314d80c9a4b00191a5cbc4";
+      rev = "8fd881099dccc776fa594fbe5ca5c1b5ad4c4e2e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "17j29j3g66s31hvlh99rl7d3y2x8szvkz8yqjprzj7mlgplxpf9v";
+      sha256 = "0bxg016axaf2nbbrxrrian1ycsfp63pijl8ybacrcd95zlckfq6m";
     };
   };
   widevine-cdm = {

@@ -111,4 +111,6 @@ in
   ntfs2btrfs = final.callPackage ./tools/file-systems/ntfs2btrfs { };
 
   quibble = final.callPackage ./applications/virtualization/quibble { };
+
+  wgcf = final.callPackage ./applications/networking/wgcf { };
 }

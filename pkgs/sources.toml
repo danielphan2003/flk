@@ -209,6 +209,10 @@ fetch.github = "salty-horse/ibus-uniemoji"
 src.manual = "1.0.46"
 fetch.url = "https://github.com/ventoy/Ventoy/releases/download/v$ver/ventoy-$ver-linux.tar.gz"
 
+[wgcf]
+src.git = "https://github.com/ViRb3/wgcf"
+fetch.github = "ViRb3/wgcf"
+
 [whitesur-gtk-theme]
 src.git = "https://github.com/vinceliuice/whitesur-gtk-theme"
 fetch.github = "vinceliuice/whitesur-gtk-theme"

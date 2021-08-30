@@ -15,6 +15,7 @@
         pueue
         pywal
         trash-cli
+        wgcf
         woeusb
         ydotool
         zathura
