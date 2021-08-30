@@ -1,3 +1,5 @@
+{ inputs }:
+
 channels: final: prev:
 let
   sources = (import ./_sources/generated.nix) { inherit (final) fetchurl fetchgit; };
@@ -27,6 +29,7 @@ let
 
 in
 {
+
   inherit sources;
 
   vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
@@ -113,4 +116,14 @@ in
   quibble = final.callPackage ./applications/virtualization/quibble { };
 
   wgcf = final.callPackage ./applications/networking/wgcf { };
-}
+
+} // (with inputs; {
+
+  firefox-nightly-bin =
+    if prev.system == "x86_64-linux"
+    then firefox-nightly.packages.${prev.system}.firefox-nightly-bin
+    else prev.firefox;
+
+  inherit (rnix-lsp.packages.${prev.system}) rnix-lsp;
+
+})

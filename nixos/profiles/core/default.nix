@@ -17,7 +17,8 @@ in
   documentation.nixos.enable = false;
 
   nix.systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-  nix.package = lib.mkForce pkgs.nix-dram;
+  nix.package = lib.mkForce pkgs.nixUnstable;
+  # nix.package = lib.mkForce pkgs.nix-dram;
 
   nix.localRegistry = {
     # Enable quick-nix-registry

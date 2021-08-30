@@ -9,11 +9,13 @@ channels: final: prev: {
     dmenu
     lib
     nixpkgs-fmt
+    nvchecker
     qutebrowser
     rage
     starship
     stylua
     sudo
+    tailscale
     ;
 
   haskellPackages = prev.haskellPackages.override

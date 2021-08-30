@@ -22,11 +22,6 @@ in
 
   imports = [ (digga.lib.importHosts ./hosts) ];
 
-  profilesTests = {
-    removeHosts = [ "bootstrap" "NixOS" "pik2" "themachine" ];
-    disableProfilesTests = true;
-  };
-
   hosts = {
     bootstrap = { };
     NixOS = { };
@@ -139,6 +134,7 @@ in
         [
           graphical.themes.sefia
           misc.disable-mitigations
+          network.tailscale
         ]
         ++
         (with apps; [

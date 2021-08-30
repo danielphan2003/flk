@@ -325,10 +325,10 @@
   };
   papermc = {
     pname = "papermc";
-    version = "229";
+    version = "231";
     src = fetchurl {
-      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/229/downloads/paper-1.17.1-229.jar";
-      sha256 = "0dx0w2mmml1ifx4203b5bcznf788gv0g5w837gjsxykp5hg8lr5f";
+      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/231/downloads/paper-1.17.1-231.jar";
+      sha256 = "1i3gid7rz7w8nq76h4rmmw9k0w1z5zprsv10r15q1q0d9fxzyzdj";
     };
   };
   picom = {
@@ -357,14 +357,14 @@
   };
   pure = {
     pname = "pure";
-    version = "35ae5ddec5aea5e93ab4e98c405c14d24f4b4026";
+    version = "3b696be1c19187b903ca4afde411fb9295169ae8";
     src = fetchgit {
       url = "https://github.com/sindresorhus/pure";
-      rev = "35ae5ddec5aea5e93ab4e98c405c14d24f4b4026";
+      rev = "3b696be1c19187b903ca4afde411fb9295169ae8";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1yn6qhgdq3hvm1nj3fb7gwn6si2fc10rnl9xqrh7izgy2kip8skd";
+      sha256 = "0kc4m98hqk6jf08ghcvb59mdyj8hy0ar9hid5a5x7zvhhl0ywkmj";
     };
   };
   pywalfox = {
@@ -413,14 +413,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "cd126f0236bb429d9f5eeb40234296eb72899774";
+    version = "37aa13bb474b248a00a202df48a4d59857e5b65a";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "cd126f0236bb429d9f5eeb40234296eb72899774";
+      rev = "37aa13bb474b248a00a202df48a4d59857e5b65a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0xvw0klzm3xg662vn9bgaahzvfrs9d8ydlzgpfzi8xqf65hczz90";
+      sha256 = "1mq565mrb3sbjg5jiyva0nrn27cwkn78l01maszs8flsavkk87xf";
     };
   };
   sddm-chili = {
@@ -517,14 +517,14 @@
   };
   sway-borders = {
     pname = "sway-borders";
-    version = "04354d4b1f20360503db2d1d87fa8d7c2fa7d2aa";
+    version = "2512828b95463c52f6cb3df7c04dab60ef8b0407";
     src = fetchgit {
-      url = "https://github.com/danielphan2003/sway-borders";
-      rev = "04354d4b1f20360503db2d1d87fa8d7c2fa7d2aa";
+      url = "https://github.com/fluix-dev/sway-borders";
+      rev = "2512828b95463c52f6cb3df7c04dab60ef8b0407";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1awxn3h9f1lv78xb5l0lg3bq20mssxvdxxawc71kih7qdl88d7ky";
+      sha256 = "0lq421xzmz3pa6wlc75gd6rw68wqwym2idkwdi3hz1hjqjfmfx75";
     };
   };
   swaylock-effects = {
@@ -880,10 +880,10 @@
   };
   vscode-extensions-react-native = {
     pname = "vscode-extensions-react-native";
-    version = "1.6.0";
+    version = "1.6.1";
     src = fetchurl {
-      url = "https://msjsdiag.gallery.vsassets.io/_apis/public/gallery/publisher/msjsdiag/extension/vscode-react-native/1.6.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      sha256 = "1y7ingbsb6vz5jf1c697nw749lywprsz6ac6vvlj5q8qjki4vafh";
+      url = "https://msjsdiag.gallery.vsassets.io/_apis/public/gallery/publisher/msjsdiag/extension/vscode-react-native/1.6.1/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      sha256 = "097lcm9lp97mqpc592v9ad1fc3k7cfdjybslhmq708xcpk0ic06y";
     };
     license = "mit";
   };

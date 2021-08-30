@@ -42,7 +42,7 @@ in
     postFixup = patchElectron "$out/bin/discordcanary";
   });
 
-  signal-desktop = signal-desktop.overrideAttrs (o: { postFixup = o.postFixup + patchElectron "$out/bin/signal-desktop-unwrapped"; });
+  signal-desktop = signal-desktop.overrideAttrs (o: { postFixup = patchElectron "$out/bin/signal-desktop"; });
 
   electron = electron.overrideAttrs (o: { postFixup = o.postFixup + patchElectron "$out/lib/electron/electron"; });
 

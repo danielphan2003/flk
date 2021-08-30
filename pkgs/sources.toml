@@ -193,9 +193,8 @@ src.git = "https://github.com/ChimeraOS/steamos-compositor-plus"
 fetch.github = "ChimeraOS/steamos-compositor-plus"
 
 [sway-borders]
-src.git = "https://github.com/danielphan2003/sway-borders"
-src.branch = "replace-layer-surface-destroy-with-close"
-fetch.github = "danielphan2003/sway-borders"
+src.git = "https://github.com/fluix-dev/sway-borders"
+fetch.github = "fluix-dev/sway-borders"
 
 [swaylock-effects]
 src.git = "https://github.com/mortie/swaylock-effects"

@@ -3,8 +3,8 @@
 
   nixConfig = {
     extra-experimental-features = "nix-command flakes ca-references";
-    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dram.cachix.org";
-    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY=";
+    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dram.cachix.org https://nixos-nix-install-tests.cachix.org";
+    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY= nixos-nix-install-tests.cachix.org-1:Le57vOUJjOcdzLlbwmZVBuLGoDC+Xg2rQDtmIzALgFU=";
   };
 
   inputs =
@@ -12,7 +12,7 @@
       nixos.url = "nixpkgs/release-21.05";
       latest.url = "nixpkgs/nixos-unstable";
 
-      digga.url = "github:GTrunSec/digga/suites-host";
+      digga.url = "github:divnix/digga";
       digga.inputs.nixpkgs.follows = "nixos";
       digga.inputs.nixlib.follows = "nixos";
       digga.inputs.home-manager.follows = "home";
@@ -20,6 +20,8 @@
       bud.url = "github:divnix/bud";
       bud.inputs.nixpkgs.follows = "nixos";
       bud.inputs.devshell.follows = "digga/devshell";
+
+      nix.url = "github:NixOS/nix/af94b54";
 
       home.url = "github:nix-community/home-manager/release-21.05";
       home.inputs.nixpkgs.follows = "nixos";
@@ -47,15 +49,6 @@
       naersk.inputs.nixpkgs.follows = "latest";
 
       nixos-hardware.url = "github:nixos/nixos-hardware";
-
-      # start ANTI CORRUPTION LAYER
-      # remove after https://github.com/NixOS/nix/pull/4641
-      nixpkgs.follows = "nixos";
-      nixlib.follows = "digga/nixlib";
-      blank.follows = "digga/blank";
-      flake-utils-plus.follows = "digga/flake-utils-plus";
-      flake-utils.follows = "digga/flake-utils";
-      # end ANTI CORRUPTION LAYER
 
       firefox-nightly.url = "github:colemickens/flake-firefox-nightly";
       firefox-nightly.inputs.nixpkgs.follows = "nixos";
@@ -91,6 +84,7 @@
     , latest
     , digga
     , bud
+    , nix
     , nixos
     , ci-agent
     , home
@@ -122,7 +116,13 @@
           nixos = {
             imports = [ (digga.lib.importOverlays ./overlays) ];
             overlays = [
-              digga.overlays.patchedNix
+              (final: prev: {
+                nixUnstable = nix.packages.${prev.system}.nix;
+                nixos-rebuild = prev.nixos-rebuild.override {
+                  nix = final.nixUnstable;
+                };
+              })
+
               nur.overlay
               agenix.overlay
               nvfetcher.overlay
@@ -135,15 +135,7 @@
               fenix.overlay
               gomod2nix.overlay
 
-              (final: prev: {
-                firefox-nightly-bin =
-                  if prev.system == "x86_64-linux"
-                  then firefox-nightly.packages.${prev.system}.firefox-nightly-bin
-                  else prev.firefox;
-                inherit (rnix-lsp.packages.${prev.system}) rnix-lsp;
-              })
-
-              ./pkgs/default.nix
+              (import ./pkgs/default.nix { inherit inputs; })
             ];
           };
           latest = { };
