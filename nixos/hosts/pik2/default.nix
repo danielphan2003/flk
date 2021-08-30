@@ -2,10 +2,22 @@
 let
   inherit (lib) toUpper;
   inherit (builtins) attrValues readFile toString;
-  inherit (config.networking) hostName;
+  inherit (config.networking) domain hostName;
 
   ip = "192.168.1.2";
+
   caddyTemplate = readFile ./Caddyfile;
+
+  mkAddr = addr: lib.concatStringsSep " " [
+    # Public
+    "${addr}.${domain}"
+
+    # Private
+    "${addr}.${hostName}"
+
+    # (Optional) Shared
+    "${addr}.${hostName}.danielphan-2003.gmail.com.beta.tailscale.net"
+  ];
 in
 {
   imports = suites.pik2;
@@ -13,7 +25,7 @@ in
   age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
 
   networking = {
-    domain = "${config.networking.hostName}.duckdns.org";
+    domain = "${hostName}.duckdns.org";
     usePredictableInterfaceNames = false;
     wireless.enable = false;
     useDHCP = false;
@@ -27,7 +39,10 @@ in
 
   services.openssh.openFirewall = true;
 
-  services.duckdns.enable = true;
+  services.duckdns = {
+    enable = true;
+    domain = hostName;
+  };
 
   systemd.services.caddy = {
     serviceConfig.EnvironmentFile = "/run/secrets/duckdns";
@@ -43,20 +58,20 @@ in
     config = with config.services; ''
       ${caddyTemplate}
 
-      (tls-${duckdns.domain}) {
+      (tls-duckdns) {
         import common
         tls {
           dns duckdns {env.DUCKDNS_GMAIL} {
-            override_domain ${config.networking.domain}
+            override_domain ${duckdns.domain}
           }
         }
       }
 
-      *.${config.networking.domain} {
-        import tls-${duckdns.domain}
-        import logging ${duckdns.domain}
+      ${mkAddr "*"} {
+        import tls-duckdns
+        import logging ${hostName}
 
-        @bw host bw.${config.networking.domain}
+        @bw host ${mkAddr "bw"}
         handle @bw {
           import reverseProxy 127.0.0.1:${toString bitwarden_rs.config.rocketPort}
           import NoSearchHeader
@@ -68,19 +83,19 @@ in
           reverse_proxy /notifications/hub ${bitwarden_rs.config.websocketAddress}:${toString bitwarden_rs.config.websocketPort}
         }
 
-        @calibre host calibre.${config.networking.domain}
+        @calibre host ${mkAddr "calibre"}
         handle @calibre {
           import reverseProxy ${calibre-web.listen.ip}:${toString calibre-web.listen.port}
           import NoSearchHeader
         }
 
-        @grafana host grafana.${config.networking.domain}
+        @grafana host ${mkAddr "grafana"}
         handle @grafana {
           import reverseProxy ${grafana.addr}:${toString grafana.port}
           import NoSearchHeader
         }
 
-        @minecraft host mc.${config.networking.domain}
+        @minecraft host ${mkAddr "mc"}
         handle @minecraft {
           import reverseProxy 127.0.0.1:${toString minecraft-server.serverProperties.server-port}
           import NoSearchHeader

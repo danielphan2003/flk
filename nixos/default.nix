@@ -123,6 +123,7 @@ in
           cloud.postgresql
           cloud.vaultwarden
           # network.stubby
+          network.tailscale
         ];
 
       themachine = [ users.danie ]
