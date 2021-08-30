@@ -40,6 +40,7 @@ in
         "/var/lib/qbittorrent/.config/qBittorrent/config"
         "/var/lib/qbittorrent/.config/qBittorrent/data"
       ]
+    ++ optionals services.tailscale.enable [ "/var/lib/tailscale" ]
     ++ optionals services.teamviewer.enable [ "/var/lib/teamviewer" ]
     ++ optionals
       services.xserver.displayManager.sddm.enable
