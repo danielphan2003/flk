@@ -1,13 +1,15 @@
-{ config, latestModulesPath, ... }:
-let inherit (config.networking) hostName; in
+{ lib, config, latestModulesPath, ... }:
+let
+  inherit (config.networking) hostName;
+  inherit (config.boot.persistence) path;
+in
 {
-  imports = [ "${latestModulesPath}/services/web-servers/caddy/default.nix" ];
   disabledModules = [ "services/web-servers/caddy/default.nix" ];
   services.caddy = {
     enable = true;
     config = ''
       {
-        ${./Caddyfile}
+        ${builtins.readFile ./Caddyfile}
         import logging ${hostName}
       }
     '';

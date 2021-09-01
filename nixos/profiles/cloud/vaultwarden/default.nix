@@ -1,10 +1,13 @@
-{ pkgs, config, self, ... }:
+{ pkgs, config, self, latestModulesPath, ... }:
 let
   inherit (config.networking) hostName domain;
   inherit (config.uwu.tailscale) nameserver;
   inherit (config.services.bitwarden_rs.config) rocketPort websocketPort;
 in
 {
+  imports = [ "${latestModulesPath}/services/web-servers/caddy/default.nix" ];
+  disabledModules = [ "services/web-servers/caddy/default.nix" ];
+
   age.secrets.bitwarden.file = "${self}/secrets/nixos/profiles/cloud/bitwarden.age";
 
   services.bitwarden_rs = {
