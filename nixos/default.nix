@@ -17,6 +17,10 @@ in
       bud.nixosModules.bud
       "${impermanence}/nixos.nix"
       qnr.nixosModules.local-registry
+      ({ latestModulesPath, ... }: {
+        imports = [ "${latestModulesPath}/services/web-servers/caddy/default.nix" ];
+        disabledModules = [ "services/web-servers/caddy.nix" ];
+      })
     ];
   };
 
@@ -134,6 +138,8 @@ in
         ++ play
         ++
         [
+          cloud.caddy
+          cloud.calibre-web
           graphical.themes.sefia
           misc.disable-mitigations
           network.tailscale

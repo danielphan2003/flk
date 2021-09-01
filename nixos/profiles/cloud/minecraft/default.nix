@@ -1,4 +1,4 @@
-{ pkgs, lib, config, self, latestModulesPath, ... }:
+{ pkgs, lib, config, self, ... }:
 let
   inherit (config.networking) hostName domain;
   inherit (config.uwu.tailscale) nameserver;
@@ -21,9 +21,6 @@ let
   '');
 in
 {
-  imports = [ "${latestModulesPath}/services/web-servers/caddy/default.nix" ];
-  disabledModules = [ "services/web-servers/caddy/default.nix" ];
-
   age.secrets = {
     minecraft-ops = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/ops.age";
     minecraft-whitelist = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/whitelist.age";

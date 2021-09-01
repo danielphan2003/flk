@@ -1,10 +1,6 @@
-{ lib, config, latestModulesPath, ... }:
-let
-  inherit (config.networking) hostName;
-  inherit (config.boot.persistence) path;
-in
+{ lib, config, ... }:
+let inherit (config.networking) hostName; in
 {
-  disabledModules = [ "services/web-servers/caddy/default.nix" ];
   services.caddy = {
     enable = true;
     config = ''

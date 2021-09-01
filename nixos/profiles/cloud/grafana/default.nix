@@ -1,13 +1,10 @@
-{ config, latestModulesPath, ... }:
+{ config, ... }:
 let
   inherit (config.networking) hostName domain;
   inherit (config.uwu.tailscale) nameserver;
   inherit (config.services.grafana) addr port;
 in
 {
-  imports = [ "${latestModulesPath}/services/web-servers/caddy/default.nix" ];
-  disabledModules = [ "services/web-servers/caddy/default.nix" ];
-
   services.grafana = {
     enable = true;
     port = 2342;

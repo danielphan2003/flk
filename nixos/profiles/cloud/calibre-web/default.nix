@@ -1,13 +1,10 @@
-{ config, latestModulesPath, ... }:
+{ config, ... }:
 let
   inherit (config.networking) hostName domain;
   inherit (config.uwu.tailscale) nameserver;
   inherit (config.services.calibre-web.listen) ip port;
 in
 {
-  imports = [ "${latestModulesPath}/services/web-servers/caddy/default.nix" ];
-  disabledModules = [ "services/web-servers/caddy/default.nix" ];
-
   services.calibre-web = {
     enable = true;
     openFirewall = true;
@@ -28,5 +25,5 @@ in
     extraConfig = ''
       reverse_proxy ${ip}:${toString port}
     '';
-  }
-    }
+  };
+}
