@@ -46,7 +46,7 @@ in
         EnvironmentFile = cfg.environmentFile;
       };
       script = ''
-        IPV6="$(${pkgs.dnsutils}/bin/dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6 2>&1)"
+        IPV6="$(${pkgs.iproute2}/bin/ip -o -6 addr list eth0 | awk '{print $4}' | cut -d/ -f1)"
         ${pkgs.curl}/bin/curl "https://www.duckdns.org/update?domains=${cfg.domain}&token=${cfg.token}&ipv6=$IPV6&ip="
       '';
     };
