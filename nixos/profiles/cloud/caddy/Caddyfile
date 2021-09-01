@@ -113,9 +113,3 @@
   import encoding
   import errors
 }
-
-(reverseProxy) {
-  reverse_proxy {args.0} {
-    header_up X-Real-IP {remote_host}
-  }
-}

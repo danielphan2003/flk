@@ -1,10 +1,19 @@
 { pkgs, lib, config, self, ... }:
 let
+  inherit (config.networking) hostName domain;
+  inherit (config.uwu.tailscale) nameserver;
+  inherit (config.services.minecraft-server.serverProperties) server-port;
+
+  tld = "${domain}:${toString server-port}";
+  tld-local = "${hostName}:${toString server-port}";
+  tld-tailscale = "${nameserver}:${toString server-port}";
+
   mkMcSecret = file: {
     inherit file;
     owner = "minecraft";
     group = "nogroup";
   };
+
   mcPkg = pkgs.writeShellScript "minecraft-server" (with config.services.minecraft-server; ''
     ${pkgs.coreutils}/bin/unlink /var/lib/minecraft/whitelist.json
     ln -s /run/secrets/minecraft-whitelist /var/lib/minecraft/whitelist.json
@@ -71,5 +80,19 @@ in
       "-XX:+PerfDisableSharedMem"
       "-XX:MaxTenuringThreshold=1"
     ];
+  };
+
+  services.caddy.virtualHosts."minecraft.${tld}" = {
+    serverAliases = [
+      "simp.${tld}"
+      "simp.${tld-local}"
+      "simp.${tld-tailscale}"
+      "mc.${tld}"
+      "mc.${tld-local}"
+      "mc.${tld-tailscale}"
+    ];
+    extraConfig = ''
+      reverse_proxy localhost:${toString server-port}
+    '';
   };
 }

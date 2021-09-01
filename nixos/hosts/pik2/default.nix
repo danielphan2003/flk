@@ -1,23 +1,10 @@
 { pkgs, lib, suites, config, self, ... }:
 let
   inherit (lib) toUpper;
-  inherit (builtins) attrValues readFile toString;
+  inherit (builtins) attrValues toString;
   inherit (config.networking) domain hostName;
 
   ip = "192.168.1.2";
-
-  caddyTemplate = readFile ./Caddyfile;
-
-  mkAddr = addr: lib.concatStringsSep " " [
-    # Public
-    "${addr}.${domain}"
-
-    # Private
-    "${addr}.${hostName}"
-
-    # (Optional) Shared
-    "${addr}.${hostName}.danielphan-2003.gmail.com.beta.tailscale.net"
-  ];
 in
 {
   imports = suites.pik2;
@@ -25,7 +12,7 @@ in
   age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
 
   networking = {
-    domain = "${hostName}.duckdns.org";
+    domain = hostName;
     usePredictableInterfaceNames = false;
     wireless.enable = false;
     useDHCP = false;
@@ -55,55 +42,27 @@ in
       plugins = [ "github.com/caddy-dns/duckdns" ];
       vendorSha256 = "sha256-deUq+/6EaevJOKm4AANIS8sPEHSRTQm7XlEkXONiJ84=";
     };
-    config = with config.services; ''
-      ${caddyTemplate}
-
-      (tls-duckdns) {
+    config = lib.mkAfter ''
+      {
         import common
-        tls {
-          dns duckdns {env.DUCKDNS_GMAIL} {
-            override_domain ${duckdns.domain}
+
+        *.${domain} {
+          tls {
+            dns duckdns {env.DUCKDNS_GMAIL} {
+              override_domain ${hostName}
+            }
           }
         }
-      }
 
-      ${mkAddr "*"} {
-        import tls-duckdns
-        import logging ${hostName}
+        *.${hostName} ${hostName} {
+          tls {
+            acme_ca https://acme.${hostName}/acme/local/directory
+            acme_ca_root /etc/ssl/certs/root.crt
+          }
 
-        @bw host ${mkAddr "bw"}
-        handle @bw {
-          import reverseProxy 127.0.0.1:${toString bitwarden_rs.config.rocketPort}
-          import NoSearchHeader
-
-          # The negotiation endpoint is also proxied to Rocket
-          reverse_proxy /notifications/hub/negotiate ${bitwarden_rs.config.websocketAddress}:${toString bitwarden_rs.config.rocketPort}
-
-          # Notifications redirected to the websockets server
-          reverse_proxy /notifications/hub ${bitwarden_rs.config.websocketAddress}:${toString bitwarden_rs.config.websocketPort}
-        }
-
-        @calibre host ${mkAddr "calibre"}
-        handle @calibre {
-          import reverseProxy ${calibre-web.listen.ip}:${toString calibre-web.listen.port}
-          import NoSearchHeader
-        }
-
-        @grafana host ${mkAddr "grafana"}
-        handle @grafana {
-          import reverseProxy ${grafana.addr}:${toString grafana.port}
-          import NoSearchHeader
-        }
-
-        @minecraft host ${mkAddr "mc"}
-        handle @minecraft {
-          import reverseProxy 127.0.0.1:${toString minecraft-server.serverProperties.server-port}
-          import NoSearchHeader
-        }
-
-        # Fallback for otherwise unhandled domains
-        handle {
-          respond "404 Not Found! Or is it...?" 200
+          acme.${hostName} {
+            acme_server
+          }
         }
       }
     '';

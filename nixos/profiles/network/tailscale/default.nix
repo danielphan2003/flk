@@ -1,12 +1,15 @@
 { pkgs, lib, config, self, ... }:
 let
   inherit (config.networking) hostName;
+  inherit (config.uwu.tailscale) nameserver;
+  userEmail = "danielphan-2003.gmail.com";
+  tailscaleWeb = "beta.tailscale.net";
   tailscale-age-key = "${self}/secrets/nixos/profiles/network/tailscale/${hostName}.age";
 in
 {
   age.secrets."tailscale-${hostName}".file = tailscale-age-key;
 
-  networking.search = [ "danielphan-2003.gmail.com.beta.tailscale.net" ];
+  networking.search = [ nameserver ];
 
   networking.nameservers = lib.mkBefore [ "100.100.100.100" ];
 
@@ -48,4 +51,6 @@ in
     "net.ipv4.ip_forward" = 1;
     "net.ipv6.conf.all.forwarding" = 1;
   };
+
+  uwu.tailscale.nameserver = "${userEmail}.${tailscaleWeb}";
 }

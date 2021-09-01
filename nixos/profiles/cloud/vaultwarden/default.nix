@@ -1,4 +1,10 @@
-{ pkgs, config, lib, self, ... }: {
+{ pkgs, config, self, ... }:
+let
+  inherit (config.networking) hostName domain;
+  inherit (config.uwu.tailscale) nameserver;
+  inherit (config.services.bitwarden_rs.config) rocketPort websocketPort;
+in
+{
   age.secrets.bitwarden.file = "${self}/secrets/nixos/profiles/cloud/bitwarden.age";
 
   services.bitwarden_rs = {
@@ -6,7 +12,7 @@
     dbBackend = "postgresql";
     environmentFile = "/run/secrets/bitwarden";
     config = {
-      domain = "https://bw.${config.networking.domain}";
+      domain = "https://bw.${domain}";
       invitationsAllowed = false;
       rocketPort = 8222;
       rocketLog = "critical";
@@ -57,6 +63,29 @@
       dateext
       # Date format of dateext
       dateformat "-%Y-%m-%d-%s"
+    '';
+  };
+
+  services.caddy.virtualHosts."bw.${domain}" = {
+    extraConfig = ''
+      reverse_proxy https://bw.${hostName} {
+        header_up Host {http.reverse_proxy.upstream.hostport}
+        header_up X-Forwarded-Host {host}
+      }
+      respond /admin* "The admin panel is disabled, please configure the 'ADMIN_TOKEN' variable to enable it"
+    '';
+  };
+
+  services.caddy.virtualHosts."bw.${hostName}" = {
+    serverAliases = [ "bw.${nameserver}" ];
+    extraConfig = ''
+      reverse_proxy localhost:${toString rocketPort} {
+        header_up Host bw.${domain}
+        header_up X-Real-IP {remote_host}
+      }
+      reverse_proxy /notifications/hub localhost:${toString websocketPort}" {
+        header_up Host bw.${domain}
+      };
     '';
   };
 }

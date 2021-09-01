@@ -1,4 +1,9 @@
 { config, ... }:
+let
+  inherit (config.networking) hostName domain;
+  inherit (config.uwu.tailscale) nameserver;
+  inherit (config.services.calibre-web.listen) ip port;
+in
 {
   services.calibre-web = {
     enable = true;
@@ -14,4 +19,11 @@
       reverseProxyAuth.enable = true;
     };
   };
-}
+
+  services.caddy.virtualHosts."calibre.${hostName}" = {
+    serverAliases = [ "calibre.${nameserver}" ];
+    extraConfig = ''
+      reverse_proxy ${ip}:${toString port}
+    '';
+  }
+    }
