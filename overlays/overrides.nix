@@ -7,6 +7,7 @@ channels: final: prev: {
     cachix
     czkawka
     dmenu
+    fabric-installer
     lib
     nixpkgs-fmt
     nvchecker
