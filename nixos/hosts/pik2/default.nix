@@ -36,7 +36,6 @@ in
   };
 
   services.caddy = {
-    enable = true;
     email = "danielphan.2003+acme@gmail.com";
     package = pkgs.caddy.override {
       plugins = [ "github.com/caddy-dns/duckdns" ];

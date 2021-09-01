@@ -117,6 +117,7 @@ in
         ++ server
         ++
         [
+          cloud.caddy
           # cloud.calibre-web
           cloud.grafana
           cloud.minecraft
