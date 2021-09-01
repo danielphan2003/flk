@@ -74,4 +74,5 @@
   "tailwindCSS.includeLanguages" = {
     "astro" = "html";
   };
+  "workbench.editor.untitled.experimentalLanguageDetection" = true;
 }
