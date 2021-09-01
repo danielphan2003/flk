@@ -42,27 +42,22 @@ in
       vendorSha256 = "sha256-deUq+/6EaevJOKm4AANIS8sPEHSRTQm7XlEkXONiJ84=";
     };
     config = lib.mkAfter ''
-      {
+      *.${domain} {
         import common
+        import logging ${domain}
 
-        *.${domain} {
-          tls {
-            dns duckdns {env.DUCKDNS_GMAIL} {
-              override_domain ${hostName}
-            }
+        tls {
+          dns duckdns {env.DUCKDNS_GMAIL} {
+            override_domain ${hostName}
           }
         }
+      }
 
-        *.${hostName} ${hostName} {
-          tls {
-            acme_ca https://acme.${hostName}/acme/local/directory
-            acme_ca_root /etc/ssl/certs/root.crt
-          }
+      *.${hostName} ${hostName} {
+        import common
+        import logging ${hostName}
 
-          acme.${hostName} {
-            acme_server
-          }
-        }
+        tls internal
       }
     '';
   };

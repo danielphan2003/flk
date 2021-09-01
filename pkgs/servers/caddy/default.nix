@@ -1,6 +1,8 @@
 { buildGoModule
 , lib
 , sources
+, makeWrapper
+, nssTools
 , nixosTests
 
 , plugins ? [ ]
@@ -20,11 +22,14 @@ let
       caddycmd.Main()
     }
   '';
-in buildGoModule rec {
+in
+buildGoModule rec {
   inherit (sources.caddy) src version;
   inherit vendorSha256;
 
   pname = "caddy${lib.optionalString (plugins != [ ]) "-with-plugins"}";
+
+  nativeBuildInputs = [ makeWrapper ];
 
   overrideModAttrs = (_: {
     prePatch = "echo '${main}' > cmd/caddy/main.go";
@@ -42,6 +47,11 @@ in buildGoModule rec {
   postConfigure = ''
     cp vendor/go.sum ./
     cp vendor/go.mod ./
+  '';
+
+  postInstall = ''
+    wrapProgram $out/bin/caddy \
+      --prefix PATH : ${lib.makeBinPath [ nssTools ]}
   '';
 
   passthru.tests = { inherit (nixosTests) caddy; };

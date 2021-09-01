@@ -85,7 +85,7 @@ in
       }
       reverse_proxy /notifications/hub localhost:${toString websocketPort}" {
         header_up Host bw.${domain}
-      };
+      }
     '';
   };
 }

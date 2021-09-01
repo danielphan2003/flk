@@ -4,10 +4,7 @@ let inherit (config.networking) hostName; in
   services.caddy = {
     enable = true;
     config = ''
-      {
-        ${builtins.readFile ./Caddyfile}
-        import logging ${hostName}
-      }
+      ${builtins.readFile ./Caddyfile}
     '';
   };
 }
