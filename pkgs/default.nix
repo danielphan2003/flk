@@ -123,6 +123,8 @@ in
 
   wgcf = final.callPackage ./applications/networking/wgcf { };
 
+  tuinitymc = final.callPackage ./games/tuinity { };
+
 } // (with inputs; {
 
   firefox-nightly-bin =

@@ -235,7 +235,7 @@ src.webpage = "https://papermc.io/api/v2/projects/paper/version_group/1.17/build
 src.regex = "\"build\":(\\d+),"
 fetch.url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/$ver/downloads/paper-1.17.1-$ver.jar"
 
-[tuinity]
+[tuinitymc]
 src.git = "https://github.com/Tuinity/Tuinity"
 fetch.url = "https://ci.codemc.io/job/Spottedleaf/job/Tuinity-1.17/lastSuccessfulBuild/artifact/tuinity-paperclip.jar"
 

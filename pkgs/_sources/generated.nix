@@ -619,8 +619,8 @@
       sha256 = "036dkhfqgk7g9vbr5pxgrs66h5fz0rwdsc67i1w51aa9v01r35ca";
     };
   };
-  tuinity = {
-    pname = "tuinity";
+  tuinitymc = {
+    pname = "tuinitymc";
     version = "4c31ea1630f3dfd4a1d64de56c37ac1b0cc096a7";
     src = fetchurl {
       url = "https://ci.codemc.io/job/Spottedleaf/job/Tuinity-1.17/lastSuccessfulBuild/artifact/tuinity-paperclip.jar";
