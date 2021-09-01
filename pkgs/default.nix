@@ -13,6 +13,9 @@ let
   mkVscodeExtension = extension:
     final.vscode-utils.mkVscodeExtension extension { };
 
+  mkMinecraftMod = prefix: mod:
+    final.callPackage ./games/minecraft/mod.nix { inherit mod prefix; };
+
   newPkgsSet = pkgSet:
     let
       prefix = "${pkgSet}-";
@@ -20,6 +23,7 @@ let
       pkgSetchannel = {
         "vimPlugins" = mkVimPlugin prefix;
         "vscode-extensions" = mkVscodeExtension;
+        "minecraft" = mkMinecraftMod prefix;
       }.${pkgSet};
 
 
@@ -35,6 +39,8 @@ in
   vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
 
   vscode-extensions = prev.vscode-extensions // (newPkgsSet "vscode-extensions");
+
+  minecraft-mods = newPkgsSet "minecraft";
 
   alsa-lib = prev.alsaLib;
 

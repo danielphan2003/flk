@@ -17,6 +17,8 @@ in
     minecraft-whitelist = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/whitelist.age";
   };
 
+  environment.systemPackages = [ pkgs.fabric-installer ];
+
   systemd.services.minecraft-server = {
     serviceConfig = {
       ExecStart = lib.mkForce mcPkg;

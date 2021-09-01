@@ -233,6 +233,60 @@ fetch.github = "ToadKing/wii-u-gc-adapter"
 src.git = "https://github.com/ReimuNotMoe/ydotool"
 fetch.github = "ReimuNotMoe/ydotool"
 
+### Minecraft mods
+
+#### Both
+
+[minecraft-fabric-api]
+src.github = "FabricMC/fabric"
+fetch.url = "https://github.com/FabricMC/fabric/releases/download/$ver/fabric-api-$ver.jar"
+
+[minecraft-ferrite-core]
+src.github_tag = "malte0811/FerriteCore"
+src.prefix = "build-"
+fetch.url = "https://nightly.link/malte0811/FerriteCore/workflows/build.yaml/1.17/build-artifacts.zip"
+
+[minecraft-lazydfu]
+src.github = "astei/lazydfu"
+fetch.url = "https://github.com/astei/lazydfu/releases/download/$ver/lazydfu-$ver.jar"
+
+[minecraft-starlight]
+src.github_tag = "PaperMC/Starlight"
+fetch.url = "https://github.com/PaperMC/Starlight/releases/download/$ver/starlight-$ver+fabric.1.17.x.jar"
+
+#### Client
+
+[minecraft-better-bed]
+src.github = "TeamMidnightDust/BetterBeds"
+src.prefix = "v"
+fetch.url = "https://github.com/TeamMidnightDust/BetterBeds/releases/download/v$ver/betterbeds-$ver.jar"
+
+[minecraft-cull-leaves]
+src.github = "TeamMidnightDust/CullLeaves"
+src.prefix = "v"
+fetch.url = "https://github.com/TeamMidnightDust/CullLeaves/releases/download/v$ver/cullleaves-$ver.jar"
+
+[minecraft-sodium]
+src.github_tag = "CaffeineMC/sodium-fabric"
+src.prefix = "mc1.17.1-"
+fetch.url = "https://nightly.link/CaffeineMC/sodium-fabric/workflows/gradle/1.17.x%2Fdev/build-artifacts.zip"
+
+### Server
+
+[minecraft-fast-furnace]
+src.github = "danielphan2003/FabricFastFurnace"
+fetch.url = "https://nightly.link/danielphan2003/FabricFastFurnace/workflows/gradle/patch-2/build-artifacts.zip"
+
+[minecraft-krypton]
+src.github = "astei/krypton"
+src.prefix = "v"
+fetch.url = "https://github.com/astei/krypton/releases/download/v$ver/krypton-$ver.jar"
+
+[minecraft-lithium]
+src.github = "CaffeineMC/lithium-fabric"
+src.prefix = "mc1.17.1-"
+fetch.url = "https://github.com/CaffeineMC/lithium-fabric/releases/download/mc1.17.1-$ver/lithium-fabric-mc1.17.1-$ver.jar"
+
 ### Vim Plugins
 
 [vimPlugins-yuck]

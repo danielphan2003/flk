@@ -18,7 +18,7 @@ in
 
       streaming = desktop ++ [ obs-studio ];
 
-      play = desktop ++ [ ];
+      play = desktop ++ [ ./profiles/play/minecraft ];
 
       academic = play ++ [ winapps ];
 

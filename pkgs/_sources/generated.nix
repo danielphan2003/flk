@@ -255,10 +255,90 @@
   };
   microsoft-edge-dev = {
     pname = "microsoft-edge-dev";
-    version = "94.0.982.2";
+    version = "95.0.997.1";
     src = fetchurl {
-      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_94.0.982.2-1_amd64.deb";
-      sha256 = "14s0a2bxqixswmq39akn9dfw1y0323j71kknhmv31hbfl4d8bjmb";
+      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_95.0.997.1-1_amd64.deb";
+      sha256 = "0g8d5x244177zgii7x7lf56z6pv72k59dgw3zrsj4cai3j77lqf3";
+    };
+  };
+  minecraft-better-bed = {
+    pname = "minecraft-better-bed";
+    version = "1.2.0";
+    src = fetchurl {
+      url = "https://github.com/TeamMidnightDust/BetterBeds/releases/download/v1.2.0/betterbeds-1.2.0.jar";
+      sha256 = "03rw62mg34gby7i9jch3z9ybvd8yl2jcr9xs1y2j3lf3hki1rybq";
+    };
+  };
+  minecraft-cull-leaves = {
+    pname = "minecraft-cull-leaves";
+    version = "2.2.0";
+    src = fetchurl {
+      url = "https://github.com/TeamMidnightDust/CullLeaves/releases/download/v2.2.0/cullleaves-2.2.0.jar";
+      sha256 = "01427a2dbb6cdw0bszmm7m0sbpzh6wj50cb07bkx71h8a97wk2d6";
+    };
+  };
+  minecraft-fabric-api = {
+    pname = "minecraft-fabric-api";
+    version = "0.39.2+1.17";
+    src = fetchurl {
+      url = "https://github.com/FabricMC/fabric/releases/download/0.39.2+1.17/fabric-api-0.39.2+1.17.jar";
+      sha256 = "1yyn1pn0rqsg1mb64dgrsfxhks937vq8s3wvvv2vzc8x933ayb98";
+    };
+  };
+  minecraft-fast-furnace = {
+    pname = "minecraft-fast-furnace";
+    version = "3.0";
+    src = fetchurl {
+      url = "https://nightly.link/danielphan2003/FabricFastFurnace/workflows/gradle/patch-2/build-artifacts.zip";
+      sha256 = "16lshygkag5yd8pp133msc549pl2ab7x2adlh3z3dbf1y2lk2i9h";
+    };
+  };
+  minecraft-ferrite-core = {
+    pname = "minecraft-ferrite-core";
+    version = "3.0.3";
+    src = fetchurl {
+      url = "https://nightly.link/malte0811/FerriteCore/workflows/build.yaml/1.17/build-artifacts.zip";
+      sha256 = "0slm8lpz76xhgpfp58hi6bm51nj2g9kyfxlljn9ayylbjdmi2c80";
+    };
+  };
+  minecraft-krypton = {
+    pname = "minecraft-krypton";
+    version = "0.1.4";
+    src = fetchurl {
+      url = "https://github.com/astei/krypton/releases/download/v0.1.4/krypton-0.1.4.jar";
+      sha256 = "1dkh2qf18i3gmqf9cx6lx0gl0kicjmv39b6g050f9df3b28z6lpc";
+    };
+  };
+  minecraft-lazydfu = {
+    pname = "minecraft-lazydfu";
+    version = "0.1.2";
+    src = fetchurl {
+      url = "https://github.com/astei/lazydfu/releases/download/0.1.2/lazydfu-0.1.2.jar";
+      sha256 = "1s3m3qs3i2md0hi5hbyhqn9p6lf26za2s56lk34xig105r4v33p7";
+    };
+  };
+  minecraft-lithium = {
+    pname = "minecraft-lithium";
+    version = "0.7.4";
+    src = fetchurl {
+      url = "https://github.com/CaffeineMC/lithium-fabric/releases/download/mc1.17.1-0.7.4/lithium-fabric-mc1.17.1-0.7.4.jar";
+      sha256 = "0wwfylr00vz6idwfr1f3k2739rgrvfpb7slkn6ss0sixjb9r85ff";
+    };
+  };
+  minecraft-sodium = {
+    pname = "minecraft-sodium";
+    version = "0.3.2";
+    src = fetchurl {
+      url = "https://nightly.link/CaffeineMC/sodium-fabric/workflows/gradle/1.17.x%2Fdev/build-artifacts.zip";
+      sha256 = "04ipr4rmgxlvc3859fsv9f91ia0ls0apky61f5i252m6wzzsyycl";
+    };
+  };
+  minecraft-starlight = {
+    pname = "minecraft-starlight";
+    version = "1.0.0-RC3";
+    src = fetchurl {
+      url = "https://github.com/PaperMC/Starlight/releases/download/1.0.0-RC3/starlight-1.0.0-RC3+fabric.1.17.x.jar";
+      sha256 = "01p45ivifjn3ixgw9jdnplxnh79la6r10qslsp9m7aywy02g36yp";
     };
   };
   multimc-cracked = {
@@ -325,10 +405,10 @@
   };
   papermc = {
     pname = "papermc";
-    version = "231";
+    version = "236";
     src = fetchurl {
-      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/231/downloads/paper-1.17.1-231.jar";
-      sha256 = "1i3gid7rz7w8nq76h4rmmw9k0w1z5zprsv10r15q1q0d9fxzyzdj";
+      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/236/downloads/paper-1.17.1-236.jar";
+      sha256 = "15ci8q5jlw025xvkcppr6nzq2shf5fxicf4v10xfvmp8gazps1y2";
     };
   };
   picom = {
@@ -413,14 +493,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "37aa13bb474b248a00a202df48a4d59857e5b65a";
+    version = "9ea6f15c1df0a55c2fd2cbc566e21d09bdc0ab3d";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "37aa13bb474b248a00a202df48a4d59857e5b65a";
+      rev = "9ea6f15c1df0a55c2fd2cbc566e21d09bdc0ab3d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1mq565mrb3sbjg5jiyva0nrn27cwkn78l01maszs8flsavkk87xf";
+      sha256 = "1yishki8r4d1plxgpk26njhqzdwwsyx5366p2xk7gmihhis4lcd4";
     };
   };
   sddm-chili = {
@@ -485,14 +565,14 @@
   };
   spicetify-themes = {
     pname = "spicetify-themes";
-    version = "92464df26cef09f3beba283dc7bde66ac8b9be30";
+    version = "2585b6360b68452764fc25145f5cba1c75738fdf";
     src = fetchgit {
       url = "https://github.com/morpheusthewhite/spicetify-themes";
-      rev = "92464df26cef09f3beba283dc7bde66ac8b9be30";
+      rev = "2585b6360b68452764fc25145f5cba1c75738fdf";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "11z76bc1fp71y5ncwx6wv6md5f8pm25aaz7macq2fbppaxnx9yv1";
+      sha256 = "19piib5fwbv65hm3k2pglzhqyalmf38sz4zwksvf700hisb5gjxs";
     };
   };
   spotify = {
@@ -677,10 +757,10 @@
   };
   vscode-extensions-dendron = {
     pname = "vscode-extensions-dendron";
-    version = "0.56.0";
+    version = "0.57.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/dendron/dendron/0.56.0/file/dendron.dendron-0.56.0.vsix";
-      sha256 = "103abxcards02cjg5k42w82xvyxnqbi5j0y1fyqjcjvz1jird6d5";
+      url = "https://open-vsx.org/api/dendron/dendron/0.57.0/file/dendron.dendron-0.57.0.vsix";
+      sha256 = "0867vni5wvki493gqclpqj992vsgji97j7s7pshcf88cq835py1g";
     };
     homepage = "https://github.com/dendronhq/dendron";
     license = "agpl3Only";
