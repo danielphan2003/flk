@@ -12,7 +12,7 @@ in
   age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
 
   networking = {
-    domain = hostName;
+    domain = "${hostName}.duckdns.org";
     usePredictableInterfaceNames = false;
     wireless.enable = false;
     useDHCP = false;
