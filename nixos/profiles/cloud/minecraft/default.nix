@@ -4,9 +4,9 @@ let
   inherit (config.uwu.tailscale) nameserver;
   inherit (config.services.minecraft-server.serverProperties) server-port;
 
-  tld = "${domain}:${toString server-port}";
-  tld-local = "${hostName}:${toString server-port}";
-  tld-tailscale = "${nameserver}:${toString server-port}";
+  tld = "${domain}";
+  tld-local = "${hostName}";
+  tld-tailscale = "${nameserver}";
 
   mkMcSecret = file: {
     inherit file;
