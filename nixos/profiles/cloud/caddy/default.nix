@@ -2,7 +2,7 @@
 let inherit (config.networking) hostName; in
 {
   imports = [ "${latestModulesPath}/services/web-servers/caddy/default.nix" ];
-  disable = [ "services/web-servers/caddy/default.nix" ];
+  disabledModules = [ "services/web-servers/caddy/default.nix" ];
   services.caddy = {
     enable = true;
     config = ''
