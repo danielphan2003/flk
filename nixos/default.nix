@@ -138,8 +138,6 @@ in
         ++ play
         ++
         [
-          cloud.caddy
-          cloud.calibre-web
           graphical.themes.sefia
           misc.disable-mitigations
           network.tailscale
