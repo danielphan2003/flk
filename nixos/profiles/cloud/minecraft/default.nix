@@ -30,7 +30,7 @@ in
     declarative = true;
     openFirewall = true;
     eula = true;
-    package = pkgs.papermc;
+    package = pkgs.tuinitymc;
 
     serverProperties = {
       server-port = 25565;

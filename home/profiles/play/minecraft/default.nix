@@ -24,4 +24,5 @@ in
     source = "${modDir}/share/java";
     recursive = true;
   };
+  home.file.".local/share/multimc/lib/libglfw".source = "${pkgs.glfw}/lib";
 }

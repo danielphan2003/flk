@@ -155,14 +155,14 @@
   };
   ibus = {
     pname = "ibus";
-    version = "cfb263f04f82a83dd94f6eedcd5017d40a4a1a05";
+    version = "936a0e76df79d92a8bdc03e9205330fb84a2083e";
     src = fetchgit {
       url = "https://github.com/ibus/ibus";
-      rev = "cfb263f04f82a83dd94f6eedcd5017d40a4a1a05";
+      rev = "936a0e76df79d92a8bdc03e9205330fb84a2083e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0lhmybzf6jsn70cf9z13x1w3cpbfsl9zzmr9ig83xaw875smax5q";
+      sha256 = "1ybjrw1q6qxlvqajg7i4j2a0g10cxq6q7k8dbfsjh178z2wivg6b";
     };
   };
   ibus-bamboo = {
@@ -617,6 +617,14 @@
       deepClone = false;
       leaveDotGit = false;
       sha256 = "036dkhfqgk7g9vbr5pxgrs66h5fz0rwdsc67i1w51aa9v01r35ca";
+    };
+  };
+  tuinity = {
+    pname = "tuinity";
+    version = "4c31ea1630f3dfd4a1d64de56c37ac1b0cc096a7";
+    src = fetchurl {
+      url = "https://ci.codemc.io/job/Spottedleaf/job/Tuinity-1.17/lastSuccessfulBuild/artifact/tuinity-paperclip.jar";
+      sha256 = "0w97asg61is41zlfn3q1sp13lvf9jwkk0da97c4r5l4da6g7p1qd";
     };
   };
   uniemoji = {
