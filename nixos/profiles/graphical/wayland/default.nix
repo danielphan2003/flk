@@ -1,6 +1,8 @@
 { lib, options, pkgs, latestModulesPath, ... }: {
   imports = [ "${latestModulesPath}/config/xdg/portals/wlr.nix" ];
 
+  programs.xwayland.enable = true;
+
   services.xserver.displayManager.sddm = {
     settings.Wayland.SessionDir = "${pkgs.sway}/share/wayland-sessions";
   };
