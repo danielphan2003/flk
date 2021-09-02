@@ -195,6 +195,10 @@ fetch.github = "fluix-dev/sway-borders"
 src.git = "https://github.com/mortie/swaylock-effects"
 fetch.github = "mortie/swaylock-effects"
 
+[tailscale]
+src.git = "https://github.com/tailscale/tailscale"
+fetch.github = "tailscale/tailscale"
+
 [uniemoji]
 src.git = "https://github.com/salty-horse/ibus-uniemoji"
 fetch.github = "salty-horse/ibus-uniemoji"
@@ -260,7 +264,7 @@ fetch.url = "https://github.com/PaperMC/Starlight/releases/download/$ver/starlig
 
 #### Client
 
-[minecraft-better-bed]
+[minecraft-better-beds]
 src.github = "TeamMidnightDust/BetterBeds"
 src.prefix = "v"
 fetch.url = "https://github.com/TeamMidnightDust/BetterBeds/releases/download/v$ver/betterbeds-$ver.jar"

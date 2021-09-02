@@ -3,13 +3,11 @@ let
   mods = builtins.attrValues {
     inherit (pkgs.minecraft-mods)
       # both
-      fabric-api
       ferrite-core
       lazydfu
       starlight
 
       # client
-      better-bed
       cull-leaves
       sodium
       ;

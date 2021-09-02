@@ -95,10 +95,10 @@
   };
   discord-canary = {
     pname = "discord-canary";
-    version = "0.0.128";
+    version = "0.0.129";
     src = fetchurl {
-      url = "https://dl-canary.discordapp.net/apps/linux/0.0.128/discord-canary-0.0.128.tar.gz";
-      sha256 = "18xd2mglb75wpc9cb8p4hlydl86gyd5g15585h84x9jsr421h3bk";
+      url = "https://dl-canary.discordapp.net/apps/linux/0.0.129/discord-canary-0.0.129.tar.gz";
+      sha256 = "1x49vvd363w9xyrzjgmynj2b320hzpz388fh5vpp0q0qk8q3gwkk";
     };
   };
   dribbblish-dynamic-theme = {
@@ -155,14 +155,14 @@
   };
   ibus = {
     pname = "ibus";
-    version = "936a0e76df79d92a8bdc03e9205330fb84a2083e";
+    version = "ecca9db0d9750e8a4803758302510999084ff1b2";
     src = fetchgit {
       url = "https://github.com/ibus/ibus";
-      rev = "936a0e76df79d92a8bdc03e9205330fb84a2083e";
+      rev = "ecca9db0d9750e8a4803758302510999084ff1b2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1ybjrw1q6qxlvqajg7i4j2a0g10cxq6q7k8dbfsjh178z2wivg6b";
+      sha256 = "0wm4zq05iblkmhx270n2pfgb0i3blhkjrwg9bvjn8387k41smhzm";
     };
   };
   ibus-bamboo = {
@@ -247,10 +247,10 @@
   };
   microsoft-edge-beta = {
     pname = "microsoft-edge-beta";
-    version = "93.0.961.33";
+    version = "93.0.961.37";
     src = fetchurl {
-      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_93.0.961.33-1_amd64.deb";
-      sha256 = "02k34rcgnjv2cbr09gp8yp0ndc91dpq4rl519sx68bnkn3infvws";
+      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_93.0.961.37-1_amd64.deb";
+      sha256 = "0vyr1cyvrqfc6c234jg2c5db0arvaxx6ap1szqqka0jsr03a2m4y";
     };
   };
   microsoft-edge-dev = {
@@ -261,8 +261,8 @@
       sha256 = "0g8d5x244177zgii7x7lf56z6pv72k59dgw3zrsj4cai3j77lqf3";
     };
   };
-  minecraft-better-bed = {
-    pname = "minecraft-better-bed";
+  minecraft-better-beds = {
+    pname = "minecraft-better-beds";
     version = "1.2.0";
     src = fetchurl {
       url = "https://github.com/TeamMidnightDust/BetterBeds/releases/download/v1.2.0/betterbeds-1.2.0.jar";
@@ -279,10 +279,10 @@
   };
   minecraft-fabric-api = {
     pname = "minecraft-fabric-api";
-    version = "0.39.2+1.17";
+    version = "0.40.0+1.17";
     src = fetchurl {
-      url = "https://github.com/FabricMC/fabric/releases/download/0.39.2+1.17/fabric-api-0.39.2+1.17.jar";
-      sha256 = "1yyn1pn0rqsg1mb64dgrsfxhks937vq8s3wvvv2vzc8x933ayb98";
+      url = "https://github.com/FabricMC/fabric/releases/download/0.40.0+1.17/fabric-api-0.40.0+1.17.jar";
+      sha256 = "1hn610cab50f9pzvzr0ad6dwb2xqqmjvpgmi8bb5nj6mmglbjix5";
     };
   };
   minecraft-fast-furnace = {
@@ -405,10 +405,10 @@
   };
   papermc = {
     pname = "papermc";
-    version = "236";
+    version = "241";
     src = fetchurl {
-      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/236/downloads/paper-1.17.1-236.jar";
-      sha256 = "15ci8q5jlw025xvkcppr6nzq2shf5fxicf4v10xfvmp8gazps1y2";
+      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/241/downloads/paper-1.17.1-241.jar";
+      sha256 = "0m8780d6q2hhzz5n4kcbpp69a32rfvbhq96n66pk1sx68lzmvjqh";
     };
   };
   picom = {
@@ -493,14 +493,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "9ea6f15c1df0a55c2fd2cbc566e21d09bdc0ab3d";
+    version = "868865c388e87501a1a0e6236432cc56fef233e0";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "9ea6f15c1df0a55c2fd2cbc566e21d09bdc0ab3d";
+      rev = "868865c388e87501a1a0e6236432cc56fef233e0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1yishki8r4d1plxgpk26njhqzdwwsyx5366p2xk7gmihhis4lcd4";
+      sha256 = "06xvdb740c1avwn7dk4qnacx7cd5fkd3l7gi0rrpzn0zqs6qlygz";
     };
   };
   sddm-chili = {
@@ -619,6 +619,18 @@
       sha256 = "036dkhfqgk7g9vbr5pxgrs66h5fz0rwdsc67i1w51aa9v01r35ca";
     };
   };
+  tailscale = {
+    pname = "tailscale";
+    version = "daf54d1253c357db30f01b51f25c5dc5e727b929";
+    src = fetchgit {
+      url = "https://github.com/tailscale/tailscale";
+      rev = "daf54d1253c357db30f01b51f25c5dc5e727b929";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "06vkyjn2aiw8hn18rbhvznmjvsbj0imn91lfhjhjir1pm5sp3s2q";
+    };
+  };
   tuinitymc = {
     pname = "tuinitymc";
     version = "4c31ea1630f3dfd4a1d64de56c37ac1b0cc096a7";
@@ -692,10 +704,10 @@
   };
   vscode-extensions-astro = {
     pname = "vscode-extensions-astro";
-    version = "0.6.1";
+    version = "0.7.0";
     src = fetchurl {
-      url = "https://astro-build.gallery.vsassets.io/_apis/public/gallery/publisher/astro-build/extension/astro-vscode/0.6.1/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      sha256 = "1b5wpfyxk4mqlbz1fr9ksk98x0z07fag5h9bsqwf71xjw510isw8";
+      url = "https://astro-build.gallery.vsassets.io/_apis/public/gallery/publisher/astro-build/extension/astro-vscode/0.7.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      sha256 = "1ddm2h4xghvkxrlygs7sf0ni32xayzfq792fmnnpmappw9c484i9";
     };
     license = "mit";
   };
@@ -754,10 +766,10 @@
   };
   vscode-extensions-dart-code = {
     pname = "vscode-extensions-dart-code";
-    version = "3.25.1";
+    version = "3.26.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/Dart-Code/dart-code/3.25.1/file/Dart-Code.dart-code-3.25.1.vsix";
-      sha256 = "08q7abb735ifczrld40hp83nik4781bj6cn4c76szw4y86wjzs7y";
+      url = "https://open-vsx.org/api/Dart-Code/dart-code/3.26.0/file/Dart-Code.dart-code-3.26.0.vsix";
+      sha256 = "1qx9sd76acn82a5hgkm1vyb50in6qpvyqzym4vxdwlca8vcwfzdz";
     };
     homepage = "https://github.com/Dart-Code/Dart-Code";
     license = "mit";
@@ -820,10 +832,10 @@
   };
   vscode-extensions-flutter = {
     pname = "vscode-extensions-flutter";
-    version = "3.25.0";
+    version = "3.26.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/Dart-Code/flutter/3.25.0/file/Dart-Code.flutter-3.25.0.vsix";
-      sha256 = "0ypgax67ry81z3idsivjwwp41dbjfp4vgsnajvs10nwnryi0l1ry";
+      url = "https://open-vsx.org/api/Dart-Code/flutter/3.26.0/file/Dart-Code.flutter-3.26.0.vsix";
+      sha256 = "1vln6i107nm01spbb6mjn6pcv3swaqa589zf5i0i4x5537azr9r3";
     };
     homepage = "https://github.com/Dart-Code/Flutter";
     license = "mit";

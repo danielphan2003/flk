@@ -58,14 +58,6 @@ Add this to your flake (idk if the syntax is correct)
 }
 ```
 
-Some notes:
-- ~~I'm currently using [nrdxp][nrdxp] agenix for now. For some unknown reasons I could not decrypt my secrets with my Pi when using the original repo.~~
-  ~~This means (some) secrets created through this flake may not decrypt with an [earlier][divnix-agenix] version of age.~~
-  Recent commits of my repo *magically* fix agenix secret decryption. I don't really understand what happened but it works. For now?
-  See rage v0.6.0 [changelog][rage-v0.6.0-changelog] for more info.
-- Pinning [paper][paper] as [nvfetcher][nvfetcher] does not generate outputHash for [snui][snui] dependency.
-- Using branch `suites-host` [GTrunSec][GTrunSec]'s digga. This makes optional testings possible.
-
 ## Features
 
 A lot of [packages][pkgs]:
@@ -83,7 +75,7 @@ A lot of [packages][pkgs]:
 - VS Code extensions: Utilizing [vs-ext][vs-ext]. See [`pkgs/default.nix`][vs-ext-example] for how to add a new `vscode-extensions` pkgsSet to your overlay.
 - Wayland packages: [avizo][avizo].
 - Android: my (very MUCH vip) take on [anbox][anbox]. I cannot find anything that works. Please open an issue if you know any alternatives.
-- [Caddy][caddy] with plugins! See [pkgs/servers/caddy][caddy-with-plugins] for usage.
+- [Caddy][caddy] with plugins! See [pkgs/servers/caddy][caddy-with-plugins] for usage. With the latest nixpkgs, you can even define virtual hosts!
 - [eww][eww] with latest master. Enjoy lisping :).
   - Some other hm services for `eww` are available at [home/modules/services/misc](./home/modules/services/misc), including a service for dynamically add music control to each app and remove them when closed, as well as a yuck-lang syntax highlighter in vim.
 - QoL font (Segue UI). This unbreaks websites and avoid rendering text with ugly serif fonts.
@@ -93,13 +85,32 @@ A lot of [packages][pkgs]:
 - Fonts:
   - Apple fonts: including NY and SF variants.
   - Segue UI: this is a huge plus. Apparently a lot of websites uses this font whenever possible, and revert back to whatever font your system is using, or may not be installed yet. Therefore, it is best for this font to be installed by default.
+- [MultiMC(-cracked)][mmc-cracked]: I feel ashamed of myself for using this, but I'm broke so it doesn't matter /s.
+- Minecraft related packages: multiple mods for both server and client, as well as choices for server.
+  - Servers:
+    - [PaperMC][papermc]: stupidly fast, and yet very customizable.
+    - [Tuinity][tuinity]: PaperMC fork with various patches, *including* [starlight][starlight].
+  - For both:
+    - [Fabric API][fabric-api]: Fabric APIs for mods like Better Bed
+    - [FerriteCore][ferrite-core]: lower RAM usage.
+    - [LazyDFU][lazydfu]: something to do with MC's DFU. tl;dr it makes MC fast.
+    - [starlight][starlight]: unbelivably fast light engine. Note that this doesn't help much on client-side. Definitely recommend reading their technical paper. It widen my eyes.
+  - For clients:
+    - [BetterBeds][better-beds]: remove BlockEntityRenderer from the bed and replaces it with the default minecraft model renderer. (*requires* Fabric API)
+    - [CullLeaves][cull-leaves]: make leaves looks just plain better. Also makes MC fast.
+    - [Sodium][sodium]: improve frame rates and reduce micro-stutter. IMO this is much simpler than [OptiFine][optifine], while providing crucial performance options that matter.
+  - For servers:
+    - [FastFurnace][fast-furnace]: make optimizations to vanilla furnace.
+    - [Krypton][krypton]: improves MC networking stack and entity tracker.
+    - [Lithium][lithium]: improves a number of systems in MC without changing any behaviour.
+- [Tailscale][tailscale] with a useful [profile][tailscale-profile] using age-encrypted secrets.
 - Other...
 
 Some modules that may work for your use case:
 - `boot.persistence`: module to set your persist path and enable persistence handling. Basically a thin wrapper for mt-caret's opt-in state [config][optin-state].
-- `services.candy`: (very MUCH wip) [Caddy][caddy] wrapper with nginx-like declarative web options.
+- `uwu.tailscale`: basically a dummy module to save Tailscale config and reuse it in Caddy.
 
-Plus overrides and modules from devos's [community][devos-community] branch
+Plus (some) overrides and modules from devos's [community][devos-community] branch
 
 ## Eye candies and what not
 - Pywal theming:
@@ -114,13 +125,27 @@ Plus overrides and modules from devos's [community][devos-community] branch
   - Working [vnc][repo-root-vnc] module and keymap passthrough with [wayvnc][wayvnc].
   - (very MUCH wip) [river][river] declarative config.
 
+## Reasoning (new)
+
+For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mods] from [alkyaly][alkyaly]. As a result, my choices of mods for server-side and client-side are solely based on the performance improvement column within it.
+- One of my friends has a crappy Chromebook that could benefit from any optimization mods, and by using FerriteCore, LazyDFU, CullLeaves, and Sodium, he was able to achieve *unknown* FPS (Chromebook doesn't even have F3 button, and mods showing FPS requires Fabric API).
+  His impression was very much positive as he found out it was much more responsive than before. Definitely a must-have for clients running on old hardware.
+- Paper didn't allow me to install Fabric Loader, so it was kind of a miss, but [Starlight][starlight] came around and I really wanted to try it out. Luckily, there is a Paper fork called [Tuinity][tuinity], and it includes a lot of performance patches, *including* a patch that uses Starlight.
+- I would very much stay far away from Fabric API, as my friend's FPS dropped significantly when having that mod, and after I accidently recommended him to install it.
+- Starlight should be a must-have on servers considering how impactful it is on server resources. Remember, I run Tuinity on a 2 GB Raspberry Pi 4, and its RAM usage never goes over 90% even with multiplayer.
+- My server only has public IPv6 address, so it makes senses to use [Tailscale][tailscale] to share it with my friends. Besides, you get all the amazing things [WireGuard][wireguard] has to offer, as well as hostname addresses that just resolves to that host's IP, so I can do fancy things like adding a server with address "pik2" and MC would resolve it to the proper address.
+
 ## TODOS
-- [x] Automatically update packages via [workflows][auto-update-pkgs-workflow].
+- [ ] Caddy reverse proxy with Tailscale! See [tailscale/tailscale#1235][tailscale-reverse-proxy] for updates.
+  I really look forward to this, it just makes me want to abandon DuckDNS altogether and host everything locally.
+  I hope to access them via custom TLDs and have HTTPS as the same time.
+- [ ] Automatically update packages via [workflows][auto-update-pkgs-workflow].
+  - [ ] (delayed indefinitely) Enable testing.
   - [ ] Commit message could be smaller, but it requires:
     - uploading `pkgs/_sources/.shake*` (more conflicts)
     - or making [nvfetcher][nvfetcher] aware of already-up-to-date packages in generated [sources][generated-sources] (increased update time).
 - [ ] [Unlock LUKS file systems via Tor][tor-luks-unlock].
-- [ ] Fully pass `nix -Lv flake check`.
+- [ ] (delayed indefinitely) Fully pass `nix -Lv flake check`.
   - [x] Partially pass by setting up blacklists for `nixosConfigurations.profilesTests`.
   - [ ] Properly test each machines.
 - More...
@@ -188,6 +213,24 @@ Plus overrides and modules from devos's [community][devos-community] branch
 
 [paper]: https://gitlab.com/snakedye/paper
 
+[mmc-cracked]: https://github.com/AfoninZ/MultiMC5-Cracked
+
+[papermc]: https://papermc.io/
+[tuinity]: https://github.com/Tuinity/Tuinity
+[starlight]: https://github.com/PaperMC/Starlight
+[fabric-api]: https://github.com/FabricMC/fabric
+[ferrite-core]: https://github.com/malte0811/FerriteCore
+[lazydfu]: https://github.com/astei/lazydfu
+[better-beds]: https://github.com/TeamMidnightDust/BetterBeds
+[cull-leaves]: https://github.com/TeamMidnightDust/CullLeaves
+[sodium]: https://github.com/CaffeineMC/sodium-fabric
+[fast-furnace]: https://github.com/Tfarcenim/FabricFastFurnace
+[krypton]: https://github.com/astei/krypton
+[lithium]: https://github.com/CaffeineMC/lithium-fabric
+
+[tailscale]: https://tailscale.net
+[tailscale-profile]: ./nixos/profiles/network/tailscale/default.nix
+
 [optin-state]: https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html
 
 [devos-community]: https://github.com/divnix/devos/tree/community
@@ -205,6 +248,12 @@ Plus overrides and modules from devos's [community][devos-community] branch
 [wayvnc]: https://github.com/any1/wayvnc
 [river]: https://github.com/ifreund/river
 
+[performance-mods]: https://gist.github.com/alkyaly/02830c560d15256855bc529e1e232e88
+[alkyaly]: https://github.com/alkyaly
+
+[wireguard]: https://www.wireguard.com
+
+[tailscale-reverse-proxy]: https://github.com/tailscale/tailscale/issues/1235
 [auto-update-pkgs-workflow]: ./.github/workflows/auto-update-pkgs.yml
 [generated-sources]: pkgs/_sources/generated.nix
 [tor-luks-unlock]: https://nixos.wiki/wiki/Remote_LUKS_Unlocking

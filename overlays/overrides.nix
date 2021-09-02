@@ -16,7 +16,6 @@ channels: final: prev: {
     starship
     stylua
     sudo
-    tailscale
     ;
 
   haskellPackages = prev.haskellPackages.override
