@@ -85,11 +85,11 @@ in
   services.caddy.virtualHosts."minecraft.${tld}" = {
     serverAliases = [
       "simp.${tld}"
-      "simp.${tld-local}"
-      "simp.${tld-tailscale}"
+      # "simp.${tld-local}"
+      # "simp.${tld-tailscale}"
       "mc.${tld}"
-      "mc.${tld-local}"
-      "mc.${tld-tailscale}"
+      # "mc.${tld-local}"
+      # "mc.${tld-tailscale}"
     ];
     extraConfig = ''
       reverse_proxy localhost:${toString server-port}

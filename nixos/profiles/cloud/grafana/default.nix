@@ -11,10 +11,10 @@ in
     addr = "127.0.0.1";
   };
 
-  services.caddy.virtualHosts."grafana.${hostName}" = {
-    serverAliases = [ "grafana.${nameserver}" ];
-    extraConfig = ''
-      reverse_proxy ${addr}:${toString port}
-    '';
-  };
+  # services.caddy.virtualHosts."grafana.${hostName}" = {
+  #   serverAliases = [ "grafana.${nameserver}" ];
+  #   extraConfig = ''
+  #     reverse_proxy ${addr}:${toString port}
+  #   '';
+  # };
 }

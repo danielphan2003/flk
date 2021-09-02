@@ -53,12 +53,12 @@ in
         }
       }
 
-      *.${hostName} ${hostName} {
-        import common
-        import logging ${hostName}
+      # *.${hostName} ${hostName} {
+      #   import common
+      #   import logging ${hostName}
 
-        tls internal
-      }
+      #   tls internal
+      # }
     '';
   };
 

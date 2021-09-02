@@ -20,10 +20,10 @@ in
     };
   };
 
-  services.caddy.virtualHosts."calibre.${hostName}" = {
-    serverAliases = [ "calibre.${nameserver}" ];
-    extraConfig = ''
-      reverse_proxy ${ip}:${toString port}
-    '';
-  };
+  # services.caddy.virtualHosts."calibre.${hostName}" = {
+  #   serverAliases = [ "calibre.${nameserver}" ];
+  #   extraConfig = ''
+  #     reverse_proxy ${ip}:${toString port}
+  #   '';
+  # };
 }
