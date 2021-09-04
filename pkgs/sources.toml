@@ -171,8 +171,13 @@ fetch.url = "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.d
 src.manual = "0.0.0.20210625"
 fetch.url = "https://devimages-cdn.apple.com/design/resources/download/NY.dmg"
 
+[snui]
+src.git = "https://gitlab.com/snakedye/snui"
+fetch.git = "https://gitlab.com/snakedye/snui"
+
 [spicetify-cli]
 src.manual = "v2.5.0"
+# src.git = "https://github.com/khanhas/spicetify-cli"
 fetch.github = "khanhas/spicetify-cli"
 
 [spicetify-themes]
@@ -182,6 +187,9 @@ fetch.github = "morpheusthewhite/spicetify-themes"
 [spotify]
 src.manual = "1.1.56.595.g2d2da0de"
 fetch.url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_47.snap"
+# src.aur = "spotify"
+# src.prefix = "1:"
+# fetch.url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_50.snap"
 
 [steamcompmgr]
 src.git = "https://github.com/ChimeraOS/steamos-compositor-plus"
@@ -227,6 +235,11 @@ fetch.url = "https://dl.google.com/widevine-cdm/$ver-linux-x64.zip"
 [wii-u-gc-adapter]
 src.git = "https://github.com/ToadKing/wii-u-gc-adapter"
 fetch.github = "ToadKing/wii-u-gc-adapter"
+
+[wine-wayland]
+src.git = "https://gitlab.collabora.com/alf/wine"
+src.branch = "wayland"
+fetch.url = "https://gitlab.collabora.com/alf/wine/-/archive/wayland/wine-wayland.tar.gz"
 
 [ydotool]
 src.git = "https://github.com/ReimuNotMoe/ydotool"

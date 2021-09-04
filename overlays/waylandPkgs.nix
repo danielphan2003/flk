@@ -23,17 +23,10 @@ final: prev: {
 
   sway = prev.sway.override { inherit (final.waylandPkgs) sway-unwrapped; };
 
-  glfw = with prev; glfw.overrideAttrs (o:
-    let
-      folder = ../pkgs/development/libraries/glfw;
-      toImport = name: value: folder + ("/" + name);
-      filterPatches = key: value: value == "regular" && lib.hasSuffix ".patch" key;
-      patches = lib.mapAttrsToList toImport (lib.filterAttrs filterPatches (builtins.readDir folder));
-    in
-    {
-      inherit patches;
-      nativeBuildInputs = o.nativeBuildInputs ++ [ extra-cmake-modules ];
-      buildInputs = o.buildInputs ++ [ wayland wayland-protocols libxkbcommon ];
-      cmakeFlags = o.cmakeFlags ++ [ "-DGLFW_USE_WAYLAND=ON" ];
-    });
+  glfw = with prev; glfw.overrideAttrs (o: {
+    patches = lib.our.getPatches ../pkgs/development/libraries/glfw;
+    nativeBuildInputs = o.nativeBuildInputs ++ [ extra-cmake-modules ];
+    buildInputs = o.buildInputs ++ [ wayland wayland-protocols libxkbcommon ];
+    cmakeFlags = o.cmakeFlags ++ [ "-DGLFW_USE_WAYLAND=ON" ];
+  });
 }

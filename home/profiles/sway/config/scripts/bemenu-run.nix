@@ -1,6 +1,5 @@
 { writeShellScript, bemenu, sway, jq }:
 writeShellScript "bemenu-run.sh" ''
-
   if [ -f "$HOME/.cache/wal/colors.sh" ]; then
     source $HOME/.cache/wal/colors.sh
   else

@@ -48,4 +48,10 @@ in
 
   vscodium = vscodium.overrideAttrs (_: { postInstall = patchElectron "$out/bin/codium"; });
 
+  ungoogled-chromium = prev.ungoogled-chromium.override { commandLineArgs = flagsCommand; };
+
+  microsoft-edge-beta = prev.microsoft-edge-beta.override { commandLineArgs = flagsCommand; };
+
+  microsoft-edge-dev = prev.microsoft-edge-dev.override { commandLineArgs = flagsCommand; };
+
 }

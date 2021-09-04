@@ -227,10 +227,10 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/$pname" "$exe"
 
     substituteInPlace $out/share/gnome-control-center/default-apps/$pname.xml \
-      --replace /opt/share/microsoft/$appname $out/share/microsoft/$appname
+      --replace /opt/microsoft/$appname/$pname $out/share/microsoft/$appname
 
     substituteInPlace $out/share/menu/$pname.menu \
-      --replace /opt/share/microsoft/$appname $out/share/microsoft/$appname
+      --replace /opt/microsoft/$appname/$pname $out/share/microsoft/$appname
 
     substituteInPlace $out/share/microsoft/$appname/xdg-mime \
       --replace "''${XDG_DATA_DIRS:-/usr/local/share:/usr/share}" "''${XDG_DATA_DIRS:-/run/current-system/sw/share}" \
@@ -238,7 +238,7 @@ stdenv.mkDerivation rec {
       --replace /usr/bin/file ${file}/bin/file
 
     substituteInPlace $out/share/microsoft/$appname/default-app-block \
-      --replace /opt/share/microsoft/$appname $out/share/microsoft/$appname
+      --replace /opt/microsoft/$appname/$pname $out/share/microsoft/$appname
 
     substituteInPlace $out/share/microsoft/$appname/xdg-settings \
       --replace "''${XDG_DATA_DIRS:-/usr/local/share:/usr/share}" "''${XDG_DATA_DIRS:-/run/current-system/sw/share}" \
@@ -273,7 +273,7 @@ stdenv.mkDerivation rec {
         $elf
     done
 
-    for elf in $out/share/microsoft/$appname/{msedge,msedge-sandbox,crashpad_handler,nacl_helper}; do
+    for elf in $out/share/microsoft/$appname/{msedge,msedge-sandbox,msedge_crashpad_handler,nacl_helper}; do
       patchelf \
         --set-rpath $rpath \
         --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \

@@ -624,6 +624,22 @@
         "type": "github"
       }
     },
+    "go117": {
+      "locked": {
+        "lastModified": 1629949679,
+        "narHash": "sha256-gVgbRqg7S4X8eAaF0ghBuDtk+Nrr03VVUnYgwBzPV+g=",
+        "owner": "zowoq",
+        "repo": "nixpkgs",
+        "rev": "6aab6895f69e5975f741c1e3a689311d8b21d9db",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zowoq",
+        "ref": "go117",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "gomod2nix": {
       "inputs": {
         "nixpkgs": [
@@ -1235,6 +1251,7 @@
         "digga": "digga",
         "fenix": "fenix",
         "firefox-nightly": "firefox-nightly",
+        "go117": "go117",
         "gomod2nix": "gomod2nix",
         "home": "home",
         "impermanence": "impermanence",

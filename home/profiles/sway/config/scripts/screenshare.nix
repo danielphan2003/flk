@@ -9,7 +9,6 @@
 }:
 let inherit (waylandPkgs) wf-recorder slurp; in
 writeShellScript "screenshare.sh" ''
-
   ## Starts, stops and shows status for screensharing
 
   geometry() {

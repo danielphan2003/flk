@@ -16,6 +16,7 @@ channels: final: prev: {
     starship
     stylua
     sudo
+    wlrctl
     ;
 
   haskellPackages = prev.haskellPackages.override

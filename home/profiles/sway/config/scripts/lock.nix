@@ -1,6 +1,5 @@
 { bash, swaylock-effects, writeShellScript }:
 writeShellScript "lock.sh" ''
-
   . ~/.cache/wal/colors-oomox
 
   ${swaylock-effects}/bin/swaylock --screenshots --clock --indicator \

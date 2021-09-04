@@ -10,21 +10,22 @@ lib.makeExtensible (self: rec {
 
   inherit (lists)
     appendString
-  ;
+    ;
 
   inherit (nixos-lib)
     getNormalUsers
+    getPatches
     mkCustomI3Rule
     mkFirefoxConfig
     pywal
-  ;
+    ;
 
   inherit (pkgs-build)
     mkWaybarModule
     wrapZshFunctions
-  ;
+    ;
 
   inherit (trivial)
     ifttt
-  ;
+    ;
 })

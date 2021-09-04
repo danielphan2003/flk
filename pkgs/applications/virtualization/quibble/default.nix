@@ -1,10 +1,12 @@
 { stdenv
 , lib
 , cmake
+, mingwGccs
 , sources
 }:
 
 let
+  inherit (sources.quibble) pname src version;
   cmakePath =
     if stdenv.isi686 then
       "mingw-x86.cmake"
@@ -13,19 +15,25 @@ let
     else
       throw "Unsupported architecture";
 in
-
 stdenv.mkDerivation {
-  inherit (sources) pname src version;
+  inherit pname src version;
 
-  outputs = [ "out" "fd" ];
+  nativeBuildInputs = [ cmake ] ++ mingwGccs;
 
-  buildInputs = [ cmake ];
+  PROJECT_VERSION = version;
 
-  buildFlags = [ "-DCMAKE_TOOLCHAIN_FILE=${cmakePath}" ];
+  buildPhase = ''
+    mkdir -p $out/share/quibble/{amd64,x86} build
+    cd build
+    cmake -DCMAKE_TOOLCHAIN_FILE=$src/${cmakePath} -DPROJECT_VERSION=${version} $src
+    make
+  '';
 
-  postFixup = ''
-    # mkdir -vp $fd/FV
-    # mv -v $out/FV/OVMF{,_CODE,_VARS}.fd $fd/FV
+  installPhase = ''
+    ls -la
+    ls -la build/*
+    mv build/quibble.efi
+    exit 1
   '';
 
   meta = with lib; {

@@ -73,12 +73,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3d7b894f5411737b7867f4827955924d7c254fc9f4d91a6aad6b097804b1018b"
 
 [[package]]
-name = "const-cstr"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed3d0b5ff30645a68f35ece8cea4556ca14ef8a1651455f789a099a0513532a6"
-
-[[package]]
 name = "crc32fast"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -161,15 +155,6 @@ name = "either"
 version = "1.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e78d4f1cc4ae33bbfc157ed5d5a5ef3bc29227303d595861deb238fcec4e9457"
-
-[[package]]
-name = "fontconfig"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d7c412ab3e93987232d0dd55c04327817bffa49fb79d43b57dc9f9e35c259dcc"
-dependencies = [
- "yeslogic-fontconfig-sys",
-]
 
 [[package]]
 name = "fontdue"
@@ -577,9 +562,7 @@ dependencies = [
 [[package]]
 name = "snui"
 version = "0.1.0"
-source = "git+https://gitlab.com/snakedye/snui.git#2a4fe044ff4c9a6a3290877e5d4159f5d0c8af18"
 dependencies = [
- "fontconfig",
  "fontdue",
  "image",
  "smithay-client-toolkit",
@@ -738,13 +721,3 @@ name = "xml-rs"
 version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b07db065a5cf61a7e4ba64f29e67db906fb1787316516c4e6e5ff0fea1efcd8a"
-
-[[package]]
-name = "yeslogic-fontconfig-sys"
-version = "2.11.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38e47154248a2dba5ca6965e26b1a59146210736ea9b862362b6d72682e57f8d"
-dependencies = [
- "const-cstr",
- "pkg-config",
-]

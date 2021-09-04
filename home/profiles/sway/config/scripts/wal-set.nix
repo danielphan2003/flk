@@ -27,7 +27,6 @@ let
   ];
 in
 writeShellScript "wal-set.sh" ''
-
   export swaySocket=''${XDG_RUNTIME_DIR:-/run/user/$UID}/sway-ipc.$UID.$(${procps}/bin/pgrep -x sway || ${coreutils}/bin/true).sock
 
   export DISPLAY=:0

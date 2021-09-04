@@ -9,7 +9,6 @@
 }:
 let inherit (waylandPkgs) wl-clipboard; in
 writeShellScript "bemenu-unicode.sh" ''
-
   # Original from Luke Smith:
   # https://github.com/LukeSmithxyz/voidrice/blob/master/.local/bin/dmenuunicode
   # The famous "get a menu of emojis to copy" script.

@@ -33,6 +33,7 @@ in
       avizo
       paper
       wmctrl
+      wlrctl
 
       # misc
       dmenu

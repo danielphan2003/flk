@@ -77,6 +77,8 @@
 
       gomod2nix.url = "github:tweag/gomod2nix";
       gomod2nix.inputs.nixpkgs.follows = "latest";
+
+      go117.url = "github:zowoq/nixpkgs/go117";
     };
 
   outputs =
@@ -104,6 +106,8 @@
 
     , fenix
     , gomod2nix
+
+    , go117
     , ...
     } @ inputs:
     digga.lib.mkFlake
@@ -139,6 +143,7 @@
             ];
           };
           latest = { };
+          go117 = { };
         };
 
         lib = import ./lib { lib = digga.lib // nixos.lib; };
