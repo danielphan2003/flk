@@ -119,9 +119,9 @@ in
 
   ntfs2btrfs = final.callPackage ./tools/file-systems/ntfs2btrfs { };
 
-  quibble = final.callPackage ./applications/virtualization/quibble {
-    mingwGccs = with prev.pkgsCross; [ mingw32.buildPackages.gcc mingwW64.buildPackages.gcc ];
-  };
+  # quibble = final.callPackage ./applications/virtualization/quibble {
+  #   mingwGccs = with prev.pkgsCross; [ mingw32.buildPackages.gcc mingwW64.buildPackages.gcc ];
+  # };
 
   wgcf = final.callPackage ./applications/networking/wgcf { };
 
