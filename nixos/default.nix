@@ -51,7 +51,7 @@ in
       server = base
         ++
         [
-          network.dns
+          network.networkd
           network.qos
           virt.headless
         ];
@@ -59,7 +59,6 @@ in
       work = server
         ++
         [
-          network.networkmanager
           develop
           virt.minimal
         ];
