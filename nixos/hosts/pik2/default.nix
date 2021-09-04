@@ -11,16 +11,12 @@ in
 
   age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
 
+  systemd.network.networks."budstick-home-wired".address = [ "${ip}/24" ];
+
   networking = {
     domain = "${hostName}.duckdns.org";
     usePredictableInterfaceNames = false;
     wireless.enable = false;
-    useDHCP = false;
-    interfaces."eth0".ipv4.addresses = [{
-      address = ip;
-      prefixLength = 16;
-    }];
-    defaultGateway = "192.168.1.1";
     firewall.allowedTCPPorts = [ 53 80 443 ];
   };
 
