@@ -46,8 +46,13 @@ in
         EnvironmentFile = cfg.environmentFile;
       };
       script = ''
-        IPV6="$(${pkgs.iproute2}/bin/ip -o -6 addr list eth0 | awk '{print $4}' | cut -d/ -f1)"
-        ${pkgs.curl}/bin/curl "https://www.duckdns.org/update?domains=${cfg.domain}&token=${cfg.token}&ipv6=$IPV6&clear=true"
+        IPV6="$(${pkgs.iproute2}/bin/ip -o -6 addr list eth0 | ${pkgs.gawk}/bin/awk '{print $4}' | ${pkgs.coreutils}/bin/cut -d/ -f1)"
+
+        # Clear all old records
+        ${pkgs.curl}/bin/curl -s "https://www.duckdns.org/update?domains=${cfg.domain}&token=${cfg.token}&clear=true&verbose=true"
+
+        # Update IPv6 only
+        ${pkgs.curl}/bin/curl -s "https://www.duckdns.org/update?domains=${cfg.domain}&token=${cfg.token}&ipv6=$IPV6&verbose=true"
       '';
     };
 
