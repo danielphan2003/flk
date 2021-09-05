@@ -1,9 +1,10 @@
 { config, lib, self, ... }:
 let
   inherit (lib.our) hostConfigs;
+  inherit (config.networking) hostName;
 
   # maybe using Tailscale is superior to setting your IP manually...
-  ip = hostConfigs.hosts."${config.networking.hostName}".ip_addr;
+  ip = hostConfigs.hosts."${hostName}".ip_addr;
 
   privateConfig =
     let
@@ -18,13 +19,17 @@ let
 
       # (broken) on private networks, use DHCP for IPv6
       # DHCP = "ipv6";
+      # use static IPv4 address
       # address = [ "${ip}/24" ];
 
       networkConfig = {
-        # use static IPv4 address
         DNSSEC = "yes";
         DNSOverTLS = "yes";
-        DNS = [ "100.100.100.100" "2620:fe::fe" "2620:fe::9" "9.9.9.9" "149.112.112.112" ];
+        DNS = [
+          "100.100.100.100"
+          "2a07:a8c0::#${hostName}-187c5e.dns1.nextdns.io"
+          "2a07:a8c1::#${hostName}-187c5e.dns2.nextdns.io"
+        ];
         Domains = [ hostConfigs.tailscale.nameserver ];
       };
       # // (lib.mkIf config.services.tailscale.enable {
