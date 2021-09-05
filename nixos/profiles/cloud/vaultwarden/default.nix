@@ -1,4 +1,4 @@
-{ pkgs, config, self, ... }:
+{ pkgs, config, lib, self, ... }:
 let
   inherit (config.networking) hostName domain;
   inherit (lib.our.hostConfigs.tailscale) nameserver;

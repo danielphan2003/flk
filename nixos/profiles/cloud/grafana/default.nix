@@ -1,4 +1,4 @@
-{ config, lib, self, ... }:
+{ config, lib, ... }:
 let
   inherit (config.networking) hostName domain;
   inherit (config.services.grafana) addr port;
