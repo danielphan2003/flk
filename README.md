@@ -2,7 +2,7 @@
 
 ## File structure
 
-Quite different from normal [devos][devos] structure:
+Quite different from normal [devos] structure:
 
 ```
 /
@@ -63,24 +63,24 @@ Add this to your flake (idk if the syntax is correct)
 A lot of [packages][pkgs]:
 - [spotify-spicetified][my-spotify-spicetified] (based on [nixpkgs#111946][nixpkgs-spotify-spicetified]).
   See my [spotify config][my-spotify-config] (currently using a custom [dribbblish][ddt] theme).
-- awesomewm plugins including [bling][bling], [layout-machi][layout-machi], [lua-pam][lua-pam], and [awestore][awestore].
+- awesomewm plugins including [bling], [layout-machi], [lua-pam], and [awestore].
 - Firefox tweaks:
-  - [flying-fox][flying-fox]: my current firefox theme
-  - [interak][interak]: my own (very MUCH wip) theme combining flying-fox, rainfox and pywalfox
-  - [rainfox][rainfox]: mostly for the blurred search bar
-  - [arkenfox-userjs][arkenfox-userjs]: hardened config
-  - [pywalfox][pywalfox]: pywal for firefox.
+  - [flying-fox]: my current firefox theme
+  - [interak]: my own (very MUCH wip) theme combining flying-fox, rainfox and pywalfox
+  - [rainfox]: mostly for the blurred search bar
+  - [arkenfox-userjs]: hardened config
+  - [pywalfox]: pywal for firefox.
 - Browsers: Widevine-cdm, Edge Beta and Dev edition. Yes, I'm that evil ;). Surprisingly, it works on the latest rev!
-- Messaging app: [caprine][caprine] (unmaintained)
-- VS Code extensions: Utilizing [vs-ext][vs-ext]. See [`pkgs/default.nix`][vs-ext-example] for how to add a new `vscode-extensions` pkgsSet to your overlay.
-- Wayland packages: [avizo][avizo].
-- Android: my (very MUCH vip) take on [anbox][anbox]. I cannot find anything that works. Please open an issue if you know any alternatives.
+- Messaging app: [caprine] (unmaintained)
+- VS Code extensions: Utilizing [vs-ext]. See [`pkgs/default.nix`][vs-ext-example] for how to add a new `vscode-extensions` pkgsSet to your overlay.
+- Wayland packages: [avizo].
+- Android: my (very MUCH vip) take on [anbox]. I cannot find anything that works. Please open an issue if you know any alternatives.
 - [Caddy][caddy] with plugins! See [pkgs/servers/caddy][caddy-with-plugins] for usage. With the latest nixpkgs, you can even define virtual hosts!
-- [eww][eww] with latest master. Enjoy lisping :).
+- [eww] with latest master. Enjoy lisping :).
   - Some other hm services for `eww` are available at [home/modules/services/misc](./home/modules/services/misc), including a service for dynamically add music control to each app and remove them when closed, as well as a yuck-lang syntax highlighter in vim.
 - QoL font (Segue UI). This unbreaks websites and avoid rendering text with ugly serif fonts.
-- [Plymouth themes][plymouth-themes] from [adi1090x][adi1090x].
-- [ntfs2btrfs][ntfs2btrfs] tool and (very MUCH wip) [quibble][quibble] efi. Mostly my attempt to create the ultimate Windows VM running on btrfs.
+- [Plymouth themes][plymouth-themes] from [adi1090x].
+- [ntfs2btrfs] tool and (very MUCH wip) [quibble][quibble] efi. Mostly my attempt to create the ultimate Windows VM running on btrfs.
 - [Paper][paper] wallpaper switcher for Wayland.
 - Fonts:
   - Apple fonts: including NY and SF variants.
@@ -89,12 +89,12 @@ A lot of [packages][pkgs]:
 - Minecraft related packages: multiple mods for both server and client, as well as choices for server.
   - Servers:
     - [PaperMC][papermc]: stupidly fast, and yet very customizable.
-    - [Tuinity][tuinity]: PaperMC fork with various patches, *including* [starlight][starlight].
+    - [Tuinity][tuinity]: PaperMC fork with various patches, *including* [Starlight][starlight].
   - For both:
     - [Fabric API][fabric-api]: Fabric APIs for mods like Better Bed
     - [FerriteCore][ferrite-core]: lower RAM usage.
     - [LazyDFU][lazydfu]: something to do with MC's DFU. tl;dr it makes MC fast.
-    - [starlight][starlight]: unbelivably fast light engine. Note that this doesn't help much on client-side. Definitely recommend reading their technical paper. It widen my eyes.
+    - [Starlight][starlight]: unbelivably fast light engine. Note that this doesn't help much on client-side. Definitely recommend reading their technical paper. It widen my eyes.
   - For clients:
     - [BetterBeds][better-beds]: remove BlockEntityRenderer from the bed and replaces it with the default minecraft model renderer. (*requires* Fabric API)
     - [CullLeaves][cull-leaves]: make leaves looks just plain better. Also makes MC fast.
@@ -107,8 +107,9 @@ A lot of [packages][pkgs]:
 - Other...
 
 Some modules that may work for your use case:
-- `boot.persistence`: module to set your persist path and enable persistence handling. Basically a thin wrapper for mt-caret's opt-in state [config][optin-state].
-- `uwu.tailscale`: basically a dummy module to save Tailscale config and reuse it in Caddy.
+- `boot.persistence`: set your persist path and enable persistence handling. Basically a thin wrapper around mt-caret's opt-in state [config][optin-state].
+- `services.duckdns`: update DDNS record with DuckDNS, with support for IPv6-only hosts. If you are behind a [CG-NAT][cg-nat] then this is the right module for you.
+- Other...
 
 Plus (some) overrides and modules from devos's [community][devos-community] branch
 
@@ -116,18 +117,19 @@ Plus (some) overrides and modules from devos's [community][devos-community] bran
 - Pywal theming:
   - Very helpful wallpaper setting [script][wal-set]. It reloads pywalfox, sway border colors, along with seamless wallpaper switching and notify user when everything is done.
 - Gnome: bare minimum for now.
+- Systemd-Networkd: remove the need for NetworkManager (it sucks anyway).
 - X11:
-  - AwesomeWM: formatted and based on [the-glorious-dotfiles][the-glorious-dotfiles].
+  - AwesomeWM: formatted and based on [the-glorious-dotfiles].
 - Wayland:
   - Latest packages from [`nixpkgs-wayland`][nixpkgs-wayland].
-  - Ibus, ibus-bamboo, and ibus-uniemoji latest [working][sway-startup] flawlessly. Adapted from Arch Wiki's Ibus [integration][arch-wiki-ibus]. Note that shortcut for switching inputs only works on X11 apps, but you can still type normally on Wayland. An [eww][eww] bar might fix this.
+  - Ibus, ibus-bamboo, and ibus-uniemoji latest [working][sway-startup] flawlessly. Adapted from Arch Wiki's Ibus [integration][arch-wiki-ibus]. Note that shortcut for switching inputs only works on X11 apps, but you can still type normally on Wayland. An [eww] bar might fix this.
   - Helpful Waybar module [maker][waybar-module-maker]. See [waybar-modules][waybar-modules].
-  - Working [vnc][repo-root-vnc] module and keymap passthrough with [wayvnc][wayvnc].
-  - (very MUCH wip) [river][river] declarative config.
+  - Working [vnc][repo-root-vnc] module and keymap passthrough with [wayvnc].
+  - (very MUCH wip) [river] declarative config.
 
 ## Reasoning (new)
 
-For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mods] from [alkyaly][alkyaly]. As a result, my choices of mods for server-side and client-side are solely based on the performance improvement column within it.
+For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mods] from [alkyaly]. As a result, my choices of mods for server-side and client-side are solely based on the performance improvement column within it.
 - One of my friends has a crappy Chromebook that could benefit from any optimization mods, and by using FerriteCore, LazyDFU, CullLeaves, and Sodium, he was able to achieve *unknown* FPS (Chromebook doesn't even have F3 button, and mods showing FPS requires Fabric API).
   His impression was very much positive as he found out it was much more responsive than before. Definitely a must-have for clients running on old hardware.
 - Paper didn't allow me to install Fabric Loader, so it was kind of a miss, but [Starlight][starlight] came around and I really wanted to try it out. Luckily, there is a Paper fork called [Tuinity][tuinity], and it includes a lot of performance patches, *including* a patch that uses Starlight.
@@ -143,7 +145,7 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
   - [ ] (delayed indefinitely) Enable testing.
   - [ ] Commit message could be smaller, but it requires:
     - uploading `pkgs/_sources/.shake*` (more conflicts)
-    - or making [nvfetcher][nvfetcher] aware of already-up-to-date packages in generated [sources][generated-sources] (increased update time).
+    - or making [nvfetcher] aware of already-up-to-date packages in generated [sources][generated-sources] (increased update time).
 - [ ] [Unlock LUKS file systems via Tor][tor-luks-unlock].
 - [ ] (delayed indefinitely) Fully pass `nix -Lv flake check`.
   - [x] Partially pass by setting up blacklists for `nixosConfigurations.profilesTests`.
@@ -151,9 +153,9 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 - More...
 
 # Acknowledgements
-- [devos][devos] community and develop branch.
-- [nrdxp][nrdxp]: author of [devos][devos].
-- [colemickens][colemickens] for many Wayland packages and Nightly versions of Firefox he provides.
+- [devos] community and develop branch.
+- [nrdxp]: author of [devos].
+- [colemickens] for many Wayland packages and Nightly versions of Firefox he provides.
 - [JavaCafe01 dotfiles][JavaCafe01-dotfiles] for my attempt to switch from sway to awesome.
 
 [devos]: https://github.com/divnix/devos
@@ -232,6 +234,8 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 [tailscale-profile]: ./nixos/profiles/network/tailscale/default.nix
 
 [optin-state]: https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html
+
+[cg-nat]: https://www.reddit.com/r/selfhosted/comments/9e707d/what_are_my_options_to_get_around_a_carrier_grade/
 
 [devos-community]: https://github.com/divnix/devos/tree/community
 

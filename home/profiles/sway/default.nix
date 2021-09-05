@@ -31,6 +31,10 @@ in
 
       # wm-independent
       avizo
+      nwg-drawer
+      nwg-menu
+      nwg-panel
+      nwg-wrapper
       paper
       wmctrl
       wlrctl

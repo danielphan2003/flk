@@ -8,7 +8,37 @@ let
   cfgPath = "${mozPath}/firefox";
 in
 {
-  home.packages = with pkgs; [ firefox-nightly-bin ];
+  home.packages = with pkgs; [ firefox-wayland ];
+
+  # programs.firefox = {
+  #   enable = true;
+  #   package = pkgs.firefox.override {
+  #     forceWayland = true;
+  #     cfg = {
+  #       enableUgetIntegrator = true;
+  #       enableFXCastBridge = true;
+  #     };
+  #     extraPolicies = {
+  #       CaptivePortal = false;
+  #       DisableFirefoxStudies = true;
+  #       DisablePocket = true;
+  #       DisableTelemetry = true;
+  #       FirefoxHome = {
+  #         Pocket = false;
+  #         Snippets = false;
+  #       };
+  #       UserMessaging = {
+  #         ExtensionRecommendations = false;
+  #         SkipOnboarding = true;
+  #       };
+  #     };
+  #     extraNativeMessagingHosts = [ pkgs.pywalfox ];
+  #     extraPrefs = mkFirefoxConfig {
+  #       inherit firefoxConfig;
+  #       extraConfig = "${fileContents "${pkgs.arkenfox-userjs}/share/user-js/profiles/user.js"}";
+  #     };
+  #   };
+  # };
 
   home.file = {
     "${cfgPath}/profiles.ini".text = ''

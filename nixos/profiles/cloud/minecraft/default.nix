@@ -1,7 +1,7 @@
 { pkgs, lib, config, self, ... }:
 let
   inherit (config.networking) hostName domain;
-  inherit (config.uwu.tailscale) nameserver;
+  inherit (lib.our.hostConfigs.tailscale) nameserver;
   inherit (config.services.minecraft-server.serverProperties) server-port;
 
   tld = "${domain}";

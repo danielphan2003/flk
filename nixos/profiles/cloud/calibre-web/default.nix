@@ -1,7 +1,7 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   inherit (config.networking) hostName domain;
-  inherit (config.uwu.tailscale) nameserver;
+  inherit (lib.our.hostConfigs.tailscale) nameserver;
   inherit (config.services.calibre-web.listen) ip port;
 in
 {

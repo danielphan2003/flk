@@ -1,17 +1,9 @@
 { pkgs, lib, suites, config, self, ... }:
-let
-  inherit (lib) toUpper;
-  inherit (builtins) attrValues toString;
-  inherit (config.networking) domain hostName;
-
-  ip = "192.168.1.2";
-in
+let inherit (config.networking) domain hostName; in
 {
   imports = suites.pik2;
 
   age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
-
-  systemd.network.networks."budstick-home-wired".address = [ "${ip}/24" ];
 
   networking = {
     domain = "${hostName}.duckdns.org";
@@ -66,7 +58,7 @@ in
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "Asia/Ho_Chi_Minh";
 
-  environment.systemPackages = attrValues {
+  environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       raspberrypifw
       raspberrypi-eeprom

@@ -51,6 +51,7 @@ in
       };
 
       Service = {
+        Restart = "on-failure";
         ExecStart = ''${pkgs.waylandPkgs.wayvnc}/bin/wayvnc \
           ${optionalString (configFile != "") "-C ${configFile}"} \
           -f ${assert asserts.assertMsg (maxFps > 0) "Rate limit for WayVNC must be a positive integer!"; toString maxFps} \

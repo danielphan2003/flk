@@ -1,12 +1,7 @@
-{ pkgs, lib, suites, config, self, ... }:
-let ip = "192.168.1.11";
-in
-{
+{ pkgs, lib, suites, config, self, ... }: {
   imports = suites.themachine;
 
   age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
-
-  systemd.network.networks."budstick-home-wired".address = [ "${ip}/24" ];
 
   networking = {
     domain = "themachinix.duckdns.org";

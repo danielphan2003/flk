@@ -1,5 +1,10 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 let
+  inherit (lib.our) hostConfigs;
+
+  # maybe using Tailscale is superior to setting your IP manually...
+  ip = hostConfigs.hosts."${config.networking.hostName}".ip_addr;
+
   privateConfig =
     let
       dhcpV4Config = {
@@ -9,15 +14,22 @@ let
       };
     in
     {
-      # on private networks, use DHCP for IPv6
-      DHCP = "ipv6";
+      DHCP = "yes";
+
+      # (broken) on private networks, use DHCP for IPv6
+      # DHCP = "ipv6";
+      # address = [ "${ip}/24" ];
 
       networkConfig = {
         # use static IPv4 address
         DNSSEC = "yes";
         DNSOverTLS = "yes";
-        DNS = [ "2620:fe::fe" "2620:fe::9" "9.9.9.9" "149.112.112.112" ];
+        DNS = [ "100.100.100.100" "2620:fe::fe" "2620:fe::9" "9.9.9.9" "149.112.112.112" ];
+        Domains = [ hostConfigs.tailscale.nameserver ];
       };
+      # // (lib.mkIf config.services.tailscale.enable {
+      #   DNS = [ "100.100.100.100" ];
+      # });
 
       inherit dhcpV4Config;
       dhcpV6Config = builtins.removeAttrs dhcpV4Config [ "Anonymize" ];
@@ -45,7 +57,8 @@ in
     networks = {
       "budstick-home-wired" = privateConfig // {
         name = "eth*";
-        gateway = [ "192.168.1.1" ];
+        # broken
+        # addresses = [{ addressConfig.Address = "${ip}/24"; }];
         dhcpV4Config.RouteMetric = 1024; # Better be explicit
       };
       "budstick-home-wireless" = privateConfig // {

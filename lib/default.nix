@@ -15,6 +15,7 @@ lib.makeExtensible (self: rec {
   inherit (nixos-lib)
     getNormalUsers
     getPatches
+    hostConfigs
     mkCustomI3Rule
     mkFirefoxConfig
     pywal

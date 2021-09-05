@@ -1,8 +1,8 @@
-{ config, ... }:
+{ config, lib, self, ... }:
 let
   inherit (config.networking) hostName domain;
-  inherit (config.uwu.tailscale) nameserver;
   inherit (config.services.grafana) addr port;
+  inherit (lib.our.hostConfigs.tailscale) nameserver;
 in
 {
   services.grafana = {

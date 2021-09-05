@@ -1,7 +1,7 @@
 { pkgs, config, self, ... }:
 let
   inherit (config.networking) hostName domain;
-  inherit (config.uwu.tailscale) nameserver;
+  inherit (lib.our.hostConfigs.tailscale) nameserver;
   inherit (config.services.bitwarden_rs.config) rocketPort websocketPort;
 in
 {

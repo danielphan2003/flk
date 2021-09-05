@@ -11,6 +11,10 @@ channels: final: prev: {
     lib
     nixpkgs-fmt
     nvchecker
+    nwg-drawer
+    nwg-menu
+    nwg-panel
+    nwg-wrapper
     qutebrowser
     rage
     starship
