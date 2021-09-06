@@ -20,9 +20,10 @@ in
 
   programs.fuse.userAllowOther = true;
 
+  environment.etc."nixos".source = "/persist/etc/nixos";
+
   environment.persistence."${path}" = {
     directories = with config; [
-      "/etc/nixos"
       "/etc/ssh"
       "/var/lib/systemd/coredump"
     ]

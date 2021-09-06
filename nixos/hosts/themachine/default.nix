@@ -116,6 +116,8 @@
     };
   };
 
+  fileSystems."/home".depends = [ "/mnt/danie" "/mnt/cubum" ];
+
   swapDevices =
     [{
       device = "/dev/disk/by-partuuid/90abac81-a5e9-4506-9fe5-a2c69500efd5";

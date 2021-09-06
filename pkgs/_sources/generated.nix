@@ -367,14 +367,14 @@
   };
   ntfs2btrfs = {
     pname = "ntfs2btrfs";
-    version = "d277ac03a927be02c244f1cc8cea25ee8c816e19";
+    version = "4cc5a323f95a8ae26206ffbbc27843830efa8c6e";
     src = fetchgit {
       url = "https://github.com/maharmstone/ntfs2btrfs";
-      rev = "d277ac03a927be02c244f1cc8cea25ee8c816e19";
+      rev = "4cc5a323f95a8ae26206ffbbc27843830efa8c6e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "19wk94sl749xnpwsm6kwib2g5yqzzw96qrvfz5226ifrdcmlk571";
+      sha256 = "1mzvzkfmy3vf8f0skh5wcjpmk6kgklh71zjhlwirnx1va5z9hk69";
     };
   };
   ny-font = {
@@ -403,10 +403,10 @@
   };
   papermc = {
     pname = "papermc";
-    version = "249";
+    version = "250";
     src = fetchurl {
-      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/249/downloads/paper-1.17.1-249.jar";
-      sha256 = "0jfyrjz1cyfvyhb1dxlfid622mvfydblp9bp7nya1v1f2la8b4pa";
+      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/250/downloads/paper-1.17.1-250.jar";
+      sha256 = "069dbcf35xwf1pzfd2k304gp2ldza759hqcmax5f4bpifs16ib3l";
     };
   };
   picom = {
@@ -435,14 +435,14 @@
   };
   pure = {
     pname = "pure";
-    version = "3b696be1c19187b903ca4afde411fb9295169ae8";
+    version = "4ead1d6c81a31cd7edb4a8b4c255fa5cc0035f0b";
     src = fetchgit {
       url = "https://github.com/sindresorhus/pure";
-      rev = "3b696be1c19187b903ca4afde411fb9295169ae8";
+      rev = "4ead1d6c81a31cd7edb4a8b4c255fa5cc0035f0b";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0kc4m98hqk6jf08ghcvb59mdyj8hy0ar9hid5a5x7zvhhl0ywkmj";
+      sha256 = "0i14kk54207vkbwc8b4hwngwkchwzcz7452i9slw2k203wc4jlrl";
     };
   };
   pywalfox = {
@@ -491,14 +491,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "85c060769659fda0cd8ea499c9e246e165973e93";
+    version = "07600392df4d52e975c71ca28c12fc8ee793e03d";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "85c060769659fda0cd8ea499c9e246e165973e93";
+      rev = "07600392df4d52e975c71ca28c12fc8ee793e03d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "13n4172z1lihfq0yp64lzldkvai30ry095806gfk6qrr0jxayzg0";
+      sha256 = "1iafi048g8fqpcmyk1kb8af4pvvcmaky8v53a1lg7vhilp01z8fh";
     };
   };
   sddm-chili = {
@@ -551,14 +551,14 @@
   };
   snui = {
     pname = "snui";
-    version = "0e49ab4fd101d12442842e41b13c0012814db854";
+    version = "5dc4ad586d3e39a41ffee50d06d5363cec565f17";
     src = fetchgit {
       url = "https://gitlab.com/snakedye/snui";
-      rev = "0e49ab4fd101d12442842e41b13c0012814db854";
+      rev = "5dc4ad586d3e39a41ffee50d06d5363cec565f17";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1rhly0qr41qycr0wr3vsz4vv79x5l52viwffjqn7xwimnb91xnzr";
+      sha256 = "1qz2h4i2qbls9isigym3w18izcgmfqkcsxby9ixk2g86x54qn90l";
     };
   };
   spicetify-cli = {
@@ -631,14 +631,14 @@
   };
   tailscale = {
     pname = "tailscale";
-    version = "980acc38bad2c02b1236833d8b9fbf8f8cbfecc9";
+    version = "5a58fd8933678fd1fff8aaba534b6eba91586ac7";
     src = fetchgit {
       url = "https://github.com/tailscale/tailscale";
-      rev = "980acc38bad2c02b1236833d8b9fbf8f8cbfecc9";
+      rev = "5a58fd8933678fd1fff8aaba534b6eba91586ac7";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0j9bcgryhm15d27gsb4bcx9bdfgb136jyj0b3v5xy5jss894nhs2";
+      sha256 = "0qxv1mg3m5yvr1w4ywxqz4yaka46q5f8vhmmb233rmyjhipw0vys";
     };
   };
   tuinitymc = {
@@ -1066,26 +1066,26 @@
   };
   whitesur-gtk-theme = {
     pname = "whitesur-gtk-theme";
-    version = "ad63f0634c7011a897f4f1e13dc92ac5a39986c7";
+    version = "14296a0aca8fbfa1312657010a56c703b87a4116";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-gtk-theme";
-      rev = "ad63f0634c7011a897f4f1e13dc92ac5a39986c7";
+      rev = "14296a0aca8fbfa1312657010a56c703b87a4116";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0m26db2pkp2x0jvwm303q8ixfsm2l3zpyqy1nydl8y9frdfxkv79";
+      sha256 = "013qzjwn8bsz89pynn8p6yv6ndxk5a2xya7i8qgk5zi6sp0pmwzi";
     };
   };
   whitesur-icon-theme = {
     pname = "whitesur-icon-theme";
-    version = "8fd881099dccc776fa594fbe5ca5c1b5ad4c4e2e";
+    version = "443672450789dca2079f34ae1f240fda9b9d57f4";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-icon-theme";
-      rev = "8fd881099dccc776fa594fbe5ca5c1b5ad4c4e2e";
+      rev = "443672450789dca2079f34ae1f240fda9b9d57f4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0bxg016axaf2nbbrxrrian1ycsfp63pijl8ybacrcd95zlckfq6m";
+      sha256 = "1i5w96x9k05gml2sqpyfkarang6678l3mjimjxpsd21gb466lnfb";
     };
   };
   widevine-cdm = {
@@ -1106,14 +1106,6 @@
       deepClone = false;
       leaveDotGit = false;
       sha256 = "1rjqjc344j6lvs6ya5m34i4hv5296xfdxr8pc2bgas46gxhv7336";
-    };
-  };
-  wine-wayland = {
-    pname = "wine-wayland";
-    version = "61270cce427ea5101b446b151c3bda536b90797a";
-    src = fetchurl {
-      url = "https://gitlab.collabora.com/alf/wine/-/archive/wayland/wine-wayland.tar.gz";
-      sha256 = "0h6xbfisvh67b2m94kpwwsbyd5r8qb9dkxyzkwa8dalyk4xw818h";
     };
   };
   ydotool = {

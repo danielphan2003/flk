@@ -178,6 +178,8 @@ fetch.git = "https://gitlab.com/snakedye/snui"
 [spicetify-cli]
 src.manual = "v2.5.0"
 # src.git = "https://github.com/khanhas/spicetify-cli"
+# src.git = "https://github.com/itsmeowForks/spicetify-cli"
+# src.branch = "67-fixes"
 fetch.github = "khanhas/spicetify-cli"
 
 [spicetify-themes]
@@ -236,10 +238,10 @@ fetch.url = "https://dl.google.com/widevine-cdm/$ver-linux-x64.zip"
 src.git = "https://github.com/ToadKing/wii-u-gc-adapter"
 fetch.github = "ToadKing/wii-u-gc-adapter"
 
-[wine-wayland]
-src.git = "https://gitlab.collabora.com/alf/wine"
-src.branch = "wayland"
-fetch.url = "https://gitlab.collabora.com/alf/wine/-/archive/wayland/wine-wayland.tar.gz"
+# [wine-wayland]
+# src.git = "https://gitlab.collabora.com/alf/wine"
+# src.branch = "wayland"
+# fetch.url = "https://gitlab.collabora.com/alf/wine/-/archive/wayland/wine-wayland.tar.gz"
 
 [ydotool]
 src.git = "https://github.com/ReimuNotMoe/ydotool"

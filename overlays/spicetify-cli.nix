@@ -23,5 +23,11 @@ final: prev: {
         fi
         runHook postUnpack
       '';
-    })).override { curl = curl.override { gnutlsSupport = true; sslSupport = false; }; };
+    })).override {
+      curl = curl.override { gnutlsSupport = true; sslSupport = false; };
+      lib = lib // {
+        makeLibraryPath = args:
+          lib.makeLibraryPath (args ++ [ xorg.libxshmfence ]);
+      };
+    };
 }

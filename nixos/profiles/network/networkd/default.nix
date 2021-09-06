@@ -32,9 +32,6 @@ let
         ];
         Domains = [ hostConfigs.tailscale.nameserver ];
       };
-      # // (lib.mkIf config.services.tailscale.enable {
-      #   DNS = [ "100.100.100.100" ];
-      # });
 
       inherit dhcpV4Config;
       dhcpV6Config = builtins.removeAttrs dhcpV4Config [ "Anonymize" ];

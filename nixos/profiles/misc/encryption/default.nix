@@ -1,5 +1,5 @@
-{ pkgs, config, lib, ... }:
-{
+{ pkgs, config, lib, ... }: {
+
   console = {
     earlySetup = true; # hidpi + luks-open  # TODO : STILL NEEDED?
     font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
