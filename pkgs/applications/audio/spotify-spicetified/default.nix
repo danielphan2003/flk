@@ -3,9 +3,6 @@
 , spicetify-cli
 , spicetify-themes
 
-, legacySupport ? false
-
-  # Spicetify settings
 , theme ? "SpicetifyDefault"
 , colorScheme ? "green-dark"
 
@@ -15,26 +12,19 @@
 
 , enabledCustomApps ? [ ]
 , enabledExtensions ? [ ]
+
 , injectCss ? false
 , replaceColors ? false
 , overwriteAssets ? false
-
-, spotifyLaunchFlags ? [ ]
 
 , disableSentry ? true
 , disableUiLogging ? true
 , disableUpgradeCheck ? true
 , exposeApis ? true
 
-, experimentalFeatures ? false
-, fastUserSwitching ? false
-, home ? false
-, lyricAlwaysShow ? false
-, lyricForceNoSync ? false
-, radio ? false
 , removeRtlRule ? true
-, songPage ? false
-, visualizationHighFramerate ? false
+
+, spotifyLaunchFlags ? [ ]
 }:
 let
   inherit (lib) optionalString;
@@ -51,23 +41,12 @@ let
   };
   inherit (helpers)
     boolToString
-    extraCommands
-    customAppsFixupCommands
+    spicetifyLnCommands
     extensionString
     customAppsString
     launchFlagsString
     optionalConfig
     ;
-  legacyConfigs = optionalString legacySupport '' \
-    fastUser_switching            ${boolToString fastUserSwitching} \
-    visualization_high_framerate  ${boolToString visualizationHighFramerate} \
-    radio                         ${boolToString radio} \
-    song_page                     ${boolToString songPage} \
-    experimental_features         ${boolToString experimentalFeatures} \
-    home                          ${boolToString home} \
-    lyric_always_show             ${boolToString lyricAlwaysShow} \
-    lyric_force_no_sync           ${boolToString lyricForceNoSync}
-  '';
 in
 spotify-unwrapped.overrideAttrs (o: rec {
   pname = "spotify-spicified";
@@ -84,33 +63,28 @@ spotify-unwrapped.overrideAttrs (o: rec {
 
     find ${spicetify-themes}/ -maxdepth 1 -type d -exec ln -s {} Themes \;
 
-    ${extraCommands}
+    ${spicetifyLnCommands}
 
     spicetify-cli config \
-      spotify_path                    "$out/share/spotify" \
       prefs_path                      "$out/prefs" \
+      spotify_path                    "$out/share/spotify" \
       inject_css                      ${boolToString injectCss} \
       replace_colors                  ${boolToString replaceColors} \
       overwrite_assets                ${boolToString overwriteAssets} \
       disable_sentry                  ${boolToString disableSentry} \
       disable_ui_logging              ${boolToString disableUiLogging} \
-      remove_rtl_rule                 ${boolToString removeRtlRule} \
-      expose_apis                     ${boolToString exposeApis} \
       disable_upgrade_check           ${boolToString disableUpgradeCheck} \
+      expose_apis                     ${boolToString exposeApis} \
+      remove_rtl_rule                 ${boolToString removeRtlRule} \
       ${optionalConfig "current_theme"        theme} \
       ${optionalConfig "color_scheme"         colorScheme} \
-      ${optionalConfig "extensions"           extensionString} \
       ${optionalConfig "custom_apps"          customAppsString} \
-      ${optionalConfig "spotify_launch_flags" launchFlagsString} \
-      ${legacyConfigs}
-
-    spicetify-cli -c
+      ${optionalConfig "extensions"           extensionString} \
+      ${optionalConfig "spotify_launch_flags" launchFlagsString}
 
     spicetify-cli backup apply enable-devtool update -ne
 
-    cd $out/share/spotify
-
-    ${customAppsFixupCommands}
+    find CustomApps/ -maxdepth 1 -type d -exec cp {} $out/share/spotify/Apps \;
   '';
 
   meta = spotify-unwrapped.meta // {

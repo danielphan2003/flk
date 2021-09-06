@@ -12,9 +12,6 @@
           injectCss = true;
           replaceColors = true;
           overwriteAssets = true;
-          songPage = true;
-          experimentalFeatures = true;
-          visualizationHighFramerate = true;
           customThemes = {
             "ddt" = "${pkgs.dribbblish-dynamic-theme}/theme";
           };
