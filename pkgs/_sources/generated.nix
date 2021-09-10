@@ -15,14 +15,14 @@
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "524823fd0524277d59aceedc3b7b051baf4e3b13";
+    version = "e5c128804cd4c89b2a624eb911edbc6de1b4ebb9";
     src = fetchgit {
       url = "https://github.com/arkenfox/user.js";
-      rev = "524823fd0524277d59aceedc3b7b051baf4e3b13";
+      rev = "e5c128804cd4c89b2a624eb911edbc6de1b4ebb9";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0w71072ll8cw0811d5mdzd2rghr77bcml970bq3jrndfh4wwi5l8";
+      sha256 = "0hvwrf9hq88a37drha0ssxfanl5a8p0gg1d1mhl4l8xb4s8r357b";
     };
   };
   avizo = {
@@ -63,26 +63,26 @@
   };
   bling = {
     pname = "bling";
-    version = "1727f1d9f386a367444e3859682713de262f0140";
+    version = "d2e834ae9e8ac183e0d26fd531ff723b36778fc0";
     src = fetchgit {
       url = "https://github.com/BlingCorp/bling";
-      rev = "1727f1d9f386a367444e3859682713de262f0140";
+      rev = "d2e834ae9e8ac183e0d26fd531ff723b36778fc0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0cajhsxbch7lng6ban8qdk15my8arqj49448dr0c0sf3dd6zfahx";
+      sha256 = "1rydpq4d52l739iv7871sgng44dz71fjr6rxr9qdn3sa26l3a5bx";
     };
   };
   bottles = {
     pname = "bottles";
-    version = "5d7dbdaff6f68d92de7b7c9f4ebf0c0dece07196";
+    version = "1ed0cee752ccb84993fdd54ce393e1a5bbdabca6";
     src = fetchgit {
       url = "https://github.com/bottlesdevs/Bottles";
-      rev = "5d7dbdaff6f68d92de7b7c9f4ebf0c0dece07196";
+      rev = "1ed0cee752ccb84993fdd54ce393e1a5bbdabca6";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1q497a9h8vb9iwx5d1agrfgpqyph8ndm3ra26g84fd1r4xbbpl2x";
+      sha256 = "156hdzn72w3khvnqflxzdgy94bkzhd899vi4yscyl8z8id066k7i";
     };
   };
   caddy = {
@@ -115,14 +115,14 @@
   };
   dribbblish-dynamic-theme = {
     pname = "dribbblish-dynamic-theme";
-    version = "28d977631f8d240074b9a6a0852e714a751a7f87";
+    version = "b52c9f889d72d96f0f0c257532c38be45f54f3ea";
     src = fetchgit {
       url = "https://github.com/JulienMaille/dribbblish-dynamic-theme";
-      rev = "28d977631f8d240074b9a6a0852e714a751a7f87";
+      rev = "b52c9f889d72d96f0f0c257532c38be45f54f3ea";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "183p4zdv4g21bl1wwjbimavg6idff7q92vj29m5cax3igfr6ymn1";
+      sha256 = "0s5x4djx4mgasvl7i5qr7z7ilv191a0bpd4jjavff7fm15ixls01";
     };
   };
   droidcam = {
@@ -191,14 +191,14 @@
   };
   ibus = {
     pname = "ibus";
-    version = "4957d1468db4fc5ed30c3ae1f2afac9e51b329d6";
+    version = "fbea5441fc53ae1d5533bed1ee53009141cf905a";
     src = fetchgit {
       url = "https://github.com/ibus/ibus";
-      rev = "4957d1468db4fc5ed30c3ae1f2afac9e51b329d6";
+      rev = "fbea5441fc53ae1d5533bed1ee53009141cf905a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0gh2lb9q4722j29c8869h0ramb263g7lm119ia18mfj0kjskazsh";
+      sha256 = "10372xj38kswa7iv05hhv3dzv25f35r2gz8l81b9v9v28fr1572h";
     };
   };
   ibus-bamboo = {
@@ -303,10 +303,10 @@
   };
   microsoft-edge-dev = {
     pname = "microsoft-edge-dev";
-    version = "95.0.997.1";
+    version = "95.0.1000.0";
     src = fetchurl {
-      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_95.0.997.1-1_amd64.deb";
-      sha256 = "0g8d5x244177zgii7x7lf56z6pv72k59dgw3zrsj4cai3j77lqf3";
+      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_95.0.1000.0-1_amd64.deb";
+      sha256 = "06ppnwbx75dh1v5rgj9vhswdng7wcsc4hbv12r4k2cigq2p21li3";
     };
   };
   minecraft-better-beds = {
@@ -327,10 +327,10 @@
   };
   minecraft-fabric-api = {
     pname = "minecraft-fabric-api";
-    version = "0.40.0+1.17";
+    version = "0.40.1+1.17";
     src = fetchurl {
-      url = "https://github.com/FabricMC/fabric/releases/download/0.40.0+1.17/fabric-api-0.40.0+1.17.jar";
-      sha256 = "1hn610cab50f9pzvzr0ad6dwb2xqqmjvpgmi8bb5nj6mmglbjix5";
+      url = "https://github.com/FabricMC/fabric/releases/download/0.40.1+1.17/fabric-api-0.40.1+1.17.jar";
+      sha256 = "1j3vybh9rp7imdn8vy3kfdlja7dqpvc29dwj7bch0m2vhw8xv9hi";
     };
   };
   minecraft-fast-furnace = {
@@ -387,6 +387,18 @@
     src = fetchurl {
       url = "https://github.com/PaperMC/Starlight/releases/download/1.0.0-RC3/starlight-1.0.0-RC3+fabric.1.17.x.jar";
       sha256 = "01p45ivifjn3ixgw9jdnplxnh79la6r10qslsp9m7aywy02g36yp";
+    };
+  };
+  minecraft-wayland = {
+    pname = "minecraft-wayland";
+    version = "4bae6847a3cdc7a5c9723e9c65c618ad7e5d09e6";
+    src = fetchgit {
+      url = "https://github.com/Admicos/minecraft-wayland";
+      rev = "4bae6847a3cdc7a5c9723e9c65c618ad7e5d09e6";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "01qxlj5045nbimyglw9yyxki50dmzsbz6ix1z7qhm5hbszi6c630";
     };
   };
   multimc-cracked = {
@@ -479,10 +491,10 @@
   };
   papermc = {
     pname = "papermc";
-    version = "255";
+    version = "257";
     src = fetchurl {
-      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/255/downloads/paper-1.17.1-255.jar";
-      sha256 = "0q3kcj6b01yiighzmhy7b9pvla1fc7fp19pxcnkmh74cr2wv5r23";
+      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/257/downloads/paper-1.17.1-257.jar";
+      sha256 = "1z5njm5gs7mjn4dy360akyfi6v22lv226fhzr3miq9j58yhcb4qa";
     };
   };
   picom = {
@@ -567,14 +579,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "8a31b732dd6eee534d58a159a5744a0f26220cd2";
+    version = "27bd9868d746fc6c452410207d58fc2195abc6f1";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "8a31b732dd6eee534d58a159a5744a0f26220cd2";
+      rev = "27bd9868d746fc6c452410207d58fc2195abc6f1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0lkj7cdc1rf9wq0rs1b0cq0byk071z69k1nk728fbxnmmq9pl56z";
+      sha256 = "01idrn9n43wizfrzyi9z8i9zrmnyh0cj93wl7xq2w2c9hh5cvcn2";
     };
   };
   rofi-wayland = {
@@ -719,14 +731,14 @@
   };
   tailscale = {
     pname = "tailscale";
-    version = "de63e858101396388e4268b2936d113444b4e124";
+    version = "382b349c54ed38bbc4d2936a8c9de6cc2f905eb8";
     src = fetchgit {
       url = "https://github.com/tailscale/tailscale";
-      rev = "de63e858101396388e4268b2936d113444b4e124";
+      rev = "382b349c54ed38bbc4d2936a8c9de6cc2f905eb8";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "05ixq7zib6imvzqxrb3mzprz47dinv4cxsx67sffpf62w408vxrr";
+      sha256 = "1ygx376pck63wmm20941hkqvvdfr7xv3qra3w2pf7c7spcsmqim9";
     };
   };
   tuinitymc = {
@@ -802,10 +814,10 @@
   };
   vscode-extensions-astro = {
     pname = "vscode-extensions-astro";
-    version = "0.7.1";
+    version = "0.7.2";
     src = fetchurl {
-      url = "https://astro-build.gallery.vsassets.io/_apis/public/gallery/publisher/astro-build/extension/astro-vscode/0.7.1/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      sha256 = "14qy77rss7mn10nm2kyx6jzvdygddnp14lbg7x8xyjf6lhdyvhic";
+      url = "https://astro-build.gallery.vsassets.io/_apis/public/gallery/publisher/astro-build/extension/astro-vscode/0.7.2/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      sha256 = "0aa8z9qdpsqjd1b6c6x72vpfif4j7jk2cxv50gww5dl754383k2d";
     };
     license = "mit";
   };
@@ -833,10 +845,10 @@
   };
   vscode-extensions-codeql = {
     pname = "vscode-extensions-codeql";
-    version = "1.5.4";
+    version = "1.5.5";
     src = fetchurl {
-      url = "https://open-vsx.org/api/GitHub/vscode-codeql/1.5.4/file/GitHub.vscode-codeql-1.5.4.vsix";
-      sha256 = "1i78ppymkf9j7j3vbl4f4c44dcj5zlx9sdcgx2yn2p8iv4s5k4wa";
+      url = "https://open-vsx.org/api/GitHub/vscode-codeql/1.5.5/file/GitHub.vscode-codeql-1.5.5.vsix";
+      sha256 = "09504qzddy7vqkh9lcybnb1p91dkal2qxh0q3f4i022iynsn3zs6";
     };
     homepage = "https://github.com/github/vscode-codeql";
     license = "mit";
@@ -875,10 +887,10 @@
   };
   vscode-extensions-dendron = {
     pname = "vscode-extensions-dendron";
-    version = "0.58.0";
+    version = "0.58.1";
     src = fetchurl {
-      url = "https://open-vsx.org/api/dendron/dendron/0.58.0/file/dendron.dendron-0.58.0.vsix";
-      sha256 = "1mfqszgaq6xqrz5rchkipaffg98p992ghaacmkqiw3gc8gqsdpql";
+      url = "https://open-vsx.org/api/dendron/dendron/0.58.1/file/dendron.dendron-0.58.1.vsix";
+      sha256 = "1j336zqwb76hl4ndc61pc5yclv6hjgy3wri3gbpj5g86imdj8vml";
     };
     homepage = "https://github.com/dendronhq/dendron";
     license = "agpl3Only";
@@ -1205,30 +1217,6 @@
       deepClone = false;
       leaveDotGit = false;
       sha256 = "1jj0790z4cxsk99wrbqz94y61sgxp3qx0f82lrpl2wnh9q6jyvf2";
-    };
-  };
-  xorgproto = {
-    pname = "xorgproto";
-    version = "a0ed054ee2c334941dfe9eaa7bcfdbbe6907e1b5";
-    src = fetchgit {
-      url = "https://github.com/freedesktop/xorg-xorgproto";
-      rev = "a0ed054ee2c334941dfe9eaa7bcfdbbe6907e1b5";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "17z8wggrbszz20jrg5d78d3svffdj5yhgfz1brn8klhz29khn0y7";
-    };
-  };
-  xwayland = {
-    pname = "xwayland";
-    version = "b3b81c8c2090cd49410960a021baf0d27fdd2ab3";
-    src = fetchgit {
-      url = "git://anongit.freedesktop.org/xorg/xserver";
-      rev = "b3b81c8c2090cd49410960a021baf0d27fdd2ab3";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "0yzaqy91150m6jwzms34y76a9pl4x3fjd465xmbqxji5cpdfbyb0";
     };
   };
   ydotool = {

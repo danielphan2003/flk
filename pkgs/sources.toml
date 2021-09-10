@@ -113,6 +113,10 @@ src.webpage = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-e
 src.regex = "microsoft-edge-dev_(.*)-1_amd64\\.deb\">microsoft-edge-dev_"
 fetch.url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-dev/microsoft-edge-dev_$ver-1_amd64.deb"
 
+[minecraft-wayland]
+src.git = "https://github.com/Admicos/minecraft-wayland"
+fetch.github = "Admicos/minecraft-wayland"
+
 [multimc-cracked]
 src.manual = "9069e9c9d0b7951c310fdcc8bdc70ebc422a7634"
 fetch.github = "AfoninZ/MultiMC5-Cracked"
@@ -263,13 +267,13 @@ fetch.url = "https://dl.google.com/widevine-cdm/$ver-linux-x64.zip"
 src.git = "https://github.com/ToadKing/wii-u-gc-adapter"
 fetch.github = "ToadKing/wii-u-gc-adapter"
 
-[xorgproto]
-src.git = "https://github.com/freedesktop/xorg-xorgproto"
-fetch.github = "freedesktop/xorg-xorgproto"
+# [xorgproto]
+# src.git = "https://github.com/freedesktop/xorg-xorgproto"
+# fetch.github = "freedesktop/xorg-xorgproto"
 
-[xwayland]
-src.git = "git://anongit.freedesktop.org/xorg/xserver"
-fetch.git = "git://anongit.freedesktop.org/xorg/xserver"
+# [xwayland]
+# src.git = "git://anongit.freedesktop.org/xorg/xserver"
+# fetch.git = "git://anongit.freedesktop.org/xorg/xserver"
 
 [ydotool]
 src.git = "https://github.com/ReimuNotMoe/ydotool"

@@ -73,7 +73,7 @@ let wlroots = final.waylandPkgs.wlroots-eglstreams; in
   #   });
 
   glfw = with prev; glfw.overrideAttrs (o: {
-    patches = lib.our.getPatches ../pkgs/development/libraries/glfw;
+    patches = lib.our.getPatches final.sources.minecraft-wayland.src;
     nativeBuildInputs = o.nativeBuildInputs ++ [ extra-cmake-modules ];
     buildInputs = o.buildInputs ++ [ wayland wayland-protocols libxkbcommon ];
     cmakeFlags = o.cmakeFlags ++ [ "-DGLFW_USE_WAYLAND=ON" ];
