@@ -1,8 +1,8 @@
 { lib }:
 folder:
 let
-  toImport = name: value: folder + ("/" + name);
-  filterPatches = key: value: value == "regular" && lib.hasSuffix ".patch" key;
+  toImport = name: type: folder + ("/" + name);
+  filterPatches = path: type: type == "regular" && builtins.baseNameOf path == ".patch";
   patches = lib.mapAttrsToList toImport (lib.filterAttrs filterPatches (builtins.readDir folder));
 in
 patches

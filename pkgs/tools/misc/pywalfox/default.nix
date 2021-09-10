@@ -1,5 +1,5 @@
 { python3, lib, sources }:
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication {
   inherit (sources.pywalfox) pname src version;
 
   preInstall = ''

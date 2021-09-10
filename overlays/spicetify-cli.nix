@@ -1,8 +1,9 @@
 final: prev: {
-  spicetify-cli = prev.spicetify-cli.overrideAttrs (o: rec {
+  spicetify-cli = with prev; spicetify-cli.overrideAttrs (_: {
     inherit (final.sources.spicetify-cli) pname version src;
+
     postInstall = ''
-      cp -r ${src}/jsHelper ${src}/Themes ${src}/Extensions ${src}/CustomApps ${src}/globals.d.ts ${src}/css-map.json $out/bin
+      cp -r ./jsHelper ./Themes ./Extensions ./CustomApps ./globals.d.ts ./css-map.json $out/bin
     '';
   });
 

@@ -23,7 +23,7 @@ let
     }
   '';
 in
-buildGoModule rec {
+buildGoModule {
   inherit (sources.caddy) src version;
   inherit vendorSha256;
 

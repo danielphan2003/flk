@@ -1,5 +1,5 @@
 { stdenv, lib, sources, meson, ninja }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.libinih) pname src version;
 
   buildInputs = [ meson ninja ];

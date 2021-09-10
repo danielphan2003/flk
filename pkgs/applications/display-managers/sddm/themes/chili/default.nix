@@ -1,5 +1,5 @@
 { stdenv, lib, sources }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.sddm-chili) pname src version;
 
   installPhase = ''

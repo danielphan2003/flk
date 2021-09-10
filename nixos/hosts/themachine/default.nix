@@ -27,19 +27,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "Asia/Ho_Chi_Minh";
 
-  nixpkgs.overlays =
-    let
-      nmap_ov = final: prev: {
-        nmap = prev.nmap.overrideAttrs (_: {
-          postPatch = ''
-            substituteInPlace nselib/rtsp.lua \
-              --replace table.unpack "\"\", --- "
-          '';
-        });
-      };
-    in
-    [ nmap_ov ];
-
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     tmpOnTmpfs = true;

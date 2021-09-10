@@ -4,7 +4,7 @@ let
   urlbar-blur = ./urlbar-blur.css;
   flyingfox-no-tabline = flyingfox.overrideAttrs (_: { patches = [ ./no-tabline.patch ]; });
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "interak";
   version = "0.0.1";
 

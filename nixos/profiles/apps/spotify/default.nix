@@ -7,8 +7,13 @@
     then
       spotify-spicetified.override
         {
-          theme = "ddt";
-          colorScheme = "base";
+          # theme = "Dribbblish";
+          # theme = "ddt";
+          # theme = "Fluent";
+          # colorScheme = "base";
+          # colorScheme = "dark";
+          theme = "Ziro";
+          colorScheme = "red-dark";
           injectCss = true;
           replaceColors = true;
           overwriteAssets = true;
@@ -26,16 +31,22 @@
             "reddit"
           ];
           enabledExtensions = [
-            "ddt.js"
-            "ddt-dynamic.js"
-            "Vibrant.min.js"
+            # "ddt.js"
+            # "dribbblish.js"
+            # "ddt-dynamic.js"
+            # "Vibrant.min.js"
+            # "fluent.js"
             "fullAppDisplay.js"
             "loopyLoop.js"
             "popupLyrics.js"
             "shuffle+.js"
             "trashbin.js"
           ];
-          spotifyLaunchFlags = [ "--enable-developer-mode" ];
+          # extraConfig = ''
+          #   [Patch]
+          #   xpui.js_find_8008 = ,(\w+=)32,
+          #   xpui.js_repl_8008 = ,''${1}56,
+          # '';
         }
     else spotify-tui)
   ];

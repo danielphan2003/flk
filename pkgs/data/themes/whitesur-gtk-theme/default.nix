@@ -13,7 +13,7 @@
 , panel ? "default"
 , size ? "default"
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.whitesur-gtk-theme) pname src version;
 
   buildInputs = [

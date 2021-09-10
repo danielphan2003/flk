@@ -24,10 +24,12 @@
 
 , removeRtlRule ? true
 
-, spotifyLaunchFlags ? [ ]
+, commandLineArgs ? ""
+
+, extraConfig ? ""
 }:
 let
-  inherit (lib) optionalString;
+  inherit (lib) optionalString escapeShellArg escape;
   helpers = import ./helpers.nix {
     inherit
       lib
@@ -36,7 +38,6 @@ let
       customThemes
       enabledCustomApps
       enabledExtensions
-      spotifyLaunchFlags
       ;
   };
   inherit (helpers)
@@ -44,11 +45,10 @@ let
     spicetifyLnCommands
     extensionString
     customAppsString
-    launchFlagsString
     optionalConfig
     ;
 in
-spotify-unwrapped.overrideAttrs (o: rec {
+spotify-unwrapped.overrideAttrs (o: {
   pname = "spotify-spicified";
 
   nativeBuildInputs = o.nativeBuildInputs ++ [ spicetify-cli ];
@@ -79,8 +79,14 @@ spotify-unwrapped.overrideAttrs (o: rec {
       ${optionalConfig "current_theme"        theme} \
       ${optionalConfig "color_scheme"         colorScheme} \
       ${optionalConfig "custom_apps"          customAppsString} \
-      ${optionalConfig "extensions"           extensionString} \
-      ${optionalConfig "spotify_launch_flags" launchFlagsString}
+      ${optionalConfig "extensions"           extensionString}
+
+    cat <<EOT >> "$SPICETIFY_CONFIG/$(spicetify-cli -c)"
+    ${escape [ "$" ] extraConfig}
+    EOT
+
+    substituteInPlace $out/share/spotify/spotify \
+      --replace '"$@"' '${commandLineArgs} "$@"'
 
     spicetify-cli backup apply enable-devtool update -ne
 

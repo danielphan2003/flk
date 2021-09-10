@@ -24,6 +24,10 @@ fetch.github = "K4rakara/awestore"
 src.git = "https://github.com/BlingCorp/bling"
 fetch.github = "BlingCorp/bling"
 
+[bottles]
+src.git = "https://github.com/bottlesdevs/Bottles"
+fetch.github = "bottlesdevs/Bottles"
+
 [caddy]
 src.manual = "b3d35a4995c98cfadeb0c3a356025dbd3984caef"
 fetch.github = "caddyserver/caddy"
@@ -46,10 +50,18 @@ fetch.github = "JulienMaille/dribbblish-dynamic-theme"
 src.git = "https://github.com/aramg/droidcam"
 fetch.github = "aramg/droidcam"
 
+[duf]
+src.git = "https://github.com/muesli/duf"
+fetch.github = "muesli/duf"
+
 [eww]
 src.git = "https://github.com/elkowar/eww"
 fetch.github = "elkowar/eww"
 cargo_lock = "Cargo.lock"
+
+[flameshot]
+src.git = "https://github.com/flameshot-org/flameshot"
+fetch.github = "flameshot-org/flameshot"
 
 [flyingfox]
 src.git = "https://github.com/akshat46/FlyingFox"
@@ -78,6 +90,10 @@ fetch.github = "benhoyt/inih"
 [light]
 src.git = "https://github.com/haikarainen/light"
 fetch.github = "haikarainen/light"
+
+[lightcord]
+src.git = "https://github.com/Lightcord/Lightcord"
+fetch.github = "Lightcord/Lightcord"
 
 [lua-pam]
 src.git = "https://github.com/RMTT/lua-pam"
@@ -109,6 +125,15 @@ fetch.github = "Ma27/nix-zsh-completions"
 [ntfs2btrfs]
 src.git = "https://github.com/maharmstone/ntfs2btrfs"
 fetch.github = "maharmstone/ntfs2btrfs"
+
+[nwg-drawer]
+src.git = "https://github.com/nwg-piotr/nwg-drawer/"
+fetch.github = "nwg-piotr/nwg-drawer"
+
+[ouch]
+src.git = "https://github.com/ouch-org/ouch"
+fetch.github = "ouch-org/ouch"
+cargo_lock = "Cargo.lock"
 
 [paper]
 src.git = "https://gitlab.com/snakedye/paper"
@@ -147,6 +172,11 @@ fetch.github = "minus7/redshift"
 src.git = "https://github.com/libretro/retroarch"
 fetch.github = "libretro/retroarch"
 
+[rofi-wayland]
+src.git = "https://github.com/lbonn/rofi"
+fetch.github = "lbonn/rofi"
+git.fetchSubmodules = true
+
 [sddm-chili]
 src.git = "https://github.com/MarianArlt/sddm-chili"
 fetch.github = "MarianArlt/sddm-chili"
@@ -176,10 +206,7 @@ src.git = "https://gitlab.com/snakedye/snui"
 fetch.git = "https://gitlab.com/snakedye/snui"
 
 [spicetify-cli]
-src.manual = "v2.5.0"
-# src.git = "https://github.com/khanhas/spicetify-cli"
-# src.git = "https://github.com/itsmeowForks/spicetify-cli"
-# src.branch = "67-fixes"
+src.git = "https://github.com/khanhas/spicetify-cli"
 fetch.github = "khanhas/spicetify-cli"
 
 [spicetify-themes]
@@ -187,11 +214,9 @@ src.git = "https://github.com/morpheusthewhite/spicetify-themes"
 fetch.github = "morpheusthewhite/spicetify-themes"
 
 [spotify]
-src.manual = "1.1.56.595.g2d2da0de"
-fetch.url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_47.snap"
-# src.aur = "spotify"
-# src.prefix = "1:"
-# fetch.url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_50.snap"
+src.aur = "spotify"
+src.prefix = "1:"
+fetch.url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_50.snap"
 
 [steamcompmgr]
 src.git = "https://github.com/ChimeraOS/steamos-compositor-plus"
@@ -238,10 +263,13 @@ fetch.url = "https://dl.google.com/widevine-cdm/$ver-linux-x64.zip"
 src.git = "https://github.com/ToadKing/wii-u-gc-adapter"
 fetch.github = "ToadKing/wii-u-gc-adapter"
 
-# [wine-wayland]
-# src.git = "https://gitlab.collabora.com/alf/wine"
-# src.branch = "wayland"
-# fetch.url = "https://gitlab.collabora.com/alf/wine/-/archive/wayland/wine-wayland.tar.gz"
+[xorgproto]
+src.git = "https://github.com/freedesktop/xorg-xorgproto"
+fetch.github = "freedesktop/xorg-xorgproto"
+
+[xwayland]
+src.git = "git://anongit.freedesktop.org/xorg/xserver"
+fetch.git = "git://anongit.freedesktop.org/xorg/xserver"
 
 [ydotool]
 src.git = "https://github.com/ReimuNotMoe/ydotool"
@@ -481,6 +509,11 @@ passthru = { license = "mit" }
 src.vsmarketplace = "dzhavat.css-initial-value"
 fetch.vsmarketplace = "dzhavat.css-initial-value"
 passthru = { license = "mit" }
+
+[vscode-extensions-headwind]
+src.vsmarketplace = "heybourn.headwind"
+fetch.vsmarketplace = "heybourn.headwind"
+passthru = { license = "mit", homepage = "https://github.com/heybourn/headwind", description = "An opinionated Tailwind CSS class sorter built for Visual Studio Code" }
 
 [vscode-extensions-nixpkgs-fmt]
 src.vsmarketplace = "B4dM4n.nixpkgs-fmt"

@@ -15,14 +15,14 @@
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "283bfd744ac1d7cb102e542b92b12f98d1a095b8";
+    version = "524823fd0524277d59aceedc3b7b051baf4e3b13";
     src = fetchgit {
       url = "https://github.com/arkenfox/user.js";
-      rev = "283bfd744ac1d7cb102e542b92b12f98d1a095b8";
+      rev = "524823fd0524277d59aceedc3b7b051baf4e3b13";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1zzy5d8nfsqw713rzagw712d97f66w8p5vmmlxa3hxfyqnk12ywv";
+      sha256 = "0w71072ll8cw0811d5mdzd2rghr77bcml970bq3jrndfh4wwi5l8";
     };
   };
   avizo = {
@@ -39,14 +39,14 @@
   };
   awesome = {
     pname = "awesome";
-    version = "13cd20780e95f85f59906f6b57b8779abe2dfcd6";
+    version = "7ae6d26363442b246ca26e195bdaf3d8b91b58a8";
     src = fetchgit {
       url = "https://github.com/awesomeWM/awesome";
-      rev = "13cd20780e95f85f59906f6b57b8779abe2dfcd6";
+      rev = "7ae6d26363442b246ca26e195bdaf3d8b91b58a8";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "01l8lycl0y1fzn3lp7m0klrp1cr3040v7pvm9xyh0w56ibdwz8zh";
+      sha256 = "15s8mq810dch2csr6dw35mm6s01q0dfdr6fm4pmg92bn1ibg1cmh";
     };
   };
   awestore = {
@@ -63,14 +63,26 @@
   };
   bling = {
     pname = "bling";
-    version = "3fc80c7dfd9da54361dedb47f03ec3638e4f5581";
+    version = "1727f1d9f386a367444e3859682713de262f0140";
     src = fetchgit {
       url = "https://github.com/BlingCorp/bling";
-      rev = "3fc80c7dfd9da54361dedb47f03ec3638e4f5581";
+      rev = "1727f1d9f386a367444e3859682713de262f0140";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0a5dsn179wcb76wdklny6jryyfj3llh1v1wfnwjq3dv0a8bn6ls6";
+      sha256 = "0cajhsxbch7lng6ban8qdk15my8arqj49448dr0c0sf3dd6zfahx";
+    };
+  };
+  bottles = {
+    pname = "bottles";
+    version = "5d7dbdaff6f68d92de7b7c9f4ebf0c0dece07196";
+    src = fetchgit {
+      url = "https://github.com/bottlesdevs/Bottles";
+      rev = "5d7dbdaff6f68d92de7b7c9f4ebf0c0dece07196";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1q497a9h8vb9iwx5d1agrfgpqyph8ndm3ra26g84fd1r4xbbpl2x";
     };
   };
   caddy = {
@@ -125,6 +137,18 @@
       sha256 = "0bkpc94nwzzwwy792h8ra7cmh5cq8f4f4m2jpswk1jj22wi23kw7";
     };
   };
+  duf = {
+    pname = "duf";
+    version = "8d9557dc109e157f6d72ad19f37c22cf33158edc";
+    src = fetchgit {
+      url = "https://github.com/muesli/duf";
+      rev = "8d9557dc109e157f6d72ad19f37c22cf33158edc";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "06a8nin0hhbihjn0x3ih2qmjs6lmlfv1glc7sfwwx4s4xada0f31";
+    };
+  };
   eww = {
     pname = "eww";
     version = "70285e0ebf928df4d78725dfb02d9eae2273630c";
@@ -141,6 +165,18 @@
       outputHashes = { };
     };
   };
+  flameshot = {
+    pname = "flameshot";
+    version = "ec70df10671d5ebb4890bf5fd52c6fd4c955fb65";
+    src = fetchgit {
+      url = "https://github.com/flameshot-org/flameshot";
+      rev = "ec70df10671d5ebb4890bf5fd52c6fd4c955fb65";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1mh9r5xhqfl924lzf9rwhpg0mhbhdyq9nncl191kzim01r1bihwj";
+    };
+  };
   flyingfox = {
     pname = "flyingfox";
     version = "8fc00aa654c10260deac2cbbc5bf062b7dcce811";
@@ -155,14 +191,14 @@
   };
   ibus = {
     pname = "ibus";
-    version = "ecca9db0d9750e8a4803758302510999084ff1b2";
+    version = "4957d1468db4fc5ed30c3ae1f2afac9e51b329d6";
     src = fetchgit {
       url = "https://github.com/ibus/ibus";
-      rev = "ecca9db0d9750e8a4803758302510999084ff1b2";
+      rev = "4957d1468db4fc5ed30c3ae1f2afac9e51b329d6";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0wm4zq05iblkmhx270n2pfgb0i3blhkjrwg9bvjn8387k41smhzm";
+      sha256 = "0gh2lb9q4722j29c8869h0ramb263g7lm119ia18mfj0kjskazsh";
     };
   };
   ibus-bamboo = {
@@ -179,14 +215,14 @@
   };
   layout-machi = {
     pname = "layout-machi";
-    version = "5cee31af77493a67516ca27252c3d931efbfcac7";
+    version = "df15a7b78e929203f4de46348b25f3630ac079c1";
     src = fetchgit {
       url = "https://github.com/xinhaoyuan/layout-machi";
-      rev = "5cee31af77493a67516ca27252c3d931efbfcac7";
+      rev = "df15a7b78e929203f4de46348b25f3630ac079c1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1a9rfhfd4gw7nhcxm873vhanbcgqshq9wjnrpz908jxpk4bw64b3";
+      sha256 = "0qv5q1vw6bh9kibmi4p9n7cwmdvxydi1fyhqc2zx7khk8id1sx0c";
     };
   };
   leonflix = {
@@ -221,6 +257,18 @@
       sha256 = "0sqci8i0p4ihddc4kbjh8s0z7bfix1iwjrnfjjwjrbz4y72q3j3p";
     };
   };
+  lightcord = {
+    pname = "lightcord";
+    version = "8ab6645d2c4ae350db7ed1aac9d2071e45ccd186";
+    src = fetchgit {
+      url = "https://github.com/Lightcord/Lightcord";
+      rev = "8ab6645d2c4ae350db7ed1aac9d2071e45ccd186";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0wwmidr2n4sc9gpwr1rdra3m0xhqc9dpz5g1rhp9ka1nflxwfm84";
+    };
+  };
   lua-pam = {
     pname = "lua-pam";
     version = "482071137257e55dac62a510f792104a9d910ea1";
@@ -247,10 +295,10 @@
   };
   microsoft-edge-beta = {
     pname = "microsoft-edge-beta";
-    version = "94.0.992.9";
+    version = "94.0.992.14";
     src = fetchurl {
-      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_94.0.992.9-1_amd64.deb";
-      sha256 = "1qigkshyy43knxzzyy19h7xs863dpya51vxs9y716svx9bxlzhcv";
+      url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-beta/microsoft-edge-beta_94.0.992.14-1_amd64.deb";
+      sha256 = "026impfndc4va4pxwib3xs4xzssjs3whh42w6nlg9wy130v271z3";
     };
   };
   microsoft-edge-dev = {
@@ -367,14 +415,26 @@
   };
   ntfs2btrfs = {
     pname = "ntfs2btrfs";
-    version = "4cc5a323f95a8ae26206ffbbc27843830efa8c6e";
+    version = "e23cffff7698dfea6ee67997fded63a19efc42b0";
     src = fetchgit {
       url = "https://github.com/maharmstone/ntfs2btrfs";
-      rev = "4cc5a323f95a8ae26206ffbbc27843830efa8c6e";
+      rev = "e23cffff7698dfea6ee67997fded63a19efc42b0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1mzvzkfmy3vf8f0skh5wcjpmk6kgklh71zjhlwirnx1va5z9hk69";
+      sha256 = "0nz06hbb5g6z59kc3v56yfpp5czr7ispa36qa31hn57q8q24kasb";
+    };
+  };
+  nwg-drawer = {
+    pname = "nwg-drawer";
+    version = "6ca8e6a175c81f76ee4af24a2c0aae45b944c3d1";
+    src = fetchgit {
+      url = "https://github.com/nwg-piotr/nwg-drawer";
+      rev = "6ca8e6a175c81f76ee4af24a2c0aae45b944c3d1";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0l6h59fabdqbqip7sanw81yxf8livcnc6d2axpkfnljdz77gsjb9";
     };
   };
   ny-font = {
@@ -383,6 +443,22 @@
     src = fetchurl {
       url = "https://devimages-cdn.apple.com/design/resources/download/NY.dmg";
       sha256 = "1cpk6ysrj346wmm89kd35w2fv8y5z136948fll06ib3mxh1gljp4";
+    };
+  };
+  ouch = {
+    pname = "ouch";
+    version = "19aac4b5782b0291445768dd1c638840f012851a";
+    src = fetchgit {
+      url = "https://github.com/ouch-org/ouch";
+      rev = "19aac4b5782b0291445768dd1c638840f012851a";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1lr38xrx663dsqk1gvq26wna1m8qixh24pg1z2n4w80kycpc6w12";
+    };
+    cargoLock = {
+      lockFile = ./ouch-19aac4b5782b0291445768dd1c638840f012851a/Cargo.lock;
+      outputHashes = { };
     };
   };
   paper = {
@@ -403,10 +479,10 @@
   };
   papermc = {
     pname = "papermc";
-    version = "250";
+    version = "255";
     src = fetchurl {
-      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/250/downloads/paper-1.17.1-250.jar";
-      sha256 = "069dbcf35xwf1pzfd2k304gp2ldza759hqcmax5f4bpifs16ib3l";
+      url = "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/255/downloads/paper-1.17.1-255.jar";
+      sha256 = "0q3kcj6b01yiighzmhy7b9pvla1fc7fp19pxcnkmh74cr2wv5r23";
     };
   };
   picom = {
@@ -491,14 +567,26 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "07600392df4d52e975c71ca28c12fc8ee793e03d";
+    version = "8a31b732dd6eee534d58a159a5744a0f26220cd2";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "07600392df4d52e975c71ca28c12fc8ee793e03d";
+      rev = "8a31b732dd6eee534d58a159a5744a0f26220cd2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1iafi048g8fqpcmyk1kb8af4pvvcmaky8v53a1lg7vhilp01z8fh";
+      sha256 = "0lkj7cdc1rf9wq0rs1b0cq0byk071z69k1nk728fbxnmmq9pl56z";
+    };
+  };
+  rofi-wayland = {
+    pname = "rofi-wayland";
+    version = "2a68677b6a443e0991deb84467383745118b09f5";
+    src = fetchgit {
+      url = "https://github.com/lbonn/rofi";
+      rev = "2a68677b6a443e0991deb84467383745118b09f5";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0xlg4yw7cnf0cf9knq5bvf60rb83dg9k8bqal4l8qksg3flv4yja";
     };
   };
   sddm-chili = {
@@ -563,34 +651,34 @@
   };
   spicetify-cli = {
     pname = "spicetify-cli";
-    version = "v2.5.0";
+    version = "73be35fc61f9fb2e22b90acc86f53515e3664a9a";
     src = fetchgit {
       url = "https://github.com/khanhas/spicetify-cli";
-      rev = "v2.5.0";
+      rev = "73be35fc61f9fb2e22b90acc86f53515e3664a9a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "00v0f2hxa8mxdpgf3y53dc9cfgp63cx4bcqsh69m6cs76hsmz7rn";
+      sha256 = "0qss489q206capx7j66n1x83yx2m04gi39xnczlfgh4w3dv5509j";
     };
   };
   spicetify-themes = {
     pname = "spicetify-themes";
-    version = "2585b6360b68452764fc25145f5cba1c75738fdf";
+    version = "286aeafa2bec51f08b0061f191797fb041e6c88d";
     src = fetchgit {
       url = "https://github.com/morpheusthewhite/spicetify-themes";
-      rev = "2585b6360b68452764fc25145f5cba1c75738fdf";
+      rev = "286aeafa2bec51f08b0061f191797fb041e6c88d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "19piib5fwbv65hm3k2pglzhqyalmf38sz4zwksvf700hisb5gjxs";
+      sha256 = "0dvn1mni8msx1vxlfpxk3jag6yah6lj9iah4hn9ca6smfkpakp4l";
     };
   };
   spotify = {
     pname = "spotify";
-    version = "1.1.56.595.g2d2da0de";
+    version = "1.1.67.586";
     src = fetchurl {
-      url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_47.snap";
-      sha256 = "1rghjxj0y0wnmyzbdd2dp7z2skhp153qnl8cqp309gsxx1iiwv5c";
+      url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_50.snap";
+      sha256 = "0cibm3inkj7l4m1dqa2ax3kci65iqk0g76ch75xrv87l5vpxf5a8";
     };
   };
   steamcompmgr = {
@@ -631,14 +719,14 @@
   };
   tailscale = {
     pname = "tailscale";
-    version = "5a58fd8933678fd1fff8aaba534b6eba91586ac7";
+    version = "de63e858101396388e4268b2936d113444b4e124";
     src = fetchgit {
       url = "https://github.com/tailscale/tailscale";
-      rev = "5a58fd8933678fd1fff8aaba534b6eba91586ac7";
+      rev = "de63e858101396388e4268b2936d113444b4e124";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0qxv1mg3m5yvr1w4ywxqz4yaka46q5f8vhmmb233rmyjhipw0vys";
+      sha256 = "05ixq7zib6imvzqxrb3mzprz47dinv4cxsx67sffpf62w408vxrr";
     };
   };
   tuinitymc = {
@@ -787,10 +875,10 @@
   };
   vscode-extensions-dendron = {
     pname = "vscode-extensions-dendron";
-    version = "0.57.0";
+    version = "0.58.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/dendron/dendron/0.57.0/file/dendron.dendron-0.57.0.vsix";
-      sha256 = "0867vni5wvki493gqclpqj992vsgji97j7s7pshcf88cq835py1g";
+      url = "https://open-vsx.org/api/dendron/dendron/0.58.0/file/dendron.dendron-0.58.0.vsix";
+      sha256 = "1mfqszgaq6xqrz5rchkipaffg98p992ghaacmkqiw3gc8gqsdpql";
     };
     homepage = "https://github.com/dendronhq/dendron";
     license = "agpl3Only";
@@ -861,6 +949,17 @@
     homepage = "https://github.com/eamodio/vscode-gitlens";
     license = "mit";
     description = "Supercharge the Git capabilities built into Visual Studio Code \8212 Visualize code authorship at a glance via Git blame annotations and code lens, seamlessly navigate and explore Git repositories, gain valuable insights via powerful comparison commands, and so much more";
+  };
+  vscode-extensions-headwind = {
+    pname = "vscode-extensions-headwind";
+    version = "1.7.0";
+    src = fetchurl {
+      url = "https://heybourn.gallery.vsassets.io/_apis/public/gallery/publisher/heybourn/extension/headwind/1.7.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      sha256 = "127f383bkzyyngbw76aqldx62dfvswai3i5q3idkfhc95fhijyy9";
+    };
+    homepage = "https://github.com/heybourn/headwind";
+    license = "mit";
+    description = "An opinionated Tailwind CSS class sorter built for Visual Studio Code";
   };
   vscode-extensions-html-css-class-completion = {
     pname = "vscode-extensions-html-css-class-completion";
@@ -1066,14 +1165,14 @@
   };
   whitesur-gtk-theme = {
     pname = "whitesur-gtk-theme";
-    version = "14296a0aca8fbfa1312657010a56c703b87a4116";
+    version = "e3c1398db3b2dffc7bb208a58b7e6a6af1124901";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-gtk-theme";
-      rev = "14296a0aca8fbfa1312657010a56c703b87a4116";
+      rev = "e3c1398db3b2dffc7bb208a58b7e6a6af1124901";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "013qzjwn8bsz89pynn8p6yv6ndxk5a2xya7i8qgk5zi6sp0pmwzi";
+      sha256 = "0llp97dxixi1mdbdrr5a8ijp6y0cwb98hy959i695pmz62sb737n";
     };
   };
   whitesur-icon-theme = {
@@ -1098,14 +1197,38 @@
   };
   wii-u-gc-adapter = {
     pname = "wii-u-gc-adapter";
-    version = "64d7ddc511adb12f2eb05bd97294bc51cf51bfab";
+    version = "fa098efa7f6b34f8cd82e2c249c81c629901976c";
     src = fetchgit {
       url = "https://github.com/ToadKing/wii-u-gc-adapter";
-      rev = "64d7ddc511adb12f2eb05bd97294bc51cf51bfab";
+      rev = "fa098efa7f6b34f8cd82e2c249c81c629901976c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1rjqjc344j6lvs6ya5m34i4hv5296xfdxr8pc2bgas46gxhv7336";
+      sha256 = "1jj0790z4cxsk99wrbqz94y61sgxp3qx0f82lrpl2wnh9q6jyvf2";
+    };
+  };
+  xorgproto = {
+    pname = "xorgproto";
+    version = "a0ed054ee2c334941dfe9eaa7bcfdbbe6907e1b5";
+    src = fetchgit {
+      url = "https://github.com/freedesktop/xorg-xorgproto";
+      rev = "a0ed054ee2c334941dfe9eaa7bcfdbbe6907e1b5";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "17z8wggrbszz20jrg5d78d3svffdj5yhgfz1brn8klhz29khn0y7";
+    };
+  };
+  xwayland = {
+    pname = "xwayland";
+    version = "b3b81c8c2090cd49410960a021baf0d27fdd2ab3";
+    src = fetchgit {
+      url = "git://anongit.freedesktop.org/xorg/xserver";
+      rev = "b3b81c8c2090cd49410960a021baf0d27fdd2ab3";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0yzaqy91150m6jwzms34y76a9pl4x3fjd465xmbqxji5cpdfbyb0";
     };
   };
   ydotool = {

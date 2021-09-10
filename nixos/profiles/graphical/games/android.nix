@@ -1,7 +1,7 @@
-{ pkgs, lib, config, anboxModulesPath, ... }:
+{ pkgs, lib, config, ... }:
 {
-  imports = [ "${anboxModulesPath}/virtualisation/anbox.nix" ];
-  disabledModules = [ "virtualisation/anbox.nix" ];
+  # imports = [ "${anboxModulesPath}/virtualisation/anbox.nix" ];
+  # disabledModules = [ "virtualisation/anbox.nix" ];
 
   environment.systemPackages = with pkgs; [
     android-desktop

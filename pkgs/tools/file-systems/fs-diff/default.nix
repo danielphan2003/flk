@@ -1,5 +1,5 @@
 { stdenv }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   name = "fs-diff";
 
   src = ./fs-diff.sh;

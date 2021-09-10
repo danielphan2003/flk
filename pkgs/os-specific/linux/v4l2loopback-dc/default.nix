@@ -1,6 +1,7 @@
 { stdenv, lib, sources, kernel, kmod }:
-stdenv.mkDerivation rec {
-  inherit (sources.droidcam) pname src version;
+let inherit (sources.droidcam) pname src version; in
+stdenv.mkDerivation {
+  inherit src version;
 
   pname = "v4l2loopback-dc-${version}-${kernel.version}";
 

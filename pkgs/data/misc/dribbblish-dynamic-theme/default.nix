@@ -1,5 +1,5 @@
 { lib, stdenv, sources }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.dribbblish-dynamic-theme) pname src version;
 
   installPhase = ''

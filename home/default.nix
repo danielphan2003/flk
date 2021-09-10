@@ -1,6 +1,7 @@
 { self, inputs, ... }:
 let
   inherit (inputs) digga;
+  inherit (builtins) attrValues;
 in
 {
   imports = [ (digga.lib.importModules ./modules) ];
@@ -12,17 +13,37 @@ in
   importables = rec {
     profiles = digga.lib.rakeLeaves ./profiles;
     suites = with profiles; rec {
-      base = [ direnv git xdg auth ];
+      base = attrValues {
+        inherit
+          direnv
+          git
+          xdg
+          auth
+          ;
+      };
 
-      desktop = base ++ [ browsers.firefox browsers.exts.uget sway udiskie ];
+      desktop = base ++ (attrValues {
+        inherit (browsers) firefox;
+        inherit (browsers.exts) uget;
+        inherit sway udiskie;
+      });
 
-      streaming = desktop ++ [ obs-studio ];
+      streaming = desktop ++ (attrValues {
+        inherit obs-studio;
+      });
 
-      play = desktop ++ [ ./profiles/play/minecraft ];
+      play = desktop ++ (attrValues {
+        inherit (games) minecraft;
+      });
 
-      academic = play ++ [ winapps ];
+      academic = play ++ (attrValues {
+        inherit winapps;
+      });
 
-      coding = academic ++ [ alacritty browsers.chromium browsers.edge vscodium idea awesome eww neovim ];
+      coding = academic ++ (attrValues {
+        inherit (browsers) chromium edge;
+        inherit alacritty vscodium idea awesome eww neovim;
+      });
     };
   };
 

@@ -1,5 +1,5 @@
 { lib, stdenv, sources }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.rainfox) pname src version;
 
   installPhase = ''

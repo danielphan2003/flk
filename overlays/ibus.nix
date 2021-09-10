@@ -14,16 +14,14 @@ channels: final: prev: {
 
   ibus-engines = prev.ibus-engines // {
 
-    bamboo = channels.latest.ibus-engines.bamboo.overrideAttrs (o: rec {
+    bamboo = channels.latest.ibus-engines.bamboo.overrideAttrs (o: {
       inherit (final.sources.ibus-bamboo) pname version src;
       nativeBuildInputs = o.nativeBuildInputs ++ (with prev; [ glib gtk3 ]);
     });
 
-    uniemoji = channels.latest.ibus-engines.uniemoji.overrideAttrs (_: rec {
+    uniemoji = channels.latest.ibus-engines.uniemoji.overrideAttrs (_: {
       inherit (final.sources.uniemoji) pname version src;
-      patches = [
-        ../pkgs/tools/inputmethods/ibus-engines/ibus-uniemoji/allow-wrapping.patch
-      ];
+      patches = prev.lib.our.getPatches ../pkgs/tools/inputmethods/ibus-engines/ibus-uniemoji;
     });
 
   };

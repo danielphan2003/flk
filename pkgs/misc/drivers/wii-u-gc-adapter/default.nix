@@ -1,5 +1,5 @@
 { stdenv, lib, sources, pkgconfig, libudev, libusb }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.wii-u-gc-adapter) pname src version;
 
   buildInputs = [ pkgconfig libudev libusb ];

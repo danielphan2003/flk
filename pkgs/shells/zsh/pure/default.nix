@@ -1,5 +1,5 @@
 { stdenv, lib, sources }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.pure) pname src version;
 
   buildPhase = "true";

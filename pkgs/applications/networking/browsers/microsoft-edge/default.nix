@@ -165,10 +165,13 @@ let
   ++ optional libvaSupport libva
   ++ optional vulkanSupport vulkan-loader
   ++ [ gtk3 ];
+  pname = "microsoft-edge-${channel}";
+  rpath = makeLibraryPath deps + ":" + makeSearchPathOutput "lib" "lib64" deps;
+  binpath = makeBinPath deps;
 in
 
-stdenv.mkDerivation rec {
-  pname = "microsoft-edge-${channel}";
+stdenv.mkDerivation {
+  inherit pname rpath binpath;
 
   inherit (sources."${pname}") src version;
 
@@ -190,9 +193,6 @@ stdenv.mkDerivation rec {
     # needed for XDG_ICON_DIRS
     gnome.adwaita-icon-theme
   ];
-
-  rpath = makeLibraryPath deps + ":" + makeSearchPathOutput "lib" "lib64" deps;
-  binpath = makeBinPath deps;
 
   installPhase = ''
     case ${channel} in

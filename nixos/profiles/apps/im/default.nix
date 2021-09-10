@@ -5,6 +5,7 @@ in
   environment.systemPackages = attrValues ({
     inherit (pkgs)
       element-desktop
+      # lightcord
       tdesktop
       ;
   }

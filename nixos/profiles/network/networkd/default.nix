@@ -42,8 +42,6 @@ let
   };
 
   publicConfig = privateConfig // {
-    # let no one knows my exact IP
-    DHCP = "yes";
     networkConfig = privateConfig.networkConfig // {
       IPv6PrivacyExtensions = "prefer-public";
     };

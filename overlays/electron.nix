@@ -17,41 +17,50 @@ let
     "--enable-native-gpu-memory-buffers"
     "--enable-vulkan"
     "--enable-zero-copy"
-    "--ignore-gpu-blocklist"
   ];
 
-  flags = (prev.lib.optionals enableWayland [
+  waylandOptions = [
     "--enable-features=UseOzonePlatform"
     "--ozone-platform=wayland"
     "--enable-webrtc-pipewire-capturer"
-  ]) ++ extraOptions;
+  ];
 
-  flagsCommand = prev.lib.concatStringsSep " " flags;
+  flags = (prev.lib.optionals enableWayland waylandOptions) ++ extraOptions;
 
-  patchElectron = bin: ''
+  flagsCommand = prev.lib.concatStringsSep " ";
+
+  patchElectron = flags': bin: ''
     substituteInPlace ${bin} \
-      --replace '"$@"' '${flagsCommand} "$@"'
+      --replace '"$@"' '${flagsCommand flags'} "$@"'
   '';
 in
 {
 
   element-desktop = element-desktop.override { inherit (final) electron; };
 
-  discord-canary = discord-canary.overrideAttrs (_: rec {
+  discord-canary = discord-canary.overrideAttrs (_: {
     inherit (final.sources.discord-canary) pname src version;
-    postFixup = patchElectron "$out/bin/discordcanary";
+    postFixup = patchElectron flags "$out/bin/discordcanary";
   });
 
-  signal-desktop = signal-desktop.overrideAttrs (o: { postFixup = patchElectron "$out/bin/signal-desktop"; });
+  signal-desktop = signal-desktop.overrideAttrs (o: { postFixup = patchElectron flags "$out/bin/signal-desktop"; });
 
-  electron = electron.overrideAttrs (o: { postFixup = o.postFixup + patchElectron "$out/lib/electron/electron"; });
+  electron = electron.overrideAttrs (o: { postFixup = o.postFixup + patchElectron flags "$out/lib/electron/electron"; });
 
-  vscodium = vscodium.overrideAttrs (_: { postInstall = patchElectron "$out/bin/codium"; });
+  vscodium = vscodium.overrideAttrs (_: { postInstall = patchElectron flags "$out/bin/codium"; });
 
-  ungoogled-chromium = prev.ungoogled-chromium.override { commandLineArgs = flagsCommand; };
+  ungoogled-chromium = prev.ungoogled-chromium.override { commandLineArgs = flagsCommand waylandOptions; };
 
-  microsoft-edge-beta = prev.microsoft-edge-beta.override { commandLineArgs = flagsCommand; };
+  microsoft-edge-beta = prev.microsoft-edge-beta.override { commandLineArgs = flagsCommand flags; };
 
-  microsoft-edge-dev = prev.microsoft-edge-dev.override { commandLineArgs = flagsCommand; };
+  microsoft-edge-dev = prev.microsoft-edge-dev.override { commandLineArgs = flagsCommand flags; };
+
+  spotify-spicetified = prev.spotify-spicetified.override {
+    commandLineArgs = prev.lib.concatStringsSep " " [
+      "--enable-developer-mode"
+      # "--enable-features=UseOzonePlatform"
+      # "--ozone-platform=wayland"
+    ];
+  };
 
 }

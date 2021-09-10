@@ -1,5 +1,5 @@
 { lib, stdenv, sources }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.flyingfox) pname src version;
 
   installPhase = ''

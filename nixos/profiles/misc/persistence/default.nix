@@ -31,6 +31,7 @@ in
     ++ optionals networking.networkmanager.enable [ "/etc/NetworkManager/system-connections" ]
     ++ optionals services.bitwarden_rs.enable [ "/var/lib/bitwarden_rs" ]
     ++ optionals services.caddy.enable [ services.caddy.dataDir ]
+    ++ optionals services.chrony.enable [ services.chrony.directory ]
     ++ optionals services.fail2ban.enable [ "/var/lib/fail2ban" ]
     ++ optionals services.hercules-ci-agent.enable [ "/var/lib/hercules-ci-agent" ]
     ++ optionals services.minecraft-server.enable [ "/var/lib/minecraft" ]

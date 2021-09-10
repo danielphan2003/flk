@@ -1,5 +1,5 @@
 { stdenv, lib, sources, lua, linux-pam, ... }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.lua-pam) pname src version;
 
   nativeBuildInputs = [ lua linux-pam ];

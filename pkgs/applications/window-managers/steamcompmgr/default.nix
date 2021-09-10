@@ -1,17 +1,33 @@
-{ stdenv, lib, sources
-, SDL, SDL_image
-, libudev, libXext, libXxf86vm
-, libXdamage, libXcomposite, libXrender
-, pkgconfig, autoreconfHook, gnumake
+{ stdenv
+, lib
+, sources
+, SDL
+, SDL_image
+, libudev
+, libXext
+, libXxf86vm
+, libXdamage
+, libXcomposite
+, libXrender
+, pkgconfig
+, autoreconfHook
+, gnumake
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.steamcompmgr) pname src version;
 
   buildInputs = [
-    SDL SDL_image
-    libudev libXext libXxf86vm
-    libXdamage libXcomposite libXrender
-    pkgconfig autoreconfHook gnumake
+    SDL
+    SDL_image
+    libudev
+    libXext
+    libXxf86vm
+    libXdamage
+    libXcomposite
+    libXrender
+    pkgconfig
+    autoreconfHook
+    gnumake
   ];
 
   meta = with lib; {

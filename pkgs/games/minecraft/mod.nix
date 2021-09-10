@@ -1,7 +1,7 @@
 { stdenv, mod, prefix, lib, unzip, fd }:
 let
   inherit (mod) src version;
-  isZip = lib.hasSuffix ".zip";
+  isZip = path: builtins.baseNameOf path == ".zip";
 
   pnameStripped = lib.removePrefix prefix mod.pname;
   dontUnpack = !(isZip src.name);

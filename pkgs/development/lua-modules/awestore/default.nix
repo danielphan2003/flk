@@ -1,6 +1,7 @@
 { lib, sources, luaPackages }:
-luaPackages.buildLuarocksPackage rec {
-  lua = luaPackages.lua;
+let lua = luaPackages.lua; in
+luaPackages.buildLuarocksPackage {
+  inherit lua;
 
   inherit (sources.awestore) pname src version;
 

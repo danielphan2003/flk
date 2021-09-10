@@ -9,7 +9,7 @@
 , numix-icon-theme-circle
 , hicolor-icon-theme
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.whitesur-icon-theme) pname src version;
 
   buildInputs = [

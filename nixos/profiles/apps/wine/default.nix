@@ -7,7 +7,7 @@ in
     then
       attrValues
         {
-          inherit (pkgs) winetricks lutris;
+          inherit (pkgs) winetricks lutris bottles;
           inherit (pkgs.wineWowPackages) staging;
         }
     else [ ];

@@ -1,5 +1,5 @@
 { stdenv, lib, substituteAll, sources }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.arkenfox-userjs) pname src version;
 
   dontBuild = true;

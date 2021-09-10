@@ -1,5 +1,5 @@
 { stdenv, lib, sources, p7zip }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   name = "otf-apple";
 
   buildInputs = [ p7zip ];

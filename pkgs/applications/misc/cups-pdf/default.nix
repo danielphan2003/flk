@@ -1,5 +1,5 @@
 { stdenv, lib, sources, cups, ghostscript }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.cups-pdf) pname src version;
 
   buildInputs = [ cups ghostscript ];
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   buildPhase = ''
     runHook preBuild
     pushd src >/dev/null
-    $CC -s ${pname}.c -o ${pname} -lcups
+    $CC -s $pname.c -o $pname -lcups
     popd >/dev/null
     runHook postBuild
   '';

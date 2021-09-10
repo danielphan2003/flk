@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
-let inherit (builtins) attrValues;
-in
+let inherit (builtins) attrValues; in
 {
   environment.systemPackages = attrValues {
     inherit (pkgs)
@@ -43,10 +42,6 @@ in
     enable = true;
     volumeStep = "1dB";
   };
-
-  # better timesync for unstable internet connections
-  services.chrony.enable = true;
-  services.timesyncd.enable = false;
 
   # power management features
   services.tlp = {

@@ -31,7 +31,7 @@ let inherit (lib.our.mkCustomI3Rule) assign colorRule; in
 
   workspaceLayout = "default";
 
-  menu = "${pkgs.rofi}/bin/rofi -show drun -theme ${../rofi/appmenu/rofi.rasi}";
+  menu = "${pkgs.nwg-drawer}/bin/nwg-drawer -ovl";
 
   modifier = "Mod4";
 

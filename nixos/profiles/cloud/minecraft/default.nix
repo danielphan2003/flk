@@ -43,15 +43,39 @@ in
 
     serverProperties = {
       server-port = 25565;
+
+      # In the future, I wish to enable this. Right now, not so much.
       online-mode = false;
+
       difficulty = "easy";
+
       gamemode = "survival";
+
+      # Yes, I have this many friends.
       max-players = 9;
+
+      # Is there a fancier way to represent this?
       motd = "S I M P World!";
-      white-list = true;
+
+      # Using secrets for this is PITA, so disabling it helps with
+      # technical debts.
+      # Thanks to Tailscale, I can revoke access to my server at any time.
+      white-list = false;
+
+      # Apply whitelist to everyone online if I ever decided to enable white list.
       enforce-whitelist = true;
+
+      # I don't need access to the server terminal. This is not SAO: Fairy Dance.
       enable-rcon = false;
+
+      # Don't even connect to my server via VPNs, unless you are using Tailscale, of course
       prevent-proxy-connections = true;
+
+      # So I don't have to make everyone op
+      spawn-protection = 0;
+
+      # 5 minutes tick timeout, for heavy packs
+      max-tick-time = 5 * 60 * 1000;
     };
 
     jvmOpts = lib.concatStringsSep " " [
@@ -82,17 +106,17 @@ in
     ];
   };
 
-  services.caddy.virtualHosts."minecraft.${tld}" = {
-    serverAliases = [
-      "simp.${tld}"
-      # "simp.${tld-local}"
-      # "simp.${tld-tailscale}"
-      "mc.${tld}"
-      # "mc.${tld-local}"
-      # "mc.${tld-tailscale}"
-    ];
-    extraConfig = ''
-      reverse_proxy localhost:${toString server-port}
-    '';
-  };
+  # services.caddy.virtualHosts."minecraft.${tld}" = {
+  #   serverAliases = [
+  #     "simp.${tld}"
+  #     # "simp.${tld-local}"
+  #     # "simp.${tld-tailscale}"
+  #     "mc.${tld}"
+  #     # "mc.${tld-local}"
+  #     # "mc.${tld-tailscale}"
+  #   ];
+  #   extraConfig = ''
+  #     reverse_proxy localhost:${toString server-port}
+  #   '';
+  # };
 }

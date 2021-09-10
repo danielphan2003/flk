@@ -19,10 +19,10 @@
 , gawk
 , gnused
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.avizo) pname src version;
 
-  installFlags = [ "PREFIX=\${out}" "VERSION=${version}" ];
+  installFlags = [ "PREFIX=\$out" "VERSION=$version" ];
 
   nativeBuildInputs = [ pkg-config meson ninja makeWrapper ];
 

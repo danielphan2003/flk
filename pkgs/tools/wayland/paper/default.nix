@@ -1,5 +1,5 @@
 { rustPlatform, lib, sources, makeWrapper, pkg-config, fontconfig, wayland }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   inherit (sources.paper) pname version src cargoLock;
 
   nativeBuildInputs = [ makeWrapper pkg-config ];

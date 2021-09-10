@@ -1,5 +1,5 @@
 { stdenv, lib, sources, autoPatchelfHook, makeWrapper }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources) pname src version;
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];

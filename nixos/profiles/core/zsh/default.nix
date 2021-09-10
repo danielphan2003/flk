@@ -59,7 +59,8 @@ in
         --height=75% \
       '';
 
-      df = "df -h";
+      df = "duf";
+      disks = "df / /boot /mnt/danie";
       du = "du -h";
 
       ls = "exa";
@@ -80,6 +81,7 @@ in
         bat
         bzip2
         exa
+        duf
         fzf
         gzip
         lrzip

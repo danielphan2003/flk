@@ -1,9 +1,15 @@
-{ stdenv, lib, sources
-, systemd, dbus
-, libinih, pkgconfig
-, meson, ninja, polkit
+{ stdenv
+, lib
+, sources
+, systemd
+, dbus
+, libinih
+, pkgconfig
+, meson
+, ninja
+, polkit
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.gamemode) pname src version;
 
   prePatch = ''

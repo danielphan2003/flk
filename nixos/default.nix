@@ -1,6 +1,7 @@
 { self, inputs, ... }:
 let
   inherit (inputs) digga;
+  inherit (builtins) attrValues;
 in
 {
   hostDefaults = {
@@ -27,129 +28,120 @@ in
   imports = [ (digga.lib.importHosts ./hosts) ];
 
   hosts = {
-    bootstrap = { };
-    NixOS = { };
+    bootstrap = {
+      tests = [ ];
+    };
+    NixOS = {
+      tests = [ ];
+    };
     pik2 = {
       system = "aarch64-linux";
       modules = with inputs; [ nixos-hardware.nixosModules.raspberry-pi-4 ];
+      tests = [ ];
     };
-    themachine = { };
+    themachine = {
+      tests = [ ];
+    };
   };
 
   importables = rec {
     profiles = digga.lib.rakeLeaves ./profiles // {
       users = digga.lib.rakeLeaves ../home/users;
     };
+
     suites = with profiles; rec {
-      base = [ core users.root ];
 
-      ephemeral-crypt = with misc; [
-        persistence
-        encryption
-      ];
+      ### Profile suites
 
-      server = base
-        ++
-        [
-          network.networkd
-          network.qos
-          virt.headless
-        ];
+      base = attrValues {
+        inherit core;
+        inherit (users) root;
+      };
 
-      work = server
-        ++
-        [
-          develop
-          virt.minimal
-        ];
+      ephemeral-crypt = attrValues {
+        inherit (misc) persistence encryption;
+      };
 
-      graphics = work
-        ++
-        [
-          graphical.drivers
-          graphical.qutebrowser
-        ]
-        ++
-        (with apps; [
-          gnome
-          qt
-        ]);
+      server = base ++ (attrValues {
+        inherit (network) networkd qos tailscale;
+        inherit (virt) headless;
+      });
 
-      modern = graphics
-        ++
-        (with graphical; [
-          gtk
-          pipewire
-          sddm
-          wayland
-        ]);
+      work = server ++ (attrValues {
+        inherit develop;
+        inherit (virt) minimal;
+      });
 
-      legacy = graphics
-        ++
-        (with graphical; [
-          awesome
-          picom
-        ])
-        ++
-        (with apps; [
-          x11
-        ]);
+      graphics = work ++ (attrValues {
+        inherit (graphical) drivers qutebrowser;
+        inherit (apps) gnome qt;
+      });
 
-      producer = with apps; [
-        im
-        spotify
-      ];
+      modern = graphics ++ (attrValues {
+        inherit (graphical) gtk pipewire sddm wayland;
+      });
 
-      mobile = [ laptop ];
+      legacy = graphics ++ (attrValues {
+        inherit (graphical) awesome picom;
+        inherit (apps) x11;
+      });
 
-      play = [
-        graphical.games
-        network.chromecast
-      ]
-      ++
-      (with apps; [
-        wine
-      ]);
+      producer = attrValues {
+        inherit (apps) im spotify;
+      };
+
+      mobile = attrValues {
+        inherit laptop;
+      };
+
+      play = attrValues {
+        inherit (graphical) games;
+        inherit (network) chromecast;
+        inherit (apps) wine;
+      };
 
       goPlay = play ++ mobile;
 
-      ### Hosts
+      ### Host suites
 
-      pik2 = [ users.alita ]
+      pik2 = [ ]
         ++ ephemeral-crypt
         ++ server
-        ++
-        [
-          cloud.caddy
-          # cloud.calibre-web
-          cloud.grafana
-          cloud.minecraft
-          cloud.postgresql
-          cloud.vaultwarden
-          # network.stubby
-          network.tailscale
-        ];
+        ++ (attrValues {
+        inherit (users) alita;
+        inherit (misc) security;
+        inherit (cloud)
+          caddy
+          grafana
+          minecraft
+          postgresql
+          vaultwarden
+          ;
+      });
 
-      themachine = [ users.danie ]
+      themachine = [ ]
         ++ ephemeral-crypt
         ++ modern
         ++ producer
         ++ play
-        ++
-        [
-          graphical.themes.sefia
-          misc.disable-mitigations
-          network.tailscale
-        ]
-        ++
-        (with apps; [
-          chill.reading
-          chill.watching
-          chill.weebs
+        ++ (attrValues {
+        inherit (users) danie;
+        inherit (graphical.themes) sefia;
+        inherit (misc) disable-mitigations security;
+        inherit (virt) windows;
+        inherit (apps)
           meeting
+          remote
           tools
           vpn
-        ]);
+          ;
+        inherit (apps.chill)
+          reading
+          watching
+          weebs
+          ;
+      });
+
     };
   };
 }

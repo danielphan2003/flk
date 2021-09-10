@@ -6,8 +6,6 @@
 
 , enabledCustomApps
 , enabledExtensions
-
-, spotifyLaunchFlags
 }:
 let inherit (lib) concatMapStrings concatStringsSep foldr mapAttrsToList optionalString; in
 rec {
@@ -31,8 +29,6 @@ rec {
   extensionString = pipeConcat enabledExtensions;
 
   customAppsString = pipeConcat enabledCustomApps;
-
-  launchFlagsString = ''${pipeConcat spotifyLaunchFlags}'';
 
   optionalConfig = config: value:
     optionalString (value != "") ''${config} "${value}"'';

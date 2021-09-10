@@ -3,8 +3,8 @@
 
   nixConfig = {
     extra-experimental-features = "nix-command flakes ca-references";
-    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dram.cachix.org https://nixos-nix-install-tests.cachix.org";
-    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY= nixos-nix-install-tests.cachix.org-1:Le57vOUJjOcdzLlbwmZVBuLGoDC+Xg2rQDtmIzALgFU=";
+    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dram.cachix.org";
+    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY=";
   };
 
   inputs =
@@ -20,8 +20,6 @@
       bud.url = "github:divnix/bud";
       bud.inputs.nixpkgs.follows = "nixos";
       bud.inputs.devshell.follows = "digga/devshell";
-
-      nix.url = "github:NixOS/nix/af94b54";
 
       home.url = "github:nix-community/home-manager/release-21.05";
       home.inputs.nixpkgs.follows = "nixos";
@@ -72,6 +70,11 @@
       fenix.url = "github:nix-community/fenix";
       fenix.inputs.nixpkgs.follows = "latest";
 
+      npmlock2nix = {
+        url = "github:nix-community/npmlock2nix";
+        flake = false;
+      };
+
       rnix-lsp.url = "github:nix-community/rnix-lsp";
       rnix-lsp.inputs.nixpkgs.follows = "latest";
 
@@ -86,7 +89,6 @@
     , latest
     , digga
     , bud
-    , nix
     , nixos
     , ci-agent
     , home
@@ -120,12 +122,7 @@
           nixos = {
             imports = [ (digga.lib.importOverlays ./overlays) ];
             overlays = [
-              (final: prev: {
-                nixUnstable = nix.packages.${prev.system}.nix;
-                nixos-rebuild = prev.nixos-rebuild.override {
-                  nix = final.nixUnstable;
-                };
-              })
+              digga.overlays.patchedNix
 
               nur.overlay
               agenix.overlay

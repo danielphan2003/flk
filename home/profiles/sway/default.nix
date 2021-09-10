@@ -31,6 +31,7 @@ in
 
       # wm-independent
       avizo
+      flameshot
       nwg-drawer
       nwg-menu
       nwg-panel
@@ -109,7 +110,7 @@ in
       border_images.unfocused         ${./shadows.png}
       border_images.urgent            ${./shadows.png}
 
-      exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
+      exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP GTK_IM_MODULE QT_IM_MODULE XMODIFIERS DBUS_SESSION_BUS_ADDRESS
     '';
 
     extraSessionCommands = ''

@@ -9,7 +9,7 @@ in
   tailscale = channels.latest.tailscale.override {
     buildGoModule = args: buildGo117Module (args // {
       inherit (final.sources.tailscale) pname src version;
-      vendorSha256 = "sha256-6oAnSkAmfM1B2RoY6VSH4BZYbQr9HFzyG7vRZfbIYBo=";
+      vendorSha256 = "sha256-DcGP4yUh1OpFlzVI3YKl7cTImx8ZmTRyDYBcyLzCO/E=";
     });
   };
 }

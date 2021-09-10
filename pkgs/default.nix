@@ -127,6 +127,10 @@ in
 
   tuinitymc = final.callPackage ./games/tuinity { };
 
+  lightcord = final.callPackage ./applications/networking/instant-messengers/lightcord {
+    # inherit (channels.latest) glibc;
+  };
+
 } // (with inputs; {
 
   firefox-nightly-bin =
@@ -135,5 +139,20 @@ in
     else prev.firefox;
 
   inherit (rnix-lsp.packages.${prev.system}) rnix-lsp;
+
+  npmlock2nix =
+    let
+      patchedNpmlock2nix = with prev; applyPatches {
+        name = "npmlock2nix";
+        src = npmlock2nix;
+        patches = [
+          (fetchpatch {
+            url = "https://patch-diff.githubusercontent.com/raw/nix-community/npmlock2nix/pull/94.patch";
+            sha256 = "sha256-FbKccDfxYLJD39Xg21xX32p1afrgFZpnYS92HLBEctc=";
+          })
+        ];
+      };
+    in
+    import patchedNpmlock2nix { pkgs = prev; };
 
 })

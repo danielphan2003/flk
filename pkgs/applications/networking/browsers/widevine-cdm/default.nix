@@ -1,6 +1,6 @@
 { stdenv, lib, sources, patchelf, gcc, glib, nspr, nss, unzip }:
 let mkrpath = p: "${lib.makeSearchPathOutput "lib" "lib64" p}:${lib.makeLibraryPath p}"; in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit (sources.widevine-cdm) pname src version;
 
   unpackCmd = "unzip -d ./src $curSrc";

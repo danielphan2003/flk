@@ -4,11 +4,13 @@
 , fmt
 , zlib
 , sources
+, lzo
+, zstd
 }:
 stdenv.mkDerivation {
   inherit (sources.ntfs2btrfs) pname src version;
 
-  buildInputs = [ cmake fmt zlib ];
+  buildInputs = [ cmake fmt zlib lzo zstd ];
 
   meta = with lib; {
     homepage = "https://github.com/maharmstone/ntfs2btrfs";

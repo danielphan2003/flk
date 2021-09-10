@@ -1,5 +1,5 @@
 { stdenv, lib, sources }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "ttf-segue";
 
   inherit (sources.segue-ui-linux) src version;
