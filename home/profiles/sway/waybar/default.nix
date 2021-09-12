@@ -4,6 +4,16 @@ let
   modules = import ./modules { inherit lib pkgs; };
 in
 {
+  systemd.user.services.waybar = {
+    Unit = {
+      PartOf = [ "graphical-session.target" "sway-session.target" ];
+      After = [ "graphical-session.target" "sway-session.target" ];
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" "sway-session.target" ];
+    };
+  };
+
   programs.waybar = {
     enable = true;
     package = pkgs.waylandPkgs.waybar;
