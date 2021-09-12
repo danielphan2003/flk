@@ -1,5 +1,25 @@
 # nvfetcher.toml
 
+[adguardhome-darwin-amd64]
+src.github_tag = "AdguardTeam/AdGuardHome"
+src.prefix = "v"
+fetch.url = "https://github.com/AdguardTeam/AdGuardHome/releases/download/v$ver/AdGuardHome_darwin_amd64.zip"
+
+[adguardhome-linux-386]
+src.github_tag = "AdguardTeam/AdGuardHome"
+src.prefix = "v"
+fetch.url = "https://github.com/AdguardTeam/AdGuardHome/releases/download/v$ver/AdGuardHome_linux_386.tar.gz"
+
+[adguardhome-linux-amd64]
+src.github_tag = "AdguardTeam/AdGuardHome"
+src.prefix = "v"
+fetch.url = "https://github.com/AdguardTeam/AdGuardHome/releases/download/v$ver/AdGuardHome_linux_amd64.tar.gz"
+
+[adguardhome-linux-arm64]
+src.github_tag = "AdguardTeam/AdGuardHome"
+src.prefix = "v"
+fetch.url = "https://github.com/AdguardTeam/AdGuardHome/releases/download/v$ver/AdGuardHome_linux_arm64.tar.gz"
+
 [any-nix-shell]
 src.git = "https://github.com/haslersn/any-nix-shell"
 fetch.github = "haslersn/any-nix-shell"

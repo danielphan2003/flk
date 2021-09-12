@@ -111,6 +111,7 @@ in
         inherit (users) alita;
         inherit (misc) security;
         inherit (cloud)
+          adguardhome
           caddy
           grafana
           minecraft
