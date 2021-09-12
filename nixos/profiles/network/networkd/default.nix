@@ -53,6 +53,8 @@ in
   networking.dhcpcd.enable = lib.mkForce false;
   networking.useDHCP = lib.mkForce false;
 
+  services.resolved.dnssec = "true";
+
   systemd.network = {
     enable = true;
     networks = {
