@@ -29,6 +29,7 @@ in
     ]
     ++ optionals hardware.bluetooth.enable [ "/var/lib/bluetooth" ]
     ++ optionals networking.networkmanager.enable [ "/etc/NetworkManager/system-connections" ]
+    ++ optionals services.adguardhome.enable [ "/var/lib/private/AdGuardHome" ]
     ++ optionals services.bitwarden_rs.enable [ "/var/lib/bitwarden_rs" ]
     ++ optionals services.caddy.enable [ services.caddy.dataDir ]
     ++ optionals services.chrony.enable [ services.chrony.directory ]
