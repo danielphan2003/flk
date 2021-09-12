@@ -27,6 +27,7 @@ let
         DNSOverTLS = "yes";
         DNS = [
           "100.100.100.100"
+          "100.127.203.82"
           "2a07:a8c0::#${hostName}-187c5e.dns1.nextdns.io"
           "2a07:a8c1::#${hostName}-187c5e.dns2.nextdns.io"
         ];
