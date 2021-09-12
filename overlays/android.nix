@@ -15,7 +15,7 @@ channels: final: prev: {
     android-tools
     lxc
     ;
-  
+
   androidenv.androidPkgs_9_0.platform-tools = final.android-tools;
 
   # android-desktop = prev.writeShellScriptBin "android-desktop" ''
