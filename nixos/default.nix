@@ -107,7 +107,7 @@ in
       pik2 = [ ]
         ++ ephemeral-crypt
         ++ server
-        ++ (attrValues {
+        ++ attrValues {
         inherit (users) alita;
         inherit (misc) security;
         inherit (cloud)
@@ -118,14 +118,16 @@ in
           postgresql
           vaultwarden
           ;
-      });
+        inherit (apps) rpi;
+        inherit (apps.tools) file-systems misc;
+      };
 
       themachine = [ ]
         ++ ephemeral-crypt
         ++ modern
         ++ producer
         ++ play
-        ++ (attrValues {
+        ++ attrValues ({
         inherit (users) danie;
         inherit (graphical.themes) sefia;
         inherit (misc) disable-mitigations security;
@@ -133,7 +135,6 @@ in
         inherit (apps)
           meeting
           remote
-          tools
           vpn
           ;
         inherit (apps.chill)
@@ -141,7 +142,7 @@ in
           watching
           weebs
           ;
-      });
+      } // apps.tools);
 
     };
   };

@@ -1,5 +1,6 @@
 { pkgs, lib, config, self, latestModulesPath, ... }:
 let
+  inherit (lib.our) hostConfigs;
   inherit (config.networking) hostName;
   tailscale-age-key = "${self}/secrets/nixos/profiles/network/tailscale/${hostName}.age";
 in
@@ -9,9 +10,12 @@ in
 
   age.secrets."tailscale-${hostName}".file = tailscale-age-key;
 
-  networking.firewall = {
-    trustedInterfaces = [ config.services.tailscale.interfaceName ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
+  networking = {
+    firewall = {
+      trustedInterfaces = [ config.services.tailscale.interfaceName ];
+      allowedUDPPorts = [ config.services.tailscale.port ];
+    };
+    search = [ hostConfigs.tailscale.nameserver ];
   };
 
   services.tailscale.enable = true;

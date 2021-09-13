@@ -7,9 +7,7 @@ let inherit (config.networking) domain hostName; in
 
   networking = {
     domain = "${hostName}.duckdns.org";
-    usePredictableInterfaceNames = false;
     wireless.enable = false;
-    firewall.allowedTCPPorts = [ 53 80 443 ];
   };
 
   services.openssh.openFirewall = true;
@@ -57,14 +55,6 @@ let inherit (config.networking) domain hostName; in
 
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "Asia/Ho_Chi_Minh";
-
-  environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
-      raspberrypifw
-      raspberrypi-eeprom
-      libraspberrypi
-      ;
-  };
 
   boot = {
     initrd.availableKernelModules = [

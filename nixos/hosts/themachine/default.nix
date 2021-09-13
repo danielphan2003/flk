@@ -5,10 +5,7 @@
 
   networking = {
     domain = "themachinix.duckdns.org";
-    usePredictableInterfaceNames = false;
     wireless.enable = false;
-    firewall.allowedTCPPorts = [ 5901 ];
-    firewall.allowedUDPPorts = [ 5901 ];
   };
 
   services.duckdns = {

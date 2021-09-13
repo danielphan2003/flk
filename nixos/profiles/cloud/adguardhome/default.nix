@@ -11,8 +11,6 @@
     allowedTCPPorts = [ config.services.adguardhome.port ];
   };
 
-  networking.nameservers = [ "127.0.0.1" "2a07:a8c0::" ];
-
   environment.etc."systemd/resolved.conf.d/adguardhome.conf".text = ''
     [Resolve]
     DNS=127.0.0.1

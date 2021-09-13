@@ -3,21 +3,8 @@
     {
       inherit (pkgs)
         czkawka
-        ffmpeg-full
-        gnufdisk
-        gparted
         libnotify
-        pamixer
-        parted
-        pavucontrol
-        pulsemixer
-        playerctl
-        pueue
         pywal
-        trash-cli
-        wgcf
-        woeusb
-        ydotool
         zathura
         ;
     }

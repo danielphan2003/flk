@@ -1,10 +1,9 @@
 { config, lib, self, ... }:
 let
+  inherit (lib) optionalAttrs optionals;
   inherit (lib.our) hostConfigs;
   inherit (config.networking) hostName;
-
-  # maybe using Tailscale is superior to setting your IP manually...
-  ip = hostConfigs.hosts."${hostName}".ip_addr;
+  inherit (hostConfigs.hosts."${hostName}") ip_addr gateway;
 
   privateConfig =
     let
@@ -15,22 +14,17 @@ let
       };
     in
     {
-      DHCP = "yes";
+      # on private networks, use DHCP for IPv6
+      DHCP = "ipv6";
 
-      # (broken) on private networks, use DHCP for IPv6
-      # DHCP = "ipv6";
       # use static IPv4 address
-      # address = [ "${ip}/24" ];
+      address = [ "${ip_addr}/24" ];
+      gateway = [ "${gateway}" ];
 
       networkConfig = {
         DNSSEC = "yes";
         DNSOverTLS = "yes";
-        DNS = [
-          "100.100.100.100"
-          "100.127.203.82"
-          "2a07:a8c0::#${hostName}-187c5e.dns1.nextdns.io"
-          "2a07:a8c1::#${hostName}-187c5e.dns2.nextdns.io"
-        ];
+        DNS = config.networking.nameservers;
         Domains = [ hostConfigs.tailscale.nameserver ];
       };
 
@@ -42,38 +36,53 @@ let
     MACAddressPolicy = "random";
   };
 
-  publicConfig = privateConfig // {
+  publicConfig = (builtins.removeAttrs privateConfig [ "DHCP" "address" "gateway" ]) // {
+    DHCP = "yes";
     networkConfig = privateConfig.networkConfig // {
       IPv6PrivacyExtensions = "prefer-public";
     };
   };
 in
 {
-  networking.useNetworkd = true;
-  networking.dhcpcd.enable = lib.mkForce false;
-  networking.useDHCP = lib.mkForce false;
+  networking = {
+    useNetworkd = true;
+    dhcpcd.enable = lib.mkForce false;
+    useDHCP = lib.mkForce false;
+    nameservers = [ ]
+      ++ optionals config.services.adguardhome.enable [ "127.0.0.1" ]
+      ++ optionals config.services.tailscale.enable [ "100.100.100.100" ]
+      ++ optionals (!config.services.adguardhome.enable) [ "100.127.203.82" ]
+      ++
+      [
+        "2a07:a8c0::#${hostName}-187c5e.dns1.nextdns.io"
+        "2a07:a8c1::#${hostName}-187c5e.dns2.nextdns.io"
+      ];
+  };
 
-  services.resolved.dnssec = "true";
+  services.resolved = {
+    dnssec = "true";
+    fallbackDns = config.networking.nameservers;
+    domains = [ hostConfigs.tailscale.nameserver ];
+  };
 
   systemd.network = {
     enable = true;
     networks = {
       "budstick-home-wired" = privateConfig // {
-        name = "eth*";
-        # broken
-        # addresses = [{ addressConfig.Address = "${ip}/24"; }];
+        name = "eth0";
         dhcpV4Config.RouteMetric = 1024; # Better be explicit
       };
+    } // (optionalAttrs config.networking.wireless.enable {
       "budstick-home-wireless" = privateConfig // {
-        name = "wl*";
-        matchConfig.SSID = "Cu Do";
+        name = "wlan0";
+        matchConfig.SSID = ''"Cu Do"'';
         dhcpV4Config.RouteMetric = 2048; # Prefer wired
       };
       "budstick-public-wireless" = publicConfig // {
-        name = "wl*";
+        name = "wlan0";
         dhcpV4Config.RouteMetric = 2048; # Prefer wired
       };
-    };
+    });
     links = lib.genAttrs (builtins.attrNames config.systemd.network.networks) (link: { inherit linkConfig; });
   };
 
