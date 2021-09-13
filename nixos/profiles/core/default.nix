@@ -261,9 +261,7 @@ in
 
   services.earlyoom.enable = true;
 
-  # better timesync for unstable internet connections
-  services.chrony.enable = true;
-  services.timesyncd.enable = false;
+  services.timesyncd.enable = true;
 
   security.protectKernelImage = true;
 

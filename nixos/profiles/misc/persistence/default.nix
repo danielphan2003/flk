@@ -46,6 +46,7 @@ in
       ]
     ++ optionals services.tailscale.enable [ "/var/lib/tailscale" ]
     ++ optionals services.teamviewer.enable [ "/var/lib/teamviewer" ]
+    ++ optionals services.timesyncd.enable [ "/var/lib/systemd/timesync" ]
     ++ optionals
       services.xserver.displayManager.sddm.enable
       [ "/var/lib/sddm" ]

@@ -69,7 +69,7 @@ in
     enable = true;
     networks = {
       "budstick-home-wired" = privateConfig // {
-        name = "eth0";
+        name = "en* eth*";
         dhcpV4Config.RouteMetric = 1024; # Better be explicit
       };
     } // (optionalAttrs config.networking.wireless.enable {
