@@ -107,42 +107,46 @@ in
       pik2 = [ ]
         ++ ephemeral-crypt
         ++ server
-        ++ attrValues {
-        inherit (users) alita;
-        inherit (misc) security;
-        inherit (cloud)
-          adguardhome
-          caddy
-          grafana
-          minecraft
-          postgresql
-          vaultwarden
-          ;
-        inherit (apps) rpi;
-        inherit (apps.tools) file-systems misc;
-      };
+        ++ attrValues
+        {
+          inherit (users) alita;
+          inherit (misc) security;
+          inherit (cloud)
+            adguardhome
+            caddy
+            grafana
+            minecraft
+            netdata
+            postgresql
+            vaultwarden
+            ;
+          inherit (apps) rpi;
+          inherit (apps.tools) file-systems misc;
+        };
 
       themachine = [ ]
         ++ ephemeral-crypt
         ++ modern
         ++ producer
         ++ play
-        ++ attrValues ({
-        inherit (users) danie;
-        inherit (graphical.themes) sefia;
-        inherit (misc) disable-mitigations security;
-        inherit (virt) windows;
-        inherit (apps)
-          meeting
-          remote
-          vpn
-          ;
-        inherit (apps.chill)
-          reading
-          watching
-          weebs
-          ;
-      } // apps.tools);
+        ++ attrValues
+        ({
+          inherit (users) danie;
+          inherit (cloud) netdata;
+          inherit (graphical.themes) sefia;
+          inherit (misc) disable-mitigations security;
+          inherit (virt) windows;
+          inherit (apps)
+            meeting
+            remote
+            vpn
+            ;
+          inherit (apps.chill)
+            reading
+            watching
+            weebs
+            ;
+        } // apps.tools);
 
     };
   };

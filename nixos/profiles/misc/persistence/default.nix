@@ -36,6 +36,7 @@ in
     ++ optionals services.fail2ban.enable [ "/var/lib/fail2ban" ]
     ++ optionals services.hercules-ci-agent.enable [ "/var/lib/hercules-ci-agent" ]
     ++ optionals services.minecraft-server.enable [ "/var/lib/minecraft" ]
+    ++ optionals services.netdata.enable [ "/var/lib/netdata" "/var/cache/netdata" ]
     ++ optionals services.postgresql.enable [ "/var/lib/postgresql" ]
     ++ optionals services.postgresqlBackup.enable [ "/var/backup/postgresql" ]
     ++ optionals
@@ -58,22 +59,9 @@ in
     files = [
       "/etc/machine-id"
       "/etc/xdg/gtk-3.0/settings.ini"
+      "/root/.local/share/nix/trusted-settings.json"
     ];
   };
-
-  systemd.tmpfiles.rules = with config;
-    [
-      "L /root/.local/share/nix/trusted-settings.json - - - - ${path}/root/.local/share/nix/trusted-settings.json"
-    ]
-    ++ optionals
-      networking.networkmanager.enable
-      [
-        "L /var/lib/NetworkManager/secret_key - - - - ${path}/var/lib/NetworkManager/secret_key"
-        "L /var/lib/NetworkManager/seen-bssids - - - - ${path}/var/lib/NetworkManager/seen-bssids"
-        "L /var/lib/NetworkManager/timestamps - - - - ${path}/var/lib/NetworkManager/timestamps"
-        "L /var/lib/NetworkManager/NetworkManager.state - - - - ${path}/var/lib/NetworkManager/NetworkManager.state"
-      ]
-  ;
 
   fileSystems."/etc/ssh" = {
     depends = [ path ];

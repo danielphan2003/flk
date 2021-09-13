@@ -29,6 +29,8 @@ in
   environment.systemPackages = [ pkgs.fabric-installer ];
 
   systemd.services.minecraft-server = {
+    # start minecraft server on demand
+    enable = false;
     serviceConfig = {
       ExecStart = lib.mkForce mcPkg;
     };

@@ -142,6 +142,15 @@ src.manual = "9069e9c9d0b7951c310fdcc8bdc70ebc422a7634"
 fetch.github = "AfoninZ/MultiMC5-Cracked"
 git.fetchSubmodules = true
 
+[netdata]
+src.git = "https://github.com/netdata/netdata"
+fetch.github = "netdata/netdata"
+git.fetchSubmodules = true
+
+[netdata-go-d-plugin]
+src.git = "https://github.com/netdata/go.d.plugin"
+fetch.github = "netdata/go.d.plugin"
+
 [nix-zsh-completions]
 src.git = "https://github.com/Ma27/nix-zsh-completions"
 fetch.github = "Ma27/nix-zsh-completions"

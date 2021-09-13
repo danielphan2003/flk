@@ -183,17 +183,17 @@
   };
   eww = {
     pname = "eww";
-    version = "e1558965ff45f72c35b7aeed15774381f32e0165";
+    version = "baad2bf8d21b643e15b9b54a0d750692ec599fd5";
     src = fetchgit {
       url = "https://github.com/elkowar/eww";
-      rev = "e1558965ff45f72c35b7aeed15774381f32e0165";
+      rev = "baad2bf8d21b643e15b9b54a0d750692ec599fd5";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0xccm992zpk0gskhim0cbcjigqimn6b7hwdl3ynv7kam082mi349";
+      sha256 = "050zc3w1z9f2vg6sz86mdxf345gd3s3jf09gf4y8y1mqkzs86b8x";
     };
     cargoLock = {
-      lockFile = ./eww-e1558965ff45f72c35b7aeed15774381f32e0165/Cargo.lock;
+      lockFile = ./eww-baad2bf8d21b643e15b9b54a0d750692ec599fd5/Cargo.lock;
       outputHashes = { };
     };
   };
@@ -445,6 +445,30 @@
       sha256 = "0nyf3gm0r3k3dbi4bd21g2lj840nkhz43pnlfjcz199y2f3zbdbl";
     };
   };
+  netdata = {
+    pname = "netdata";
+    version = "6061f18807c06cb5063ac924ffdeef105c193617";
+    src = fetchgit {
+      url = "https://github.com/netdata/netdata";
+      rev = "6061f18807c06cb5063ac924ffdeef105c193617";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0jjp34k1s7gdpz3c2z8ajqg1cz6ijb2rski11kl2s0fr2a65i27f";
+    };
+  };
+  netdata-go-d-plugin = {
+    pname = "netdata-go-d-plugin";
+    version = "9e912ff0bde663f2319f00bc315140d59c59fc91";
+    src = fetchgit {
+      url = "https://github.com/netdata/go.d.plugin";
+      rev = "9e912ff0bde663f2319f00bc315140d59c59fc91";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0lm8haap7d1csgqx2pph2nl824h9392f052ywbd79yfhj14v3sj7";
+    };
+  };
   nix-zsh-completions = {
     pname = "nix-zsh-completions";
     version = "468d8cf752a62b877eba1a196fbbebb4ce4ebb6f";
@@ -611,14 +635,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "1b8d68c6e446754778f2682b1c72a3975dbb8fcc";
+    version = "e24440d4a97cd19f536172b73410eefca0e4ca0c";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "1b8d68c6e446754778f2682b1c72a3975dbb8fcc";
+      rev = "e24440d4a97cd19f536172b73410eefca0e4ca0c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0qcgkwsn03351rsil3bbq8g72cbws2l2j075r7x0n4q13dwps9q7";
+      sha256 = "1mlfhvkrzwrzpq1c5hcpws1yhqgsraal43xi490p43sng6xlmkp8";
     };
   };
   rofi-wayland = {
@@ -763,14 +787,14 @@
   };
   tailscale = {
     pname = "tailscale";
-    version = "4f648e6fcc964649e9f524fe480317a371746e5b";
+    version = "64e9ce8df12b7348636bbc92e09bbd709840988a";
     src = fetchgit {
       url = "https://github.com/tailscale/tailscale";
-      rev = "4f648e6fcc964649e9f524fe480317a371746e5b";
+      rev = "64e9ce8df12b7348636bbc92e09bbd709840988a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0caf00sd7r7ybb5w1dryzqpngaaw2j014mfcxj6bkipdkwgyd1j1";
+      sha256 = "0fc5r536sn3s3wwxar5i19npdj0f3b23z27pyx511d4dh3cmf1yy";
     };
   };
   tuinitymc = {
@@ -919,10 +943,10 @@
   };
   vscode-extensions-dendron = {
     pname = "vscode-extensions-dendron";
-    version = "0.58.2";
+    version = "0.58.3";
     src = fetchurl {
-      url = "https://open-vsx.org/api/dendron/dendron/0.58.2/file/dendron.dendron-0.58.2.vsix";
-      sha256 = "0jbynl5x37dbvv43qzskryn5rvn1hidrax3fs9nblrj3lb652950";
+      url = "https://open-vsx.org/api/dendron/dendron/0.58.3/file/dendron.dendron-0.58.3.vsix";
+      sha256 = "1ipk5j16jwnlj1h9l3l6jnpzkcqxrk1gc4l4px0kkbnvvbhz9kxz";
     };
     homepage = "https://github.com/dendronhq/dendron";
     license = "agpl3Only";
@@ -1164,10 +1188,10 @@
   };
   vscode-extensions-svelte = {
     pname = "vscode-extensions-svelte";
-    version = "105.3.5";
+    version = "105.4.0";
     src = fetchurl {
-      url = "https://open-vsx.org/api/svelte/svelte-vscode/105.3.5/file/svelte.svelte-vscode-105.3.5.vsix";
-      sha256 = "109d0ph714z4g7p1np8k3a4phnx093syv8pyd3lmfyr70zkm8vp3";
+      url = "https://open-vsx.org/api/svelte/svelte-vscode/105.4.0/file/svelte.svelte-vscode-105.4.0.vsix";
+      sha256 = "0wwaprg16ajznzjvhcppcv0p5sg6l288nscmfxmylz3165z92cdf";
     };
     homepage = "https://github.com/sveltejs/language-tools";
     license = "mit";

@@ -706,15 +706,16 @@
     "impermanence": {
       "flake": false,
       "locked": {
-        "lastModified": 1611747548,
-        "narHash": "sha256-2z5wmWda1uI4IkTZrW52jiHq3bzhYLc+GgjvaSd544M=",
+        "lastModified": 1630260167,
+        "narHash": "sha256-k04IjGPYT5s8PS+JKO2rMne8NAhOz9nZGTChy5ZFenA=",
         "owner": "nix-community",
         "repo": "impermanence",
-        "rev": "58558845bc68dcf2bb32caa80564f7fe3f6cbc61",
+        "rev": "0c3b4a1090272f602b410d9a106b62f6488bbd56",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
+        "ref": "systemd-service-files",
         "repo": "impermanence",
         "type": "github"
       }

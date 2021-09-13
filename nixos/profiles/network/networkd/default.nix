@@ -85,10 +85,4 @@ in
     });
     links = lib.genAttrs (builtins.attrNames config.systemd.network.networks) (link: { inherit linkConfig; });
   };
-
-  # Wait for any interface to become available, not for all
-  systemd.services."systemd-networkd-wait-online".serviceConfig.ExecStart = [
-    ""
-    "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
-  ];
 }

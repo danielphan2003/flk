@@ -56,7 +56,7 @@
       anbox.url = "github:samueldr/nixpkgs/feature/anbox-2021-06-refresh";
 
       impermanence = {
-        url = "github:nix-community/impermanence";
+        url = "github:nix-community/impermanence/systemd-service-files";
         flake = false;
       };
 
