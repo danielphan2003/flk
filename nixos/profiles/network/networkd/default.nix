@@ -68,8 +68,8 @@ in
       # if already using Adguard Home
       ++ optionals enableAdguardHome [ "127.0.0.1" ]
 
-      # for Tailscale clients, except those using Adguard Home since they are using their own DNS
-      ++ optionals (!enableAdguardHome && enableTailscale) [ "100.100.100.100" ]
+      # for all Tailscale clients
+      ++ optionals enableTailscale [ "100.100.100.100" ]
 
       # just to be extra caution ;)
       ++ config.services.resolved.fallbackDns;
