@@ -6,11 +6,11 @@ in
 {
   systemd.user.services.waybar = {
     Unit = {
-      PartOf = [ "graphical-session.target" "sway-session.target" ];
-      After = [ "graphical-session.target" "sway-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
     };
     Install = {
-      WantedBy = [ "graphical-session.target" "sway-session.target" ];
+      WantedBy = [ "graphical-session.target" ];
     };
   };
 

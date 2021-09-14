@@ -17,15 +17,15 @@ in
     systemd.user.services.avizo = {
       Unit = {
         Description = "avizo volume notification";
-        PartOf = [ "graphical-session.target" "sway-session.target" ];
-        After = [ "graphical-session.target" "sway-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
       };
 
       Service = {
         ExecStart = "${pkgs.avizo}/bin/avizo-service";
       };
 
-      Install = { WantedBy = [ "graphical-session.target" "sway-session.target" ]; };
+      Install = { WantedBy = [ "graphical-session.target" ]; };
     };
   };
 }

@@ -46,8 +46,8 @@ in
     systemd.user.services.wayvnc = {
       Unit = {
         Description = "a VNC server for wlroots based Wayland compositors";
-        After = [ "graphical-session-pre.target" "sway-session.target" ];
-        PartOf = [ "graphical-session.target" "sway-session.target" ];
+        After = [ "graphical-session-pre.target" ];
+        PartOf = [ "graphical-session.target" ];
       };
 
       Service = {
@@ -60,7 +60,7 @@ in
       };
 
       Install = {
-        WantedBy = [ "graphical-session.target" "sway-session.target" ];
+        WantedBy = [ "graphical-session.target" ];
       };
     };
   };

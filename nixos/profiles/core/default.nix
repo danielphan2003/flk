@@ -42,6 +42,7 @@ in
         curl
         direnv
         dnsutils
+        doggo
         dosfstools
         fd
         fs-diff
@@ -90,6 +91,7 @@ in
       gi = "grep -i";
 
       # internet ip
+      dig = "doggo";
       myip = "dig +short myip.opendns.com @208.67.222.222 2>&1";
       myipv6 = "ip -o -6 addr list eth0 | awk '{print $4}' | cut -d/ -f1";
 

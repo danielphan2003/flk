@@ -1,9 +1,15 @@
 { config, lib, self, ... }:
 let
   inherit (lib) optionalAttrs optionals;
+  inherit (builtins) attrNames removeAttrs;
+
   inherit (lib.our) hostConfigs;
   inherit (config.networking) hostName;
   inherit (hostConfigs.hosts."${hostName}") ip_addr gateway;
+
+  # TODO: automatically detect when a local dns server (other than Adguard Home) is running.
+  enableAdguardHome = config.services.adguardhome.enable;
+  enableTailscale = config.services.tailscale.enable;
 
   privateConfig =
     let
@@ -25,18 +31,18 @@ let
         DNSSEC = "yes";
         DNSOverTLS = "yes";
         DNS = config.networking.nameservers;
-        Domains = [ hostConfigs.tailscale.nameserver ];
+        Domains = config.networking.search;
       };
 
       inherit dhcpV4Config;
-      dhcpV6Config = builtins.removeAttrs dhcpV4Config [ "Anonymize" ];
+      dhcpV6Config = removeAttrs dhcpV4Config [ "Anonymize" ];
     };
 
   linkConfig = {
     MACAddressPolicy = "random";
   };
 
-  publicConfig = (builtins.removeAttrs privateConfig [ "DHCP" "address" "gateway" ]) // {
+  publicConfig = (removeAttrs privateConfig [ "DHCP" "address" "gateway" ]) // {
     DHCP = "yes";
     networkConfig = privateConfig.networkConfig // {
       IPv6PrivacyExtensions = "prefer-public";
@@ -44,25 +50,29 @@ let
   };
 in
 {
+  services.resolved = {
+    dnssec = "true";
+    fallbackDns = [
+      # fallback to NextDNS - at least this still has my adblock rules
+      "2a07:a8c0::#${hostName}-77181b.dns1.nextdns.io"
+      # last resort
+      "9.9.9.9"
+    ];
+  };
+
   networking = {
     useNetworkd = true;
     dhcpcd.enable = lib.mkForce false;
     useDHCP = lib.mkForce false;
     nameservers = [ ]
-      ++ optionals config.services.adguardhome.enable [ "127.0.0.1" ]
-      ++ optionals config.services.tailscale.enable [ "100.100.100.100" ]
-      ++ optionals (!config.services.adguardhome.enable) [ "100.127.203.82" ]
-      ++
-      [
-        "2a07:a8c0::#${hostName}-187c5e.dns1.nextdns.io"
-        "2a07:a8c1::#${hostName}-187c5e.dns2.nextdns.io"
-      ];
-  };
+      # if already using Adguard Home
+      ++ optionals enableAdguardHome [ "127.0.0.1" ]
 
-  services.resolved = {
-    dnssec = "true";
-    fallbackDns = config.networking.nameservers;
-    domains = [ hostConfigs.tailscale.nameserver ];
+      # for Tailscale clients, except those using Adguard Home since they are using their own DNS
+      ++ optionals (!enableAdguardHome && enableTailscale) [ "100.100.100.100" ]
+
+      # just to be extra caution ;)
+      ++ config.services.resolved.fallbackDns;
   };
 
   systemd.network = {
@@ -83,6 +93,6 @@ in
         dhcpV4Config.RouteMetric = 2048; # Prefer wired
       };
     });
-    links = lib.genAttrs (builtins.attrNames config.systemd.network.networks) (link: { inherit linkConfig; });
+    links = lib.genAttrs (attrNames config.systemd.network.networks) (link: { inherit linkConfig; });
   };
 }

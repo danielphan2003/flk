@@ -2,6 +2,8 @@
 let
   inherit (lib.our) hostConfigs;
   inherit (config.networking) hostName;
+  inherit (config.services.tailscale) interfaceName port package;
+
   tailscale-age-key = "${self}/secrets/nixos/profiles/network/tailscale/${hostName}.age";
 in
 {
@@ -12,13 +14,29 @@ in
 
   networking = {
     firewall = {
-      trustedInterfaces = [ config.services.tailscale.interfaceName ];
-      allowedUDPPorts = [ config.services.tailscale.port ];
+      trustedInterfaces = [ interfaceName ];
+      allowedUDPPorts = [ port ];
     };
     search = [ hostConfigs.tailscale.nameserver ];
   };
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    port = 41641;
+    interfaceName = "tailscale0";
+  };
+
+  systemd.services.tailscaled = {
+    # this is very much a hack for a race condition where Tailscale starts *after* systemd-resolved.
+    # until this is confirmed to be fixed upstream (spoiler alert: idk where), this script will be provided
+    # as is.
+    serviceConfig.ExecStartPost = pkgs.restartResolved;
+    path = builtins.attrValues
+      {
+        inherit (pkgs) waitTailscale;
+        inherit (config.systemd) package;
+      } ++ config.systemd.services.tailscale-autoconnect.path;
+  };
 
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
@@ -34,10 +52,13 @@ in
     # restart service if tailscale key change (after a 90-day period)
     restartTriggers = [ tailscale-age-key ];
 
-    path = builtins.attrValues { inherit (pkgs) tailscale jq; };
+    path = builtins.attrValues {
+      inherit (pkgs) jq;
+      inherit package;
+    };
 
     # have the job run this shell script
-    script = with pkgs; ''
+    script = ''
       sleep 2
 
       # check if we are already authenticated to tailscale
@@ -45,7 +66,7 @@ in
       [[ $status = "Running" ]] && exit 0
 
       # otherwise authenticate with tailscale
-      tailscale up --authkey="$(< /run/secrets/tailscale-${hostName})" $FLAGS
+      tailscale up --authkey="$(< /run/secrets/tailscale-${hostName})"
     '';
   };
 

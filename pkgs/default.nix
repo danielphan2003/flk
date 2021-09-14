@@ -131,6 +131,8 @@ in
     # inherit (channels.latest) glibc;
   };
 
+  doggo = final.callPackage ./tools/networking/doggo { };
+
 } // (with inputs; {
 
   firefox-nightly-bin =

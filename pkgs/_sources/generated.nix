@@ -107,14 +107,14 @@
   };
   bottles = {
     pname = "bottles";
-    version = "3a4827af0b7d8a6e50afabf4f31b413d16d8f85b";
+    version = "8f21760058ec292cc57bad30d6c40db1e2108e1a";
     src = fetchgit {
       url = "https://github.com/bottlesdevs/Bottles";
-      rev = "3a4827af0b7d8a6e50afabf4f31b413d16d8f85b";
+      rev = "8f21760058ec292cc57bad30d6c40db1e2108e1a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1dp4i7pvfb81pxkkyd4ns4w0bg4fpz6wbvhmj1b99kbzzqmdcyqz";
+      sha256 = "0wdb6pc9gl6fnmd500smsq303snncaim284wgz7isjwhmwmfyw8m";
     };
   };
   caddy = {
@@ -143,6 +143,18 @@
     src = fetchurl {
       url = "https://dl-canary.discordapp.net/apps/linux/0.0.129/discord-canary-0.0.129.tar.gz";
       sha256 = "1x49vvd363w9xyrzjgmynj2b320hzpz388fh5vpp0q0qk8q3gwkk";
+    };
+  };
+  doggo = {
+    pname = "doggo";
+    version = "3d7b4a9821af17137e01ca7969d6531c6a67ebf2";
+    src = fetchgit {
+      url = "https://github.com/mr-karan/doggo";
+      rev = "3d7b4a9821af17137e01ca7969d6531c6a67ebf2";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1wybk92wsplw9wjxlmr8mvxmnrkhv7b63hawfbwiys7znxc6jvac";
     };
   };
   dribbblish-dynamic-theme = {
@@ -183,30 +195,30 @@
   };
   eww = {
     pname = "eww";
-    version = "baad2bf8d21b643e15b9b54a0d750692ec599fd5";
+    version = "07eeac340fbb6453b6aa73d2cad91902bab61cf8";
     src = fetchgit {
       url = "https://github.com/elkowar/eww";
-      rev = "baad2bf8d21b643e15b9b54a0d750692ec599fd5";
+      rev = "07eeac340fbb6453b6aa73d2cad91902bab61cf8";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "050zc3w1z9f2vg6sz86mdxf345gd3s3jf09gf4y8y1mqkzs86b8x";
+      sha256 = "0l40f72achyf8vcdkvvkqcw9mr4ja1brja300w08sn5yb4x3s30w";
     };
     cargoLock = {
-      lockFile = ./eww-baad2bf8d21b643e15b9b54a0d750692ec599fd5/Cargo.lock;
+      lockFile = ./eww-07eeac340fbb6453b6aa73d2cad91902bab61cf8/Cargo.lock;
       outputHashes = { };
     };
   };
   flameshot = {
     pname = "flameshot";
-    version = "c3dd1ce5e6b5919cfa2394b05788293ab3ea018b";
+    version = "aca0db963b06a6a03745ecbbad49a5be7a4d1a89";
     src = fetchgit {
       url = "https://github.com/flameshot-org/flameshot";
-      rev = "c3dd1ce5e6b5919cfa2394b05788293ab3ea018b";
+      rev = "aca0db963b06a6a03745ecbbad49a5be7a4d1a89";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0dfv56bsz9fcplkprmzigdv6h9cjrzc7vc56l9lr1f34s7ms6zzr";
+      sha256 = "04diymm64v9bj508ahpccb373lliv4y2653mh34ir34q0s8zj1nc";
     };
   };
   flyingfox = {
@@ -483,14 +495,14 @@
   };
   ntfs2btrfs = {
     pname = "ntfs2btrfs";
-    version = "e23cffff7698dfea6ee67997fded63a19efc42b0";
+    version = "2ba82f00e19c3a13f3088deef3492d85dc354186";
     src = fetchgit {
       url = "https://github.com/maharmstone/ntfs2btrfs";
-      rev = "e23cffff7698dfea6ee67997fded63a19efc42b0";
+      rev = "2ba82f00e19c3a13f3088deef3492d85dc354186";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0nz06hbb5g6z59kc3v56yfpp5czr7ispa36qa31hn57q8q24kasb";
+      sha256 = "0yvfvmig1v7jvrfcxhmdndqx61vfck671dh2lrlz91hsjivdfl7j";
     };
   };
   nwg-drawer = {
@@ -635,14 +647,14 @@
   };
   retroarch = {
     pname = "retroarch";
-    version = "e24440d4a97cd19f536172b73410eefca0e4ca0c";
+    version = "90775e7306674d5720b5aa6e4a6e47b5336c1f9b";
     src = fetchgit {
       url = "https://github.com/libretro/retroarch";
-      rev = "e24440d4a97cd19f536172b73410eefca0e4ca0c";
+      rev = "90775e7306674d5720b5aa6e4a6e47b5336c1f9b";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1mlfhvkrzwrzpq1c5hcpws1yhqgsraal43xi490p43sng6xlmkp8";
+      sha256 = "1arp5dga54fjd9w18siw9slngb12kg3p63a9kgxqbhx0c4cmhr0q";
     };
   };
   rofi-wayland = {
@@ -787,14 +799,14 @@
   };
   tailscale = {
     pname = "tailscale";
-    version = "64e9ce8df12b7348636bbc92e09bbd709840988a";
+    version = "0be26599cada3a6752952e39b105b041170074b3";
     src = fetchgit {
       url = "https://github.com/tailscale/tailscale";
-      rev = "64e9ce8df12b7348636bbc92e09bbd709840988a";
+      rev = "0be26599cada3a6752952e39b105b041170074b3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0fc5r536sn3s3wwxar5i19npdj0f3b23z27pyx511d4dh3cmf1yy";
+      sha256 = "04v9qkylxmw3nxprnz1sfd12wp0sbnmqcpkpp5jbian6j43zqr8g";
     };
   };
   tuinitymc = {
@@ -870,10 +882,10 @@
   };
   vscode-extensions-astro = {
     pname = "vscode-extensions-astro";
-    version = "0.7.7";
+    version = "0.7.10";
     src = fetchurl {
-      url = "https://astro-build.gallery.vsassets.io/_apis/public/gallery/publisher/astro-build/extension/astro-vscode/0.7.7/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      sha256 = "0vbrbh0iaphkz72y9ndvzvh011bs1cnlkmx4ijs6yjjvjz1gywav";
+      url = "https://astro-build.gallery.vsassets.io/_apis/public/gallery/publisher/astro-build/extension/astro-vscode/0.7.10/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      sha256 = "06y8arv99z8fbsp4r4q2yl54jps80as0q7ylh5k1qp74xzqxxa25";
     };
     license = "mit";
   };
@@ -1233,14 +1245,14 @@
   };
   whitesur-gtk-theme = {
     pname = "whitesur-gtk-theme";
-    version = "a0730b094a3819603d8d0eec3101d39292714d3d";
+    version = "638e3ab1adc5d5d475373d765139d3460954116b";
     src = fetchgit {
       url = "https://github.com/vinceliuice/whitesur-gtk-theme";
-      rev = "a0730b094a3819603d8d0eec3101d39292714d3d";
+      rev = "638e3ab1adc5d5d475373d765139d3460954116b";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "00y48hgz18ybdn6kbjdj0r9m807w1yvmh5sza1ab1lqap9rwhk6i";
+      sha256 = "1syzdz55n83j5vg443a5xj4a37f0xpbdifwh9n600l7y2zm6yxdi";
     };
   };
   whitesur-icon-theme = {
