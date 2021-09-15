@@ -120,7 +120,6 @@ in
           inherit (network.dns) dnscrypt-proxy tailscale;
           inherit (cloud)
             caddy
-            grafana
             minecraft
             netdata
             postgresql
