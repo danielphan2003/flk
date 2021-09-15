@@ -62,6 +62,10 @@ src.httpheader = "https://discordapp.com/api/download/canary?platform=linux&form
 src.regex = "https://dl-canary.discordapp.net/apps/linux/(\\d+.\\d+.\\d+)/discord-canary-\\d+.\\d+.\\d+.tar.gz"
 fetch.url = "https://dl-canary.discordapp.net/apps/linux/$ver/discord-canary-$ver.tar.gz"
 
+[dnscrypt-proxy2]
+src.git = "https://github.com/DNSCrypt/dnscrypt-proxy"
+fetch.github = "DNSCrypt/dnscrypt-proxy"
+
 [doggo]
 src.git = "https://github.com/mr-karan/doggo"
 fetch.github = "mr-karan/doggo"

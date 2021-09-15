@@ -52,6 +52,7 @@
       firefox-nightly.inputs.nixpkgs.follows = "nixos";
 
       nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
+      nixpkgs-wayland.inputs.nixpkgs.follows = "latest";
 
       anbox.url = "github:samueldr/nixpkgs/feature/anbox-2021-06-refresh";
 
@@ -129,7 +130,7 @@
               nvfetcher.overlay
               deploy.overlay
 
-              nixpkgs-wayland.overlay
+              nixpkgs-wayland.overlay-egl
               nix-dram.overlay
               vs-ext.overlay
 

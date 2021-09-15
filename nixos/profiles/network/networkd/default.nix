@@ -50,29 +50,10 @@ let
   };
 in
 {
-  services.resolved = {
-    dnssec = "true";
-    fallbackDns = [
-      # fallback to NextDNS - at least this still has my adblock rules
-      "2a07:a8c0::#${hostName}-77181b.dns1.nextdns.io"
-      # last resort
-      "9.9.9.9"
-    ];
-  };
-
   networking = {
     useNetworkd = true;
     dhcpcd.enable = lib.mkForce false;
     useDHCP = lib.mkForce false;
-    nameservers = [ ]
-      # if already using Adguard Home
-      ++ optionals enableAdguardHome [ "127.0.0.1" ]
-
-      # for all Tailscale clients
-      ++ optionals enableTailscale [ "100.100.100.100" ]
-
-      # just to be extra caution ;)
-      ++ config.services.resolved.fallbackDns;
   };
 
   systemd.network = {

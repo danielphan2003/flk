@@ -36,7 +36,12 @@ in
     };
     pik2 = {
       system = "aarch64-linux";
-      modules = with inputs; [ nixos-hardware.nixosModules.raspberry-pi-4 ];
+      modules = with inputs; [
+        nixos-hardware.nixosModules.raspberry-pi-4
+        {
+          services.dnscrypt-proxy2.settings.tls_cipher_suite = [ 52392 49199 ];
+        }
+      ];
       tests = [ ];
     };
     themachine = {
@@ -45,7 +50,7 @@ in
   };
 
   importables = rec {
-    profiles = digga.lib.rakeLeaves ./profiles // {
+    profiles = removeAttrs (digga.lib.rakeLeaves ./profiles) [ "network.dns.common" ] // {
       users = digga.lib.rakeLeaves ../home/users;
     };
 
@@ -63,7 +68,8 @@ in
       };
 
       server = base ++ (attrValues {
-        inherit (network) networkd qos tailscale;
+        inherit (network) networkd qos;
+        inherit (network.dns) tailscale;
         inherit (virt) headless;
       });
 
@@ -111,8 +117,8 @@ in
         {
           inherit (users) alita;
           inherit (misc) security;
+          inherit (network.dns) dnscrypt-proxy tailscale;
           inherit (cloud)
-            adguardhome
             caddy
             grafana
             minecraft

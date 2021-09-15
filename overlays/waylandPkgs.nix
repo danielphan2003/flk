@@ -1,22 +1,19 @@
-final: prev:
-let wlroots = final.waylandPkgs.wlroots-eglstreams; in
-{
-  inherit wlroots;
+channels: final: prev: {
+  inherit (final.waylandPkgs) xdg-desktop-portal-wlr wlroots;
 
-  inherit (final.waylandPkgs) xdg-desktop-portal-wlr;
+  wayland-protocols-master = channels.latest.wayland-protocols.overrideAttrs (_: {
+    inherit (final.waylandPkgs.wayland-protocols-master) src version;
+  });
 
   freerdp = final.waylandPkgs.wlfreerdp;
 
   eww = prev.eww.override { enableWayland = true; };
 
   waylandPkgs = prev.waylandPkgs // {
-
-    inherit wlroots;
-
+    wlroots = prev.waylandPkgs.wlroots.override { wayland-protocols = final.wayland-protocols-master; };
     sway-unwrapped = prev.waylandPkgs.sway-unwrapped.overrideAttrs (_: {
       inherit (final.sources.sway-borders) pname version src;
     });
-
   };
 
   swaylock-effects = prev.swaylock-effects.overrideAttrs (_: {

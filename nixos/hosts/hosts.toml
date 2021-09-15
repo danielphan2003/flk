@@ -1,4 +1,5 @@
 [tailscale]
+suffix = "beta.tailscale.net"
 nameserver = "danielphan-2003.gmail.com.beta.tailscale.net"
 
 [hosts.themachine]

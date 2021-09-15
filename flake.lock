@@ -814,7 +814,7 @@
     },
     "naersk_3": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1605267184,
@@ -996,41 +996,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1630850248,
-        "narHash": "sha256-OzJi6Olf7mSVhGt3W7qOMVP5Qk1lH60zlHeCcITzfv0=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "23d5823337f4502dfa17e192d8c53a47cabcb6b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-wayland": {
-      "inputs": {
-        "cachix": "cachix_2",
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1630936220,
-        "narHash": "sha256-QkV2cfZDCYZDTQKo1iIV3P7x0009c/fMxQvZS7spcRk=",
-        "owner": "colemickens",
-        "repo": "nixpkgs-wayland",
-        "rev": "ff6fd49e94826ece1ea3fc398e1ccd2ca499e9f7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "colemickens",
-        "repo": "nixpkgs-wayland",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
         "lastModified": 1605988311,
         "narHash": "sha256-PA+kgq46NApOAJlmBNJHs5DwsIrY+jodM0e4g7VtXyY=",
         "owner": "NixOS",
@@ -1043,7 +1008,28 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs-wayland": {
+      "inputs": {
+        "cachix": "cachix_2",
+        "nixpkgs": [
+          "latest"
+        ]
+      },
+      "locked": {
+        "lastModified": 1631568080,
+        "narHash": "sha256-thGk3TSt9usCY6y+0GRyF0MmFIomJSk6k4VD4B+I5BM=",
+        "owner": "colemickens",
+        "repo": "nixpkgs-wayland",
+        "rev": "b501494cb19a85ed58d3d641f7a8221c96502d35",
+        "type": "github"
+      },
+      "original": {
+        "owner": "colemickens",
+        "repo": "nixpkgs-wayland",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1627941874,
         "narHash": "sha256-eoCJbKca+eaHm57cbmFF03d4G4+Ijj1EC+ZFIPdfpl0=",
@@ -1302,7 +1288,7 @@
         "flake-utils": "flake-utils_5",
         "flake-utils-plus": "flake-utils-plus_3",
         "nixlib": "nixlib",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1627955423,

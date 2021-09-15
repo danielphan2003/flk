@@ -7,35 +7,26 @@ let
   tailscale-age-key = "${self}/secrets/nixos/profiles/network/tailscale/${hostName}.age";
 in
 {
-  imports = [ "${latestModulesPath}/services/networking/tailscale.nix" ];
+  imports = [ ../common ] ++
+    [ "${latestModulesPath}/services/networking/tailscale.nix" ];
+
   disabledModules = [ "services/networking/tailscale.nix" ];
 
   age.secrets."tailscale-${hostName}".file = tailscale-age-key;
 
   networking = {
     firewall = {
-      trustedInterfaces = [ interfaceName ];
       allowedUDPPorts = [ port ];
+      trustedInterfaces = [ interfaceName ];
     };
     search = [ hostConfigs.tailscale.nameserver ];
+    nameservers = [ "100.100.100.100" ];
   };
 
   services.tailscale = {
     enable = true;
     port = 41641;
     interfaceName = "tailscale0";
-  };
-
-  systemd.services.tailscaled = {
-    # this is very much a hack for a race condition where Tailscale starts *after* systemd-resolved.
-    # until this is confirmed to be fixed upstream (spoiler alert: idk where), this script will be provided
-    # as is.
-    serviceConfig.ExecStartPost = pkgs.restartResolved;
-    path = builtins.attrValues
-      {
-        inherit (pkgs) waitTailscale;
-        inherit (config.systemd) package;
-      } ++ config.systemd.services.tailscale-autoconnect.path;
   };
 
   systemd.services.tailscale-autoconnect = {
