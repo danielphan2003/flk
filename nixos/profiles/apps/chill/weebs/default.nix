@@ -1,7 +1,9 @@
 { pkgs, ... }: {
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
-      anup
+      adl
+      anime-downloader
+      trackma
       ;
   };
 }

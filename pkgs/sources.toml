@@ -20,6 +20,14 @@ src.github_tag = "AdguardTeam/AdGuardHome"
 src.prefix = "v"
 fetch.url = "https://github.com/AdguardTeam/AdGuardHome/releases/download/v$ver/AdGuardHome_linux_arm64.tar.gz"
 
+[adl]
+src.git = "https://github.com/RaitaroH/adl"
+fetch.github = "RaitaroH/adl"
+
+[anime-downloader]
+src.git = "https://github.com/anime-dl/anime-downloader"
+fetch.github = "anime-dl/anime-downloader"
+
 [any-nix-shell]
 src.git = "https://github.com/haslersn/any-nix-shell"
 fetch.github = "haslersn/any-nix-shell"
@@ -95,6 +103,11 @@ fetch.github = "flameshot-org/flameshot"
 src.git = "https://github.com/akshat46/FlyingFox"
 fetch.github = "akshat46/FlyingFox"
 
+[frece]
+src.git = "https://github.com/YodaEmbedding/frece"
+fetch.github = "YodaEmbedding/frece"
+cargo_lock = "Cargo.lock"
+
 [ibus]
 src.git = "https://github.com/ibus/ibus/"
 fetch.github = "ibus/ibus"
@@ -151,7 +164,7 @@ fetch.github = "AfoninZ/MultiMC5-Cracked"
 git.fetchSubmodules = true
 
 [netdata]
-src.git = "https://github.com/netdata/netdata"
+src.manual = "036a661afbdbe24cfce655167a5b90fa1088c6ef"
 fetch.github = "netdata/netdata"
 git.fetchSubmodules = true
 
@@ -275,6 +288,10 @@ fetch.github = "mortie/swaylock-effects"
 src.git = "https://github.com/tailscale/tailscale"
 fetch.github = "tailscale/tailscale"
 
+[trackma]
+src.git = "https://github.com/z411/trackma"
+fetch.url = "https://github.com/z411/trackma/archive/master.tar.gz"
+
 [uniemoji]
 src.git = "https://github.com/salty-horse/ibus-uniemoji"
 fetch.github = "salty-horse/ibus-uniemoji"
@@ -378,6 +395,16 @@ fetch.url = "https://github.com/astei/krypton/releases/download/v$ver/krypton-$v
 src.github = "CaffeineMC/lithium-fabric"
 src.prefix = "mc1.17.1-"
 fetch.url = "https://github.com/CaffeineMC/lithium-fabric/releases/download/mc1.17.1-$ver/lithium-fabric-mc1.17.1-$ver.jar"
+
+### Python extensions
+
+[pythonPackages-cfscrape]
+src.git = "https://github.com/Anorov/cloudflare-scrape"
+fetch.url = "https://github.com/Anorov/cloudflare-scrape/archive/master.tar.gz"
+
+[pythonPackages-pySmartDL]
+src.git = "https://github.com/iTaybb/pySmartDL"
+fetch.url = "https://github.com/iTaybb/pySmartDL/archive/master.tar.gz"
 
 ### Vim Plugins
 

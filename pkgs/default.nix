@@ -16,20 +16,24 @@ let
   mkMinecraftMod = prefix: mod:
     final.callPackage ./games/minecraft/mod.nix { inherit mod prefix; };
 
+  mkPythonPackage = prefix: package:
+    final.callPackage ./top-level/python-packages.nix { inherit package prefix; };
+
   newPkgsSet = pkgSet:
     let
       prefix = "${pkgSet}-";
 
-      pkgSetchannel = {
+      pkgSetBuilder = {
         "vimPlugins" = mkVimPlugin prefix;
         "vscode-extensions" = mkVscodeExtension;
         "minecraft" = mkMinecraftMod prefix;
+        "pythonPackages" = mkPythonPackage prefix;
       }.${pkgSet};
 
 
       pkgsInSources = final.lib.mapAttrs' (name: value: final.lib.nameValuePair (final.lib.removePrefix prefix name) (value)) (final.lib.filterAttrs (n: v: final.lib.hasPrefix prefix n) sources);
     in
-    final.lib.mapAttrs (n: v: pkgSetchannel v) pkgsInSources;
+    final.lib.mapAttrs (n: v: pkgSetBuilder v) pkgsInSources;
 
 in
 {
@@ -39,6 +43,8 @@ in
   vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
 
   vscode-extensions = prev.vscode-extensions // (newPkgsSet "vscode-extensions");
+
+  python3Packages = prev.python3Packages // (newPkgsSet "pythonPackages");
 
   minecraft-mods = newPkgsSet "minecraft";
 
@@ -132,6 +138,14 @@ in
   };
 
   doggo = final.callPackage ./tools/networking/doggo { };
+
+  anime-downloader = final.callPackage ./applications/video/anime-downloader { };
+
+  trackma = final.callPackage ./applications/video/trackma { };
+
+  frece = final.callPackage ./applications/misc/frece { inherit (channels.latest) rustPlatform; };
+
+  adl = final.callPackage ./applications/video/adl { };
 
 } // (with inputs; {
 

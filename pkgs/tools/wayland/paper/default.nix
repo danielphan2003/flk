@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     description = "A wallpaper daemon for Wayland compositors implementing the layer-shell protocol.";
     homepage = "https://gitlab.com/snakedye/paper";
-    maintainers = [ danielphan2003 ];
     license = licenses.mit;
+    maintainers = [ danielphan2003 ];
   };
 }
