@@ -23,6 +23,8 @@ in
 
       listen_addresses = [ "[::]:53" ];
 
+      max_clients = 500;
+
       ipv6_servers = true;
 
       require_dnssec = true;
