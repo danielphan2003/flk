@@ -77,7 +77,7 @@ in
       "${config.services.tailscale.interfaceName}" =
         let
           # see https://github.com/tailscale/tailscale/issues/2697
-          RouteMetric = 1000;
+          RouteMetric = 3072;
         in
         rec {
           dhcpV4Config = { inherit RouteMetric; };
