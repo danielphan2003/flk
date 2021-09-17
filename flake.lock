@@ -204,6 +204,38 @@
         "type": "github"
       }
     },
+    "dan-nixpkgs": {
+      "inputs": {
+        "bud": [
+          "bud"
+        ],
+        "digga": [
+          "digga"
+        ],
+        "latest": [
+          "latest"
+        ],
+        "nixos": [
+          "nixos"
+        ],
+        "nvfetcher": [
+          "nvfetcher"
+        ]
+      },
+      "locked": {
+        "lastModified": 1631883343,
+        "narHash": "sha256-LBTzO8akkDkV7mjhIlMHO391Qe6Amb6T6p9NMIVo7J0=",
+        "owner": "danielphan2003",
+        "repo": "nixpkgs",
+        "rev": "fb8b5b90823562072b668c1821b683224e28a4dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "danielphan2003",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -1193,6 +1225,7 @@
         "anbox": "anbox",
         "bud": "bud",
         "ci-agent": "ci-agent",
+        "dan-nixpkgs": "dan-nixpkgs",
         "darwin": "darwin",
         "deploy": [
           "digga",

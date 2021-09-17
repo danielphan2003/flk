@@ -12,6 +12,17 @@
       nixos.url = "nixpkgs/release-21.05";
       latest.url = "nixpkgs/nixos-unstable";
 
+      dan-nixpkgs = {
+        url = "github:danielphan2003/nixpkgs";
+        inputs = {
+          nixos.follows = "nixos";
+          latest.follows = "latest";
+          digga.follows = "digga";
+          bud.follows = "bud";
+          nvfetcher.follows = "nvfetcher";
+        };
+      };
+
       digga.url = "github:divnix/digga";
       digga.inputs.nixpkgs.follows = "nixos";
       digga.inputs.nixlib.follows = "nixos";
@@ -88,6 +99,7 @@
   outputs =
     { self
     , latest
+    , dan-nixpkgs
     , digga
     , bud
     , nixos
@@ -137,6 +149,7 @@
               fenix.overlay
               gomod2nix.overlay
 
+              dan-nixpkgs.overlay
               (import ./pkgs/default.nix { inherit inputs; })
             ];
           };

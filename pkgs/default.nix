@@ -2,7 +2,7 @@
 
 channels: final: prev:
 let
-  sources = (import ./_sources/generated.nix) { inherit (final) fetchurl fetchgit; };
+  inherit (final) sources;
 
   mkVimPlugin = prefix: plugin:
     final.vimUtils.buildVimPluginFrom2Nix {
@@ -37,8 +37,6 @@ let
 
 in
 {
-
-  inherit sources;
 
   vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
 
