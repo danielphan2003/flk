@@ -117,7 +117,7 @@ in
         {
           inherit (users) alita;
           inherit (misc) security;
-          inherit (network.dns) dnscrypt-proxy tailscale;
+          inherit (network.dns) dnscrypt-proxy;
           inherit (cloud)
             caddy
             minecraft
@@ -140,6 +140,7 @@ in
           inherit (cloud) netdata;
           inherit (graphical.themes) sefia;
           inherit (misc) disable-mitigations security;
+          inherit (network.dns) dnscrypt-proxy;
           inherit (virt) windows;
           inherit (apps)
             meeting
