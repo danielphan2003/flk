@@ -39,12 +39,22 @@ in
       modules = with inputs; [
         nixos-hardware.nixosModules.raspberry-pi-4
         {
-          services.dnscrypt-proxy2.settings.tls_cipher_suite = [ 52392 49199 ];
+          services.dnscrypt-proxy2.settings = {
+            tls_cipher_suite = [ 52392 49199 ];
+            max_clients = 10000;
+          };
         }
       ];
       tests = [ ];
     };
     themachine = {
+      modules = [
+        {
+          services.dnscrypt-proxy2.settings = {
+            max_clients = 10000;
+          };
+        }
+      ];
       tests = [ ];
     };
   };
@@ -121,7 +131,6 @@ in
           inherit (cloud)
             caddy
             minecraft
-            netdata
             postgresql
             vaultwarden
             ;

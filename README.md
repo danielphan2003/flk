@@ -141,11 +141,7 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 - [ ] Caddy reverse proxy with Tailscale! See [tailscale/tailscale#1235][tailscale-reverse-proxy] for updates.
   I really look forward to this, it just makes me want to abandon DuckDNS altogether and host everything locally.
   I hope to access them via custom TLDs and have HTTPS as the same time.
-- [ ] Automatically update packages via [workflows][auto-update-pkgs-workflow].
-  - [ ] (delayed indefinitely) Enable testing.
-  - [ ] Commit message could be smaller, but it requires:
-    - uploading `pkgs/_sources/.shake*` (more conflicts)
-    - or making [nvfetcher] aware of already-up-to-date packages in generated [sources][generated-sources] (increased update time).
+- [x] Automatically update packages via [dan-nixpkgs][dan-nixpkgs].
 - [ ] [Unlock LUKS file systems via Tor][tor-luks-unlock].
 - [ ] (delayed indefinitely) Fully pass `nix -Lv flake check`.
   - [x] Partially pass by setting up blacklists for `nixosConfigurations.profilesTests`.
@@ -260,6 +256,7 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 [tailscale-reverse-proxy]: https://github.com/tailscale/tailscale/issues/1235
 [auto-update-pkgs-workflow]: ./.github/workflows/auto-update-pkgs.yml
 [generated-sources]: pkgs/_sources/generated.nix
+[dan-nixpkgs]: https://github.com/danielphan2003/nixpkgs
 [tor-luks-unlock]: https://nixos.wiki/wiki/Remote_LUKS_Unlocking
 
 [colemickens]: https://github.com/colemickens

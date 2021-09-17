@@ -1,6 +1,6 @@
 { config, lib, self, ... }:
 let
-  inherit (lib) optionalAttrs optionals;
+  inherit (lib) genAttrs optionalAttrs optionals remove;
   inherit (builtins) attrNames removeAttrs;
 
   inherit (lib.our) hostConfigs;
@@ -73,7 +73,21 @@ in
         name = "wlan0";
         dhcpV4Config.RouteMetric = 2048; # Prefer wired
       };
+    }) // (optionalAttrs config.services.tailscale.enable {
+      "${config.services.tailscale.interfaceName}" =
+        let
+          # see https://github.com/tailscale/tailscale/issues/2697
+          RouteMetric = 1000;
+        in
+        rec {
+          dhcpV4Config = { inherit RouteMetric; };
+          dhcpV6Config = dhcpV4Config;
+        };
     });
-    links = lib.genAttrs (attrNames config.systemd.network.networks) (link: { inherit linkConfig; });
+    links = genAttrs
+      (remove
+        "${config.services.tailscale.interfaceName}"
+        (attrNames config.systemd.network.networks))
+      (link: { inherit linkConfig; });
   };
 }
