@@ -20,6 +20,8 @@ channels: final: prev: {
     starship
     stylua
     sudo
+    vaultwarden
+    vaultwarden-vault
     wlrctl
     ;
 
