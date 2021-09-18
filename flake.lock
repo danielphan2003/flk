@@ -223,11 +223,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1631883343,
-        "narHash": "sha256-LBTzO8akkDkV7mjhIlMHO391Qe6Amb6T6p9NMIVo7J0=",
+        "lastModified": 1631976773,
+        "narHash": "sha256-+ZEXSx6Q41qbeAbnwmssSv5Jsteu71Q9nRcVYUb4SYQ=",
         "owner": "danielphan2003",
         "repo": "nixpkgs",
-        "rev": "fb8b5b90823562072b668c1821b683224e28a4dd",
+        "rev": "4041c4306c97f502ecf517a26937678f264fa4c4",
         "type": "github"
       },
       "original": {
@@ -449,7 +449,7 @@
         "cachix": "cachix",
         "mozilla": "mozilla",
         "nixpkgs": [
-          "nixos"
+          "latest"
         ]
       },
       "locked": {
@@ -1249,7 +1249,6 @@
         "nvfetcher": "nvfetcher",
         "qnr": "qnr",
         "rnix-lsp": "rnix-lsp",
-        "samueldr-anbox": "samueldr-anbox",
         "vs-ext": "vs-ext"
       }
     },
@@ -1268,19 +1267,6 @@
         "ref": "nightly",
         "repo": "rust-analyzer",
         "type": "github"
-      }
-    },
-    "samueldr-anbox": {
-      "locked": {
-        "lastModified": 1623131708,
-        "narHash": "sha256-dpHsGaKODMALfGjQVv273iH9/s4VZQdDfEf9mcK3pNg=",
-        "path": "/nix/store/135d3ldnvcjna4vjc4bswb9y05hq8c1a-source",
-        "rev": "fdf7b4be1a659ed8b96586c2fc8ff90850e25feb",
-        "type": "path"
-      },
-      "original": {
-        "id": "samueldr-anbox",
-        "type": "indirect"
       }
     },
     "utils": {

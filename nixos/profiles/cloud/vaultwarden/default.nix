@@ -2,17 +2,17 @@
 let
   inherit (config.networking) hostName domain;
   inherit (lib.our.hostConfigs.tailscale) nameserver;
-  inherit (config.services.bitwarden_rs.config) rocketPort websocketPort;
+  inherit (config.services.vaultwarden.config) rocketPort websocketPort;
 in
 {
-  age.secrets.bitwarden.file = "${self}/secrets/nixos/profiles/cloud/bitwarden.age";
+  age.secrets.vaultwarden.file = "${self}/secrets/nixos/profiles/cloud/vaultwarden.age";
 
-  services.bitwarden_rs = {
+  services.vaultwarden = {
     enable = true;
     dbBackend = "postgresql";
-    environmentFile = "/run/secrets/bitwarden";
+    environmentFile = "/run/secrets/vaultwarden";
     config = {
-      domain = "https://bw.${domain}";
+      domain = "https://vault.${domain}";
       invitationsAllowed = false;
       rocketPort = 8222;
       rocketLog = "critical";
@@ -23,7 +23,6 @@ in
       websocketEnabled = true;
       websocketPort = 3012;
       websocketAddress = "127.0.0.1";
-      webVaultFolder = "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
       webVaultEnabled = true;
       databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";
     };
@@ -32,18 +31,18 @@ in
   services.postgresql = {
     ensureDatabases = [ "vaultwarden" ];
     ensureUsers = [{
-      name = "bitwarden_rs";
+      name = "vaultwarden";
       ensurePermissions = {
         "DATABASE vaultwarden" = "ALL PRIVILEGES";
       };
     }];
   };
 
-  services.logrotate.paths.bitwarden_rs = {
-    path = "/var/log/bitwarden/*.log";
-    # Perform logrotation as the bitwarden user and group
-    user = "bitwarden_rs";
-    group = "bitwarden_rs";
+  services.logrotate.paths.vaultwarden = {
+    path = "/var/log/vaultwarden/*.log";
+    # Perform logrotation as the vaultwarden user and group
+    user = "vaultwarden";
+    group = "vaultwarden";
     # Rotate daily
     frequency = "daily";
     # Keep 4 rotations of log files before removing or mailing to the address specified in a mail directive
@@ -66,7 +65,8 @@ in
     '';
   };
 
-  services.caddy.virtualHosts."bw.${domain}" = {
+  services.caddy.virtualHosts."vault.${domain}" = {
+    serverAliases = [ "bw.${domain}" ];
     extraConfig = ''
       reverse_proxy localhost:${toString rocketPort} {
         header_up Host bw.${domain}

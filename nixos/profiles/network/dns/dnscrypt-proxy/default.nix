@@ -4,7 +4,7 @@ let
   package = pkgs.dnscrypt-proxy2;
 in
 {
-  imports = [ ../common ];
+  imports = [ ../common ../disable-resolved ];
 
   networking.nameservers = [ "127.0.0.1" ];
 

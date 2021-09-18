@@ -29,6 +29,16 @@ in
     interfaceName = "tailscale0";
   };
 
+  systemd.services.tailscaled = {
+    wants = [ "network-online.target" ];
+    after = [ "network.target" "network-online.target" ];
+  };
+
+  systemd.services.systemd-resolved = {
+    wants = [ "tailscaled.service" "nss-lookup.target" ];
+    after = [ "systemd-sysusers.service" "tailscaled.service" "systemd-networkd.service" ];
+  };
+
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
 

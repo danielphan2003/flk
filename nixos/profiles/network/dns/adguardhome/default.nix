@@ -1,5 +1,5 @@
 { config, lib, ... }: {
-  imports = [ ../common ];
+  imports = [ ../common ../disable-resolved ];
 
   networking.nameservers = [ "127.0.0.1" ];
 
@@ -11,4 +11,7 @@
   };
 
   networking.firewall.allowedTCPPorts = [ config.services.adguardhome.port ];
+
+  # systemd-resolved is the default dns server, but for others to work it needs to be disabled
+  services.resolved.enable = false;
 }

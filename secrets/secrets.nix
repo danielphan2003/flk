@@ -26,7 +26,7 @@ in
   "home/profiles/wayvnc/key.pem.age".publicKeys = allKeys;
   "home/profiles/wayvnc/cert.pem.age".publicKeys = allKeys;
 
-  "nixos/profiles/cloud/bitwarden.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
+  "nixos/profiles/cloud/vaultwarden.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
   "nixos/profiles/cloud/duckdns.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
 
   "nixos/profiles/cloud/minecraft/whitelist.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];

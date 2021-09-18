@@ -19,8 +19,14 @@ in
       "${impermanence}/nixos.nix"
       qnr.nixosModules.local-registry
       ({ latestModulesPath, ... }: {
-        imports = [ "${latestModulesPath}/services/web-servers/caddy/default.nix" ];
-        disabledModules = [ "services/web-servers/caddy.nix" ];
+        imports = [
+          "${latestModulesPath}/services/web-servers/caddy/default.nix"
+          "${latestModulesPath}/services/security/vaultwarden/default.nix"
+        ];
+        disabledModules = [
+          "services/web-servers/caddy.nix"
+          "services/security/bitwarden_rs/default.nix"
+        ];
       })
     ];
   };
@@ -127,7 +133,7 @@ in
         {
           inherit (users) alita;
           inherit (misc) security;
-          inherit (network.dns) dnscrypt-proxy;
+          inherit (network.dns) resolved;
           inherit (cloud)
             caddy
             minecraft
@@ -149,7 +155,7 @@ in
           inherit (cloud) netdata;
           inherit (graphical.themes) sefia;
           inherit (misc) disable-mitigations security;
-          inherit (network.dns) dnscrypt-proxy;
+          inherit (network.dns) resolved;
           inherit (virt) windows;
           inherit (apps)
             meeting

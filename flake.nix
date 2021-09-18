@@ -7,113 +7,150 @@
     extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY=";
   };
 
-  inputs =
-    {
-      nixos.url = "nixpkgs/release-21.05";
-      latest.url = "nixpkgs/nixos-unstable";
+  inputs = {
+    nixos.url = "nixpkgs/release-21.05";
+    latest.url = "nixpkgs/nixos-unstable";
 
-      dan-nixpkgs = {
-        url = "github:danielphan2003/nixpkgs";
-        inputs = {
-          nixos.follows = "nixos";
-          latest.follows = "latest";
-          digga.follows = "digga";
-          bud.follows = "bud";
-          nvfetcher.follows = "nvfetcher";
-        };
+    dan-nixpkgs = {
+      url = github:danielphan2003/nixpkgs;
+      inputs = {
+        nixos.follows = "nixos";
+        latest.follows = "latest";
+        digga.follows = "digga";
+        bud.follows = "bud";
+        nvfetcher.follows = "nvfetcher";
       };
-
-      digga.url = "github:divnix/digga";
-      digga.inputs.nixpkgs.follows = "nixos";
-      digga.inputs.nixlib.follows = "nixos";
-      digga.inputs.home-manager.follows = "home";
-
-      bud.url = "github:divnix/bud";
-      bud.inputs.nixpkgs.follows = "nixos";
-      bud.inputs.devshell.follows = "digga/devshell";
-
-      home.url = "github:nix-community/home-manager/release-21.05";
-      home.inputs.nixpkgs.follows = "nixos";
-
-      darwin.url = "github:LnL7/nix-darwin";
-      darwin.inputs.nixpkgs.follows = "latest";
-
-      deploy.follows = "digga/deploy";
-
-      agenix.url = "github:ryantm/agenix";
-      agenix.inputs.nixpkgs.follows = "latest";
-
-      nvfetcher.url = "github:berberman/nvfetcher";
-      nvfetcher.inputs.nixpkgs.follows = "latest";
-      nvfetcher.inputs.flake-compat.follows = "digga/deploy/flake-compat";
-      nvfetcher.inputs.flake-utils.follows = "digga/flake-utils-plus/flake-utils";
-
-      ci-agent.url = "github:hercules-ci/hercules-ci-agent";
-      ci-agent.inputs.nix-darwin.follows = "darwin";
-      ci-agent.inputs.nixos-20_09.follows = "nixos";
-      ci-agent.inputs.nixos-unstable.follows = "latest";
-      ci-agent.inputs.flake-compat.follows = "digga/deploy/flake-compat";
-
-      naersk.url = "github:nmattia/naersk";
-      naersk.inputs.nixpkgs.follows = "latest";
-
-      nixos-hardware.url = "github:nixos/nixos-hardware";
-
-      firefox-nightly.url = "github:colemickens/flake-firefox-nightly";
-      firefox-nightly.inputs.nixpkgs.follows = "nixos";
-
-      nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
-      nixpkgs-wayland.inputs.nixpkgs.follows = "latest";
-
-      anbox.url = "github:samueldr/nixpkgs/feature/anbox-2021-06-refresh";
-
-      impermanence = {
-        url = "github:nix-community/impermanence/systemd-service-files";
-        flake = false;
-      };
-
-      nix-dram.url = "github:dramforever/nix-dram";
-      nix-dram.inputs.nixpkgs.follows = "nixos";
-
-      qnr.url = "github:divnix/quick-nix-registry";
-
-      vs-ext.url = "github:divnix/vs-ext";
-
-      fenix.url = "github:nix-community/fenix";
-      fenix.inputs.nixpkgs.follows = "latest";
-
-      npmlock2nix = {
-        url = "github:nix-community/npmlock2nix";
-        flake = false;
-      };
-
-      rnix-lsp.url = "github:nix-community/rnix-lsp";
-      rnix-lsp.inputs.nixpkgs.follows = "latest";
-
-      gomod2nix.url = "github:tweag/gomod2nix";
-      gomod2nix.inputs.nixpkgs.follows = "latest";
-
-      go117.url = "github:zowoq/nixpkgs/go117";
     };
+
+    digga = {
+      url = "github:divnix/digga";
+      inputs = {
+        nixpkgs.follows = "nixos";
+        nixlib.follows = "nixos";
+        home-manager.follows = "home";
+      };
+    };
+
+    bud = {
+      url = github:divnix/bud;
+      inputs = {
+        nixpkgs.follows = "nixos";
+        devshell.follows = "digga/devshell";
+      };
+    };
+
+    home = {
+      url = github:nix-community/home-manager/release-21.05;
+      inputs.nixpkgs.follows = "nixos";
+    };
+
+    darwin = {
+      url = github:LnL7/nix-darwin;
+      inputs.nixpkgs.follows = "latest";
+    };
+
+    deploy.follows = "digga/deploy";
+
+    agenix = {
+      url = github:ryantm/agenix;
+      inputs.nixpkgs.follows = "latest";
+    };
+
+    nvfetcher = {
+      url = github:berberman/nvfetcher;
+      inputs = {
+        nixpkgs.follows = "latest";
+        flake-compat.follows = "digga/deploy/flake-compat";
+        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+      };
+    };
+
+    ci-agent = {
+      url = github:hercules-ci/hercules-ci-agent;
+      inputs = {
+        nix-darwin.follows = "darwin";
+        nixos-20_09.follows = "nixos";
+        nixos-unstable.follows = "latest";
+        flake-compat.follows = "digga/deploy/flake-compat";
+      };
+    };
+
+    nixos-hardware = { url = "github:nixos/nixos-hardware"; };
+
+    naersk = {
+      url = github:nmattia/naersk;
+      inputs.nixpkgs.follows = "latest";
+    };
+
+    firefox-nightly = {
+      url = github:colemickens/flake-firefox-nightly;
+      inputs.nixpkgs.follows = "latest";
+    };
+
+    nixpkgs-wayland = {
+      url = github:colemickens/nixpkgs-wayland;
+      inputs.nixpkgs.follows = "latest";
+    };
+
+    anbox = { url = github:samueldr/nixpkgs/feature/anbox-2021-06-refresh; };
+
+    impermanence = {
+      url = github:nix-community/impermanence/systemd-service-files;
+      flake = false;
+    };
+
+    nix-dram = {
+      url = github:dramforever/nix-dram;
+      inputs.nixpkgs.follows = "nixos";
+    };
+
+    qnr = { url = github:divnix/quick-nix-registry; };
+
+    vs-ext = { url = github:divnix/vs-ext; };
+
+    rnix-lsp = {
+      url = github:nix-community/rnix-lsp;
+      inputs.nixpkgs.follows = "latest";
+    };
+
+    fenix = {
+      url = github:nix-community/fenix;
+      inputs.nixpkgs.follows = "latest";
+    };
+
+    npmlock2nix = {
+      url = github:nix-community/npmlock2nix;
+      flake = false;
+    };
+
+    gomod2nix = {
+      url = github:tweag/gomod2nix;
+      inputs.nixpkgs.follows = "latest";
+    };
+
+    go117 = { url = github:zowoq/nixpkgs/go117; };
+  };
 
   outputs =
     { self
+    , nixos
     , latest
     , dan-nixpkgs
+
     , digga
     , bud
-    , nixos
-    , ci-agent
     , home
-    , nixos-hardware
-    , nur
+    , deploy
     , agenix
     , nvfetcher
-    , deploy
+    , ci-agent
+    , nixos-hardware
+
+    , nur
 
     , firefox-nightly
     , nixpkgs-wayland
-    , samueldr-anbox
+    , anbox
     , nix-dram
     , qnr
     , vs-ext
@@ -154,6 +191,7 @@
             ];
           };
           latest = { };
+          anbox = { };
           go117 = { };
         };
 

@@ -7,10 +7,6 @@ let
   inherit (config.networking) hostName;
   inherit (hostConfigs.hosts."${hostName}") ip_addr gateway;
 
-  # TODO: automatically detect when a local dns server (other than Adguard Home) is running.
-  enableAdguardHome = config.services.adguardhome.enable;
-  enableTailscale = config.services.tailscale.enable;
-
   privateConfig =
     let
       dhcpV4Config = {
@@ -20,7 +16,8 @@ let
       };
     in
     {
-      # on private networks, use DHCP for IPv6
+      # on private networks, use global DHCP for IPv6
+      # static IPv6 is always provided with static IPv4
       DHCP = "ipv6";
 
       # use static IPv4 address
@@ -29,7 +26,7 @@ let
 
       networkConfig = {
         DNSSEC = "yes";
-        DNSOverTLS = "yes";
+        # DNSOverTLS = "yes";
         DNS = config.networking.nameservers;
         Domains = config.networking.search;
       };
@@ -73,21 +70,9 @@ in
         name = "wlan0";
         dhcpV4Config.RouteMetric = 2048; # Prefer wired
       };
-    }) // (optionalAttrs config.services.tailscale.enable {
-      "${config.services.tailscale.interfaceName}" =
-        let
-          # see https://github.com/tailscale/tailscale/issues/2697
-          RouteMetric = 3072;
-        in
-        rec {
-          dhcpV4Config = { inherit RouteMetric; };
-          dhcpV6Config = dhcpV4Config;
-        };
     });
     links = genAttrs
-      (remove
-        "${config.services.tailscale.interfaceName}"
-        (attrNames config.systemd.network.networks))
+      (attrNames config.systemd.network.networks)
       (link: { inherit linkConfig; });
   };
 }

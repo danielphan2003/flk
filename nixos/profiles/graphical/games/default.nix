@@ -2,7 +2,7 @@
 let inherit (builtins) attrValues;
 in
 {
-  imports = [ ./android.nix ./udev.nix ];
+  imports = [ ./udev.nix ];
 
   environment.systemPackages = attrValues {
     inherit (pkgs)
