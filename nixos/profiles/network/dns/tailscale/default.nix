@@ -30,8 +30,8 @@ in
   };
 
   systemd.services.tailscaled = {
-    wants = [ "network-online.target" ];
-    after = [ "network.target" "network-online.target" ];
+    wants = [ "network-pre.target" "systemd-networkd.service" ];
+    after = [ "network-pre.target" "systemd-networkd.service" ];
   };
 
   systemd.services.systemd-resolved = {

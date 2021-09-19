@@ -25,7 +25,10 @@ let
       gateway = [ "${gateway}" ];
 
       networkConfig = {
-        DNSSEC = "yes";
+        DNSSEC =
+          if config.services.resolved.dnssec == "true"
+          then "yes"
+          else "no";
         # DNSOverTLS = "yes";
         DNS = config.networking.nameservers;
         Domains = config.networking.search;
