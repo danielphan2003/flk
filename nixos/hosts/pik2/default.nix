@@ -17,8 +17,8 @@ let inherit (config.networking) domain hostName; in
     domain = hostName;
   };
 
-  systemd.services.caddy = {
-    inherit (config.systemd.services.duckdns) serviceConfig;
+  systemd.services.caddy.serviceConfig = {
+    inherit (config.systemd.services.duckdns.serviceConfig) EnvironmentFile;
   };
 
   services.caddy = {
