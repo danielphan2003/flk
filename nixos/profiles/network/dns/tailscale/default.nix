@@ -29,6 +29,8 @@ in
     interfaceName = "tailscale0";
   };
 
+  services.resolved.dnssec = "false";
+
   systemd.services.tailscaled = {
     wants = [ "network-pre.target" "systemd-networkd.service" ];
     after = [ "network-pre.target" "systemd-networkd.service" ];
