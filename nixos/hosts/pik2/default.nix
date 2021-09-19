@@ -17,8 +17,8 @@ let inherit (config.networking) domain hostName; in
     domain = hostName;
   };
 
-  systemd.services.caddy = {
-    serviceConfig.EnvironmentFile = "/run/secrets/duckdns";
+  systemd.services.caddy.serviceConfig = {
+    inherit (config.systemd.services.duckdns) EnvironmentFile;
   };
 
   services.caddy = {

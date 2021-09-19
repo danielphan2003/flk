@@ -16,7 +16,7 @@ in
     };
     environmentFile = mkOption {
       type = types.str;
-      default = "/run/secrets/duckdns";
+      default = config.age.secrets.duckdns.path;
       description = ''
         Where the environment file to use for requesting update from DuckDNS.
       '';

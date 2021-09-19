@@ -16,7 +16,7 @@ let
 
   mcPkg = pkgs.writeShellScript "minecraft-server" (with config.services.minecraft-server; ''
     ${pkgs.coreutils}/bin/unlink /var/lib/minecraft/whitelist.json
-    ln -s /run/secrets/minecraft-whitelist /var/lib/minecraft/whitelist.json
+    ln -s ${config.age.secrets.minecraft-whitelist.path} /var/lib/minecraft/whitelist.json
     ${package}/bin/minecraft-server ${jvmOpts} $@
   '');
 in
@@ -31,9 +31,7 @@ in
   systemd.services.minecraft-server = {
     # start minecraft server on demand
     enable = false;
-    serviceConfig = {
-      ExecStart = lib.mkForce mcPkg;
-    };
+    serviceConfig.ExecStart = lib.mkForce mcPkg;
   };
 
   services.minecraft-server = {
@@ -108,17 +106,22 @@ in
     ];
   };
 
-  # services.caddy.virtualHosts."minecraft.${tld}" = {
-  #   serverAliases = [
-  #     "simp.${tld}"
-  #     # "simp.${tld-local}"
-  #     # "simp.${tld-tailscale}"
-  #     "mc.${tld}"
-  #     # "mc.${tld-local}"
-  #     # "mc.${tld-tailscale}"
-  #   ];
-  #   extraConfig = ''
-  #     reverse_proxy localhost:${toString server-port}
-  #   '';
-  # };
+  services.caddy.virtualHosts."minecraft.${tld}" = with config.services;
+    lib.mkIf
+      # Only expose Minecraft to public if it is not exposed to Tailscale
+      # AND it is properly protected by whitelisting.
+      (!tailscale.enable && minecraft-server.serverProperties.white-list)
+      {
+        serverAliases = [
+          "simp.${tld}"
+          # "simp.${tld-local}"
+          # "simp.${tld-tailscale}"
+          "mc.${tld}"
+          # "mc.${tld-local}"
+          # "mc.${tld-tailscale}"
+        ];
+        extraConfig = ''
+          reverse_proxy localhost:${toString server-port}
+        '';
+      };
 }

@@ -1,6 +1,6 @@
 { config, lib, self, ... }:
 let
-  inherit (lib) genAttrs optionalAttrs optionals remove;
+  inherit (lib) genAttrs mkForce optionalAttrs optionals remove;
   inherit (builtins) attrNames removeAttrs;
 
   inherit (lib.our) hostConfigs;
@@ -50,10 +50,12 @@ let
   };
 in
 {
+  imports = [ ../dns/resolved ];
+
   networking = {
     useNetworkd = true;
-    dhcpcd.enable = lib.mkForce false;
-    useDHCP = lib.mkForce false;
+    dhcpcd.enable = mkForce false;
+    useDHCP = mkForce false;
   };
 
   systemd.network = {

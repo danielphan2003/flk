@@ -133,7 +133,7 @@ in
         {
           inherit (users) alita;
           inherit (misc) security;
-          inherit (network.dns) resolved;
+          inherit (network.dns) dcompass;
           inherit (cloud)
             caddy
             minecraft
@@ -155,7 +155,7 @@ in
           inherit (cloud) netdata;
           inherit (graphical.themes) sefia;
           inherit (misc) disable-mitigations security;
-          inherit (network.dns) resolved;
+          inherit (network.dns) dcompass;
           inherit (virt) windows;
           inherit (apps)
             meeting

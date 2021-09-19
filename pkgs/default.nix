@@ -145,7 +145,7 @@ in
 
   adl = final.callPackage ./applications/video/adl { };
 
-} // (with inputs; {
+} // (with inputs; (dcompass.overlay final prev).dcompass // {
 
   firefox-nightly-bin =
     if prev.system == "x86_64-linux"

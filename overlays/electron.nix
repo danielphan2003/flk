@@ -5,6 +5,7 @@ let
     element-desktop
     signal-desktop
     electron
+    teams
     vscodium
     ;
 
@@ -62,5 +63,10 @@ in
       # "--ozone-platform=wayland"
     ];
   };
+
+  teams = teams.overrideAttrs (_: {
+    inherit (final.sources.teams) src version;
+    postDist = patchElectron flags "$out/bin/teams";
+  });
 
 }

@@ -1,7 +1,5 @@
-{ lib, config, ... }: {
-  imports = [ ../resolved ];
-
-  networking.firewall.allowedUDPPorts = [ 53 ];
-
-  networking.nameservers = lib.mkDefault config.services.resolved.fallbackDns;
+{ lib, config, ... }:
+let dnsPort = 53; in
+{
+  networking.firewall.allowedUDPPorts = [ dnsPort ];
 }

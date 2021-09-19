@@ -1,10 +1,14 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+let inherit (lib) mkDefault; in
+{
+  networking.nameservers = [
+    "9.9.9.9"
+    "2620:fe::9"
+  ];
+
   services.resolved = {
-    enable = lib.mkDefault true;
-    dnssec = lib.mkDefault "true";
-    fallbackDns = [
-      "9.9.9.9"
-      "149.112.112.112"
-    ];
+    enable = mkDefault true;
+    dnssec = mkDefault "true";
+    fallbackDns = config.networking.nameservers;
   };
 }

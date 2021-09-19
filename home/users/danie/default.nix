@@ -1,4 +1,6 @@
-{ self, hmUsers, pkgs, lib, ... }: let user = "danie"; in {
+{ self, hmUsers, pkgs, lib, config, ... }:
+let user = "danie"; in
+{
   home-manager.users."${user}" = hmUsers."${user}";
 
   age.secrets = {
@@ -7,7 +9,7 @@
       owner = user;
       group = "users";
     };
-    danie.file = "${self}/secrets/home/users/${user}.age";
+    "${user}".file = "${self}/secrets/home/users/${user}.age";
     "wayvnc/config" = {
       file = "${self}/secrets/home/profiles/wayvnc/config.age";
       owner = user;
@@ -31,7 +33,7 @@
     description = "Daniel Phan";
     isNormalUser = true;
     extraGroups = [ "wheel" "libvirtd" "kvm" "adbusers" "input" "podman" ];
-    passwordFile = "/run/secrets/${user}";
+    passwordFile = config.age.secrets."${user}".path;
     openssh.authorizedKeys.keyFiles = [ "${self}/secrets/ssh/${user}.pub" ];
   };
 }

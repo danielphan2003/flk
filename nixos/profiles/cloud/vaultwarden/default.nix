@@ -3,14 +3,16 @@ let
   inherit (config.networking) hostName domain;
   inherit (lib.our.hostConfigs.tailscale) nameserver;
   inherit (config.services.vaultwarden.config) rocketPort websocketPort;
+
+  vaultwarden-age-key = "${self}/secrets/nixos/profiles/cloud/vaultwarden.age";
 in
 {
-  age.secrets.vaultwarden.file = "${self}/secrets/nixos/profiles/cloud/vaultwarden.age";
+  age.secrets.vaultwarden.file = vaultwarden-age-key;
 
   services.vaultwarden = {
     enable = true;
     dbBackend = "postgresql";
-    environmentFile = "/run/secrets/vaultwarden";
+    environmentFile = config.age.secrets.vaultwarden.path;
     config = {
       domain = "https://vault.${domain}";
       invitationsAllowed = false;

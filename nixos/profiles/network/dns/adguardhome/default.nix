@@ -1,7 +1,7 @@
 { config, lib, ... }: {
   imports = [ ../common ../disable-resolved ];
 
-  networking.nameservers = [ "127.0.0.1" ];
+  networking.nameservers = lib.mkBefore [ "127.0.0.1" ];
 
   services.adguardhome = {
     enable = true;

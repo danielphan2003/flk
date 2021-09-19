@@ -1,26 +1,27 @@
 { pkgs, lib, config, self, latestModulesPath, ... }:
 let
-  inherit (lib.our) hostConfigs;
   inherit (config.networking) hostName;
-  inherit (config.services.tailscale) interfaceName port package;
+  inherit (config.services.tailscale)
+    interfaceName port package;
+  inherit (lib.our.hostConfigs.tailscale) nameserver;
 
+  tailscale-age-id = "tailscale-${hostName}";
   tailscale-age-key = "${self}/secrets/nixos/profiles/network/tailscale/${hostName}.age";
 in
 {
-  imports = [ ../common ] ++
-    [ "${latestModulesPath}/services/networking/tailscale.nix" ];
+  imports = [ "${latestModulesPath}/services/networking/tailscale.nix" ];
 
   disabledModules = [ "services/networking/tailscale.nix" ];
 
-  age.secrets."tailscale-${hostName}".file = tailscale-age-key;
+  age.secrets."${tailscale-age-id}".file = tailscale-age-key;
 
   networking = {
     firewall = {
       allowedUDPPorts = [ port ];
       trustedInterfaces = [ interfaceName ];
     };
-    search = [ hostConfigs.tailscale.nameserver ];
-    nameservers = [ "100.100.100.100" ];
+    search = [ nameserver ];
+    nameservers = lib.mkBefore [ "100.100.100.100" ];
   };
 
   services.tailscale = {
@@ -30,16 +31,6 @@ in
   };
 
   services.resolved.dnssec = "false";
-
-  systemd.services.tailscaled = {
-    wants = [ "network-pre.target" "systemd-networkd.service" ];
-    after = [ "network-pre.target" "systemd-networkd.service" ];
-  };
-
-  systemd.services.systemd-resolved = {
-    wants = [ "tailscaled.service" "nss-lookup.target" ];
-    after = [ "systemd-sysusers.service" "tailscaled.service" "systemd-networkd.service" ];
-  };
 
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
@@ -62,14 +53,8 @@ in
 
     # have the job run this shell script
     script = ''
-      sleep 2
-
-      # check if we are already authenticated to tailscale
-      status="$(tailscale status -json | jq -r .BackendState)"
-      [[ $status = "Running" ]] && exit 0
-
       # otherwise authenticate with tailscale
-      tailscale up --authkey="$(< /run/secrets/tailscale-${hostName})"
+      tailscale up --authkey="$(< ${config.age.secrets."${tailscale-age-id}".path})"
     '';
   };
 
