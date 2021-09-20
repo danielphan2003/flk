@@ -7,7 +7,6 @@ let inherit (builtins) attrValues; in
     extensions = with pkgs.vscode-extensions; [
       jnoortheen.nix-ide
       matklad.rust-analyzer-nightly
-      # ms-vscode.cpptools
 
       ActiveFileInStatusBar
       astro
@@ -15,7 +14,6 @@ let inherit (builtins) attrValues; in
       bracket-pair-colorizer-2
       codeql
       codesnap
-      # cpp
       css-initial-value
       dart-code
       dendron
@@ -41,7 +39,6 @@ let inherit (builtins) attrValues; in
       python
       react-native
       rest-client
-      # rusts
       svelte
       tailwindcss
       versionlens
@@ -52,6 +49,7 @@ let inherit (builtins) attrValues; in
     then
       [
         ms-python.python
+        ms-vscode-cpptools
       ]
     else
       [ ]);

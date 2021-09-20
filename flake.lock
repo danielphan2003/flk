@@ -223,11 +223,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1632077836,
-        "narHash": "sha256-t2f7zoAxRMjp/sxHEVQ36kPO7c7WN5IWWeWRj6dgWX4=",
+        "lastModified": 1632144809,
+        "narHash": "sha256-rfkcz11xEvVK6Q6mUke2Yg/FvGxhVriX4YTIeUZ9I+0=",
         "owner": "danielphan2003",
         "repo": "nixpkgs",
-        "rev": "cceebde8a9d27a3d4446eef38d6daf27c8c9e998",
+        "rev": "3b83b6f6df13c39435a78427658202922fe8cce3",
         "type": "github"
       },
       "original": {
