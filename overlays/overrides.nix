@@ -20,6 +20,7 @@ channels: final: prev: {
     starship
     stylua
     sudo
+    ungoogled-chromium
     wlrctl
     ;
 

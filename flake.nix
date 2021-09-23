@@ -3,7 +3,7 @@
 
   nixConfig = {
     extra-experimental-features = "nix-command flakes ca-references";
-    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dram.cachix.org dcompass.cachix.org";
+    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dram.cachix.org https://dcompass.cachix.org";
     extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY= dcompass.cachix.org-1:uajJEJ1U9uy/y260jBIGgDwlyLqfL1sD5yaV/uWVlbk=";
   };
 
@@ -22,9 +22,12 @@
       };
     };
 
+    nix = { url = github:nixos/nix/c81f976; };
+
     digga = {
-      url = "github:divnix/digga";
+      url = github:divnix/digga;
       inputs = {
+        nix.follows = "nix";
         nixpkgs.follows = "nixos";
         nixlib.follows = "nixos";
         home-manager.follows = "home";
@@ -114,7 +117,7 @@
 
     nix-dram = {
       url = github:dramforever/nix-dram;
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = "nix/nixpkgs";
     };
 
     qnr = { url = github:divnix/quick-nix-registry; };
@@ -126,10 +129,7 @@
       inputs.nixpkgs.follows = "latest";
     };
 
-    fenix = {
-      url = github:nix-community/fenix;
-      inputs.nixpkgs.follows = "latest";
-    };
+    fenix = { url = github:nix-community/fenix; };
 
     npmlock2nix = {
       url = github:nix-community/npmlock2nix;
@@ -140,8 +140,6 @@
       url = github:tweag/gomod2nix;
       inputs.nixpkgs.follows = "latest";
     };
-
-    go117 = { url = github:zowoq/nixpkgs/go117; };
   };
 
   outputs =
@@ -174,7 +172,6 @@
     , fenix
     , gomod2nix
 
-    , go117
     , ...
     } @ inputs:
     digga.lib.mkFlake
@@ -207,7 +204,6 @@
           };
           latest = { };
           anbox = { };
-          go117 = { };
         };
 
         lib = import ./lib { lib = digga.lib // nixos.lib; };
@@ -229,7 +225,10 @@
 
         homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
 
-        deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations { };
+        deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
+          themachine.profiles.system.sshUser = "root";
+          pik2.profiles.system.sshUser = "root";
+        };
 
         defaultTemplate = self.templates.bud;
         templates.bud.path = ./.;

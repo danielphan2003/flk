@@ -1,7 +1,6 @@
 channels: final: prev:
 let
-  inherit (channels.go117) go_1_17;
-  buildGo117Module = channels.latest.buildGoModule.override {
+  buildGo117Module = with channels.latest; buildGoModule.override {
     go = go_1_17;
   };
 in
