@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   services.kanshi = {
     enable = true;
-    package = pkgs.waylandPkgs.kanshi;
     profiles.default.outputs = [
       {
         criteria = "HDMI-A-1";

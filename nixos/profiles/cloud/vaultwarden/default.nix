@@ -1,8 +1,11 @@
 { pkgs, config, lib, self, ... }:
 let
+  inherit (lib) concatStringsSep mkAfter;
   inherit (config.networking) hostName domain;
-  inherit (lib.our.hostConfigs.tailscale) nameserver;
+  inherit (lib.our.hostConfigs.tailscale) tailnet_alias;
   inherit (config.services.vaultwarden.config) rocketPort websocketPort;
+
+  tailnet-domain = "${hostName}.${tailnet_alias}";
 
   vaultwarden-age-key = "${self}/secrets/nixos/profiles/cloud/vaultwarden.age";
 in
@@ -14,7 +17,6 @@ in
     dbBackend = "postgresql";
     environmentFile = config.age.secrets.vaultwarden.path;
     config = {
-      domain = "https://vault.${domain}";
       invitationsAllowed = false;
       rocketPort = 8222;
       rocketLog = "critical";
@@ -24,7 +26,7 @@ in
       showPasswordHint = false;
       websocketEnabled = true;
       websocketPort = 3012;
-      websocketAddress = "127.0.0.1";
+      websocketAddress = "localhost";
       webVaultEnabled = true;
       databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";
     };
@@ -67,30 +69,35 @@ in
     '';
   };
 
-  services.caddy.virtualHosts."vault.${domain}" = {
-    serverAliases = [ "bw.${domain}" ];
-    extraConfig = ''
-      reverse_proxy localhost:${toString rocketPort} {
-        header_up Host bw.${domain}
-        header_up X-Real-IP {remote_host}
-      }
-      reverse_proxy /notifications/hub localhost:${toString websocketPort}" {
-        header_up Host bw.${domain}
-      }
-      # respond /admin* "The admin panel is disabled, please configure the 'ADMIN_TOKEN' variable to enable it"
-    '';
-  };
-
-  # services.caddy.virtualHosts."bw.${hostName}" = {
-  #   serverAliases = [ "bw.${nameserver}" ];
-  #   extraConfig = ''
-  #     reverse_proxy localhost:${toString rocketPort} {
-  #       header_up Host bw.${domain}
-  #       header_up X-Real-IP {remote_host}
-  #     }
-  #     reverse_proxy /notifications/hub localhost:${toString websocketPort}" {
-  #       header_up Host bw.${domain}
-  #     }
-  #   '';
-  # };
+  services.caddy.virtualHosts =
+    let
+      handleWWW = ''
+        reverse_proxy 127.0.0.1:${toString rocketPort} {
+          header_up Host {host}
+          header_up X-Real-IP {remote_host}
+        }
+      '';
+      handleNotify = ''
+        reverse_proxy /notifications/hub 127.0.0.1:${toString websocketPort} {
+          header_up Host {host}
+        }
+      '';
+    in
+    {
+      "vault.${domain}" = {
+        serverAliases = [ "bw.${domain}" ];
+        extraConfig = ''
+          ${handleWWW}
+          ${handleNotify}
+          respond /admin* "The admin panel is disabled, please configure the 'ADMIN_TOKEN' variable to enable it"
+        '';
+      };
+      "*.${tailnet-domain}".extraConfig = mkAfter ''
+        @vaultwarden host vault.${tailnet-domain}
+        handle @vaultwarden {
+          ${handleWWW}
+          ${handleNotify}
+        }
+      '';
+    };
 }

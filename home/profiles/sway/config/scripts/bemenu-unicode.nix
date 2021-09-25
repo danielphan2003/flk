@@ -3,11 +3,10 @@
 , libnotify
 , ydotool
 , sway
-, waylandPkgs
+, wl-clipboard
 , bemenu-run
 , unicode-emoji
 }:
-let inherit (waylandPkgs) wl-clipboard; in
 writeShellScript "bemenu-unicode.sh" ''
   # Original from Luke Smith:
   # https://github.com/LukeSmithxyz/voidrice/blob/master/.local/bin/dmenuunicode

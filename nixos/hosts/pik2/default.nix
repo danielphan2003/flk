@@ -1,5 +1,8 @@
 { pkgs, lib, suites, config, self, ... }:
-let inherit (config.networking) domain hostName; in
+let
+  inherit (builtins) removeAttrs;
+  inherit (config.networking) domain hostName;
+in
 {
   imports = suites.pik2;
 
@@ -23,12 +26,23 @@ let inherit (config.networking) domain hostName; in
 
   services.caddy = {
     email = "danielphan.2003+acme@gmail.com";
-    package = pkgs.caddy.override {
+    package = with pkgs; caddy.override {
       plugins = [ "github.com/caddy-dns/duckdns" ];
-      vendorSha256 = "sha256-deUq+/6EaevJOKm4AANIS8sPEHSRTQm7XlEkXONiJ84=";
+      buildGoModule = args:
+        buildGoModule (removeAttrs args [ "vendorSha256" ] // {
+          vendorSha256 = "sha256-cdLj9WQH8Ksii5xvo8VS6Nsj5+Xj4B1Nsh/IpjOYT+Q=";
+        });
     };
+    ca = null;
     config = lib.mkAfter ''
-      *.${domain} {
+      {
+        email ${config.services.caddy.email}
+        auto_https off
+      }
+    '';
+    virtualHosts."*.${domain}" = {
+      serverAliases = [ domain ];
+      extraConfig = ''
         import common
         import logging ${domain}
 
@@ -37,15 +51,8 @@ let inherit (config.networking) domain hostName; in
             override_domain ${hostName}
           }
         }
-      }
-
-      # *.${hostName} ${hostName} {
-      #   import common
-      #   import logging ${hostName}
-
-      #   tls internal
-      # }
-    '';
+      '';
+    };
   };
 
   nix.maxJobs = 4;

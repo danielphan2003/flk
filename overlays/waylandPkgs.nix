@@ -1,20 +1,29 @@
 channels: final: prev: {
-  inherit (final.waylandPkgs) xdg-desktop-portal-wlr wlroots;
-
   wayland-protocols-master = channels.latest.wayland-protocols.overrideAttrs (_: {
-    inherit (final.waylandPkgs.wayland-protocols-master) src version;
+    inherit (prev.wayland-protocols-master) src version;
   });
 
-  freerdp = final.waylandPkgs.wlfreerdp;
+  wlroots = with prev; (wlroots.override { wayland-protocols = final.wayland-protocols-master; }).overrideAttrs (_: {
+    patches = [
+      (fetchpatch {
+        name = "wlroots-eglstreams.patch";
+        url = "https://github.com/danvd/wlroots-eglstreams/commit/4dda5742f216657b4397860e4c457c7e9767ce5c.patch";
+        sha256 = "sha256-YhYPeYfPkT9j9y5GKuxVL5nwXQmuvnCFZ9qz0rS1X40=";
+      })
+    ];
+  });
+
+  freerdp = prev.wlfreerdp;
 
   eww = prev.eww.override { enableWayland = true; };
 
-  waylandPkgs = prev.waylandPkgs // {
-    wlroots = prev.waylandPkgs.wlroots.override { wayland-protocols = final.wayland-protocols-master; };
-    sway-unwrapped = prev.waylandPkgs.sway-unwrapped.overrideAttrs (_: {
-      inherit (final.sources.sway-borders) pname version src;
+  sway-unwrapped =
+    (prev.sway-unwrapped.override {
+      inherit (final) wlroots;
+      wayland-protocols = final.wayland-protocols-master;
+    }).overrideAttrs (_: {
+      inherit (final.sources.sway-borders) version src;
     });
-  };
 
   swaylock-effects = prev.swaylock-effects.overrideAttrs (_: {
     inherit (final.sources.swaylock-effects) pname version src;
@@ -23,8 +32,6 @@ channels: final: prev: {
   ydotool = prev.ydotool.overrideAttrs (_: {
     inherit (final.sources.ydotool) pname version src;
   });
-
-  sway = prev.sway.override { inherit (final.waylandPkgs) sway-unwrapped; };
 
   rofi-unwrapped = with prev; rofi-unwrapped.overrideAttrs (o: {
     inherit (final.sources.rofi-wayland) src version;

@@ -9,12 +9,11 @@
 , pywal
 , sway
 , paper
-, waylandPkgs
+, swaybg
 , backgroundDir
 , colors
 }:
 let
-  inherit (waylandPkgs) swaybg;
   inherit (lib.our.mkCustomI3Rule) colorSetStr;
 
   clientColors = lib.concatStringsSep " ; " [

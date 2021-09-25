@@ -6,7 +6,6 @@
 , nixosTests
 
 , plugins ? [ ]
-, vendorSha256 ? "sha256-oNJA0lU6PqArLCuPBiyV9Vaps0Q3ZpVg2cMIPxUfpqg="
 }:
 let
   imports = lib.flip lib.concatMapStrings plugins (pkg: "_ \"${pkg}\"\n");
@@ -25,7 +24,8 @@ let
 in
 buildGoModule {
   inherit (sources.caddy) src version;
-  inherit vendorSha256;
+
+  vendorSha256 = "sha256-IdruxRwhc2jJbkpikD5Bw/XtKqJ5EGElRnRqqcWIAts=";
 
   pname = "caddy${lib.optionalString (plugins != [ ]) "-with-plugins"}";
 
@@ -33,21 +33,12 @@ buildGoModule {
 
   overrideModAttrs = (_: {
     prePatch = "echo '${main}' > cmd/caddy/main.go";
-    postInstall = ''
-      cp go.sum go.mod $out
-      ls $out
-    '';
+    postInstall = ''cp go.sum go.mod $out'';
   });
 
-  postPatch = ''
-    echo '${main}' > cmd/caddy/main.go
-    cat cmd/caddy/main.go
-  '';
+  postPatch = ''echo '${main}' > cmd/caddy/main.go'';
 
-  postConfigure = ''
-    cp vendor/go.sum ./
-    cp vendor/go.mod ./
-  '';
+  postConfigure = ''cp vendor/go.{sum,mod} .'';
 
   postInstall = ''
     wrapProgram $out/bin/caddy \

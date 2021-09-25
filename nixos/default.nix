@@ -18,6 +18,7 @@ in
       bud.nixosModules.bud
       "${impermanence}/nixos.nix"
       qnr.nixosModules.local-registry
+      nix-gaming.nixosModule
       ({ latestModulesPath, ... }: {
         imports = [
           "${latestModulesPath}/services/web-servers/caddy/default.nix"
@@ -136,6 +137,7 @@ in
           inherit (network.dns) dcompass;
           inherit (cloud)
             caddy
+            grafana
             minecraft
             postgresql
             vaultwarden

@@ -6,11 +6,6 @@ rustPlatform.buildRustPackage {
 
   buildInputs = [ fontconfig ];
 
-  prePatch = ''
-    substituteInPlace Cargo.toml \
-      --replace 'git="https://gitlab.com/snakedye/snui.git"' 'path = "${sources.snui.src}"'
-  '';
-
   postFixup = ''
     wrapProgram $out/bin/paper \
       --prefix LD_LIBRARY_PATH : "${wayland}/lib"

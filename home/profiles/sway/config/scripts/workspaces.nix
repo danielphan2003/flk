@@ -1,7 +1,6 @@
-{ writeShellScript, waylandPkgs, ... }:
-let inherit (waylandPkgs) sway; in
+{ writeShellScript, sway-unwrapped, ... }:
 writeShellScript "workspaces.sh" ''
-  if ! ${sway}/bin/swaymsg workspace $@; then
+  if ! ${sway-unwrapped}/bin/swaymsg workspace $@; then
     if [ $@ -eq 1 ]; then
       riverctl set-focused-tags $((1 << ($@ - 1)))
     else

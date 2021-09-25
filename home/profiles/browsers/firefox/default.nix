@@ -8,7 +8,7 @@ let
   cfgPath = "${mozPath}/firefox";
 in
 {
-  home.packages = with pkgs; [ firefox-wayland ];
+  home.packages = with pkgs; [ firefox-nightly-bin ];
 
   # programs.firefox = {
   #   enable = true;

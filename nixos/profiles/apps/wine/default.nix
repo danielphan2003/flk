@@ -7,8 +7,13 @@ in
     then
       attrValues
         {
-          inherit (pkgs) winetricks lutris bottles;
-          inherit (pkgs.wineWowPackages) staging;
+          inherit (pkgs)
+            bottles
+            lutris
+            winestreamproxy
+            wine-tkg
+            wowtricks
+            ;
         }
     else [ ];
 }

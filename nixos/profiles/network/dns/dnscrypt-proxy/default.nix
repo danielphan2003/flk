@@ -7,7 +7,7 @@ in
 {
   imports = [ ../common ../disable-resolved ];
 
-  networking.nameservers = mkForce [ "127.0.0.1" ];
+  networking.nameservers = mkAfter [ "127.0.0.1" ];
 
   services.dnscrypt-proxy2 = {
     enable = true;
@@ -22,7 +22,7 @@ in
         "yepdns-sg-ipv6"
       ];
 
-      listen_addresses = [ "127.0.0.1:53" "::1:53" ];
+      listen_addresses = [ "[::]:53" ];
 
       ipv6_servers = true;
 

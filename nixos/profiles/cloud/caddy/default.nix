@@ -5,7 +5,7 @@ let inherit (config.networking) hostName; in
 
   services.caddy = {
     enable = true;
-    config = ''
+    config = lib.mkBefore ''
       ${builtins.readFile ./Caddyfile}
     '';
   };

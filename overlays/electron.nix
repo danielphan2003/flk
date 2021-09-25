@@ -6,6 +6,7 @@ let
     signal-desktop
     electron
     teams
+    ungoogled-chromium
     vscodium
     ;
 
@@ -50,7 +51,7 @@ in
 
   vscodium = vscodium.overrideAttrs (_: { postInstall = patchElectron flags "$out/bin/codium"; });
 
-  ungoogled-chromium = prev.ungoogled-chromium.override { commandLineArgs = flagsCommand waylandOptions; };
+  ungoogled-chromium = ungoogled-chromium.override { commandLineArgs = flagsCommand waylandOptions; };
 
   microsoft-edge-beta = prev.microsoft-edge-beta.override { commandLineArgs = flagsCommand flags; };
 
@@ -59,8 +60,8 @@ in
   spotify-spicetified = prev.spotify-spicetified.override {
     commandLineArgs = prev.lib.concatStringsSep " " [
       "--enable-developer-mode"
-      # "--enable-features=UseOzonePlatform"
-      # "--ozone-platform=wayland"
+      "--enable-features=UseOzonePlatform"
+      "--ozone-platform=wayland"
     ];
   };
 

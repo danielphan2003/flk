@@ -3,7 +3,7 @@
     enable = true;
     plugins = with pkgs; [
       obs-v4l2sink
-      waylandPkgs.obs-wlrobs
+      obs-wlrobs
     ];
   };
 }

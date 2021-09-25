@@ -53,7 +53,7 @@ in
       qtwayland
       ;
 
-    inherit (pkgs.waylandPkgs)
+    inherit (pkgs)
       clipman
       grim
       mako
@@ -71,8 +71,8 @@ in
   }
   //
   (lib.optionalAttrs
-    (builtins.elem pkgs.system pkgs.waylandPkgs.lavalauncher.meta.platforms)
-    { inherit (pkgs.waylandPkgs) lavalauncher; }
+    (builtins.elem pkgs.system pkgs.lavalauncher.meta.platforms)
+    { inherit (pkgs) lavalauncher; }
   ));
 
   services.avizo.enable = true;

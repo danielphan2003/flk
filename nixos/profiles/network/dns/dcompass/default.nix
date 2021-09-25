@@ -9,7 +9,7 @@ in
 {
   imports = [ ../common ../disable-resolved ];
 
-  networking.nameservers = lib.mkForce [ "127.0.0.1" ];
+  networking.nameservers = lib.mkAfter [ "127.0.0.1" ];
 
   # Setup our local DNS
   services.dcompass = {
@@ -45,17 +45,34 @@ in
           uri = "https://sg.yepdns.com/dns-query";
           addr = "2a04:3543:1000:2310:4831:c1ff:feb5:30a4";
         };
+
+        opendns.udp = {
+          timeout = 4;
+          addr = "208.67.222.222:53";
+        };
       };
       table = {
-        start = [
-          {
-            query = {
-              tag = "secure";
-              cache_policy = "persistent";
-            };
-          }
-          "end"
-        ];
+        start = {
+          "if" = ''domain([file("${./fb-resolver.txt}")])'';
+          "then" = [
+            {
+              query = {
+                tag = "opendns";
+                cache_policy = "persistent";
+              };
+            }
+            "end"
+          ];
+          "else" = [
+            {
+              query = {
+                tag = "secure";
+                cache_policy = "persistent";
+              };
+            }
+            "end"
+          ];
+        };
       };
       address = "[::]:53";
       verbosity = "info";

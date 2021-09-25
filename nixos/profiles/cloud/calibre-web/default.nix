@@ -1,15 +1,18 @@
 { config, lib, ... }:
 let
   inherit (config.networking) hostName domain;
-  inherit (lib.our.hostConfigs.tailscale) nameserver;
+  inherit (lib.our.hostConfigs.tailscale) tailnet_alias;
+  inherit (lib.our.hostConfigs.hosts."${hostName}") tailscale_ip;
   inherit (config.services.calibre-web.listen) ip port;
+
+  tailnet-domain = "${hostName}.${tailnet_alias}";
 in
 {
   services.calibre-web = {
     enable = true;
     openFirewall = true;
     listen = {
-      ip = "127.0.0.1";
+      ip = tailscale_ip;
       port = 8083;
     };
     options = {
@@ -20,10 +23,10 @@ in
     };
   };
 
-  # services.caddy.virtualHosts."calibre.${hostName}" = {
-  #   serverAliases = [ "calibre.${nameserver}" ];
-  #   extraConfig = ''
-  #     reverse_proxy ${ip}:${toString port}
-  #   '';
-  # };
+  services.caddy.virtualHosts."*.${tailnet-domain}".extraConfig = lib.mkAfter ''
+    @calibre_web host calibre.${tailnet-domain}
+    handle @calibre_web {
+      reverse_proxy ${ip}:${toString port}
+    }
+  '';
 }

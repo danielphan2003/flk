@@ -3,8 +3,8 @@
 
   nixConfig = {
     extra-experimental-features = "nix-command flakes ca-references";
-    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dram.cachix.org https://dcompass.cachix.org";
-    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY= dcompass.cachix.org-1:uajJEJ1U9uy/y260jBIGgDwlyLqfL1sD5yaV/uWVlbk=";
+    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dram.cachix.org https://dcompass.cachix.org https://nix-gaming.cachix.org";
+    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY= dcompass.cachix.org-1:uajJEJ1U9uy/y260jBIGgDwlyLqfL1sD5yaV/uWVlbk= nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=";
   };
 
   inputs = {
@@ -85,23 +85,9 @@
       inputs.nixpkgs.follows = "latest";
     };
 
-    firefox-nightly = {
-      url = github:colemickens/flake-firefox-nightly;
-      inputs.nixpkgs.follows = "latest";
-    };
+    firefox-nightly = { url = github:colemickens/flake-firefox-nightly; };
 
-    nixpkgs-wayland = {
-      url = github:colemickens/nixpkgs-wayland;
-      inputs.nixpkgs.follows = "latest";
-    };
-
-    netkit = {
-      url = github:icebox-nix/netkit.nix;
-      inputs = {
-        nixpkgs.follows = "latest";
-        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
-      };
-    };
+    nixpkgs-wayland = { url = github:nix-community/nixpkgs-wayland; };
 
     dcompass = {
       url = github:compassd/dcompass;
@@ -140,6 +126,11 @@
       url = github:tweag/gomod2nix;
       inputs.nixpkgs.follows = "latest";
     };
+
+    nix-gaming = {
+      url = github:fufexan/nix-gaming;
+      inputs.utils.follows = "digga/flake-utils-plus";
+    };
   };
 
   outputs =
@@ -161,7 +152,6 @@
 
     , firefox-nightly
     , nixpkgs-wayland
-    , netkit
     , dcompass
     , anbox
     , nix-dram
@@ -171,6 +161,8 @@
 
     , fenix
     , gomod2nix
+
+    , nix-gaming
 
     , ...
     } @ inputs:
@@ -191,7 +183,6 @@
               nvfetcher.overlay
               deploy.overlay
 
-              nixpkgs-wayland.overlay-egl
               nix-dram.overlay
               vs-ext.overlay
 

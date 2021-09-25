@@ -2,22 +2,60 @@
 
 channels: final: prev:
 let
-  inherit (final) sources;
+  inherit (builtins)
+    attrNames
+    elem
+    hasAttr
+    ;
+
+  inherit (prev)
+    lib
+    sources
+    vimUtils
+    vscode-utils
+    ;
+
+  inherit (final) callPackage;
+
+  inherit (lib)
+    filterAttrs
+    hasPrefix
+    mapAttrs
+    mapAttrs'
+    nameValuePair
+    removePrefix
+    ;
+
+  inherit (inputs)
+    dcompass
+    firefox-nightly
+    nix-gaming
+    nixpkgs-wayland
+    npmlock2nix
+    rnix-lsp
+    ;
+
+  system =
+    if prev ? system
+    then prev.system
+    else "x86_64-linux";
+
+  matchSystem = input: input.packages ? ${system};
 
   mkVimPlugin = prefix: plugin:
-    final.vimUtils.buildVimPluginFrom2Nix {
+    vimUtils.buildVimPluginFrom2Nix {
       inherit (plugin) version src;
-      pname = final.lib.removePrefix prefix plugin.pname;
+      pname = removePrefix prefix plugin.pname;
     };
 
   mkVscodeExtension = extension:
-    final.vscode-utils.mkVscodeExtension extension { };
+    vscode-utils.mkVscodeExtension extension { };
 
   mkMinecraftMod = prefix: mod:
-    final.callPackage ./games/minecraft/mod.nix { inherit mod prefix; };
+    callPackage ./games/minecraft/mod.nix { inherit mod prefix; };
 
   mkPythonPackage = prefix: package:
-    final.callPackage ./top-level/python-packages.nix { inherit package prefix; };
+    callPackage ./top-level/python-packages.nix { inherit package prefix; };
 
   newPkgsSet = pkgSet:
     let
@@ -31,9 +69,16 @@ let
       }.${pkgSet};
 
 
-      pkgsInSources = final.lib.mapAttrs' (name: value: final.lib.nameValuePair (final.lib.removePrefix prefix name) (value)) (final.lib.filterAttrs (n: v: final.lib.hasPrefix prefix n) sources);
+      pkgsInSources = mapAttrs'
+        (name: value:
+          nameValuePair
+            (removePrefix prefix name)
+            (value))
+        (filterAttrs
+          (n: v: hasPrefix prefix n)
+          sources);
     in
-    final.lib.mapAttrs (n: v: pkgSetBuilder v) pkgsInSources;
+    mapAttrs (n: v: pkgSetBuilder v) pkgsInSources;
 
 in
 {
@@ -48,125 +93,158 @@ in
 
   alsa-lib = prev.alsaLib;
 
-  sddm-chili = final.callPackage ./applications/display-managers/sddm/themes/chili { };
+  sddm-chili = callPackage ./applications/display-managers/sddm/themes/chili { };
 
-  pure = final.callPackage ./shells/zsh/pure { };
+  pure = callPackage ./shells/zsh/pure { };
 
-  wii-u-gc-adapter = final.callPackage ./misc/drivers/wii-u-gc-adapter { };
+  wii-u-gc-adapter = callPackage ./misc/drivers/wii-u-gc-adapter { };
 
-  libinih = final.callPackage ./development/libraries/libinih { };
+  libinih = callPackage ./development/libraries/libinih { };
 
-  steamcompmgr = final.callPackage ./applications/window-managers/steamcompmgr { };
+  steamcompmgr = callPackage ./applications/window-managers/steamcompmgr { };
 
-  fs-diff = final.callPackage ./tools/file-systems/fs-diff { };
+  fs-diff = callPackage ./tools/file-systems/fs-diff { };
 
-  whitesur-icon-theme = final.callPackage ./data/icons/whitesur-icon-theme { };
+  whitesur-icon-theme = callPackage ./data/icons/whitesur-icon-theme { };
 
-  otf-apple = final.callPackage ./data/fonts/otf-apple { };
+  otf-apple = callPackage ./data/fonts/otf-apple { };
 
-  ttf-segue-ui = final.callPackage ./data/fonts/ttf-segue-ui { };
+  ttf-segue-ui = callPackage ./data/fonts/ttf-segue-ui { };
 
-  # ventoy = final.callPackage ./tools/file-systems/ventoy { };
+  # ventoy = callPackage ./tools/file-systems/ventoy { };
 
-  leonflix = final.callPackage ./applications/video/leonflix { };
+  leonflix = callPackage ./applications/video/leonflix { };
 
-  widevine-cdm = final.callPackage ./applications/networking/browsers/widevine-cdm { };
+  widevine-cdm = callPackage ./applications/networking/browsers/widevine-cdm { };
 
-  flyingfox = final.callPackage ./data/misc/flyingfox { };
+  flyingfox = callPackage ./data/misc/flyingfox { };
 
-  interak = final.callPackage ./data/misc/interak { };
+  interak = callPackage ./data/misc/interak { };
 
-  rainfox = final.callPackage ./data/misc/rainfox { };
+  rainfox = callPackage ./data/misc/rainfox { };
 
-  spicetify-themes = final.callPackage ./data/misc/spicetify-themes { };
+  spicetify-themes = callPackage ./data/misc/spicetify-themes { };
 
-  dribbblish-dynamic-theme = final.callPackage ./data/misc/dribbblish-dynamic-theme { };
+  dribbblish-dynamic-theme = callPackage ./data/misc/dribbblish-dynamic-theme { };
 
-  microsoft-edge-beta = final.callPackage ./applications/networking/browsers/microsoft-edge { gconf = prev.gnome2.GConf; };
+  microsoft-edge-beta = callPackage ./applications/networking/browsers/microsoft-edge { gconf = final.gnome2.GConf; };
 
   microsoft-edge-dev = final.microsoft-edge-beta.override { channel = "dev"; };
 
-  arkenfox-userjs = final.callPackage ./data/misc/arkenfox-userjs { };
+  arkenfox-userjs = callPackage ./data/misc/arkenfox-userjs { };
 
-  spotify-spicetified = final.callPackage ./applications/audio/spotify-spicetified { };
+  spotify-spicetified = callPackage ./applications/audio/spotify-spicetified { };
 
-  pywalfox = final.callPackage ./tools/misc/pywalfox { };
+  pywalfox = callPackage ./tools/misc/pywalfox { };
 
-  caprine = final.callPackage ./applications/networking/instant-messengers/caprine { };
+  caprine = callPackage ./applications/networking/instant-messengers/caprine { };
 
   luaPackages = prev.luaPackages // {
-    bling = final.callPackage ./development/lua-modules/bling { };
+    bling = callPackage ./development/lua-modules/bling { };
 
-    layout-machi = final.callPackage ./development/lua-modules/layout-machi { };
+    layout-machi = callPackage ./development/lua-modules/layout-machi { };
 
-    lua-pam = final.callPackage ./development/lua-modules/lua-pam { };
+    lua-pam = callPackage ./development/lua-modules/lua-pam { };
 
-    awestore = final.callPackage ./development/lua-modules/awestore { };
+    awestore = callPackage ./development/lua-modules/awestore { };
   };
 
-  avizo = final.callPackage ./applications/misc/avizo { };
+  avizo = callPackage ./applications/misc/avizo { };
 
-  plymouth-themes = final.callPackage ./data/misc/plymouth-themes { };
+  plymouth-themes = callPackage ./data/misc/plymouth-themes { };
 
-  paper = final.callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
+  paper = callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
 
-  eww = channels.latest.callPackage ./applications/misc/eww {
+  eww = with channels.latest; callPackage ./applications/misc/eww {
     inherit (final) sources;
-    makeRustPlatform = (channels.latest.makeRustPlatform {
-      inherit (final.fenix.latest) cargo rustc;
+    makeRustPlatform = (makeRustPlatform {
+      inherit (prev.fenix.latest) cargo rustc;
     });
   };
 
-  eww-mpris = final.callPackage ./applications/misc/eww/mpris.nix { };
+  eww-mpris = callPackage ./applications/misc/eww/mpris.nix { };
 
-  caddy = final.callPackage ./servers/caddy { };
+  caddy = callPackage ./servers/caddy { };
 
-  ntfs2btrfs = final.callPackage ./tools/file-systems/ntfs2btrfs { };
+  ntfs2btrfs = callPackage ./tools/file-systems/ntfs2btrfs { };
 
-  quibble = final.callPackage ./applications/virtualization/quibble {
+  quibble = callPackage ./applications/virtualization/quibble {
     mingwGccs = with prev.pkgsCross; [ mingw32.buildPackages.gcc mingwW64.buildPackages.gcc ];
   };
 
-  wgcf = final.callPackage ./applications/networking/wgcf { };
+  wgcf = callPackage ./applications/networking/wgcf { };
 
-  tuinitymc = final.callPackage ./games/tuinity { };
+  tuinitymc = callPackage ./games/tuinity { };
 
-  lightcord = final.callPackage ./applications/networking/instant-messengers/lightcord {
+  lightcord = callPackage ./applications/networking/instant-messengers/lightcord {
     # inherit (channels.latest) glibc;
   };
 
-  doggo = final.callPackage ./tools/networking/doggo { };
+  doggo = callPackage ./tools/networking/doggo { };
 
-  anime-downloader = final.callPackage ./applications/video/anime-downloader { };
+  anime-downloader = callPackage ./applications/video/anime-downloader { };
 
-  trackma = final.callPackage ./applications/video/trackma { };
+  trackma = callPackage ./applications/video/trackma { };
 
-  frece = final.callPackage ./applications/misc/frece { inherit (channels.latest) rustPlatform; };
+  frece = callPackage ./applications/misc/frece { inherit (channels.latest) rustPlatform; };
 
-  adl = final.callPackage ./applications/video/adl { };
+  adl = callPackage ./applications/video/adl { };
 
-} // (with inputs; (dcompass.overlay final prev).dcompass // {
+}
+
+//
+
+(if matchSystem dcompass
+then dcompass.packages.${system}
+else { })
+
+//
+
+{
 
   firefox-nightly-bin =
-    if prev.system == "x86_64-linux"
-    then firefox-nightly.packages.${prev.system}.firefox-nightly-bin
-    else prev.firefox;
+    if matchSystem firefox-nightly
+    then firefox-nightly.packages.${system}.firefox-nightly-bin
+    else final.firefox;
 
-  inherit (rnix-lsp.packages.${prev.system}) rnix-lsp;
+}
+
+//
+
+(if matchSystem nix-gaming
+then nix-gaming.packages.${system}
+else { })
+
+//
+
+(if matchSystem nixpkgs-wayland
+then nixpkgs-wayland.packages.${system}
+else { })
+
+//
+
+{
 
   npmlock2nix =
     let
-      patchedNpmlock2nix = with prev; applyPatches {
+      patchedNpmlock2nix = with final; applyPatches {
         name = "npmlock2nix";
         src = npmlock2nix;
         patches = [
           (fetchpatch {
+            name = "npmlock2nix-Git+https.patch";
             url = "https://patch-diff.githubusercontent.com/raw/nix-community/npmlock2nix/pull/94.patch";
-            sha256 = "sha256-FbKccDfxYLJD39Xg21xX32p1afrgFZpnYS92HLBEctc=";
+            sha256 = "sha256-OCYKf9OJiuV9z39j2JWN1pvw9hVQZZsT85f1iuevTzE=";
           })
         ];
       };
     in
-    import patchedNpmlock2nix { pkgs = prev; };
+    import patchedNpmlock2nix { pkgs = final; };
 
-})
+}
+
+  //
+
+(if matchSystem rnix-lsp
+then rnix-lsp.packages.${system}
+else { })

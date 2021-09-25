@@ -16,7 +16,6 @@ in
 
   programs.waybar = {
     enable = true;
-    package = pkgs.waylandPkgs.waybar;
     systemd.enable = true;
     settings = [ (modules // { height = 40; }) ];
     style = mkWaybarColors {

@@ -36,7 +36,7 @@ in
     ++ optionals services.dnscrypt-proxy2.enable [ "/var/lib/private/dnscrypt-proxy2" "/var/cache/private/dnscrypt-proxy2" ]
     ++ optionals services.fail2ban.enable [ "/var/lib/fail2ban" ]
     ++ optionals services.hercules-ci-agent.enable [ "/var/lib/hercules-ci-agent" ]
-    ++ optionals services.minecraft-server.enable [ "/var/lib/minecraft" ]
+    ++ optionals services.minecraft-server.enable [ services.minecraft-server.dataDir ]
     ++ optionals services.netdata.enable [ "/var/lib/netdata" "/var/cache/netdata" ]
     ++ optionals services.postgresql.enable [ "/var/lib/postgresql" ]
     ++ optionals services.postgresqlBackup.enable [ "/var/backup/postgresql" ]

@@ -4,9 +4,9 @@ let
   mod = config.modifier;
 
   light = cmd: "exec ${pkgs.avizo}/bin/lightctl ${cmd}";
-  power = cmd: "exec ${pkgs.waylandPkgs.nwg-launchers}/bin/nwgbar";
+  power = cmd: "exec ${pkgs.nwg-launchers}/bin/nwgbar";
   netMan = cmd: "exec ${pkgs.networkmanager_dmenu}/bin/networkmanager_dmenu ${cmd}";
-  clipMan = cmd: "exec ${pkgs.waylandPkgs.clipman}/bin/clipman ${cmd}";
+  clipMan = cmd: "exec ${pkgs.clipman}/bin/clipman ${cmd}";
 
   bemenu-run = pkgs.callPackage ../scripts/bemenu-run.nix { };
   screenshare = pkgs.callPackage ../scripts/screenshare.nix { };
