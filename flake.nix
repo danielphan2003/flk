@@ -16,6 +16,7 @@
       inputs = {
         nixos.follows = "nixos";
         latest.follows = "latest";
+        nix.follows = "nix";
         digga.follows = "digga";
         bud.follows = "bud";
         nvfetcher.follows = "nvfetcher";
@@ -188,10 +189,9 @@
 
               fenix.overlay
               gomod2nix.overlay
-
-              dan-nixpkgs.overlay
-              (import ./pkgs/default.nix { inherit inputs; })
-            ];
+            ]
+            ++ (builtins.attrValues dan-nixpkgs.overlays)
+            ++ [ (import ./pkgs/default.nix { inherit inputs; }) ];
           };
           latest = { };
           anbox = { };

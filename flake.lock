@@ -215,6 +215,9 @@
         "latest": [
           "latest"
         ],
+        "nix": [
+          "nix"
+        ],
         "nixos": [
           "nixos"
         ],
@@ -223,11 +226,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1632463950,
-        "narHash": "sha256-MNzqquLnDJ/Pa0nPIsDydOZKwlHzOCbLMeh9iqW85wI=",
+        "lastModified": 1632643745,
+        "narHash": "sha256-LpCc2HM+J0rAHOGz0Rl82xEt6vRaaq+30p0I1nC4V9Q=",
         "owner": "danielphan2003",
         "repo": "nixpkgs",
-        "rev": "1f95c568c4e94be7eb29beb3150fe23056c4e7c8",
+        "rev": "3e029be3cbf8be241aa4327e85aad7fd8cd8208f",
         "type": "github"
       },
       "original": {
