@@ -21,10 +21,12 @@ in
       nix-gaming.nixosModule
       ({ latestModulesPath, ... }: {
         imports = [
+          "${latestModulesPath}/programs/xwayland.nix"
           "${latestModulesPath}/services/web-servers/caddy/default.nix"
           "${latestModulesPath}/services/security/vaultwarden/default.nix"
         ];
         disabledModules = [
+          "programs/xwayland.nix"
           "services/web-servers/caddy.nix"
           "services/security/bitwarden_rs/default.nix"
         ];

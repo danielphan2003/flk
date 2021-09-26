@@ -86,6 +86,8 @@ in
   wayland.windowManager.sway = {
     enable = true;
 
+    xwayland = true;
+
     wrapperFeatures = {
       base = true;
       gtk = config.gtk.enable;

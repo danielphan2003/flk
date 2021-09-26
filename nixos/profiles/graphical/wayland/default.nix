@@ -3,6 +3,8 @@
 
   programs.xwayland.enable = true;
 
+  fonts.fontDir.enable = true;
+
   services.xserver.displayManager.sddm = {
     settings.Wayland.SessionDir = "${pkgs.sway}/share/wayland-sessions";
   };

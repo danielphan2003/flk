@@ -21,6 +21,7 @@ channels: final: prev: {
     stylua
     sudo
     wlrctl
+    xwayland
     ;
 
   haskellPackages = prev.haskellPackages.override
