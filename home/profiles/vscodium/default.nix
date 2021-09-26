@@ -5,7 +5,6 @@ let inherit (builtins) attrValues; in
     enable = true;
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [
-      jnoortheen.nix-ide
       matklad.rust-analyzer-nightly
 
       ActiveFileInStatusBar
@@ -29,6 +28,7 @@ let inherit (builtins) attrValues; in
       markdown-all-in-one
       markdown-preview-enhanced
       material-icon-theme
+      nix-ide
       nix-env-selector
       output-colorizer
       nixpkgs-fmt
