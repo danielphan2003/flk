@@ -10,7 +10,7 @@ fi
 
 diff="git diff-index --name-only --cached $against --diff-filter d"
 
-lua_files=($($diff -- '*.nix'))
+lua_files=($($diff -- '*.lua'))
 nix_files=($($diff -- '*.nix'))
 all_files=($($diff))
 
