@@ -82,6 +82,7 @@ let
 
 in
 {
+  formats = prev.formats // (import ../lib/pkgs-lib { inherit (prev) lib pkgs; });
 
   vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
 

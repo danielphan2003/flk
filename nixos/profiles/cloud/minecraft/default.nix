@@ -6,6 +6,8 @@ let
 
   inherit (config.services.minecraft-server.serverProperties) online-mode white-list;
 
+  inherit (pkgs.formats.mc-motd) c f gen;
+
   mkMcSecret = file: {
     inherit file;
     owner = "minecraft";
@@ -73,12 +75,13 @@ in
       # Yes, dis is de way
       # see https://mctools.org/motd-creator?text=%262S+%263I+%26cM+%265P+%266W%267o%268r%269l%26ad%26b%21%0D%0A%266C%C3%A1c+pn+th%E1%BA%ADt+l%C3%A0+h%E1%BB%81+h%C6%B0%E1%BB%9Bc+qu%C3%A1+%E1%BA%A1k+%265%7C+%26cTr%E1%BB%9F+th%C3%A0nh+hecker+nk3+%26kpn
       # full text:
-      #                  S I M P World!
-      # Các pn thật là hề hước quá ạk | Trở thành hecker nk3 pn
-      motd =
-        ''                 \u00A72S \u00A73I \u00A7cM \u00A75P \u00A76W\u00A77o\u00A78r\u00A79l\u00A7ad\u00A7b!\u00A7r''
-        + ''\n''
-        + ''\u00A76Các pn thật là hề hước quá ạk \u00A75| \u00A7cTrở thành hecker nk3 \u00A7kpn'';
+      #                                                 |
+      #               ⟹ S I M P World! ⟸            |
+      # Trở thành hecker nk3 pn | danielphan.2003#1147 |
+      motd = with c;
+        ''              ${(gen ''${d_g}⟹ S ${d_a}I ${l_r}M ${d_p}P ${g}W${l_g}o${d_g}r${l_b}l${l_g}d${l_a}! ⟸'')}            ''
+        + ''\n'' +
+        (gen ''${g}Trở thành hecker nk3 ${f.ob "pn"}${f.re ""} ${l_p}| ${l_b}danielphan.2003${l_g}#1147'');
 
       # Using secrets for this is PITA, so disabling it helps with
       # technical debts.
