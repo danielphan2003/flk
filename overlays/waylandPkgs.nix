@@ -3,7 +3,9 @@ channels: final: prev: {
     inherit (prev.wayland-protocols-master) src version;
   });
 
-  wlroots = with prev; (wlroots.override { wayland-protocols = final.wayland-protocols-master; }).overrideAttrs (_: {
+  wlroots = with prev; (wlroots.override {
+    wayland-protocols = final.wayland-protocols-master;
+  }).overrideAttrs (_: {
     patches = [
       (fetchpatch {
         name = "wlroots-eglstreams.patch";
@@ -33,48 +35,24 @@ channels: final: prev: {
     inherit (final.sources.ydotool) pname version src;
   });
 
-  rofi-unwrapped = with prev; rofi-unwrapped.overrideAttrs (o: {
-    inherit (final.sources.rofi-wayland) src version;
+  rofi-unwrapped =
+    let
+      inherit (final.sources.rofi-wayland) pname src version;
+    in
+    channels.latest.rofi-unwrapped.overrideAttrs (o: with prev; {
+      inherit src version;
 
-    nativeBuildInputs = o.nativeBuildInputs ++ [ wayland-scanner makeWrapper meson ninja ];
+      pname = "${pname}-unwrapped";
 
-    postInstall = ''
-      wrapProgram $out/bin/rofi \
-        --run 'export XDG_DATA_DIRS="$(sed "s| |/share:|g" < <(echo $NIX_PROFILES))/share:$XDG_DATA_DIRS"'
-    '';
+      nativeBuildInputs = o.nativeBuildInputs ++ [ wayland-scanner makeWrapper meson ninja ];
 
-    buildInputs = [
-      wayland
-      wayland-protocols
-      libxkbcommon
-      pango
-      cairo
-      git
-      bison
-      flex
-      librsvg
-      check
-      libstartup_notification
-      xorg.libxcb
-      xorg.xcbutil
-      xorg.xcbutilwm
-      xcb-util-cursor
-      which
-    ];
-    pname = "${final.sources.rofi-wayland.pname}-unwrapped";
-  });
+      postInstall = ''
+        wrapProgram $out/bin/rofi \
+          --run 'export XDG_DATA_DIRS="$(sed "s| |/share:|g" < <(echo $NIX_PROFILES))/share:$XDG_DATA_DIRS"'
+      '';
 
-  # xwayland = with prev; xwayland.overrideAttrs (o:
-  #   let
-  #     xorgproto = xorg.xorgproto.overrideAttrs (_: {
-  #       inherit (final.sources.xorgproto) src version;
-  #       mesonFlags = [ "-Dversion=2.3.99.2" ];
-  #     });
-  #   in
-  #   {
-  #     inherit (final.sources.xwayland) pname src version;
-  #     buildInputs = o.buildInputs ++ [ xorgproto ];
-  #   });
+      buildInputs = o.buildInputs ++ [ wayland wayland-protocols ];
+    });
 
   glfw = with prev; glfw.overrideAttrs (o: {
     patches = lib.our.getPatches final.sources.minecraft-wayland.src;
