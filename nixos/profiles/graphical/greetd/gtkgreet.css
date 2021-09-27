@@ -1,0 +1,11 @@
+window {
+  background-image: url("file://@bg_img@");
+  background-size: cover;
+  background-position: center;
+}
+
+box#body {
+  background-color: @bg@;
+  border-radius: 10px;
+  padding: 50px;
+}

@@ -3,6 +3,13 @@ let user = "danie"; in
 {
   home-manager.users."${user}" = hmUsers."${user}";
 
+  services.greetd.settings = {
+    initial_session = {
+      inherit user;
+      command = "${pkgs.sway}/bin/sway";
+    };
+  };
+
   age.secrets = {
     accounts = {
       file = "${self}/secrets/home/profiles/accounts.age";
