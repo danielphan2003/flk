@@ -103,7 +103,7 @@ in
       });
 
       modern = graphics ++ (attrValues {
-        inherit (graphical) gtk pipewire sddm wayland;
+        inherit (graphical) gtk pipewire greetd wayland misc;
       });
 
       legacy = graphics ++ (attrValues {
