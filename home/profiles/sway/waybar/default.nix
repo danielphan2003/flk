@@ -4,16 +4,6 @@ let
   modules = import ./modules { inherit lib pkgs; };
 in
 {
-  systemd.user.services.waybar = {
-    Unit = {
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-  };
-
   programs.waybar = {
     enable = true;
     systemd.enable = true;

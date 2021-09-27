@@ -24,7 +24,6 @@ in
   home.packages = attrValues ({
     inherit (pkgs)
       # sway-dependent
-      xwayland
       swaylock-effects
       swayidle
       autotiling
@@ -124,7 +123,6 @@ in
       # Tell toolkits to use wayland
       export CLUTTER_BACKEND=wayland
       export QT_QPA_PLATFORM=wayland-egl
-      export QT_QPA_PLATFORMTHEME=qt5ct
       export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
       export ECORE_EVAS_ENGINE=wayland-egl
       export ELM_ENGINE=wayland_egl
