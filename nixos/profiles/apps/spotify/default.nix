@@ -7,13 +7,7 @@
     then
       spotify-spicetified.override
         {
-          # theme = "Dribbblish";
-          # theme = "ddt";
-          # theme = "Fluent";
-          # colorScheme = "base";
-          # colorScheme = "dark";
-          theme = "Ziro";
-          colorScheme = "red-dark";
+          theme = "ddt";
           injectCss = true;
           replaceColors = true;
           overwriteAssets = true;
@@ -31,11 +25,9 @@
             "reddit"
           ];
           enabledExtensions = [
-            # "ddt.js"
-            # "dribbblish.js"
-            # "ddt-dynamic.js"
-            # "Vibrant.min.js"
-            # "fluent.js"
+            "ddt.js"
+            "ddt-dynamic.js"
+            "Vibrant.min.js"
             "fullAppDisplay.js"
             "loopyLoop.js"
             "popupLyrics.js"
