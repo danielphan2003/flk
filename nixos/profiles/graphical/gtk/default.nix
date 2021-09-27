@@ -7,7 +7,7 @@
 
     # Use librsvg's gdk-pixbuf loader cache file as it enables gdk-pixbuf to load
     # SVG files (important for icons)
-    GDK_PIXBUF_MODULE_FILE = "$(echo ${pkgs.librsvg}/lib/gdk-pixbuf-2.0/*/loaders.cache)";
+    GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
   };
 
   xdg.portal = {
