@@ -33,7 +33,7 @@ let
 
   patchElectron = flags': bin: ''
     substituteInPlace ${bin} \
-      --replace '"$@"' '${flagsCommand flags'} "$@"'
+      --replace '"$@"' '"$(if [ ! -n $WAYLAND_DISPLAY ]; then echo ""; else echo "${flagsCommand flags'}"; fi)" "$@"'
   '';
 in
 {
@@ -58,11 +58,7 @@ in
   microsoft-edge-dev = prev.microsoft-edge-dev.override { commandLineArgs = flagsCommand flags; };
 
   spotify-spicetified = prev.spotify-spicetified.override {
-    commandLineArgs = prev.lib.concatStringsSep " " [
-      "--enable-developer-mode"
-      "--enable-features=UseOzonePlatform"
-      "--ozone-platform=wayland"
-    ];
+    commandLineArgs = flagsCommand waylandOptions;
   };
 
   teams = teams.overrideAttrs (_: {
