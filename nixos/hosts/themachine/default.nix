@@ -63,9 +63,7 @@
 
     plymouth = {
       enable = true;
-      # theme = "breeze";
-      # themePackages = with pkgs; [ libsForQt5.breeze-plymouth ];
-      theme = "hexagon_dots_alt"; # "connect";
+      theme = "hexagon_dots_alt"; # or "connect";
       themePackages = [ (pkgs.plymouth-themes.override { inherit (config.boot.plymouth) theme; }) ];
     };
 
