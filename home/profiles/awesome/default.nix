@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let inherit (builtins) attrValues; in
+{
   xdg.configFile = {
     "awesome" = {
       source = ./src;
@@ -6,6 +8,10 @@
     };
     "awesome/bling".source = pkgs.luaPackages.bling;
     "awesome/layout-machi".source = pkgs.luaPackages.layout-machi;
+  };
+
+  home.packages = attrValues {
+    inherit (pkgs) rofi;
   };
 
   xsession = {
