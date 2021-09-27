@@ -15,11 +15,5 @@ in
       help = "Copy the desired template to DEST";
       script = ./get.bash;
     };
-    nvfetcher-github = {
-      writer = writeBashWithNixPaths [ nvfetcher-bin coreutils git nixUnstable ];
-      synopsis = "nvfetcher-github";
-      help = "Auto update with nvfetcher on github action";
-      script = ./nvfetcher-github.bash;
-    };
   };
 }
