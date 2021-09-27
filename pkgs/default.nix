@@ -195,12 +195,6 @@ in
 
 //
 
-(if matchSystem dcompass
-then dcompass.packages.${system}
-else { })
-
-//
-
 {
 
   firefox-nightly-bin =
@@ -218,11 +212,11 @@ else { })
 
 //
 
-(if matchSystem nixpkgs-wayland
-then nixpkgs-wayland.packages.${system}
+(if matchSystem rnix-lsp
+then rnix-lsp.packages.${system}
 else { })
 
-//
+  //
 
 {
 
@@ -243,9 +237,3 @@ else { })
     import patchedNpmlock2nix { pkgs = final; };
 
 }
-
-  //
-
-(if matchSystem rnix-lsp
-then rnix-lsp.packages.${system}
-else { })

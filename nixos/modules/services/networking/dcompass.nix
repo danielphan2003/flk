@@ -16,8 +16,8 @@ in
 
     package = mkOption {
       type = types.package;
-      default = pkgs.dcompass-maxmind;
-      description = "Package of dcompass to use. e.g. pkgs.dcompass";
+      default = pkgs.dcompass.dcompass-maxmind;
+      description = "Package of dcompass to use. e.g. pkgs.dcompass.dcompass-cn";
     };
 
     settings = mkOption {

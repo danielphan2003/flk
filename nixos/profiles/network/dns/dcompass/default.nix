@@ -14,7 +14,7 @@ in
   # Setup our local DNS
   services.dcompass = {
     enable = true;
-    package = pkgs.dcompass-maxmind;
+    package = pkgs.dcompass.dcompass-maxmind;
     settings = {
       ratelimit = 50000;
       cache_size = 4096;

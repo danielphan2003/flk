@@ -81,18 +81,25 @@
 
     nixos-hardware = { url = "github:nixos/nixos-hardware"; };
 
-    naersk = {
-      url = github:nmattia/naersk;
+    firefox-nightly = {
+      url = github:colemickens/flake-firefox-nightly;
       inputs.nixpkgs.follows = "latest";
     };
 
-    firefox-nightly = { url = github:colemickens/flake-firefox-nightly; };
-
-    nixpkgs-wayland = { url = github:nix-community/nixpkgs-wayland; };
+    nixpkgs-wayland = {
+      url = github:nix-community/nixpkgs-wayland;
+      inputs = {
+        nixpkgs.follows = "latest";
+        cachix.follows = "nixos";
+      };
+    };
 
     dcompass = {
       url = github:compassd/dcompass;
-      inputs.utils.follows = "digga/flake-utils-plus/flake-utils";
+      inputs = {
+        nixpkgs.follows = "latest";
+        utils.follows = "digga/flake-utils-plus/flake-utils";
+      };
     };
 
     anbox = { url = github:samueldr/nixpkgs/feature/anbox-2021-06-refresh; };
@@ -104,7 +111,10 @@
 
     nix-dram = {
       url = github:dramforever/nix-dram;
-      inputs.nixpkgs.follows = "nix/nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nix/nixpkgs";
+        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+      };
     };
 
     qnr = { url = github:divnix/quick-nix-registry; };
@@ -113,7 +123,10 @@
 
     rnix-lsp = {
       url = github:nix-community/rnix-lsp;
-      inputs.nixpkgs.follows = "latest";
+      inputs = {
+        nixpkgs.follows = "nixos";
+        utils.follows = "digga/flake-utils-plus/flake-utils";
+      };
     };
 
     fenix = { url = github:nix-community/fenix; };
@@ -183,6 +196,9 @@
               agenix.overlay
               nvfetcher.overlay
               deploy.overlay
+
+              nixpkgs-wayland.overlay
+              dcompass.overlay
 
               nix-dram.overlay
               vs-ext.overlay
