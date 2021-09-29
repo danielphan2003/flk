@@ -215,6 +215,20 @@
 
         lib = import ./lib { lib = digga.lib // nixos.lib; };
 
+        home = ./home;
+
+        nixos = ./nixos;
+
+        deploy = import ./deploy inputs;
+
+        devshell = ./shell;
+
+        homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
+
+        defaultTemplate = self.templates.bud;
+        templates.bud.path = ./.;
+        templates.bud.description = "bud template";
+
         sharedOverlays = [
           (final: prev: {
             __dontExport = true;
@@ -223,23 +237,6 @@
             });
           })
         ];
-
-        nixos = ./nixos;
-
-        home = ./home;
-
-        devshell = ./shell;
-
-        homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
-
-        deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
-          themachine.profiles.system.sshUser = "root";
-          pik2.profiles.system.sshUser = "root";
-        };
-
-        defaultTemplate = self.templates.bud;
-        templates.bud.path = ./.;
-        templates.bud.description = "bud template";
 
         supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
 
