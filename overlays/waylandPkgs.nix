@@ -19,10 +19,6 @@ channels: final: prev: {
     inherit (final.sources.swaylock-effects) pname version src;
   });
 
-  ydotool = prev.ydotool.overrideAttrs (_: {
-    inherit (final.sources.ydotool) pname version src;
-  });
-
   rofi-unwrapped =
     let
       inherit (final.sources.rofi-wayland) pname src version;
