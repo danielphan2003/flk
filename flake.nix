@@ -197,7 +197,7 @@
               nvfetcher.overlay
               deploy.overlay
 
-              nixpkgs-wayland.overlay
+              nixpkgs-wayland.overlay-egl
               dcompass.overlay
 
               nix-dram.overlay

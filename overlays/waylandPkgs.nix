@@ -3,29 +3,17 @@ channels: final: prev: {
     inherit (prev.wayland-protocols-master) src version;
   });
 
-  wlroots = with prev; (wlroots.override {
-    wayland-protocols = final.wayland-protocols-master;
-  }).overrideAttrs (_: {
-    patches = [
-      (fetchpatch {
-        name = "wlroots-eglstreams.patch";
-        url = "https://github.com/danvd/wlroots-eglstreams/commit/4dda5742f216657b4397860e4c457c7e9767ce5c.patch";
-        sha256 = "sha256-YhYPeYfPkT9j9y5GKuxVL5nwXQmuvnCFZ9qz0rS1X40=";
-      })
-    ];
-  });
+  wlroots-eglstreams = prev.wlroots-eglstreams.override { wayland-protocols = final.wayland-protocols-master; };
+
+  wlroots = final.wlroots-eglstreams;
 
   freerdp = prev.wlfreerdp;
 
   eww = prev.eww.override { enableWayland = true; };
 
-  sway-unwrapped =
-    (prev.sway-unwrapped.override {
-      inherit (final) wlroots;
-      wayland-protocols = final.wayland-protocols-master;
-    }).overrideAttrs (_: {
-      inherit (final.sources.sway-borders) version src;
-    });
+  sway-unwrapped = prev.sway-unwrapped.overrideAttrs (_: {
+    inherit (final.sources.sway-borders) version src;
+  });
 
   swaylock-effects = prev.swaylock-effects.overrideAttrs (_: {
     inherit (final.sources.swaylock-effects) pname version src;
