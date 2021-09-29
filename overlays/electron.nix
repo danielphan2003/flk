@@ -4,10 +4,29 @@ let
     discord-canary
     element-desktop
     signal-desktop
-    electron
     teams
     ungoogled-chromium
     vscodium
+    ;
+
+  inherit (final)
+    electronCompatFlags
+    electron
+    sources
+    ;
+
+  inherit (prev)
+    microsoft-edge-beta
+    spotify-spicetified
+    writeShellScript
+    ;
+
+  inherit (prev.lib)
+    concatMapStringsSep
+    concatStringsSep
+    escapeShellArg
+    optionals
+    toList
     ;
 
   enableWayland = true;
@@ -21,49 +40,69 @@ let
     "--enable-zero-copy"
   ];
 
-  waylandOptions = [
+  waylandFlags = [
     "--enable-features=UseOzonePlatform"
     "--ozone-platform=wayland"
     "--enable-webrtc-pipewire-capturer"
   ];
 
-  flags = (prev.lib.optionals enableWayland waylandOptions) ++ extraOptions;
+  defaultFlags = (optionals enableWayland waylandFlags) ++ extraOptions;
 
-  flagsCommand = prev.lib.concatStringsSep " ";
+  flagsCommand = concatStringsSep " ";
 
-  patchElectron = flags': bin: ''
-    substituteInPlace ${bin} \
-      --replace '"$@"' '"$(if [ ! -n $WAYLAND_DISPLAY ]; then echo ""; else echo "${flagsCommand flags'}"; fi)" "$@"'
-  '';
+  # TODO: prevent double wrapping
+  patchElectron = bin: { flags ? defaultFlags }:
+    let
+      wrapper = bin': ''
+        wrapProgram ${bin'} \
+          --add-flags ${escapeShellArg (electronCompatFlags flags)}
+      '';
+    in
+    concatMapStringsSep "\n" (x: wrapper x) (toList bin);
+
+  patchElectronApplication = pkg: bin: { flags ? defaultFlags, patchStage ? "postFixup", ... }@args:
+    pkg.overrideAttrs (o: args // {
+      "${patchStage}" = (o."${patchStage}" or "")
+        + patchElectron bin { inherit flags; };
+    });
+
+  patchBrowser = pkg: { flags ? defaultFlags }:
+    pkg.override { commandLineArgs = electronCompatFlags flags; };
 in
 {
+  electronCompatFlags = flags:
+    let
+      compatScript = writeShellScript "electron-compat-flags.sh" ''
+        if [[ -n $WAYLAND_DISPLAY ]]
+        then
+          echo '${flagsCommand flags}'
+        else
+          echo ""
+        fi
+      '';
+    in
+    "$(${compatScript})";
 
-  element-desktop = element-desktop.override { inherit (final) electron; };
+  element-desktop = element-desktop.override { inherit electron; };
 
-  discord-canary = discord-canary.overrideAttrs (_: {
-    inherit (final.sources.discord-canary) pname src version;
-    postFixup = patchElectron flags "$out/bin/discordcanary";
-  });
-
-  signal-desktop = signal-desktop.overrideAttrs (o: { postFixup = patchElectron flags "$out/bin/signal-desktop"; });
-
-  electron = electron.overrideAttrs (o: { postFixup = o.postFixup + patchElectron flags "$out/lib/electron/electron"; });
-
-  vscodium = vscodium.overrideAttrs (_: { postInstall = patchElectron flags "$out/bin/codium"; });
-
-  ungoogled-chromium = ungoogled-chromium.override { commandLineArgs = flagsCommand waylandOptions; };
-
-  microsoft-edge-beta = prev.microsoft-edge-beta.override { commandLineArgs = flagsCommand flags; };
-
-  microsoft-edge-dev = prev.microsoft-edge-dev.override { commandLineArgs = flagsCommand flags; };
-
-  spotify-spicetified = prev.spotify-spicetified.override {
-    commandLineArgs = flagsCommand waylandOptions;
+  discord-canary = patchElectronApplication discord-canary [ "$out/bin/DiscordCanary" "$out/bin/discordcanary" ] {
+    inherit (sources.discord-canary) pname src version;
   };
 
-  teams = teams.overrideAttrs (_: {
-    inherit (final.sources.teams) src version;
-    postDist = patchElectron flags "$out/bin/teams";
-  });
+  signal-desktop = patchElectronApplication signal-desktop "$out/bin/signal-desktop" { };
+
+  electron = patchElectronApplication channels.latest.electron "$out/lib/electron/electron" { };
+
+  vscodium = patchElectronApplication vscodium "$out/bin/codium" { };
+
+  ungoogled-chromium = patchBrowser ungoogled-chromium { };
+
+  microsoft-edge-beta = patchBrowser microsoft-edge-beta { };
+
+  spotify-spicetified = patchBrowser spotify-spicetified { flags = waylandFlags; };
+
+  teams = patchElectronApplication teams "$out/bin/teams" {
+    inherit (sources.teams) src version;
+  };
 
 }
