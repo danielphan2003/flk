@@ -37,7 +37,6 @@ in
     config = lib.mkAfter ''
       {
         email ${config.services.caddy.email}
-        auto_https off
       }
     '';
     virtualHosts."*.${domain}" = {
