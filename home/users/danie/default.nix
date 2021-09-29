@@ -6,7 +6,7 @@ let user = "danie"; in
   services.greetd.settings = {
     initial_session = {
       inherit user;
-      command = "${pkgs.sway}/bin/sway";
+      command = ''/run/current-system/sw/bin/sway --config ${config.users.users."${user}".home}/.config/sway/config'';
     };
   };
 

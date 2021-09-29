@@ -7,18 +7,24 @@ let
   generateCss = let opaque = "80"; in
     pkgs.writeShellScript "generate-gtkgreet-css.sh" ''
       export HOME=$(${pkgs.coreutils}/bin/mktemp -d -t greetd-XXXXXXXXXX)
+
       ${pkgs.pywal}/bin/wal -i "${backgroundDir}" -stneq
+
       . $HOME/.cache/wal/colors.sh
-      mkdir -p /etc/greetd
+
       sed \
         -e "s#@bg_img@#$wallpaper#g" \
         -e "s/@bg@/$bg$opaque/g" \
-        ${./gtkgreet.css} > "/etc/greetd/gtkgreet.css"
+        ${./gtkgreet.css} > "$HOME/gtkgreet.css"
+
+      echo "$HOME/gtkgreet.css"
     '';
 
   swayConfig = pkgs.writeText "sway-greetd.conf" ''
+    exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP GTK_IM_MODULE QT_IM_MODULE XMODIFIERS DBUS_SESSION_BUS_ADDRESS
+
     # `-l` activates layer-shell mode. Notice that `swaymsg exit` will run after gtkgreet.
-    exec "${generateCss}; ${default_cmd} -l -s /etc/greetd/gtkgreet.css; swaymsg exit"
+    exec "${default_cmd} -l -s $(${generateCss}); swaymsg exit"
 
     bindsym Mod4+shift+e exec swaynag \
       -t warning \
@@ -37,7 +43,7 @@ in
     vt = 1;
     settings = {
       default_session = {
-        command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
+        command = "/run/current-system/sw/bin/sway --config ${swayConfig}";
         user = config.users.users.greeter.name;
       };
     };
