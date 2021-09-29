@@ -7,8 +7,8 @@ in
   hostDefaults = {
     system = "x86_64-linux";
     channelName = "nixos";
-    imports = [ (digga.lib.importModules ./modules) ];
-    externalModules = with inputs; [
+    imports = [ (digga.lib.importExportableModules ./modules) ];
+    modules = with inputs; [
       { lib.our = self.lib; }
       digga.nixosModules.bootstrapIso
       digga.nixosModules.nixConfig

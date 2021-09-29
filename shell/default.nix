@@ -1,10 +1,10 @@
 { self, inputs, ... }:
 {
-  externalModules = with inputs; [
+  modules = with inputs; [
     bud.devshellModules.bud
     # vs-ext.devshellModules.vs-ext
   ];
-  modules = [
+  exportedModules = [
     ./devos.nix
   ];
 }

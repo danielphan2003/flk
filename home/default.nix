@@ -4,9 +4,9 @@ let
   inherit (builtins) attrValues;
 in
 {
-  imports = [ (digga.lib.importModules ./modules) ];
+  imports = [ (digga.lib.importExportableModules ./modules) ];
 
-  externalModules = with inputs; [
+  modules = with inputs; [
     "${impermanence}/home-manager.nix"
   ];
 
