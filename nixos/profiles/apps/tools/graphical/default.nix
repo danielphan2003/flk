@@ -1,10 +1,13 @@
 { pkgs, lib, ... }: {
+  environment.pathsToLink = [ "/share/ulauncher" ];
+
   environment.systemPackages = builtins.attrValues
     {
       inherit (pkgs)
         czkawka
         libnotify
         pywal
+        ulauncher
         zathura
         ;
     }
