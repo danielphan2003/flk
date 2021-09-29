@@ -9,7 +9,9 @@ let
     ;
 
   inherit (prev)
+    __splicedPackages
     lib
+    recurseIntoAttrs
     sources
     vimUtils
     vscode-utils
@@ -190,6 +192,8 @@ in
   frece = callPackage ./applications/misc/frece { inherit (channels.latest) rustPlatform; };
 
   adl = callPackage ./applications/video/adl { };
+
+  xorg = prev.xorg // (recurseIntoAttrs (lib.callPackageWith __splicedPackages ./servers/x11/xorg { }));
 
 }
 

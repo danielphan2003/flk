@@ -15,6 +15,31 @@ channels: final: prev: {
     inherit (final.sources.sway-borders) version src;
   });
 
+  xwayland = with channels.latest; let
+    xorgproto = xorg.xorgproto.overrideAttrs (_: {
+      inherit (final.sources.xorgproto) src version;
+    });
+  in
+  (xwayland.override { wayland-protocols = final.wayland-protocols-master; }).overrideAttrs (o: {
+    inherit (final.sources.xwayland) src version;
+
+    buildInputs = [
+      xorgproto
+      dbus
+      makeWrapper
+      prev.systemd
+    ]
+    ++ (with final.xorg; [ libxcvt libpciaccess ])
+    ++ o.buildInputs;
+
+    # Is this the right way to fix Xwayland not launching?
+    # it says it can't use eglstream device, even though I'm not using nVidia...
+    postFixup = ''
+      wrapProgram $out/bin/Xwayland \
+        --add-flags ${prev.lib.escapeShellArg "-shm"}
+    '';
+  });
+
   swaylock-effects = prev.swaylock-effects.overrideAttrs (_: {
     inherit (final.sources.swaylock-effects) pname version src;
   });

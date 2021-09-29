@@ -85,8 +85,8 @@ spotify-unwrapped.overrideAttrs (o: {
     ${escape [ "$" ] extraConfig}
     EOT
 
-    substituteInPlace $out/share/spotify/spotify \
-      --replace '"$@"' '${commandLineArgs} "$@"'
+    wrapProgram $out/share/spotify/spotify \
+      --add-flags ${escapeShellArg commandLineArgs}
 
     spicetify-cli backup apply enable-devtool update -ne
 
