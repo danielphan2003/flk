@@ -7,4 +7,5 @@
   mkFirefoxConfig = import ./mkFirefoxConfig.nix { inherit lib; };
   persistence = import ./persistence { inherit lib; };
   pywal = import ./pywal { inherit lib; };
+  waybar = import ./waybar { inherit lib; };
 }

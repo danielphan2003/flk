@@ -19,6 +19,7 @@ lib.makeExtensible (self: rec {
     mkCustomI3Rule
     mkFirefoxConfig
     pywal
+    # waybar
     ;
 
   inherit (pkgs-build)
