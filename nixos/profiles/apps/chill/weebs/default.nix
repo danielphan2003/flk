@@ -3,6 +3,7 @@
     inherit (pkgs)
       adl
       anime-downloader
+      hakuneko
       trackma
       ;
   };
