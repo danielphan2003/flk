@@ -1,20 +1,26 @@
-{ stdenv }:
-stdenv.mkDerivation {
-  name = "fs-diff";
+{ writeShellScriptBin }:
+writeShellScriptBin "fs-diff" ''
+  set -euo pipefail
 
-  src = ./fs-diff.sh;
+  mkdir -p /mnt-btrfs
+  [[ $(findmnt -M /mnt-btrfs) ]] || mount -t btrfs -o subvol=/ /dev/mapper/system /mnt-btrfs
 
-  dontUnpack = true;
-  dontBuild = true;
+  OLD_TRANSID=$(btrfs subvolume find-new /mnt-btrfs/root-blank 9999999)
+  OLD_TRANSID=''${OLD_TRANSID#transid marker was }
 
-  installPhase = ''
-    mkdir -p $out/bin
-    install $src $out/bin/fs-diff
-  '';
-
-  # checkPhase = ''
-  #   ${stdenv.shell} -n -O extglob $out/bin/${name}
-  # '';
-
-  meta.description = "Returns diff between subvol blank and current";
-}
+  btrfs subvolume find-new "/mnt-btrfs/root" "$OLD_TRANSID" |
+  sed '$d' |
+  cut -f17- -d' ' |
+  sort |
+  uniq |
+  while read path; do
+    path="/$path"
+    if [ -L "$path" ]; then
+      : # The path is a symbolic link, so is probably handled by NixOS already
+    elif [ -d "$path" ]; then
+      : # The path is a directory, ignore
+    else
+      echo "$path"
+    fi
+  done
+''
