@@ -56,10 +56,7 @@ in
           "if" = ''domain([file("${./fb-resolver.txt}")])'';
           "then" = [
             {
-              query = {
-                tag = "opendns";
-                cache_policy = "persistent";
-              };
+              query = "opendns";
             }
             "end"
           ];
