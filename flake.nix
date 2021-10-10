@@ -30,6 +30,7 @@
       inputs = {
         nix.follows = "nix";
         nixpkgs.follows = "nixos";
+        latest.follows = "latest";
         nixlib.follows = "nixos";
         home-manager.follows = "home";
       };
@@ -195,7 +196,6 @@
               nur.overlay
               agenix.overlay
               nvfetcher.overlay
-              deploy.overlay
 
               nixpkgs-wayland.overlay-egl
               dcompass.overlay
@@ -209,7 +209,11 @@
             ++ (builtins.attrValues dan-nixpkgs.overlays)
             ++ [ (import ./pkgs/default.nix { inherit inputs; }) ];
           };
-          latest = { };
+          latest = {
+            overlays = [
+              deploy.overlay
+            ];
+          };
           anbox = { };
         };
 
