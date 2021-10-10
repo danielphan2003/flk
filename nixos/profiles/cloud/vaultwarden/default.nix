@@ -17,6 +17,7 @@ in
     dbBackend = "postgresql";
     environmentFile = config.age.secrets.vaultwarden.path;
     config = {
+      domain = "https://${tailnet-domain}/vault";
       invitationsAllowed = false;
       rocketPort = 8222;
       rocketLog = "critical";
@@ -87,15 +88,17 @@ in
       "vault.${domain}" = {
         serverAliases = [ "bw.${domain}" ];
         extraConfig = ''
+          rewrite * /vault{uri}
           ${handleWWW}
           ${handleNotify}
-          respond /admin* "The admin panel is disabled, please configure the 'ADMIN_TOKEN' variable to enable it"
+          respond /vault/admin* "The admin panel is disabled, please configure the 'ADMIN_TOKEN' variable to enable it"
         '';
       };
-      "*.${tailnet-domain}".extraConfig = mkAfter ''
-        @vaultwarden host vault.${tailnet-domain}
-        handle @vaultwarden {
+      "${tailnet-domain}".extraConfig = mkAfter ''
+        handle /vault* {
           ${handleWWW}
+        }
+        handle /vault/notifications/hub {
           ${handleNotify}
         }
       '';

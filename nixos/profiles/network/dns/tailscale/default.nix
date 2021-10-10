@@ -46,8 +46,7 @@ in
 
   services.resolved.dnssec = "false";
 
-  services.caddy.virtualHosts."*.${tailnet-domain}" = {
-    serverAliases = [ tailnet-domain ];
+  services.caddy.virtualHosts."${tailnet-domain}" = {
     extraConfig = ''
       import common
       import logging ${tailnet-domain}

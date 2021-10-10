@@ -11,13 +11,15 @@ in
   services.grafana = {
     enable = true;
     port = 2342;
-    addr = tailscale_ip;
+    addr = "127.0.0.1";
+    domain = tailnet-domain;
+    rootUrl = "%(protocol)s://%(domain)s:%(http_port)s/grafana/";
+    extraOptions = {
+      SERVER_SERVE_FROM_SUB_PATH = "true";
+    };
   };
 
-  services.caddy.virtualHosts."*.${tailnet-domain}".extraConfig = lib.mkAfter ''
-    @grafana host grafana.${tailnet-domain}
-    handle @grafana {
-      reverse_proxy ${addr}:${toString port}
-    }
+  services.caddy.virtualHosts."${tailnet-domain}".extraConfig = lib.mkAfter ''
+    reverse_proxy /grafana* ${addr}:${toString port}
   '';
 }

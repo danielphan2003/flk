@@ -23,10 +23,7 @@ in
     };
   };
 
-  services.caddy.virtualHosts."*.${tailnet-domain}".extraConfig = lib.mkAfter ''
-    @calibre_web host calibre.${tailnet-domain}
-    handle @calibre_web {
-      reverse_proxy ${ip}:${toString port}
-    }
+  services.caddy.virtualHosts."${tailnet-domain}".extraConfig = lib.mkAfter ''
+    reverse_proxy /calibre* ${ip}:${toString port}
   '';
 }

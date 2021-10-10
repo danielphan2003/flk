@@ -33,12 +33,6 @@ in
           vendorSha256 = "sha256-cdLj9WQH8Ksii5xvo8VS6Nsj5+Xj4B1Nsh/IpjOYT+Q=";
         });
     };
-    ca = null;
-    config = lib.mkAfter ''
-      {
-        email ${config.services.caddy.email}
-      }
-    '';
     virtualHosts."*.${domain}" = {
       serverAliases = [ domain ];
       extraConfig = ''
