@@ -12,6 +12,7 @@ let inherit (builtins) attrValues; in
       awesome-flutter-snippets
       bracket-pair-colorizer-2
       codeql
+      code-runner
       codesnap
       css-initial-value
       dart-code
@@ -49,7 +50,7 @@ let inherit (builtins) attrValues; in
     then
       [
         ms-python.python
-        ms-vscode-cpptools
+        ms-vscode.cpptools
       ]
     else
       [ ]);
