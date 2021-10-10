@@ -1,17 +1,14 @@
-{ pkgs, lib, suites, config, self, ... }: {
+{ pkgs, lib, suites, config, self, ... }:
+let
+  inherit (config.networking) hostName;
+  inherit (lib.our.hostConfigs.hosts."${hostName}") tailscale_ip;
+in
+{
   imports = suites.themachine;
 
-  age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
+  networking.wireless.enable = false;
 
-  networking = {
-    domain = "themachinix.duckdns.org";
-    wireless.enable = false;
-  };
-
-  services.duckdns = {
-    enable = true;
-    domain = "themachinix";
-  };
+  home-manager.users.danie.services.wayvnc.addr = tailscale_ip;
 
   services.fwupd.enable = true;
   services.fstrim.enable = true;
