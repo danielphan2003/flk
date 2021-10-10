@@ -9,6 +9,7 @@ Quite different from normal [devos] structure:
 ├── .github/
 ├── .vscode/
 ├── bud/
+├── deploy/
 ├── home/
 │   ├── modules/
 │   ├── profiles/
@@ -60,32 +61,28 @@ Add this to your flake (idk if the syntax is correct)
 
 ## Features
 
+Helpful overlays:
+- [electron-compat][electron-compat]: a compat layer that makes Electron apps run natively on X11 and Wayland.
+  Apps are wrapped with a Bash script that evals to platform-specific flags. To prevent double wrapping `$out/.bin-wrapped` is used so that application name shows up correctly in htop or other programs.
+
 A lot of [packages][pkgs]:
-- [spotify-spicetified][my-spotify-spicetified] (based on [nixpkgs#111946][nixpkgs-spotify-spicetified]).
-  See my [spotify config][my-spotify-config] (currently using a custom [dribbblish][ddt] theme).
+- Android: my (very MUCH vip) take on [anbox]. I cannot find anything that works. Please open an issue if you know any alternatives.
 - awesomewm plugins including [bling], [layout-machi], [lua-pam], and [awestore].
+- Browsers: Widevine-cdm, Edge Beta and Dev edition. Yes, I'm that evil ;). Surprisingly, it works on the latest rev!
+- [Caddy][caddy] with plugins! See [pkgs/servers/caddy][caddy-with-plugins] for usage. With the latest nixpkgs, you can even define virtual hosts!
+- [eww] with latest master. Enjoy lisping :).
+  - Some other hm services for `eww` are available at [home/modules/services/misc](./home/modules/services/misc), including a service for dynamically add music control to each app and remove them when closed, as well as a yuck-lang syntax highlighter in vim.
+  - Sway workspaces are functional, but should be improved later.
 - Firefox tweaks:
   - [flying-fox]: my current firefox theme
   - [interak]: my own (very MUCH wip) theme combining flying-fox, rainfox and pywalfox
   - [rainfox]: mostly for the blurred search bar
   - [arkenfox-userjs]: hardened config
   - [pywalfox]: pywal for firefox.
-- Browsers: Widevine-cdm, Edge Beta and Dev edition. Yes, I'm that evil ;). Surprisingly, it works on the latest rev!
-- Messaging app: [caprine] (unmaintained)
-- VS Code extensions: Utilizing [vs-ext]. See [`pkgs/default.nix`][vs-ext-example] for how to add a new `vscode-extensions` pkgsSet to your overlay.
-- Wayland packages: [avizo].
-- Android: my (very MUCH vip) take on [anbox]. I cannot find anything that works. Please open an issue if you know any alternatives.
-- [Caddy][caddy] with plugins! See [pkgs/servers/caddy][caddy-with-plugins] for usage. With the latest nixpkgs, you can even define virtual hosts!
-- [eww] with latest master. Enjoy lisping :).
-  - Some other hm services for `eww` are available at [home/modules/services/misc](./home/modules/services/misc), including a service for dynamically add music control to each app and remove them when closed, as well as a yuck-lang syntax highlighter in vim.
-- QoL font (Segue UI). This unbreaks websites and avoid rendering text with ugly serif fonts.
-- [Plymouth themes][plymouth-themes] from [adi1090x].
-- [ntfs2btrfs] tool and (very MUCH wip) [quibble][quibble] efi. Mostly my attempt to create the ultimate Windows VM running on btrfs.
-- [Paper][paper] wallpaper switcher for Wayland.
 - Fonts:
   - Apple fonts: including NY and SF variants.
   - Segue UI: this is a huge plus. Apparently a lot of websites uses this font whenever possible, and revert back to whatever font your system is using, or may not be installed yet. Therefore, it is best for this font to be installed by default.
-- [MultiMC(-cracked)][mmc-cracked]: I feel ashamed of myself for using this, but I'm broke so it doesn't matter /s.
+- Messaging app: [caprine] (unmaintained)
 - Minecraft related packages: multiple mods for both server and client, as well as choices for server.
   - Servers:
     - [PaperMC][papermc]: stupidly fast, and yet very customizable.
@@ -103,12 +100,21 @@ A lot of [packages][pkgs]:
     - [FastFurnace][fast-furnace]: make optimizations to vanilla furnace.
     - [Krypton][krypton]: improves MC networking stack and entity tracker.
     - [Lithium][lithium]: improves a number of systems in MC without changing any behaviour.
+- [MultiMC(-cracked)][mmc-cracked]: I feel ashamed of myself for using this, but I'm broke so it doesn't matter /s.
+- [ntfs2btrfs] and (very MUCH wip) [quibble][quibble] efi. Mostly my attempt to create the ultimate Windows VM running on btrfs.
+- [Paper][paper] wallpaper switcher for Wayland.
+- [Plymouth themes][plymouth-themes] from [adi1090x].
+- [spotify-spicetified][my-spotify-spicetified] (based on [nixpkgs#111946][nixpkgs-spotify-spicetified]).
+  See my [spotify config][my-spotify-config] (currently using a custom [dribbblish][ddt] theme).
 - [Tailscale][tailscale] with a useful [profile][tailscale-profile] using age-encrypted secrets.
+- VS Code extensions: Utilizing [vs-ext]. See [`pkgs/default.nix`][vs-ext-example] for how to add a new `vscode-extensions` pkgsSet to your overlay.
+- Wayland packages: [avizo].
 - Other...
 
 Some modules that may work for your use case:
 - `boot.persistence`: set your persist path and enable persistence handling. Basically a thin wrapper around mt-caret's opt-in state [config][optin-state].
 - `services.duckdns`: update DDNS record with DuckDNS, with support for IPv6-only hosts. If you are behind a [CG-NAT][cg-nat] then this is the right module for you.
+- `services.minecraft-server`: Minecraft server with hardened systemd rules, also supports on-demand startup.
 - Other...
 
 Plus (some) overrides and modules from devos's [community][devos-community] branch
@@ -138,9 +144,8 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 - My server only has public IPv6 address, so it makes senses to use [Tailscale][tailscale] to share it with my friends. Besides, you get all the amazing things [WireGuard][wireguard] has to offer, as well as hostname addresses that just resolves to that host's IP, so I can do fancy things like adding a server with address "pik2" and MC would resolve it to the proper address.
 
 ## TODOS
-- [ ] Caddy reverse proxy with Tailscale! See [tailscale/tailscale#1235][tailscale-reverse-proxy] for updates.
-  I really look forward to this, it just makes me want to abandon DuckDNS altogether and host everything locally.
-  I hope to access them via custom TLDs and have HTTPS as the same time.
+- [x] Caddy reverse proxy with Tailscale! See [tailscale/tailscale#1235][tailscale-reverse-proxy] for updates.
+  Currently services is only accessible via subpaths (i.e. `/vault`, `/grafana` etc.), but that's good enough.
 - [x] Automatically update packages via [dan-nixpkgs][dan-nixpkgs].
 - [ ] [Unlock LUKS file systems via Tor][tor-luks-unlock].
 - [ ] (delayed indefinitely) Fully pass `nix -Lv flake check`.
@@ -176,7 +181,9 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 [firefox-nightly]: https://github.com/colemickens/flake-firefox-nightly
 [nixpkgs-wayland]: https://github.com/colemickens/nixpkgs-wayland
 
-[pkgs]: pkgs
+[electron-compat]: ./overlays/electron.nix
+
+[pkgs]: ./pkgs
 
 [nixpkgs-spotify-spicetified]: https://github.com/NixOS/nixpkgs/pull/111946
 [my-spotify-spicetified]: pkgs/applications/audio/spotify-spicetified/default.nix
