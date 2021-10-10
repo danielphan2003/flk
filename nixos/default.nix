@@ -139,7 +139,9 @@ in
           inherit (network.dns) dcompass;
           inherit (cloud)
             caddy
+            calibre-web
             grafana
+            lvc-it-lib
             minecraft
             postgresql
             vaultwarden
