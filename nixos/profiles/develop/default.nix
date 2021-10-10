@@ -39,11 +39,13 @@ in
         font-awesome
         inter
         meslo-lgs-nf
-        nerdfonts
         otf-apple
         ttf-segue-ui
         twitter-color-emoji
         ;
+      nerdfonts = pkgs.nerdfonts.override {
+        fonts = [ "Iosevka" "FiraCode" "Inconsolata" "MPlus" ];
+      };
     };
     fontconfig.enable = lib.mkForce true;
     fontconfig.defaultFonts = {
