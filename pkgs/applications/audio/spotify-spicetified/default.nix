@@ -85,12 +85,14 @@ spotify-unwrapped.overrideAttrs (o: {
     ${escape [ "$" ] extraConfig}
     EOT
 
-    wrapProgram $out/share/spotify/spotify \
-      --add-flags ${escapeShellArg commandLineArgs}
-
     spicetify-cli backup apply enable-devtool update -ne
 
-    find CustomApps/ -maxdepth 1 -type d -exec cp {} $out/share/spotify/Apps \;
+    find CustomApps/ -maxdepth 1 -type d -exec cp -r {} $out/share/spotify/Apps \;
+
+    mkdir -p $out/.bin-wrapped
+    mv $out/share/spotify/spotify $out/.bin-wrapped
+    makeWrapper $out/.bin-wrapped/spotify $out/share/spotify/spotify \
+      --add-flags ${escapeShellArg commandLineArgs}
   '';
 
   meta = spotify-unwrapped.meta // {
