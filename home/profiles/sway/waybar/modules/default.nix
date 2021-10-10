@@ -13,4 +13,5 @@ in
 {
   inherit (modules-list) modules-left modules-center modules-right;
   inherit modules;
+  position = "bottom";
 }

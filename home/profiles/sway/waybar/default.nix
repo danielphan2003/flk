@@ -7,7 +7,12 @@ in
   programs.waybar = {
     enable = true;
     systemd.enable = true;
-    settings = [ (modules // { height = 40; }) ];
+    settings = [
+      (modules // {
+        height = 40;
+      })
+    ];
+    # style = ./style.css;
     style = mkWaybarColors {
       inherit config;
       style = ./style.css;

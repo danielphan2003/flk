@@ -30,13 +30,14 @@ in
 {
   modules-left = [
     "sway/workspaces"
-    "sway/mode"
     "custom/media#firefox"
     "custom/media#spotify"
-    "custom/media#vlc"
-    "custom/media#other"
+    # "custom/media#vlc"
+    # "custom/media#other"
   ];
+
   "sway/workspaces" = {
+    disable-scroll = true;
     all-outputs = true;
     format = "{icon}";
     format-icons = {
@@ -57,6 +58,6 @@ in
 
   "custom/media#firefox" = media "firefox" "";
   "custom/media#spotify" = media "spotify" "";
-  "custom/media#vlc" = media "vlc" "嗢";
-  "custom/media#other" = media "other" "";
+  # "custom/media#vlc" = media "vlc" "嗢";
+  # "custom/media#other" = media "other" "";
 }
