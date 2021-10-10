@@ -3,6 +3,7 @@
     inherit (pkgs)
       anydesk
       freerdp
+      scrcpy
       tigervnc
       ;
   };
