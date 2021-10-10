@@ -6,8 +6,10 @@ channels: final: prev: {
     anup
     cachix
     czkawka
+    deploy-rs
     dmenu
     fabric-installer
+    hakuneko
     lib
     nixpkgs-fmt
     nvchecker
@@ -17,11 +19,11 @@ channels: final: prev: {
     qutebrowser
     rage
     scream
+    scrcpy
     starship
     stylua
     sudo
     wlrctl
-    xwayland
     ;
 
   haskellPackages = prev.haskellPackages.override
