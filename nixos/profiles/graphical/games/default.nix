@@ -1,6 +1,5 @@
 { pkgs, ... }:
-let inherit (builtins) attrValues;
-in
+let inherit (builtins) attrValues; in
 {
   imports = [ ./udev.nix ];
 

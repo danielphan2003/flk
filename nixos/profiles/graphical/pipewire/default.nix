@@ -1,7 +1,7 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, config, ... }: {
   sound.enable = true;
 
-  hardware.pulseaudio.enable = lib.mkForce false;
+  hardware.pulseaudio.enable = lib.mkForce (!config.services.pipewire.enable);
 
   systemd.services.rtkit-daemon.serviceConfig.ExecStart = [
     "${pkgs.rtkit}/libexec/rtkit-daemon --our-realtime-priority=95 --max-realtime-priority=90"
@@ -11,7 +11,7 @@
     enable = true;
     # alsa is optional
     alsa.enable = true;
-    alsa.support32Bit = true;
+    alsa.support32Bit = lib.mkDefault true;
     # needed for osu
     pulse.enable = true;
 
