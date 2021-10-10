@@ -15,6 +15,8 @@ in
     ./waybar
   ];
 
+  fonts.fontconfig.enable = true;
+
   qt.platformTheme = "gtk";
 
   gtk.enable = true;
