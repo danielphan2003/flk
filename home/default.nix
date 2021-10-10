@@ -66,7 +66,6 @@ in
             signByDefault = true;
           };
         };
-        services.wayvnc.addr = "themachinix.duckdns.org";
         home.sessionVariables.BROWSER = "chromium-browser";
       };
 
