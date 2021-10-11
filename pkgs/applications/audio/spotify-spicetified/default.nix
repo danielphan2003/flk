@@ -89,6 +89,8 @@ spotify-unwrapped.overrideAttrs (o: {
 
     find CustomApps/ -maxdepth 1 -type d -exec cp -r {} $out/share/spotify/Apps \;
 
+    ln -sf $out/prefs $out/share/spotify/prefs
+
     mkdir -p $out/.bin-wrapped
     mv $out/share/spotify/spotify $out/.bin-wrapped
     makeWrapper $out/.bin-wrapped/spotify $out/share/spotify/spotify \
