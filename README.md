@@ -47,7 +47,7 @@ Many thanks to their template that helped me bootstrap my config across all my m
 
 ## Getting started
 
-Add this to your flake (idk if the syntax is correct)
+Add this to your flake (not sure if the syntax is correct)
 ```nix
 {
   inputs.dan-flk.url = "github:danielphan2003/flk";
@@ -66,12 +66,13 @@ Helpful overlays:
   Apps are wrapped with a Bash script that evals to platform-specific flags. To prevent double wrapping `$out/.bin-wrapped` is used so that application name shows up correctly in htop or other programs.
 
 A lot of [packages][pkgs]:
-- Android: my (very MUCH vip) take on [anbox]. I cannot find anything that works. Please open an issue if you know any alternatives.
+- Android: my (very MUCH vip) take on [anbox]. I cannot find anything that works. Please recommend if you know any alternatives.
 - awesomewm plugins including [bling], [layout-machi], [lua-pam], and [awestore].
-- Browsers: Widevine-cdm, Edge Beta and Dev edition. Yes, I'm that evil ;). Surprisingly, it works on the latest rev!
-- [Caddy][caddy] with plugins! See [pkgs/servers/caddy][caddy-with-plugins] for usage. With the latest nixpkgs, you can even define virtual hosts!
+- Browsers: Widevine-cdm, Microsoft Edge Beta and Dev edition.
+  Yes, I'm that evil ;).
+- [Caddy][caddy] with plugins! See [pkgs/servers/caddy][caddy-with-plugins] for usage.
 - [eww] with latest master. Enjoy lisping :).
-  - Some other hm services for `eww` are available at [home/modules/services/misc](./home/modules/services/misc), including a service for dynamically add music control to each app and remove them when closed, as well as a yuck-lang syntax highlighter in vim.
+  - Some hm services for `eww` are available at [home/modules/services/misc](./home/modules/services/misc), including an eww-mpris service that listens for any playback activity to add and remove playback controls, as well as a yuck-lang vim syntax highlighter.
   - Sway workspaces are functional, but should be improved later.
 - Firefox tweaks:
   - [flying-fox]: my current firefox theme
@@ -80,25 +81,25 @@ A lot of [packages][pkgs]:
   - [arkenfox-userjs]: hardened config
   - [pywalfox]: pywal for firefox.
 - Fonts:
-  - Apple fonts: including NY and SF variants.
-  - Segue UI: this is a huge plus. Apparently a lot of websites uses this font whenever possible, and revert back to whatever font your system is using, or may not be installed yet. Therefore, it is best for this font to be installed by default.
+  - Apple fonts: NY and SF variants
+  - Segue UI: useful if you are spoofing User-Agent to Windows.
 - Messaging app: [caprine] (unmaintained)
 - Minecraft related packages: multiple mods for both server and client, as well as choices for server.
   - Servers:
-    - [PaperMC][papermc]: stupidly fast, and yet very customizable.
+    - [PaperMC][papermc]: stupidly fast, and yet very customizable
     - [Tuinity][tuinity]: PaperMC fork with various patches, *including* [Starlight][starlight].
   - For both:
     - [Fabric API][fabric-api]: Fabric APIs for mods like Better Bed
-    - [FerriteCore][ferrite-core]: lower RAM usage.
-    - [LazyDFU][lazydfu]: something to do with MC's DFU. tl;dr it makes MC fast.
+    - [FerriteCore][ferrite-core]: lower RAM usage
+    - [LazyDFU][lazydfu]: something to do with MC's DFU. tl;dr it makes MC fast
     - [Starlight][starlight]: unbelivably fast light engine. Note that this doesn't help much on client-side. Definitely recommend reading their technical paper. It widen my eyes.
   - For clients:
     - [BetterBeds][better-beds]: remove BlockEntityRenderer from the bed and replaces it with the default minecraft model renderer. (*requires* Fabric API)
-    - [CullLeaves][cull-leaves]: make leaves looks just plain better. Also makes MC fast.
+    - [CullLeaves][cull-leaves]: make leaves looks just plain better. Also makes MC fast
     - [Sodium][sodium]: improve frame rates and reduce micro-stutter. IMO this is much simpler than [OptiFine][optifine], while providing crucial performance options that matter.
   - For servers:
-    - [FastFurnace][fast-furnace]: make optimizations to vanilla furnace.
-    - [Krypton][krypton]: improves MC networking stack and entity tracker.
+    - [FastFurnace][fast-furnace]: make optimizations to vanilla furnace
+    - [Krypton][krypton]: improves MC networking stack and entity tracker
     - [Lithium][lithium]: improves a number of systems in MC without changing any behaviour.
 - [MultiMC(-cracked)][mmc-cracked]: I feel ashamed of myself for using this, but I'm broke so it doesn't matter /s.
 - [ntfs2btrfs] and (very MUCH wip) [quibble][quibble] efi. Mostly my attempt to create the ultimate Windows VM running on btrfs.
@@ -128,26 +129,27 @@ Plus (some) overrides and modules from devos's [community][devos-community] bran
   - AwesomeWM: formatted and based on [the-glorious-dotfiles].
 - Wayland:
   - Latest packages from [`nixpkgs-wayland`][nixpkgs-wayland].
-  - Ibus, ibus-bamboo, and ibus-uniemoji latest [working][sway-startup] flawlessly. Adapted from Arch Wiki's Ibus [integration][arch-wiki-ibus]. Note that shortcut for switching inputs only works on X11 apps, but you can still type normally on Wayland. An [eww] bar might fix this.
+  - Latest ibus, ibus-bamboo, and ibus-uniemoji [work][sway-startup] flawlessly. Adapted from Arch Wiki's Ibus [integration][arch-wiki-ibus]. Note that shortcut for switching inputs only works on X11 apps, but you can still type normally on Wayland (not with in native Electron apps though). An [eww] bar might fix this.
   - Helpful Waybar module [maker][waybar-module-maker]. See [waybar-modules][waybar-modules].
-  - Working [vnc][repo-root-vnc] module and keymap passthrough with [wayvnc].
+  - Working [vnc][wayvnc-hm] module (and keymap passthrough?) with [wayvnc].
   - (very MUCH wip) [river] declarative config.
 
-## Reasoning (new)
+## Choices to make
 
 For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mods] from [alkyaly]. As a result, my choices of mods for server-side and client-side are solely based on the performance improvement column within it.
-- One of my friends has a crappy Chromebook that could benefit from any optimization mods, and by using FerriteCore, LazyDFU, CullLeaves, and Sodium, he was able to achieve *unknown* FPS (Chromebook doesn't even have F3 button, and mods showing FPS requires Fabric API).
-  His impression was very much positive as he found out it was much more responsive than before. Definitely a must-have for clients running on old hardware.
+- One of my friends has a crappy Chromebook that barely has 4GB of RAM available. He could benefit from any optimization mods, so with FerriteCore, LazyDFU, CullLeaves, and Sodium enabled he was able to achieve more than *unknown* FPS than before (Chromebook doesn't even have F3 button, and mods showing FPS requires Fabric API).
+  His impression was very much positive as it was much more responsive than before. Definitely a must-have for clients running on old hardware.
 - Paper didn't allow me to install Fabric Loader, so it was kind of a miss, but [Starlight][starlight] came around and I really wanted to try it out. Luckily, there is a Paper fork called [Tuinity][tuinity], and it includes a lot of performance patches, *including* a patch that uses Starlight.
-- I would very much stay far away from Fabric API, as my friend's FPS dropped significantly when having that mod, and after I accidently recommended him to install it.
-- Starlight should be a must-have on servers considering how impactful it is on server resources. Remember, I run Tuinity on a 2 GB Raspberry Pi 4, and its RAM usage never goes over 90% even with multiplayer.
-- My server only has public IPv6 address, so it makes senses to use [Tailscale][tailscale] to share it with my friends. Besides, you get all the amazing things [WireGuard][wireguard] has to offer, as well as hostname addresses that just resolves to that host's IP, so I can do fancy things like adding a server with address "pik2" and MC would resolve it to the proper address.
+- I would very much stay far away from Fabric API, as my friend's FPS dropped significantly when having that mod, and after I accidently recommended him to install it :v
+- Starlight should be a must-have on servers considering how impactful it is on server resources. I run MC server on a Raspberry Pi 4 with 2GB of RAM, and total usage never goes over 90% even with multiplayer enabled (around 4-9 players).
+- My server only has public IPv6 address, so it makes senses to use [Tailscale][tailscale] to share it with my friends. After all, I'm already using it for self hosting private web services e.g Vaultwarden's `/admin` endpoint, Grafana etc.
 
 ## TODOS
 - [x] Caddy reverse proxy with Tailscale! See [tailscale/tailscale#1235][tailscale-reverse-proxy] for updates.
   Currently services is only accessible via subpaths (i.e. `/vault`, `/grafana` etc.), but that's good enough.
 - [x] Automatically update packages via [dan-nixpkgs][dan-nixpkgs].
 - [ ] [Unlock LUKS file systems via Tor][tor-luks-unlock].
+  - [ ] Preferably via Tailscale would be even nicer.
 - [ ] (delayed indefinitely) Fully pass `nix -Lv flake check`.
   - [x] Partially pass by setting up blacklists for `nixosConfigurations.profilesTests`.
   - [ ] Properly test each machines.
@@ -176,7 +178,7 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 [home-manager]: https://github.com/nix-community/home-manager/tree/d370447
 [nrdxp-nixos]: https://github.com/nrdxp/nixpkgs/more-general-fsbefore
 [impermanance]: https://github.com/nix-community/impermanance
-[persistence-profile]: ./profiles/misc/persistence
+[persistence-profile]: ./nixos/profiles/misc/persistence
 
 [firefox-nightly]: https://github.com/colemickens/flake-firefox-nightly
 [nixpkgs-wayland]: https://github.com/colemickens/nixpkgs-wayland
@@ -186,8 +188,8 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 [pkgs]: ./pkgs
 
 [nixpkgs-spotify-spicetified]: https://github.com/NixOS/nixpkgs/pull/111946
-[my-spotify-spicetified]: pkgs/applications/audio/spotify-spicetified/default.nix
-[my-spotify-config]: profiles/graphical/spotify/default.nix
+[my-spotify-spicetified]: ./pkgs/applications/audio/spotify-spicetified/default.nix
+[my-spotify-config]: ./nixos/profiles/apps/spotify/default.nix
 [ddt]: https://github.com/JulienMaille/dribbblish-dynamic-theme
 
 [bling]: https://github.com/Nooo37/bling
@@ -195,8 +197,8 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 [lua-pam]: https://github.com/RMTT/lua-pam
 [awestore]: https://github.com/K4rakara/awestore
 
-[flying-fox]: https://github.com/akshat46/FlyingFox/
-[interak]: pkgs/data/misc/interak/default.nix
+[flying-fox]: https://github.com/akshat46/FlyingFox
+[interak]: ./pkgs/data/misc/interak/default.nix
 [rainfox]: https://github.com/1280px/rainfox
 [arkenfox-userjs]: https://github.com/arkenfox/user.js
 [pywalfox]: https://github.com/Frewacom/pywalfox-native
@@ -204,7 +206,7 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 [caprine]: https://github.com/sindresorhus/caprine
 
 [vs-ext]: https://github.com/divnix/vs-ext
-[vs-ext-example]: ./pkgs/default.nix#L33
+[vs-ext-example]: ./pkgs/default.nix#L91
 
 [caddy]: https://caddyserver.com
 [caddy-with-plugins]: ./pkgs/servers/caddy/default.nix
@@ -234,7 +236,7 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 [lithium]: https://github.com/CaffeineMC/lithium-fabric
 
 [tailscale]: https://tailscale.net
-[tailscale-profile]: ./nixos/profiles/network/tailscale/default.nix
+[tailscale-profile]: ./nixos/profiles/network/dns/tailscale/default.nix
 
 [optin-state]: https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html
 
@@ -245,13 +247,13 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 [avizo]: https://github.com/misterdanb/avizo
 [anbox]: https://github.com/anbox/anbox
 
-[wal-set]: users/profiles/sway/config/scripts/wal-set.nix
-[sway-startup]: users/profiles/sway/config/startup.nix
+[wal-set]: ./home/profiles/sway/config/scripts/wal-set.nix
+[sway-startup]: ./home/profiles/sway/config/startup.nix
 [the-glorious-dotfiles]: https://github.com/manilarome/the-glorious-dotfiles
 [arch-wiki-ibus]: https://wiki.archlinux.org/title/IBus#Integration
-[waybar-module-maker]: lib/pkgs-build/mkWaybarModule.nix
-[waybar-modules]: users/profiles/sway/waybar/modules
-[repo-root-vnc]: ./home/modules/services/wayvnc.nix
+[waybar-module-maker]: ./lib/pkgs-build/mkWaybarModule.nix
+[waybar-modules]: ./home/profiles/sway/waybar/modules
+[wayvnc-hm]: ./home/modules/services/misc/wayvnc.nix
 [wayvnc]: https://github.com/any1/wayvnc
 [river]: https://github.com/ifreund/river
 
@@ -261,8 +263,6 @@ For Minecraft mods, I went ahead and refer to [Performance Mods][performance-mod
 [wireguard]: https://www.wireguard.com
 
 [tailscale-reverse-proxy]: https://github.com/tailscale/tailscale/issues/1235
-[auto-update-pkgs-workflow]: ./.github/workflows/auto-update-pkgs.yml
-[generated-sources]: pkgs/_sources/generated.nix
 [dan-nixpkgs]: https://github.com/danielphan2003/nixpkgs
 [tor-luks-unlock]: https://nixos.wiki/wiki/Remote_LUKS_Unlocking
 
