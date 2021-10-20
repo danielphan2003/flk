@@ -16,7 +16,7 @@ in
   documentation.info.enable = false;
   documentation.nixos.enable = false;
 
-  nix.systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+  nix.systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" "recursive-nix" ];
   nix.package = lib.mkForce pkgs.nixUnstable;
   # nix.package = lib.mkForce pkgs.nix-dram;
 
@@ -31,7 +31,7 @@ in
 
   environment = {
 
-    systemPackages = attrValues {
+    systemPackages = attrValues ({
       inherit (pkgs)
         nixFlakes
         binutils
@@ -56,7 +56,6 @@ in
         ntfs3g
         moreutils
         nmap
-        ouch
         pciutils
         ripgrep
         skim
@@ -67,7 +66,7 @@ in
         whois
         wireguard-tools
         ;
-    };
+    } // lib.optionalAttrs (pkgs.system != "aarch64-linux") { inherit (pkgs) ouch; });
 
     shellInit = ''
       export STARSHIP_CONFIG=${
@@ -114,6 +113,10 @@ in
 
       # top
       top = "btm";
+
+      # tailscale
+      ts = "tailscale";
+      sts = "sudo tailscale";
 
       # systemd
       ctl = "systemctl";
@@ -166,6 +169,7 @@ in
       keep-derivations = true
       fallback = true
       builders-use-substitutes = true
+      experimental-features = nix-command flakes recursive-nix
     '';
 
   };
