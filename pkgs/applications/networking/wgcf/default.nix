@@ -4,7 +4,7 @@ buildGoModule {
 
   subPackages = [ "." ];
 
-  vendorSha256 = "sha256-l1hM+/585tbMvJppzB0zTtc0SQiZTSTxGkX+Os6xzso=";
+  vendorSha256 = "sha256-IjX8VAFwdZYjMElZ97bIR41ofmIwvhkyr+/aGofxb+I=";
 
   ldFlags = [ "-s" "-w" ];
 
