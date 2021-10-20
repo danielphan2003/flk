@@ -26,11 +26,16 @@ in
   "home/profiles/wayvnc/key.pem.age".publicKeys = allKeys;
   "home/profiles/wayvnc/cert.pem.age".publicKeys = allKeys;
 
-  "nixos/profiles/cloud/vaultwarden.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
+  "nixos/profiles/cloud/calibre-server/users.sqlite.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
+
   "nixos/profiles/cloud/duckdns.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
 
-  "nixos/profiles/cloud/minecraft/whitelist.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
   "nixos/profiles/cloud/minecraft/ops.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
+  "nixos/profiles/cloud/minecraft/whitelist.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
+
+  "nixos/profiles/cloud/spotify.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
+
+  "nixos/profiles/cloud/vaultwarden.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
 
   "nixos/profiles/network/tailscale/themachine.age".publicKeys = [ danie themachine ];
   "nixos/profiles/network/tailscale/pik2.age".publicKeys = [ alita pik2 ];
