@@ -2,7 +2,6 @@
 , stdenv
 , sources
 , makeWrapper
-, python3
 , anime-downloader
 , trackma
 , fzf
