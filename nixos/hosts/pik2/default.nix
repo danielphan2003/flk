@@ -1,8 +1,5 @@
 { pkgs, lib, suites, config, self, ... }:
-let
-  inherit (builtins) removeAttrs;
-  inherit (config.networking) domain hostName;
-in
+let inherit (config.networking) domain hostName; in
 {
   imports = suites.pik2;
 
@@ -28,10 +25,9 @@ in
     email = "danielphan.2003+acme@gmail.com";
     package = with pkgs; caddy.override {
       plugins = [ "github.com/caddy-dns/duckdns" ];
-      buildGoModule = args:
-        buildGoModule (removeAttrs args [ "vendorSha256" ] // {
-          vendorSha256 = "sha256-cdLj9WQH8Ksii5xvo8VS6Nsj5+Xj4B1Nsh/IpjOYT+Q=";
-        });
+      buildGoModule = args: buildGoModule (args // {
+        vendorSha256 = "sha256-B+Ciyxsoy/lhz3GyBumcBUAASIeHwr99HE0KHwI6288=";
+      });
     };
     virtualHosts."*.${domain}" = {
       serverAliases = [ domain ];
@@ -50,14 +46,21 @@ in
 
   nix.maxJobs = 4;
 
-  # Enable GPU acceleration
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  hardware.raspberry-pi."4" = {
+    # Enable GPU acceleration
+    fkms-3d.enable = true;
+    audio.enable = config.services.spotifyd.enable;
+  };
+
+  hardware.bluetooth.enable = config.services.spotifyd.enable;
 
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "Asia/Ho_Chi_Minh";
   console.keyMap = "us";
 
   boot = {
+    kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
+
     initrd.availableKernelModules = [
       "pcie_brcmstb"
       "bcm_phy_lib"
