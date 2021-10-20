@@ -3,8 +3,8 @@
 
   nixConfig = {
     extra-experimental-features = "nix-command flakes ca-references";
-    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dram.cachix.org https://dcompass.cachix.org https://nix-gaming.cachix.org";
-    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dram.cachix.org-1:baoy1SXpwYdKbqdTbfKGTKauDDeDlHhUpC+QuuILEMY= dcompass.cachix.org-1:uajJEJ1U9uy/y260jBIGgDwlyLqfL1sD5yaV/uWVlbk= nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=";
+    extra-substituters = "https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org https://nixpkgs-wayland.cachix.org https://dcompass.cachix.org https://nix-gaming.cachix.org";
+    extra-trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o= nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA= dcompass.cachix.org-1:uajJEJ1U9uy/y260jBIGgDwlyLqfL1sD5yaV/uWVlbk= nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=";
   };
 
   inputs = {
@@ -23,7 +23,7 @@
       };
     };
 
-    nix = { url = github:nixos/nix/c81f976; };
+    nix = { url = github:nixos/nix; };
 
     digga = {
       url = github:divnix/digga;
@@ -41,6 +41,7 @@
       inputs = {
         nixpkgs.follows = "nixos";
         devshell.follows = "digga/devshell";
+        beautysh.follows = "beautysh";
       };
     };
 
@@ -56,9 +57,14 @@
 
     deploy.follows = "digga/deploy";
 
-    agenix = {
-      url = github:ryantm/agenix;
-      inputs.nixpkgs.follows = "latest";
+    ragenix = {
+      url = github:yaxitech/ragenix;
+      inputs = {
+        nixpkgs.follows = "latest";
+        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+        rust-overlay.follows = "rust-overlay";
+        naersk.follows = "naersk";
+      };
     };
 
     nvfetcher = {
@@ -66,6 +72,20 @@
       inputs = {
         nixpkgs.follows = "latest";
         flake-compat.follows = "digga/deploy/flake-compat";
+        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+      };
+    };
+
+    nixos-hardware = { url = "github:nixos/nixos-hardware"; };
+
+    ###############################################################
+
+    anbox = { url = github:samueldr/nixpkgs/feature/anbox-2021-06-refresh; };
+
+    beautysh = {
+      url = github:lovesegfault/beautysh;
+      inputs = {
+        nixpkgs.follows = "latest";
         flake-utils.follows = "digga/flake-utils-plus/flake-utils";
       };
     };
@@ -80,34 +100,49 @@
       };
     };
 
-    nixos-hardware = { url = "github:nixos/nixos-hardware"; };
+    dcompass = {
+      url = github:compassd/dcompass;
+      inputs = {
+        nixpkgs.follows = "latest";
+        utils.follows = "digga/flake-utils-plus/flake-utils";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
+
+    eww = {
+      url = github:elkowar/eww;
+      inputs = {
+        flake-compat.follows = "digga/deploy/flake-compat";
+        nixpkgs.follows = "latest";
+        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+        fenix.follows = "fenix";
+        naersk.follows = "naersk";
+      };
+    };
+
+    fenix = { url = github:nix-community/fenix; };
 
     firefox-nightly = {
       url = github:colemickens/flake-firefox-nightly;
       inputs.nixpkgs.follows = "latest";
     };
 
-    nixpkgs-wayland = {
-      url = github:nix-community/nixpkgs-wayland;
-      inputs = {
-        nixpkgs.follows = "latest";
-        cachix.follows = "nixos";
-      };
-    };
-
-    dcompass = {
-      url = github:compassd/dcompass;
+    gomod2nix = {
+      url = github:tweag/gomod2nix;
       inputs = {
         nixpkgs.follows = "latest";
         utils.follows = "digga/flake-utils-plus/flake-utils";
       };
     };
 
-    anbox = { url = github:samueldr/nixpkgs/feature/anbox-2021-06-refresh; };
-
     impermanence = {
       url = github:nix-community/impermanence/systemd-service-files;
       flake = false;
+    };
+
+    naersk = {
+      url = github:nix-community/naersk;
+      inputs.nixpkgs.follows = "latest";
     };
 
     nix-dram = {
@@ -118,67 +153,95 @@
       };
     };
 
-    qnr = { url = github:divnix/quick-nix-registry; };
-
-    vs-ext = { url = github:divnix/vs-ext; };
-
-    rnix-lsp = {
-      url = github:nix-community/rnix-lsp;
-      inputs = {
-        nixpkgs.follows = "nixos";
-        utils.follows = "digga/flake-utils-plus/flake-utils";
-      };
+    nix-gaming = {
+      url = github:fufexan/nix-gaming;
+      inputs.utils.follows = "digga/flake-utils-plus";
     };
 
-    fenix = { url = github:nix-community/fenix; };
+    nixpkgs-wayland = {
+      url = github:nix-community/nixpkgs-wayland;
+      inputs = {
+        nixpkgs.follows = "latest";
+        cachix.follows = "nixos";
+      };
+    };
 
     npmlock2nix = {
       url = github:nix-community/npmlock2nix;
       flake = false;
     };
 
-    gomod2nix = {
-      url = github:tweag/gomod2nix;
-      inputs.nixpkgs.follows = "latest";
+    qnr = { url = github:divnix/quick-nix-registry; };
+
+    rnix-lsp = {
+      url = github:nix-community/rnix-lsp;
+      inputs = {
+        nixpkgs.follows = "nixos";
+        utils.follows = "digga/flake-utils-plus/flake-utils";
+        naersk.follows = "naersk";
+      };
     };
 
-    nix-gaming = {
-      url = github:fufexan/nix-gaming;
-      inputs.utils.follows = "digga/flake-utils-plus";
+    rust-overlay = {
+      url = github:oxalica/rust-overlay;
+      inputs = {
+        nixpkgs.follows = "latest";
+        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+      };
     };
+
+    vs-ext = {
+      url = github:divnix/vs-ext;
+      inputs = {
+        nixpkgs.follows = "nixos";
+        devshell.follows = "digga/devshell";
+        digga.follows = "digga";
+        bud.follows = "bud";
+        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+        flake-utils-plus.follows = "digga/flake-utils-plus";
+      };
+    };
+
+    waydroid = { url = github:CajuM/nixpkgs/waydroid-module; };
   };
 
   outputs =
     { self
+
     , nixos
     , latest
     , dan-nixpkgs
 
+    , nix
     , digga
     , bud
     , home
+    , darwin
     , deploy
-    , agenix
+    , ragenix
     , nvfetcher
-    , ci-agent
     , nixos-hardware
 
-    , nur
+      ###############################################################
 
-    , firefox-nightly
-    , nixpkgs-wayland
-    , dcompass
     , anbox
-    , nix-dram
-    , qnr
-    , vs-ext
-    , rnix-lsp
-
+    , beautysh
+    , ci-agent
+    , dcompass
     , fenix
+    , firefox-nightly
     , gomod2nix
-
+      # , impermanence
+    , naersk
+    , nix-dram
     , nix-gaming
-
+    , nixpkgs-wayland
+      # , npmlock2nix
+    , qnr
+    , rnix-lsp
+    , rust-overlay
+    , vs-ext
+    , waydroid
     , ...
     } @ inputs:
     digga.lib.mkFlake
@@ -193,8 +256,7 @@
             overlays = [
               digga.overlays.patchedNix
 
-              nur.overlay
-              agenix.overlay
+              ragenix.overlay
               nvfetcher.overlay
 
               nixpkgs-wayland.overlay-egl
@@ -204,6 +266,7 @@
               vs-ext.overlay
 
               fenix.overlay
+              naersk.overlay
               gomod2nix.overlay
             ]
             ++ (builtins.attrValues dan-nixpkgs.overlays)
@@ -215,6 +278,7 @@
             ];
           };
           anbox = { };
+          waydroid = { };
         };
 
         lib = import ./lib { lib = digga.lib // nixos.lib; };
