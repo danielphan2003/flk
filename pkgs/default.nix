@@ -29,10 +29,9 @@ let
     ;
 
   inherit (inputs)
-    dcompass
+    beautysh
     firefox-nightly
     nix-gaming
-    nixpkgs-wayland
     npmlock2nix
     rnix-lsp
     ;
@@ -160,9 +159,9 @@ in
 
   eww = with channels.latest; callPackage ./applications/misc/eww {
     inherit (final) sources;
-    makeRustPlatform = (makeRustPlatform {
-      inherit (prev.fenix.latest) cargo rustc;
-    });
+    makeRustPlatform = makeRustPlatform {
+      inherit (final.fenix.latest) cargo rustc;
+    };
   };
 
   eww-mpris = callPackage ./applications/misc/eww/mpris.nix { };
@@ -195,7 +194,16 @@ in
 
   xorg = prev.xorg // (recurseIntoAttrs (lib.callPackageWith __splicedPackages ./servers/x11/xorg { }));
 
+  fake-background-webcam = callPackage ./applications/video/fake-background-webcam { };
+
+  user-icon = callPackage ./data/misc/user-icon { };
 }
+
+//
+
+(if matchSystem beautysh
+then beautysh.packages.${system}
+else { })
 
 //
 
