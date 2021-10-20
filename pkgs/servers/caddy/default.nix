@@ -25,7 +25,7 @@ in
 buildGoModule {
   inherit (sources.caddy) src version;
 
-  vendorSha256 = "sha256-IdruxRwhc2jJbkpikD5Bw/XtKqJ5EGElRnRqqcWIAts=";
+  vendorSha256 = "sha256-mN1x5CjbiurI8w3th2HHoR4ju9dQKRmaOFqubSQN+vc=";
 
   pname = "caddy${lib.optionalString (plugins != [ ]) "-with-plugins"}";
 
