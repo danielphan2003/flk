@@ -3,6 +3,7 @@ channels: final: prev: {
   __dontExport = true; # overrides clutter up actual creations
 
   inherit (channels.latest)
+    android-tools
     anup
     cachix
     czkawka
@@ -11,11 +12,14 @@ channels: final: prev: {
     fabric-installer
     hakuneko
     lib
+    linuxKernel
+    lxc
     nixpkgs-fmt
     nvchecker
     nwg-menu
     nwg-panel
     nwg-wrapper
+    obs-studio
     qutebrowser
     rage
     scream
@@ -25,6 +29,12 @@ channels: final: prev: {
     sudo
     wlrctl
     ;
+
+  obs-studio-plugins = channels.latest.obs-studio-plugins // {
+    wlrobs = final.obs-wlrobs;
+  };
+
+  androidenv.androidPkgs_9_0.platform-tools = final.android-tools;
 
   haskellPackages = prev.haskellPackages.override
     (old: {
