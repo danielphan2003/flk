@@ -36,7 +36,7 @@ in
         description = ''
           Configuration names and their associated definitions.
         '';
-        example = literalExample ''
+        example = literalExpression ''
           { cups-pdf = '''
               Out ''${HOME}/printed
             ''';
