@@ -10,7 +10,11 @@ let
   vaultwarden-age-key = "${self}/secrets/nixos/profiles/cloud/vaultwarden.age";
 in
 {
-  age.secrets.vaultwarden.file = vaultwarden-age-key;
+  age.secrets.vaultwarden = {
+    file = vaultwarden-age-key;
+    owner = "vaultwarden";
+    group = "vaultwarden";
+  };
 
   services.vaultwarden = {
     enable = true;
