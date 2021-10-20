@@ -1,0 +1,3 @@
+(button :class "{status}" :halign "fill"
+  :onclick "playerctl --player={player} play-pause"
+  "{icon}{title}{artist}")

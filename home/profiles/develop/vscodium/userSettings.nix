@@ -129,4 +129,5 @@
     # "fortran_fixed-form" = "cd $dir && gfortran $fileName -o $fileNameWithoutExt.o && $dir$fileNameWithoutExt.o";
     # "fortran" = "cd $dir && ${gfortran}/bin/gfortran $fileName -o $fileNameWithoutExt.o && $dir$fileNameWithoutExt.o";
   };
+  "editor.guides.bracketPairs" = true;
 }

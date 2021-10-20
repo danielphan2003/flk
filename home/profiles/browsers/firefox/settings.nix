@@ -36,6 +36,7 @@
 
   # CSS extras
   "layout.css.backdrop-filter.enabled" = true;
+  "layout.css.color-mix.enabled" = true;
   "layout.css.constructable-stylesheets.enabled" = true;
 
   # Enable extra codecs

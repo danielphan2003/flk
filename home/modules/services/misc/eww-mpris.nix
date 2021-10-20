@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.services.eww-mpris;
+  inherit (cfg) package;
 in
 {
   options = {
@@ -12,10 +13,24 @@ in
         If enabled, start the eww-mpris daemon. Once enabled, eww will
         be able to see media sessions from playerctl.
       '';
+      package = mkOption {
+        type = types.package;
+        default = pkgs.eww-mpris;
+      };
+      template = {
+        box = mkOption {
+          type = with types; nullOr path;
+          default = null;
+        };
+        button = mkOption {
+          type = with types; nullOr path;
+          default = null;
+        };
+      };
     };
   };
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ eww-mpris ];
+    home.packages = [ package ];
 
     systemd.user.services.eww-mpris = {
       Unit = {
@@ -24,7 +39,7 @@ in
       };
 
       Service = {
-        ExecStart = ''${pkgs.eww-mpris}/bin/eww-mpris'';
+        ExecStart = with cfg.template; "${package}/bin/eww-mpris ${optionalString (box != null) "--box ${box}"} ${optionalString (button != null) "--button ${button}"}";
         Restart = "on-failure";
       };
 

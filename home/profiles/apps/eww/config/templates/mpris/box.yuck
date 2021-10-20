@@ -1,0 +1,2 @@
+(box :class "music" :orientation "h" :space-evenly false :halign "center"
+  {button})

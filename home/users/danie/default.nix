@@ -34,8 +34,6 @@ let user = "danie"; in
     };
   };
 
-  environment.systemPackages = [ pkgs."${user}-logo" ];
-
   users.users."${user}" = {
     description = "Daniel Phan";
     isNormalUser = true;

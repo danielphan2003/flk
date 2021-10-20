@@ -1,8 +1,15 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p gobjectIntrospection playerctl -p "python3.withPackages(ps: [ ps.pygobject3 ])"
-import json
-import gi
-import subprocess
+#!/usr/bin/env python
+
+import argparse, json, gi, subprocess
+
+parser = argparse.ArgumentParser(description='Dynamic eww mpris generator')
+parser.add_argument('--box', type=str, default='@out@/share/eww-mpris/box.yuck',
+                    help='Path to eww box template in yuck')
+parser.add_argument('--button', type=str, default='@out@/share/eww-mpris/button.yuck',
+                    help='Path to eww button template in yuck')
+
+args = parser.parse_args()
+
 gi.require_version('Playerctl', '2.0')
 from gi.repository import Playerctl, GLib
 
@@ -14,13 +21,13 @@ ICON_MAP = {
     "spotify": " "
 }
 
-button = """
-@button@
-"""
+with open(args.box, 'r') as f:
+    box = f.read()
+    f.close()
 
-box = """
-@box@
-"""
+with open(args.button, 'r') as f:
+    button = f.read()
+    f.close()
 
 
 def is_within_metadata(metadata, title, artist, status, value):
@@ -113,7 +120,7 @@ class Mpris:
 
     def on_track_change(self):
         subprocess.check_output([
-            "@eww@/bin/eww",
+            "eww",
             "update",
             "mpris={}".format(box.format(
                 button = " ".join([item[1]["value"] for item in self.players.items()])))

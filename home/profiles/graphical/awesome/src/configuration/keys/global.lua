@@ -199,7 +199,10 @@ local global_keys = awful.util.table.join(
     }),
     awful.key({}, "XF86PowerDown", function()
         --
-    end, { description = "shutdown skynet", group = "hotkeys" }),
+    end, {
+        description = "shutdown skynet",
+        group = "hotkeys",
+    }),
     awful.key({}, "XF86PowerOff", function()
         awesome.emit_signal("module::exit_screen:show")
     end, {

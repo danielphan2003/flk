@@ -10,7 +10,7 @@ let inherit (builtins) attrValues; in
       ActiveFileInStatusBar
       astro
       awesome-flutter-snippets
-      bracket-pair-colorizer-2
+      # bracket-pair-colorizer-2
       codeql
       code-runner
       codesnap

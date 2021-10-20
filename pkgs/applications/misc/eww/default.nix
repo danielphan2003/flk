@@ -15,12 +15,14 @@
 , enableWayland ? false
 }:
 
+with lib;
+
 makeRustPlatform.buildRustPackage {
   inherit (sources.eww) pname version src cargoLock;
 
-  cargoBuildFlags = with lib; [
+  cargoBuildFlags = optionals enableWayland [
     "--no-default-features"
-    (optionalString enableWayland "--features=wayland")
+    "--features=wayland"
   ];
 
   nativeBuildInputs = [ wrapGAppsHook pkg-config ];
@@ -33,8 +35,7 @@ makeRustPlatform.buildRustPackage {
     pango
     gdk-pixbuf
     gtk-layer-shell
-  ]
-  ++ (lib.optionals enableWayland [ wayland wayland-protocols ]);
+  ] ++ optionals enableWayland [ wayland wayland-protocols ];
 
   doCheck = false;
 

@@ -25,9 +25,8 @@ in
       };
 
       Service = {
-        ExecPrestart = "${pkgs.coreutils}/bin/mkfifo /tmp/ewwpipe";
-        ExecStart = "${pkgs.eww}/bin/eww daemon";
-        ExecStop = "${pkgs.eww}/bin/eww kill";
+        ExecPreStart = "${pkgs.coreutils}/bin/mkfifo /tmp/ewwpipe";
+        ExecStart = "${pkgs.eww}/bin/eww --no-daemonize daemon";
         Restart = "on-failure";
       };
 
