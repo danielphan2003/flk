@@ -1,4 +1,4 @@
-{ pkgs, lib, config, self, latestModulesPath, ... }:
+{ pkgs, lib, config, self, ... }:
 let
   inherit (lib) concatStringsSep hasSuffix mkAfter mkBefore mkForce partition;
   inherit (builtins) attrNames attrValues;
@@ -23,10 +23,6 @@ let
   caddy-tls-key = caddy-tls-file "key";
 in
 {
-  imports = [ "${latestModulesPath}/services/networking/tailscale.nix" ];
-
-  disabledModules = [ "services/networking/tailscale.nix" ];
-
   age.secrets."${tailscale-age-id}".file = tailscale-age-key;
 
   networking = {
@@ -115,7 +111,7 @@ in
     };
 
     # have the job run this shell script
-    script = ''tailscale up --authkey="$(< ${config.age.secrets."${tailscale-age-id}".path})"'';
+    script = ''tailscale up --authkey="file:${config.age.secrets."${tailscale-age-id}".path}"'';
   };
 
   boot.kernel.sysctl = {

@@ -1,6 +1,4 @@
-{ lib, options, pkgs, latestModulesPath, ... }: {
-  imports = [ "${latestModulesPath}/config/xdg/portals/wlr.nix" ];
-
+{ lib, options, pkgs, ... }: {
   fonts.fontDir.enable = true;
 
   services.cron.systemCronJobs = [
