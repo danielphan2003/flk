@@ -15,7 +15,9 @@
 
 let inherit (lib) optionals optionalString; in
 
-python3Packages.buildPythonApplication rec {
+with python3Packages;
+
+buildPythonApplication rec {
   inherit (sources.trackma) pname src version;
 
   nativeBuildInputs = [ ]
@@ -24,14 +26,13 @@ python3Packages.buildPythonApplication rec {
   buildInputs = [ ]
     ++ optionals withGtk [ glib gobject-introspection gtk3 ];
 
-  propagatedBuildInputs = (with python3Packages;
-    [ urllib3 ]
-      ++ optionals withQt [ pyqt5 ]
-      ++ optionals withGtk [ pygobject3 pycairo ]
-      ++ optionals withCurses [ urwid ]
-      ++ optionals stdenv.isLinux [ pyinotify ]
-      ++ optionals withMpris [ dbus-python ]
-  ) ++ optionals (withGtk || withQt) [ pillow ];
+  propagatedBuildInputs = [ urllib3 ]
+    ++ optionals withQt [ pyqt5 ]
+    ++ optionals withGtk [ pygobject3 pycairo ]
+    ++ optionals withCurses [ urwid ]
+    ++ optionals stdenv.isLinux [ pyinotify ]
+    ++ optionals withMpris [ dbus-python ]
+    ++ optionals (withGtk || withQt) [ pillow ];
 
   strictDeps = false; # broken with gobject-introspection setup hook, see https://github.com/NixOS/nixpkgs/issues/56943
   dontWrapGApps = true; # prevent double wrapping
