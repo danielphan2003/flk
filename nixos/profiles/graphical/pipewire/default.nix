@@ -22,7 +22,7 @@
 
     # defaults (no need to be set unless modified)
     lowLatency = {
-      quantum = 64; # usually a power of 2
+      quantum = 128; # usually a power of 2
       rate = 48000;
     };
   };
