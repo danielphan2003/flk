@@ -25,7 +25,7 @@ in
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     tmpOnTmpfs = true;
-    kernelPackages = pkgs.linuxPackages_5_13;
+    kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_5_14;
 
     initrd.availableKernelModules = [
       "amdgpu"
@@ -44,7 +44,7 @@ in
     extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
 
     extraModprobeConfig = ''
-      options v4l2loopback exclusive_caps=1 video_nr=9 card_label="OBS"
+      options v4l2loopback devices=2 exclusive_caps=1 video_nr=10 card_label="OBS"
     '';
 
     initrd.supportedFilesystems = [ "btrfs" ];
