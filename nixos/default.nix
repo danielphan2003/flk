@@ -14,21 +14,34 @@ in
       digga.nixosModules.nixConfig
       ci-agent.nixosModules.agent-profile
       home.nixosModules.home-manager
-      agenix.nixosModules.age
+      ragenix.nixosModules.age
       bud.nixosModules.bud
       "${impermanence}/nixos.nix"
       qnr.nixosModules.local-registry
       nix-gaming.nixosModule
-      ({ latestModulesPath, ... }: {
+      ({ latestModulesPath, waydroidModulesPath, ... }: {
         imports = [
+          "${latestModulesPath}/config/swap.nix"
+          "${latestModulesPath}/config/xdg/portals/wlr.nix"
+          "${latestModulesPath}/misc/extra-arguments.nix"
           "${latestModulesPath}/programs/xwayland.nix"
-          "${latestModulesPath}/services/web-servers/caddy/default.nix"
+          "${latestModulesPath}/services/audio/spotifyd.nix"
+          "${latestModulesPath}/services/networking/tailscale.nix"
           "${latestModulesPath}/services/security/vaultwarden/default.nix"
+          "${latestModulesPath}/services/web-servers/caddy/default.nix"
+          "${latestModulesPath}/tasks/filesystems.nix"
+          "${waydroidModulesPath}/virtualisation/waydroid.nix"
         ];
+
         disabledModules = [
+          "config/swap.nix"
+          "misc/extra-arguments.nix"
           "programs/xwayland.nix"
-          "services/web-servers/caddy.nix"
+          "services/audio/spotifyd.nix"
+          "services/networking/tailscale.nix"
           "services/security/bitwarden_rs/default.nix"
+          "services/web-servers/caddy.nix"
+          "tasks/filesystems.nix"
         ];
       })
     ];
@@ -86,30 +99,30 @@ in
         inherit (misc) persistence encryption;
       };
 
-      server = base ++ (attrValues {
+      server = attrValues {
         inherit (network) networkd qos;
         inherit (network.dns) tailscale;
         inherit (virt) headless;
-      });
+      };
 
-      work = server ++ (attrValues {
+      work = server ++ attrValues {
         inherit develop;
         inherit (virt) minimal;
-      });
+      };
 
-      graphics = work ++ (attrValues {
+      graphics = work ++ attrValues {
         inherit (graphical) drivers qutebrowser;
         inherit (apps) gnome qt;
-      });
+      };
 
-      modern = graphics ++ (attrValues {
+      modern = graphics ++ attrValues {
         inherit (graphical) gtk pipewire greetd wayland misc;
-      });
+      };
 
-      legacy = graphics ++ (attrValues {
+      legacy = graphics ++ attrValues {
         inherit (graphical) awesome picom;
         inherit (apps) x11;
-      });
+      };
 
       producer = attrValues {
         inherit (apps) im spotify;
@@ -120,7 +133,7 @@ in
       };
 
       play = attrValues {
-        inherit (graphical) games;
+        inherit (graphical) gaming;
         inherit (network) chromecast;
         inherit (apps) wine;
       };
@@ -130,20 +143,23 @@ in
       ### Host suites
 
       pik2 = [ ]
+        ++ base
         ++ ephemeral-crypt
         ++ server
         ++ attrValues
         {
           inherit (users) alita;
+          inherit (graphical) pipewire;
           inherit (misc) security;
           inherit (network.dns) dcompass;
           inherit (cloud)
             caddy
-            calibre-web
+            # calibre-server
             grafana
             lvc-it-lib
             minecraft
             postgresql
+            spotifyd
             vaultwarden
             ;
           inherit (apps) rpi;
@@ -151,6 +167,7 @@ in
         };
 
       themachine = [ ]
+        ++ base
         ++ ephemeral-crypt
         ++ modern
         ++ producer
@@ -158,7 +175,10 @@ in
         ++ attrValues
         ({
           inherit (users) danie;
-          inherit (cloud) netdata;
+          inherit (cloud)
+            calibre-server
+            netdata
+            ;
           inherit (graphical.themes) sefia;
           inherit (misc) disable-mitigations security;
           inherit (network.dns) dcompass;
