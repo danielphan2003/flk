@@ -1,7 +1,6 @@
-final: prev: {
+channels: final: prev: {
   spicetify-cli = with prev; spicetify-cli.overrideAttrs (_: {
     inherit (final.sources.spicetify-cli) pname version src;
-
     postInstall = ''
       cp -r ./jsHelper ./Themes ./Extensions ./CustomApps ./globals.d.ts ./css-map.json $out/bin
     '';
@@ -31,4 +30,16 @@ final: prev: {
           lib.makeLibraryPath (args ++ [ xorg.libxshmfence ]);
       };
     };
+
+  spotifyd = with channels.latest; spotifyd.override {
+    rustPackages = rustPackages // {
+      rustPlatform = rustPackages.rustPlatform // {
+        buildRustPackage = args: rustPackages.rustPlatform.buildRustPackage
+          (builtins.removeAttrs args [ "cargoSha256" ] // {
+            inherit (final.sources.spotifyd) src version cargoLock;
+          });
+      };
+    };
+    withMpris = true;
+  };
 }
