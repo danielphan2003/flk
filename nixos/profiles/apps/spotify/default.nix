@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
-{
+{ pkgs, lib, ... }: {
   networking.firewall.allowedTCPPorts = [ 57621 ];
 
   environment.systemPackages = with pkgs; [
@@ -34,11 +33,11 @@
             "shuffle+.js"
             "trashbin.js"
           ];
-          # extraConfig = ''
-          #   [Patch]
-          #   xpui.js_find_8008 = ,(\w+=)32,
-          #   xpui.js_repl_8008 = ,''${1}56,
-          # '';
+          extraConfig = ''
+            [Patch]
+            xpui.js_find_8008 = ,(\w+=)32,
+            xpui.js_repl_8008 = ,''${1}56,
+          '';
         }
     else spotify-tui)
   ];
