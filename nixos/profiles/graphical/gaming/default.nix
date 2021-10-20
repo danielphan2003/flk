@@ -1,7 +1,10 @@
 { pkgs, ... }:
 let inherit (builtins) attrValues; in
 {
-  imports = [ ./udev.nix ];
+  imports = [
+    ./android.nix
+    ./udev.nix
+  ];
 
   environment.systemPackages = attrValues {
     inherit (pkgs)
