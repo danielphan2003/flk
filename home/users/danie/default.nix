@@ -1,4 +1,4 @@
-{ self, hmUsers, pkgs, lib, config, ... }:
+{ self, config, hmUsers, lib, pkgs, ... }:
 let user = "danie"; in
 {
   home-manager.users."${user}" = hmUsers."${user}";

@@ -1,4 +1,4 @@
-{ self, hmUsers, config, ... }:
+{ self, config, hmUsers, ... }:
 let user = "alita"; in
 {
   home-manager.users."${user}" = hmUsers."${user}";

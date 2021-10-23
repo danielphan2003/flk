@@ -1,4 +1,4 @@
-{ pkgs, config, self, ... }: {
+{ self, config, pkgs, ... }: {
   home.packages = [
     (pkgs.user-icon.override rec {
       inherit (config.home) username;
