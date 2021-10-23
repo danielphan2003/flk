@@ -31,7 +31,6 @@ let
   inherit (inputs)
     beautysh
     firefox-nightly
-    nix-gaming
     npmlock2nix
     rnix-lsp
     ;
@@ -218,17 +217,11 @@ else { })
 
 //
 
-(if matchSystem nix-gaming
-then nix-gaming.packages.${system}
-else { })
-
-//
-
 (if matchSystem rnix-lsp
 then rnix-lsp.packages.${system}
 else { })
 
-  //
+//
 
 {
 

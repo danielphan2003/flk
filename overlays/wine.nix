@@ -6,7 +6,9 @@ let
       if builtins.elem prev.system [ "i686-linux" "x86_64-linux" ]
       then
         {
-          inherit (channels.latest) wine wineStable wine-staging winePackages wineWowPackages winetricks;
+          inherit (channels.latest) wineStable wine-staging winePackages wineWowPackages winetricks;
+
+          wine = final.wineWowPackages.staging;
 
           # wine-wayland = (final.wineWowPackages.stable.overrideDerivation (
           #   { buildInputs ? [ ]
