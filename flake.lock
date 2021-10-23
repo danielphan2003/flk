@@ -21,22 +21,6 @@
         "type": "github"
       }
     },
-    "anbox": {
-      "locked": {
-        "lastModified": 1623131708,
-        "narHash": "sha256-dpHsGaKODMALfGjQVv273iH9/s4VZQdDfEf9mcK3pNg=",
-        "owner": "samueldr",
-        "repo": "nixpkgs",
-        "rev": "fdf7b4be1a659ed8b96586c2fc8ff90850e25feb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "samueldr",
-        "ref": "feature/anbox-2021-06-refresh",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "beautysh": {
       "inputs": {
         "flake-utils": [
@@ -525,11 +509,11 @@
     },
     "latest": {
       "locked": {
-        "lastModified": 1633971123,
-        "narHash": "sha256-WmI4NbH1IPGFWVkuBkKoYgOnxgwSfWDgdZplJlQ93vA=",
+        "lastModified": 1634782485,
+        "narHash": "sha256-psfh4OQSokGXG0lpq3zKFbhOo3QfoeudRcaUnwMRkQo=",
         "ref": "nixos-unstable",
-        "rev": "e4ef597edfd8a0ba5f12362932fc9b1dd01a0aef",
-        "revCount": 322478,
+        "rev": "34ad3ffe08adfca17fcb4e4a47bb5f3b113687be",
+        "revCount": 324423,
         "type": "git",
         "url": "file:///nix/nixpkgs"
       },
@@ -638,7 +622,9 @@
     },
     "nix-gaming": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": [
+          "latest"
+        ],
         "oglfPatches": "oglfPatches",
         "tkgPatches": "tkgPatches",
         "utils": [
@@ -647,11 +633,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1632343841,
-        "narHash": "sha256-+1IncuEr1Ax/9cJvqLVWimtts7t8UykkRpvyO+iENus=",
+        "lastModified": 1634476655,
+        "narHash": "sha256-pwcDKloge7RF/5HXNp5odu3dOPL6t0XYtjf3Xkfew2w=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "9444372751835010eb4e672fd58f64423c8dab5f",
+        "rev": "20f978640c9897d1080621a9189e5b4e7d5efe34",
         "type": "github"
       },
       "original": {
@@ -676,11 +662,11 @@
     },
     "nixos": {
       "locked": {
-        "lastModified": 1634115022,
-        "narHash": "sha256-K9DZMQ47VRrg9gtTPwex5p0E8LnwM/dDkNe7AQW0qj0=",
+        "lastModified": 1634883236,
+        "narHash": "sha256-Z9ofgNzSmYVhs+STOAvk6QNy5KVsUmADOE+UIfur2ug=",
         "ref": "release-21.05",
-        "rev": "564cb4d81d4f734dd068684adec5a60077397fe9",
-        "revCount": 295273,
+        "rev": "b0274abf85097e9a2da868b28a5532918dc14380",
+        "revCount": 295382,
         "type": "git",
         "url": "file:///nix/nixpkgs"
       },
@@ -782,21 +768,6 @@
         "id": "nixpkgs",
         "ref": "nixos-21.05-small",
         "type": "indirect"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1628417749,
-        "narHash": "sha256-LI00lL97qfnVPYLM50nh9BhHY9viHziuLjkMzBrIuTE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "3a8b5de9f0db6be3eccf4987b09af26499ceff6f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "type": "github"
       }
     },
     "npmlock2nix": {
@@ -983,7 +954,6 @@
     },
     "root": {
       "inputs": {
-        "anbox": "anbox",
         "beautysh": "beautysh",
         "bud": "bud",
         "ci-agent": "ci-agent",

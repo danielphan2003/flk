@@ -80,8 +80,6 @@
 
     ###############################################################
 
-    anbox = { url = github:samueldr/nixpkgs/feature/anbox-2021-06-refresh; };
-
     beautysh = {
       url = github:lovesegfault/beautysh;
       inputs = {
@@ -155,7 +153,10 @@
 
     nix-gaming = {
       url = github:fufexan/nix-gaming;
-      inputs.utils.follows = "digga/flake-utils-plus";
+      inputs = {
+        nixpkgs.follows = "latest";
+        utils.follows = "digga/flake-utils-plus";
+      };
     };
 
     nixpkgs-wayland = {
@@ -224,7 +225,6 @@
 
       ###############################################################
 
-    , anbox
     , beautysh
     , ci-agent
     , dcompass
@@ -253,31 +253,32 @@
         channels = {
           nixos = {
             imports = [ (digga.lib.importOverlays ./overlays) ];
-            overlays = [
-              digga.overlays.patchedNix
+            overlays = [ ]
+              ++
+                [
+                  digga.overlays.patchedNix
 
-              ragenix.overlay
-              nvfetcher.overlay
+                  ragenix.overlay
+                  nvfetcher.overlay
 
-              nixpkgs-wayland.overlay-egl
-              dcompass.overlay
+                  nixpkgs-wayland.overlay-egl
+                  dcompass.overlay
 
-              nix-dram.overlay
-              vs-ext.overlay
+                  nix-dram.overlay
+                  vs-ext.overlay
 
-              fenix.overlay
-              naersk.overlay
-              gomod2nix.overlay
-            ]
-            ++ (builtins.attrValues dan-nixpkgs.overlays)
-            ++ [ (import ./pkgs/default.nix { inherit inputs; }) ];
+                  fenix.overlay
+                  naersk.overlay
+                  gomod2nix.overlay
+                ]
+              ++ (builtins.attrValues dan-nixpkgs.overlays)
+              ++ [ (import ./pkgs/default.nix { inherit inputs; }) ];
           };
           latest = {
             overlays = [
               deploy.overlay
             ];
           };
-          anbox = { };
           waydroid = { };
         };
 
