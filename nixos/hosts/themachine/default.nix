@@ -1,7 +1,15 @@
-{ pkgs, lib, suites, config, self, ... }:
+{ self
+, config
+, hostConfigs
+, lib
+, pkgs
+, suites
+, ...
+}:
+
 let
   inherit (config.networking) hostName;
-  inherit (lib.our.hostConfigs.hosts."${hostName}") tailscale_ip;
+  inherit (hostConfigs.hosts."${hostName}") tailscale_ip;
 in
 {
   imports = suites.themachine;

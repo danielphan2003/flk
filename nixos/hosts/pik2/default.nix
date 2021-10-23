@@ -1,4 +1,11 @@
-{ pkgs, lib, suites, config, self, ... }:
+{ self
+, config
+, lib
+, pkgs
+, suites
+, ...
+}:
+
 let inherit (config.networking) domain hostName; in
 {
   imports = suites.pik2;
