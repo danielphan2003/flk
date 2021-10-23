@@ -40,6 +40,5 @@ channels: final: prev: {
           });
       };
     };
-    withMpris = true;
   };
 }
