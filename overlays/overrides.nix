@@ -11,7 +11,6 @@ channels: final: prev: {
     dmenu
     fabric-installer
     hakuneko
-    lib
     linuxKernel
     lxc
     nixpkgs-fmt
@@ -29,6 +28,15 @@ channels: final: prev: {
     sudo
     wlrctl
     ;
+  
+  lib = channels.latest.lib.extend (lfinal: lprev: with lfinal; {
+    options = lprev.options // {
+      literalExample = text:
+        if isString text
+        then literalExpression text
+        else { _type = "literalExample"; inherit text; };
+    };
+  });
 
   obs-studio-plugins = channels.latest.obs-studio-plugins // {
     wlrobs = final.obs-wlrobs;
