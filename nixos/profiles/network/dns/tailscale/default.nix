@@ -1,29 +1,43 @@
-{ pkgs, lib, config, self, ... }:
+{ pkgs
+, lib
+, config
+, profiles
+, hostConfigs
+, self
+, ...
+}:
 let
   inherit (lib) concatStringsSep hasSuffix mkAfter mkBefore mkForce partition;
   inherit (builtins) attrNames attrValues;
+
   inherit (config.networking) hostName;
   inherit (config.services.tailscale) interfaceName port package;
-  inherit (lib.our.hostConfigs.tailscale) nameserver tailnet_alias;
+
+  inherit (hostConfigs.tailscale) nameserver tailnet_alias;
+  inherit (hostConfigs.hosts."${hostName}") tailnet_domain;
 
   tailscale-age-id = "tailscale-${hostName}";
 
   tailscale-age-key = "${self}/secrets/nixos/profiles/network/tailscale/${hostName}.age";
 
-  tailnet-domain = "${hostName}.${tailnet_alias}";
 
   caddy-tls-folder =
-    "/var/lib/caddy/.local/share/caddy/certificates/tailscale/${tailnet-domain}";
+    "/var/lib/caddy/.local/share/caddy/certificates/tailscale/${tailnet_domain}";
 
   caddy-tls-file = type:
-    "${caddy-tls-folder}/${tailnet-domain}.${type}";
+    "${caddy-tls-folder}/${tailnet_domain}.${type}";
 
   caddy-tls-cert = caddy-tls-file "crt";
 
   caddy-tls-key = caddy-tls-file "key";
 in
 {
-  age.secrets."${tailscale-age-id}".file = tailscale-age-key;
+  imports = with profiles.network.dns; [ disable-resolved ];
+
+  age.secrets = {
+    "${tailscale-age-id}".file = tailscale-age-key;
+    tailscale-custom-doh.file = "${self}/secrets/nixos/profiles/network/tailscale/custom-doh.age";
+  };
 
   networking = {
     firewall = {
@@ -38,14 +52,20 @@ in
     enable = true;
     port = 41641;
     interfaceName = "tailscale0";
+    # note: should machines uses dot and only use MagicDNS for ts traffics?
+    package = pkgs.tailscale.override {
+      # hacky, but good enough
+      inherit hostName;
+      customDoHPath = config.age.secrets.tailscale-custom-doh.path;
+    };
   };
 
   services.resolved.dnssec = "false";
 
-  services.caddy.virtualHosts."${tailnet-domain}" = {
+  services.caddy.virtualHosts."${tailnet_domain}" = {
     extraConfig = ''
       import common
-      import logging ${tailnet-domain}
+      import logging ${tailnet_domain}
 
       tls ${caddy-tls-cert} ${caddy-tls-key}
     '';
@@ -72,7 +92,7 @@ in
       tailscale cert \
         --cert-file "${caddy-tls-cert}" \
         --key-file "${caddy-tls-key}" \
-        "${tailnet-domain}"
+        "${tailnet_domain}"
     '';
   };
 

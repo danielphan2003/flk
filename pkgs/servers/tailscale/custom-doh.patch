@@ -1,0 +1,43 @@
+diff --git a/net/dns/resolver/forwarder.go b/net/dns/resolver/forwarder.go
+index 41ac1122..8663a0f9 100644
+--- a/net/dns/resolver/forwarder.go
++++ b/net/dns/resolver/forwarder.go
+@@ -8,6 +8,7 @@ import (
+ 	"bytes"
+ 	"context"
+ 	"encoding/binary"
++	"encoding/json"
+ 	"errors"
+ 	"fmt"
+ 	"io"
+@@ -717,6 +718,30 @@ func dohV6(base string) (ip netaddr.IP, ok bool) {
+ }
+ 
+ func init() {
++	// Custom DNS
++	type DoHConfig struct {
++		Addr     string
++		Endpoint string
++		Type     string
++	}
++
++	var matchType = func(endpoint string, type_ string) string {
++		if type_ == "nextdns" {
++			return endpoint + "/" + "@hostName@"
++		}
++		return endpoint
++	}
++
++	if content, err := ioutil.ReadFile("@customDoHPath@"); err == nil {
++		var resolvers []DoHConfig
++		json.Unmarshal([]byte(content), &resolvers)
++		for _, resolver := range resolvers {
++			addr, type_ := resolver.Addr, resolver.Type
++			endpoint := matchType(resolver.Endpoint, type_)
++			addDoH(addr, endpoint)
++		}
++ }
++
+ 	// Cloudflare
+ 	addDoH("1.1.1.1", "https://cloudflare-dns.com/dns-query")
+ 	addDoH("1.0.0.1", "https://cloudflare-dns.com/dns-query")
