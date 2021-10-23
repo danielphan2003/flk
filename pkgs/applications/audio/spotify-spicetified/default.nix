@@ -2,6 +2,7 @@
 , spotify-unwrapped
 , spicetify-cli
 , spicetify-themes
+, writeText
 
 , theme ? "SpicetifyDefault"
 , colorScheme ? "green-dark"
@@ -47,8 +48,11 @@ let
     customAppsString
     optionalConfig
     ;
+  extraConfigFile = writeText "config.ini" extraConfig;
 in
 spotify-unwrapped.overrideAttrs (o: {
+  inherit extraConfigFile;
+
   pname = "spotify-spicified";
 
   nativeBuildInputs = o.nativeBuildInputs ++ [ spicetify-cli ];
@@ -81,9 +85,7 @@ spotify-unwrapped.overrideAttrs (o: {
       ${optionalConfig "custom_apps"          customAppsString} \
       ${optionalConfig "extensions"           extensionString}
 
-    cat <<EOT >> "$SPICETIFY_CONFIG/$(spicetify-cli -c)"
-    ${escape [ "$" ] extraConfig}
-    EOT
+    cat $extraConfigFile >> "$SPICETIFY_CONFIG/$(spicetify-cli -c)"
 
     spicetify-cli backup apply enable-devtool update -ne
 
