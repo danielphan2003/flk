@@ -1,9 +1,15 @@
-{ config, lib, self, ... }:
+{ self
+, config
+, hostConfigs
+, lib
+, profiles
+, ...
+}:
+
 let
   inherit (lib) genAttrs mkForce optionalAttrs optionals remove;
   inherit (builtins) attrNames removeAttrs;
 
-  inherit (lib.our) hostConfigs;
   inherit (config.networking) hostName;
   inherit (hostConfigs.hosts."${hostName}") ip_addr gateway;
 
@@ -50,7 +56,7 @@ let
   };
 in
 {
-  imports = [ ../dns/resolved ];
+  imports = with profiles.network.dns; [ resolved ];
 
   networking = {
     useNetworkd = true;

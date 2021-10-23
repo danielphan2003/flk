@@ -1,7 +1,7 @@
 { lib, config, ... }:
-let inherit (lib) mkDefault; in
+let inherit (lib) mkAfter mkDefault; in
 {
-  networking.nameservers = mkDefault [
+  networking.nameservers = mkAfter [
     "9.9.9.9"
     "2620:fe::9"
   ];

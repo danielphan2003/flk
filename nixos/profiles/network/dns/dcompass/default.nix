@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, profiles, ... }:
 let
   mkDoH = { uri, addr }: {
     inherit uri addr;
@@ -7,7 +7,7 @@ let
   };
 in
 {
-  imports = [ ../common ../disable-resolved ];
+  imports = with profiles.network.dns; [ common disable-resolved ];
 
   networking.nameservers = lib.mkAfter [ "127.0.0.1" ];
 

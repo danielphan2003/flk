@@ -1,11 +1,10 @@
-{ pkgs, lib, ... }:
+{ hostConfigs, lib, pkgs, profiles, ... }:
 let
   inherit (lib) mkDefault mkForce;
-  inherit (lib.our) hostConfigs;
   package = pkgs.dnscrypt-proxy2;
 in
 {
-  imports = [ ../common ../disable-resolved ];
+  imports = with profiles.network.dns; [ common disable-resolved ];
 
   networking.nameservers = mkAfter [ "127.0.0.1" ];
 
