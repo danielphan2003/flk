@@ -1,22 +1,22 @@
 { pkgs, ... }:
-let inherit (pkgs) python3Packages;
-in
+let inherit (pkgs) python3Packages; in
 {
   environment.systemPackages =
     let
-      packages = pythonPackages:
-        with pythonPackages; [
+      packages = pythonPackages: builtins.attrValues {
+        inherit (pythonPackages)
           numpy
           pandas
           ptpython
           requests
           scipy
-        ];
+        ;
+      };
 
       python = pkgs.python3.withPackages packages;
-
     in
     [ python ];
+
   environment.sessionVariables = {
     PYTHONSTARTUP =
       let
