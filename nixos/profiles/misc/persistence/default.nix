@@ -1,17 +1,19 @@
-{ lib, config, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) optionals;
   inherit (config.boot.persistence) path;
 in
 {
+  environment.systemPackages = builtins.attrValues { inherit (pkgs) fs-diff; };
+
   boot.persistence.enable = true;
 
   programs.fuse.userAllowOther = true;
 
   environment.etc."nixos".source = "/persist/etc/nixos";
 
-  environment.persistence."${path}" = {
-    directories = with config; [ ]
+  environment.persistence."${path}" = with config; {
+    directories = [ ]
       ++
       [
         "/etc/ssh"
@@ -33,29 +35,31 @@ in
       ++ optionals services.postgresql.enable [ "/var/lib/postgresql" ]
       ++ optionals services.postgresqlBackup.enable [ "/var/backup/postgresql" ]
       ++ optionals
-      services.qbittorrent.enable
-      [
-        "/var/lib/qbittorrent/.config/qBittorrent/config"
-        "/var/lib/qbittorrent/.config/qBittorrent/data"
-      ]
+        services.qbittorrent.enable
+        [
+          "/var/lib/qbittorrent/.config/qBittorrent/config"
+          "/var/lib/qbittorrent/.config/qBittorrent/data"
+        ]
       ++ optionals services.spotifyd.enable [ services.spotifyd.settings.global.cache_path ]
       ++ optionals services.tailscale.enable [ "/var/lib/tailscale" ]
       ++ optionals services.teamviewer.enable [ "/var/lib/teamviewer" ]
       ++ optionals services.timesyncd.enable [ "/var/lib/systemd/timesync" ]
       ++ optionals
-      services.xserver.displayManager.sddm.enable
-      [ "/var/lib/sddm" ]
+        services.xserver.displayManager.sddm.enable
+        [ "/var/lib/sddm" ]
       ++ optionals virtualisation.anbox.enable [ "/var/lib/anbox" ]
       ++ optionals virtualisation.docker.enable [ "/var/lib/docker" ]
       ++ optionals virtualisation.libvirtd.enable [ "/var/lib/libvirt" ]
       ++ optionals virtualisation.waydroid.enable [ "/var/lib/waydroid" ]
     ;
 
-    files = [
-      "/etc/machine-id"
-      "/etc/xdg/gtk-3.0/settings.ini"
-      "/root/.local/share/nix/trusted-settings.json"
-    ];
+    files = [ ]
+      ++
+      [
+        "/etc/machine-id"
+        "/root/.local/share/nix/trusted-settings.json"
+      ]
+      ++ optionals (environment.etc ? "xdg/gtk-3.0/settings.ini") [ "/etc/xdg/gtk-3.0/settings.ini" ];
   };
 
   fileSystems."/etc/ssh" = {
