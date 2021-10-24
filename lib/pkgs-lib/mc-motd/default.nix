@@ -15,33 +15,15 @@ let
 
   motd = {}: {
 
-    type = with lib.types; let
-      valueType = nullOr
-        (oneOf [
-          bool
-          int
-          float
-          str
-          path
-          (attrsOf valueType)
-          (listOf valueType)
-        ]) // {
-        description = "JSON value";
-      };
-    in
-    valueType;
-
-    generate = value:
-      (replaceStrings [ "\\\\" "\"" ] [ "\\" "" ]
-        (fileContents
-          (pkgs.runCommand "mc-motd"
-            {
-              nativeBuildInputs = [ pkgs.jq ];
-              value = toJSON value;
-              passAsFile = [ "value" ];
-            } ''
-            jq -r . "$valuePath" --ascii-output > $out
-          '')));
+    generate = value: let
+      mc-motd = pkgs.latest.runCommand "mc-motd" {
+        nativeBuildInputs = [ pkgs.jq ];
+        value = toJSON value;
+        passAsFile = [ "value" ];
+      } ''
+        jq -r . "$valuePath" --ascii-output > $out
+      '';
+    in replaceStrings [ "\\\\" "\"" ] [ "\\" "" ] (fileContents mc-motd);
 
   };
 
@@ -68,7 +50,7 @@ let
     };
   };
 
-  formats = rec {
+  formats = {
     bold = ''\u00A7l'';
     underline = ''\u00A7n'';
     italic = ''\u00A7o'';
