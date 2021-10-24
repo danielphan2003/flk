@@ -79,79 +79,23 @@ let
 
 in
 {
-  formats = prev.formats // (import ../lib/pkgs-lib { inherit (prev) lib pkgs; });
-
-  vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
-
-  vscode-extensions = prev.vscode-extensions // (newPkgsSet "vscode-extensions");
-
-  python3Packages = prev.python3Packages // (newPkgsSet "pythonPackages");
-
-  minecraft-mods = newPkgsSet "minecraft";
+  adl = callPackage ./applications/video/adl { };
 
   alsa-lib = prev.alsaLib;
 
-  sddm-chili = callPackage ./applications/display-managers/sddm/themes/chili { };
-
-  pure = callPackage ./shells/zsh/pure { };
-
-  wii-u-gc-adapter = callPackage ./misc/drivers/wii-u-gc-adapter { };
-
-  libinih = callPackage ./development/libraries/libinih { };
-
-  steamcompmgr = callPackage ./applications/window-managers/steamcompmgr { };
-
-  fs-diff = callPackage ./tools/file-systems/fs-diff { };
-
-  whitesur-icon-theme = callPackage ./data/icons/whitesur-icon-theme { };
-
-  otf-apple = callPackage ./data/fonts/otf-apple { };
-
-  ttf-segue-ui = callPackage ./data/fonts/ttf-segue-ui { };
-
-  # ventoy = callPackage ./tools/file-systems/ventoy { };
-
-  leonflix = callPackage ./applications/video/leonflix { };
-
-  widevine-cdm = callPackage ./applications/networking/browsers/widevine-cdm { };
-
-  flyingfox = callPackage ./data/misc/flyingfox { };
-
-  interak = callPackage ./data/misc/interak { };
-
-  rainfox = callPackage ./data/misc/rainfox { };
-
-  spicetify-themes = callPackage ./data/misc/spicetify-themes { };
-
-  dribbblish-dynamic-theme = callPackage ./data/misc/dribbblish-dynamic-theme { };
-
-  microsoft-edge-beta = callPackage ./applications/networking/browsers/microsoft-edge { gconf = final.gnome2.GConf; };
-
-  microsoft-edge-dev = final.microsoft-edge-beta.override { channel = "dev"; };
+  anime-downloader = callPackage ./applications/video/anime-downloader { };
 
   arkenfox-userjs = callPackage ./data/misc/arkenfox-userjs { };
 
-  spotify-spicetified = callPackage ./applications/audio/spotify-spicetified { };
+  avizo = callPackage ./applications/misc/avizo { };
 
-  pywalfox = callPackage ./tools/misc/pywalfox { };
+  caddy = callPackage ./servers/caddy { };
 
   caprine = callPackage ./applications/networking/instant-messengers/caprine { };
 
-  luaPackages = prev.luaPackages // {
-    bling = callPackage ./development/lua-modules/bling { };
+  doggo = callPackage ./tools/networking/doggo { };
 
-    layout-machi = callPackage ./development/lua-modules/layout-machi { };
-
-    lua-pam = callPackage ./development/lua-modules/lua-pam { };
-
-    awestore = callPackage ./development/lua-modules/awestore { };
-  };
-
-  avizo = callPackage ./applications/misc/avizo { };
-
-  plymouth-themes = callPackage ./data/misc/plymouth-themes { };
-
-  paper = callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
+  dribbblish-dynamic-theme = callPackage ./data/misc/dribbblish-dynamic-theme { };
 
   eww = with channels.latest; callPackage ./applications/misc/eww {
     inherit (final) sources;
@@ -162,39 +106,95 @@ in
 
   eww-mpris = callPackage ./applications/misc/eww/mpris.nix { };
 
-  caddy = callPackage ./servers/caddy { };
+  fake-background-webcam = callPackage ./applications/video/fake-background-webcam { };
 
-  ntfs2btrfs = callPackage ./tools/file-systems/ntfs2btrfs { };
+  flyingfox = callPackage ./data/misc/flyingfox { };
 
-  quibble = callPackage ./applications/virtualization/quibble {
-    mingwGccs = with prev.pkgsCross; [ mingw32.buildPackages.gcc mingwW64.buildPackages.gcc ];
-  };
+  formats = prev.formats // (import ../lib/pkgs-lib { inherit (prev) lib pkgs; });
 
-  wgcf = callPackage ./applications/networking/wgcf { };
+  frece = callPackage ./applications/misc/frece { inherit (channels.latest) rustPlatform; };
 
-  tuinitymc = callPackage ./games/tuinity { };
+  fs-diff = callPackage ./tools/file-systems/fs-diff { };
+
+  interak = callPackage ./data/misc/interak { };
+
+  leonflix = callPackage ./applications/video/leonflix { };
+
+  libinih = callPackage ./development/libraries/libinih { };
 
   lightcord = callPackage ./applications/networking/instant-messengers/lightcord {
     # inherit (channels.latest) glibc;
   };
 
-  doggo = callPackage ./tools/networking/doggo { };
+  luaPackages = prev.luaPackages // {
+    awestore = callPackage ./development/lua-modules/awestore { };
 
-  anime-downloader = callPackage ./applications/video/anime-downloader { };
+    bling = callPackage ./development/lua-modules/bling { };
+
+    layout-machi = callPackage ./development/lua-modules/layout-machi { };
+
+    lua-pam = callPackage ./development/lua-modules/lua-pam { };
+  };
+
+  microsoft-edge-beta = callPackage ./applications/networking/browsers/microsoft-edge { gconf = final.gnome2.GConf; };
+
+  microsoft-edge-dev = final.microsoft-edge-beta.override { channel = "dev"; };
+
+  minecraft-mods = newPkgsSet "minecraft";
+
+  ntfs2btrfs = callPackage ./tools/file-systems/ntfs2btrfs { };
+
+  otf-apple = callPackage ./data/fonts/otf-apple { };
+
+  paper = callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
+
+  plymouth-themes = callPackage ./data/misc/plymouth-themes { };
+
+  pure = callPackage ./shells/zsh/pure { };
+
+  python3Packages = prev.python3Packages // (newPkgsSet "pythonPackages");
+
+  pywalfox = callPackage ./tools/misc/pywalfox { };
+
+  quibble = callPackage ./applications/virtualization/quibble {
+    mingwGccs = with prev.pkgsCross; [ mingw32.buildPackages.gcc mingwW64.buildPackages.gcc ];
+  };
+
+  rainfox = callPackage ./data/misc/rainfox { };
+
+  sddm-chili = callPackage ./applications/display-managers/sddm/themes/chili { };
+
+  spicetify-themes = callPackage ./data/misc/spicetify-themes { };
+
+  spotify-spicetified = callPackage ./applications/audio/spotify-spicetified { };
+
+  steamcompmgr = callPackage ./applications/window-managers/steamcompmgr { };
+
+  swayprop = callPackage ./tools/wayland/swayprop { };
 
   trackma = callPackage ./applications/video/trackma { };
 
-  frece = callPackage ./applications/misc/frece { inherit (channels.latest) rustPlatform; };
+  ttf-segue-ui = callPackage ./data/fonts/ttf-segue-ui { };
 
-  adl = callPackage ./applications/video/adl { };
-
-  xorg = prev.xorg // (recurseIntoAttrs (lib.callPackageWith __splicedPackages ./servers/x11/xorg { }));
-
-  fake-background-webcam = callPackage ./applications/video/fake-background-webcam { };
+  tuinitymc = callPackage ./games/tuinity { };
 
   user-icon = callPackage ./data/misc/user-icon { };
 
-  swayprop = callPackage ./tools/wayland/swayprop { };
+  ventoy = callPackage ./tools/file-systems/ventoy { };
+
+  vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
+
+  vscode-extensions = prev.vscode-extensions // (newPkgsSet "vscode-extensions");
+
+  wgcf = callPackage ./applications/networking/wgcf { };
+
+  whitesur-icon-theme = callPackage ./data/icons/whitesur-icon-theme { };
+
+  widevine-cdm = callPackage ./applications/networking/browsers/widevine-cdm { };
+
+  wii-u-gc-adapter = callPackage ./misc/drivers/wii-u-gc-adapter { };
+
+  xorg = prev.xorg // (recurseIntoAttrs (lib.callPackageWith __splicedPackages ./servers/x11/xorg { }));
 }
 
 //
