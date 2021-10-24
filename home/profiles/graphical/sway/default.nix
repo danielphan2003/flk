@@ -29,6 +29,7 @@ in
       swaylock-effects
       swayidle
       autotiling
+      swayprop
 
       # wm-independent
       avizo
