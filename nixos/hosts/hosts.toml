@@ -3,14 +3,20 @@ suffix = "beta.tailscale.net"
 nameserver = "danielphan-2003.gmail.com.beta.tailscale.net"
 tailnet_alias = "penguin-major.ts.net"
 
-[hosts.themachine]
-gateway = "192.168.1.1"
-ip_addr = "192.168.1.11"
-tailscale_ip = "100.102.110.104"
-tailscale_ipv6 = "fd7a:115c:a1e0:ab12:4843:cd96:6266:6e68"
+[hosts.bootstrap]
+type = "ephemeral"
+
+[hosts.NixOS]
+type = "ephemeral"
 
 [hosts.pik2]
 gateway = "192.168.1.1"
 ip_addr = "192.168.1.2"
 tailscale_ip = "100.127.203.82"
 tailscale_ipv6 = "fd7a:115c:a1e0:ab12:4843:cd96:627f:cb52"
+
+[hosts.themachine]
+gateway = "192.168.1.1"
+ip_addr = "192.168.1.11"
+tailscale_ip = "100.102.110.104"
+tailscale_ipv6 = "fd7a:115c:a1e0:ab12:4843:cd96:6266:6e68"

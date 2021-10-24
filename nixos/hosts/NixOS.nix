@@ -1,7 +1,7 @@
-{ suites, config, ... }:
+{ config, suites, ... }:
 {
   ### root password is empty by default ###
-  imports = suites.base;
+  imports = suites.NixOS;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

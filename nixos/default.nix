@@ -90,6 +90,7 @@ in
         hosts = nixos.lib.mapAttrs
           (hostName: module: hostConfigs'.hosts."${hostName}" // {
             tailnet_domain = "${hostName}.${hostConfigs'.tailscale.tailnet_alias}";
+            type = hostConfigs'.hosts."${hostName}".type or "permanant";
           })
           hostConfigs'.hosts;
       };
@@ -105,15 +106,20 @@ in
       base = attrValues {
         inherit (users) root;
         inherit (misc) security;
-        inherit (shell) bash zsh;
+        inherit (shell) bash;
         inherit nix ssh;
 
         inherit (apps) base;
+      };
+
+      openBased = base ++ attrValues {
+        inherit (shell) zsh;
+
         inherit (apps.tools) terminal;
         inherit (apps.editors) neovim;
       };
 
-      ephemeral-crypt = attrValues {
+      ephemeralCrypt = attrValues {
         inherit (misc) persistence encryption;
       };
 
@@ -168,10 +174,20 @@ in
       goPlay = play ++ mobile;
 
       ### Host suites
+      
+      bootstrap = [ ]
+        ++ openBased
+        ++ networking
+        ++ attrValues
+        {
+          inherit (users) nixos;
+        };
+
+      NixOS = bootstrap;
 
       pik2 = [ ]
-        ++ base
-        ++ ephemeral-crypt
+        ++ openBased
+        ++ ephemeralCrypt
         ++ server
         ++ attrValues
         {
@@ -188,18 +204,21 @@ in
             vaultwarden
             ;
           inherit (apps) rpi;
-          inherit (apps.tools) file-systems misc;
+          inherit (apps.tools)
+            compression
+            file-systems
+          ;
         };
 
       themachine = [ ]
-        ++ base
-        ++ ephemeral-crypt
+        ++ openBased
+        ++ ephemeralCrypt
         ++ modern
         ++ personal
         ++ producer
         ++ play
         ++ attrValues
-        ({
+        {
           inherit (users) danie;
           inherit (cloud)
             aria2
@@ -219,7 +238,13 @@ in
             watching
             weebs
             ;
-        } // apps.tools);
+          inherit (apps.tools)
+            audio
+            compression
+            file-systems
+            graphical
+            ;
+        };
 
     };
   };
