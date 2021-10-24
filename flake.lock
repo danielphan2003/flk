@@ -594,32 +594,6 @@
         "type": "github"
       }
     },
-    "nix-dram": {
-      "inputs": {
-        "flake-utils": [
-          "digga",
-          "flake-utils-plus",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nix",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1628492639,
-        "narHash": "sha256-ffF/oEhLs/stAsXXobruKHyH9jnMC2rt/SM3ASrs2U8=",
-        "owner": "dramforever",
-        "repo": "nix-dram",
-        "rev": "fba426108ea6bdeb1e362bac9da06cbd33726f41",
-        "type": "github"
-      },
-      "original": {
-        "owner": "dramforever",
-        "repo": "nix-dram",
-        "type": "github"
-      }
-    },
     "nix-gaming": {
       "inputs": {
         "nixpkgs": [
@@ -974,7 +948,6 @@
         "latest": "latest",
         "naersk": "naersk",
         "nix": "nix",
-        "nix-dram": "nix-dram",
         "nix-gaming": "nix-gaming",
         "nixos": "nixos",
         "nixos-hardware": "nixos-hardware",
