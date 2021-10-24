@@ -2,9 +2,13 @@
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix#L66
   boot.loader.systemd-boot.editor = false;
 
+  programs.firejail.enable = true;
+
   # Swap ‹sudo› for ‹doas›
   security.doas.enable = true;
   security.sudo.enable = false;
+
+  security.protectKernelImage = true;
 
   environment.shellAliases = {
     sudo = "doas";
