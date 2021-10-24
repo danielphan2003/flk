@@ -21,7 +21,7 @@ let
         value = toJSON value;
         passAsFile = [ "value" ];
       } ''
-        jq -r . "$valuePath" --ascii-output > $out
+        jq -rj . "$valuePath" --ascii-output > $out
       '';
     in replaceStrings [ "\\\\" "\"" ] [ "\\" "" ] (fileContents mc-motd);
 
