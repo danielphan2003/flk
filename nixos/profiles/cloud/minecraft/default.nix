@@ -78,11 +78,11 @@ in
       #               ⟹ S I M P World! ⟸            |
       # Trở thành hecker nk3 pn | danielphan.2003#1147 |
       motd = with c; ""
-        + ''              ''
-        + (gen ''${d_g}⟹ S ${d_a}I ${l_r}M ${d_p}P ${g}W${l_g}o${d_g}r${l_b}l${l_g}d${l_a}! ⟸'')
-        + ''            ''
+        + "              "
+        + (gen "${d_g}⟹ S ${d_a}I ${l_r}M ${d_p}P ${g}W${l_g}o${d_g}r${l_b}l${l_g}d${l_a}! ⟸")
+        + "            "
         + ''\n''
-        + (gen ''${g}Trở thành hecker nk3 ${f.ob "pn"}${f.re ""} ${l_p}| ${l_b}danielphan.2003${l_g}#1147'');
+        + (gen "${g}Trở thành hecker nk3 ${f.ob "pn"}${f.re ""} ${l_p}| ${l_b}danielphan.2003${l_g}#1147");
 
       # Using secrets for this is PITA, so disabling it helps with
       # technical debts.
