@@ -193,6 +193,8 @@ in
   fake-background-webcam = callPackage ./applications/video/fake-background-webcam { };
 
   user-icon = callPackage ./data/misc/user-icon { };
+
+  swayprop = callPackage ./tools/wayland/swayprop { };
 }
 
 //
@@ -218,7 +220,7 @@ else { })
 then rnix-lsp.packages.${system}
 else { })
 
-//
+  //
 
 {
 
