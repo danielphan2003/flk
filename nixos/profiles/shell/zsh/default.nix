@@ -19,24 +19,25 @@ in
       fi
     '';
 
-    sessionVariables = let fd = "${pkgs.fd}/bin/fd -H"; in {
-      PAGER = "less";
-      LESS = "-iFJMRWX -z-4 -x4";
-      LESSHISTFILE = "~/.local/share/history/lesshst";
-      LESSOPEN = "|${pkgs.lesspipe}/bin/lesspipe.sh %s";
-      BAT_PAGER = "less";
-      SKIM_ALT_C_COMMAND =
-        let
-          alt_c_cmd = pkgs.writeScriptBin "cdr-skim.zsh" ''
-            #!${pkgs.zsh}/bin/zsh
-            ${fileContents ./cdr-skim.zsh}
-          '';
-        in
-        "${alt_c_cmd}/bin/cdr-skim.zsh";
-      SKIM_DEFAULT_COMMAND = fd;
-      SKIM_CTRL_T_COMMAND = fd;
-      ZDOTDIR = "~/.config/zsh";
-    };
+    sessionVariables = let fd = "${pkgs.fd}/bin/fd -H"; in
+      {
+        PAGER = "less";
+        LESS = "-iFJMRWX -z-4 -x4";
+        LESSHISTFILE = "~/.local/share/history/lesshst";
+        LESSOPEN = "|${pkgs.lesspipe}/bin/lesspipe.sh %s";
+        BAT_PAGER = "less";
+        SKIM_ALT_C_COMMAND =
+          let
+            alt_c_cmd = pkgs.writeScriptBin "cdr-skim.zsh" ''
+              #!${pkgs.zsh}/bin/zsh
+              ${fileContents ./cdr-skim.zsh}
+            '';
+          in
+          "${alt_c_cmd}/bin/cdr-skim.zsh";
+        SKIM_DEFAULT_COMMAND = fd;
+        SKIM_CTRL_T_COMMAND = fd;
+        ZDOTDIR = "~/.config/zsh";
+      };
   };
 
   programs.zsh = {
@@ -103,9 +104,12 @@ in
           name = "zsh-functions";
           src = ./functions;
 
-          ripgrep = "${pkgs.ripgrep}";
-          man = "${pkgs.man}";
-          exa = "${pkgs.exa}";
+          inherit (pkgs)
+            exa
+            gst
+            man
+            ripgrep
+            ;
 
           installPhase =
             let basename = "\${file##*/}";
