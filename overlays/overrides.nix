@@ -29,6 +29,8 @@ channels: final: prev: {
     wlrctl
     ;
   
+  inherit (channels) latest;
+  
   lib = channels.latest.lib.extend (lfinal: lprev: with lfinal; {
     options = lprev.options // {
       literalExample = text:
