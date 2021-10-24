@@ -35,10 +35,7 @@ let
     rnix-lsp
     ;
 
-  system =
-    if prev ? system
-    then prev.system
-    else "x86_64-linux";
+  system = prev.system or "x86_64-linux";
 
   matchSystem = input: input.packages ? ${system};
 
