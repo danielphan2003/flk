@@ -1,0 +1,1 @@
+~/src/github.com/intermezzio/webcam-video-effects/video_looper_complete.sh -v ~/av/recording.mp4 -i 0 -o 10
