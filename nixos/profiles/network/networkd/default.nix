@@ -11,7 +11,8 @@ let
   inherit (builtins) attrNames removeAttrs;
 
   inherit (config.networking) hostName;
-  inherit (hostConfigs.hosts."${hostName}") ip_addr gateway;
+  ip_addr = hostConfigs.hosts."${hostName}".ip_addr or "";
+  gateway = hostConfigs.hosts."${hostName}".gateway or "";
 
   privateConfig =
     let
@@ -27,8 +28,8 @@ let
       DHCP = "ipv6";
 
       # use static IPv4 address
-      address = [ "${ip_addr}/24" ];
-      gateway = [ "${gateway}" ];
+      address = optionals (ip_addr != "") [ "${ip_addr}/24" ];
+      gateway = optionals (gateway != "") [ "${gateway}" ];
 
       networkConfig = {
         DNSSEC =

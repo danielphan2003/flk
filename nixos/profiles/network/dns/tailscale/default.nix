@@ -14,12 +14,14 @@ let
   inherit (config.services.tailscale) interfaceName port package;
 
   inherit (hostConfigs.tailscale) nameserver tailnet_alias;
-  inherit (hostConfigs.hosts."${hostName}") tailnet_domain;
+  inherit (hostConfigs.hosts."${hostName}") tailnet_domain type;
 
-  tailscale-age-id = "tailscale-${hostName}";
+  tailscale-age-id =
+    if type == "permanant"
+    then "tailscale-${hostName}"
+    else "tailscale-${type}";
 
   tailscale-age-key = "${self}/secrets/nixos/profiles/network/tailscale/${hostName}.age";
-
 
   caddy-tls-folder =
     "/var/lib/caddy/.local/share/caddy/certificates/tailscale/${tailnet_domain}";
