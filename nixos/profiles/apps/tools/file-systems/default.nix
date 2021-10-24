@@ -2,7 +2,6 @@
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       dosfstools
-      du-dust
       gnufdisk
       gptfdisk
       ncdu

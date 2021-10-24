@@ -4,6 +4,7 @@
     inherit (pkgs)
       bat
       exa
+      du-dust
       duf
       fzf
       procs
