@@ -1,6 +1,6 @@
 { self, inputs, ... }:
 let
-  inherit (inputs) digga;
+  inherit (inputs) digga nixos nixos-hardware;
   inherit (builtins) attrValues;
 in
 {
@@ -49,7 +49,7 @@ in
 
   imports = [ (digga.lib.importHosts ./hosts) ];
 
-  hosts = {
+  hosts = with nixos-hardware.nixosModules; {
     bootstrap = {
       tests = [ ];
     };
@@ -58,8 +58,8 @@ in
     };
     pik2 = {
       system = "aarch64-linux";
-      modules = with inputs; [
-        nixos-hardware.nixosModules.raspberry-pi-4
+      modules = [
+        raspberry-pi-4
         {
           services.dnscrypt-proxy2.settings = {
             tls_cipher_suite = [ 52392 49199 ];
@@ -71,6 +71,9 @@ in
     };
     themachine = {
       modules = [
+        common-cpu-amd
+        common-gpu-amd
+        common-pc-ssd
         {
           services.dnscrypt-proxy2.settings = {
             max_clients = 10000;
@@ -82,7 +85,16 @@ in
   };
 
   importables = rec {
-    profiles = removeAttrs (digga.lib.rakeLeaves ./profiles) [ "network.dns.common" ] // {
+    hostConfigs = let hostConfigs' = nixos.lib.importTOML ./hosts/hosts.toml; in
+      hostConfigs' // {
+        hosts = nixos.lib.mapAttrs
+          (hostName: module: hostConfigs'.hosts."${hostName}" // {
+            tailnet_domain = "${hostName}.${hostConfigs'.tailscale.tailnet_alias}";
+          })
+          hostConfigs'.hosts;
+      };
+
+    profiles = digga.lib.rakeLeaves ./profiles // {
       users = digga.lib.rakeLeaves ../home/users;
     };
 
@@ -91,23 +103,37 @@ in
       ### Profile suites
 
       base = attrValues {
-        inherit core;
         inherit (users) root;
+        inherit (misc) security;
+        inherit (shell) bash zsh;
+        inherit nix ssh;
+
+        inherit (apps) base;
+        inherit (apps.tools) terminal;
+        inherit (apps.editors) neovim;
       };
 
       ephemeral-crypt = attrValues {
         inherit (misc) persistence encryption;
       };
 
-      server = attrValues {
+      networking = attrValues {
         inherit (network) networkd qos;
         inherit (network.dns) tailscale;
+      };
+
+      server = networking ++ attrValues {
+        inherit (misc) disable-docs;
         inherit (virt) headless;
       };
 
-      work = server ++ attrValues {
-        inherit develop;
-        inherit (virt) minimal;
+      work = networking ++ attrValues {
+        inherit (virt) headless minimal;
+        inherit (apps) develop;
+      };
+
+      personal = attrValues {
+        inherit (misc) peripherals;
       };
 
       graphics = work ++ attrValues {
@@ -125,7 +151,8 @@ in
       };
 
       producer = attrValues {
-        inherit (apps) im spotify;
+        inherit (apps) im;
+        inherit (apps.chill) spotify;
       };
 
       mobile = attrValues {
@@ -150,8 +177,6 @@ in
         {
           inherit (users) alita;
           inherit (graphical) pipewire;
-          inherit (misc) security;
-          inherit (network.dns) dcompass;
           inherit (cloud)
             caddy
             # calibre-server
@@ -170,18 +195,19 @@ in
         ++ base
         ++ ephemeral-crypt
         ++ modern
+        ++ personal
         ++ producer
         ++ play
         ++ attrValues
         ({
           inherit (users) danie;
           inherit (cloud)
+            aria2
             calibre-server
             netdata
             ;
           inherit (graphical.themes) sefia;
-          inherit (misc) disable-mitigations security;
-          inherit (network.dns) dcompass;
+          inherit (misc) disable-mitigations gnupg;
           inherit (virt) windows;
           inherit (apps)
             meeting
