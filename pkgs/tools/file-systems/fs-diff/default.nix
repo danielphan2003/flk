@@ -1,5 +1,7 @@
-{ writeShellScriptBin }:
+{ writeShellScriptBin, lib, btrfs-progs, coreutils, gnused, util-linux }:
 writeShellScriptBin "fs-diff" ''
+  PATH="$PATH:${lib.makeBinPath [ btrfs-progs coreutils gnused util-linux ]}"
+
   set -euo pipefail
 
   mkdir -p /mnt-btrfs
