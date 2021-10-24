@@ -1,11 +1,14 @@
 { pkgs, ... }: {
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
+      dosfstools
+      du-dust
       gnufdisk
-      gparted
+      gptfdisk
+      ncdu
+      ntfs2btrfs
+      ntfs3g
       parted
-      trash-cli
-      woeusb
       ;
   };
 }

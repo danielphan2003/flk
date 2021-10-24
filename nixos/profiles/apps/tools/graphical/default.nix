@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ lib, pkgs, ... }: {
   environment.pathsToLink = [ "/share/ulauncher" ];
 
   environment.systemPackages = builtins.attrValues
@@ -9,7 +9,12 @@
         pywal
         ulauncher
         zathura
-        ;
+      ;
+      inherit (pkgs)
+        gparted
+        trash-cli
+        woeusb
+      ;
     }
   ++
   (lib.optionals
