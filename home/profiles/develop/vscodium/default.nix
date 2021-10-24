@@ -16,7 +16,6 @@ let inherit (builtins) attrValues; in
       codesnap
       css-initial-value
       dart-code
-      dendron
       discord-presence
       dotenv
       eslint
