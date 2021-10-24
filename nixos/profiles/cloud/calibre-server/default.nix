@@ -1,13 +1,18 @@
-{ config, pkgs, lib, self, ... }:
-let
-  inherit (config.networking) hostName domain;
-  inherit (lib.our.hostConfigs.tailscale) tailnet_alias;
-  inherit (lib.our.hostConfigs.hosts."${hostName}") tailscale_ip;
+{ self
+, config
+, hostConfigs
+, lib
+, pkgs
+, ...
+}:
 
+let
   inherit (config.services.calibre-server) libraries user group;
   inherit (config.users.users."${user}") home;
 
-  tailnet-domain = "${hostName}.${tailnet_alias}";
+  inherit (config.networking) hostName;
+  inherit (hostConfigs.hosts."${hostName}") tailnet_domain tailscale_ip;
+
   addr = tailscale_ip;
   port = 2753;
   prefix = "/calibre";
@@ -79,7 +84,7 @@ in
     };
   };
 
-  services.caddy.virtualHosts."${tailnet-domain}".extraConfig = lib.mkAfter ''
+  services.caddy.virtualHosts."${tailnet_domain}".extraConfig = lib.mkAfter ''
     reverse_proxy /calibre* ${addr}:${toString port}
   '';
 }

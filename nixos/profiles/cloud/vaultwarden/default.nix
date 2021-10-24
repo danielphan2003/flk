@@ -1,11 +1,10 @@
-{ pkgs, config, lib, self, ... }:
+{ self, config, hostConfigs, lib, pkgs, ... }:
 let
   inherit (lib) concatStringsSep mkAfter;
   inherit (config.networking) hostName domain;
-  inherit (lib.our.hostConfigs.tailscale) tailnet_alias;
   inherit (config.services.vaultwarden.config) rocketPort websocketPort;
 
-  tailnet-domain = "${hostName}.${tailnet_alias}";
+  inherit (hostConfigs.hosts."${hostName}") tailnet_domain;
 
   vaultwarden-age-key = "${self}/secrets/nixos/profiles/cloud/vaultwarden.age";
 in
@@ -21,7 +20,7 @@ in
     dbBackend = "postgresql";
     environmentFile = config.age.secrets.vaultwarden.path;
     config = {
-      domain = "https://${tailnet-domain}/vault";
+      domain = "https://${tailnet_domain}/vault";
       invitationsAllowed = false;
       rocketPort = 8222;
       rocketLog = "critical";
@@ -98,7 +97,7 @@ in
           respond /vault/admin* "The admin panel is disabled, please configure the 'ADMIN_TOKEN' variable to enable it"
         '';
       };
-      "${tailnet-domain}".extraConfig = mkAfter ''
+      "${tailnet_domain}".extraConfig = mkAfter ''
         handle /vault* {
           ${handleWWW}
         }
