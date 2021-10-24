@@ -10,6 +10,7 @@ channels: final: prev: {
     deploy-rs
     dmenu
     fabric-installer
+    gst
     hakuneko
     linuxKernel
     lxc
@@ -28,9 +29,9 @@ channels: final: prev: {
     sudo
     wlrctl
     ;
-  
+
   inherit (channels) latest;
-  
+
   lib = channels.latest.lib.extend (lfinal: lprev: with lfinal; {
     options = lprev.options // {
       literalExample = text:

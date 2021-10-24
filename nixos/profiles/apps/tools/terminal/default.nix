@@ -7,6 +7,8 @@
       du-dust
       duf
       fzf
+      ghq
+      gst
       procs
       ripgrep
       skim
