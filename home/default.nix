@@ -76,6 +76,9 @@ in
             key = gpgKey;
             signByDefault = true;
           };
+          extraConfig = {
+            github.user = "danielphan2003";
+          };
         };
         home.sessionVariables.BROWSER = "chromium-browser";
       };

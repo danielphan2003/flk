@@ -1,4 +1,6 @@
-{ lib, ... }: {
+{ config, ... }: {
+  home.file.".gitconfig".text = config.xdg.configFile."git/config".text;
+
   programs.git = {
     enable = true;
 
@@ -7,6 +9,7 @@
       color.ui = true;
       # url."git@github.com:".insteadOf = [ "https://github.com/" ];
       init.defaultBranch = "main";
+      ghq.root = "~/src";
     };
 
     aliases = {
