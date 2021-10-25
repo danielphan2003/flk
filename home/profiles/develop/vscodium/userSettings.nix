@@ -1,4 +1,15 @@
-{ pkgs, ... }: {
+{ alacritty
+, nodejs
+, jre_minimal
+, gcc
+, python
+, ruby
+, go
+, lua
+, bash
+, rustc
+, ...
+}@pkgs: {
   "workbench.iconTheme" = "material-icon-theme";
   "gitlens.defaultDateFormat" = "H:mm:ss dd.MM.yy";
   "gitlens.hovers.currentLine.over" = "line";
@@ -65,7 +76,7 @@
   };
   "update.mode" = "none";
   "dart.previewLsp" = true;
-  "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
+  "terminal.external.linuxExec" = "${alacritty}/bin/alacritty";
   "workbench.startupEditor" = "newUntitledFile";
   "editor.quickSuggestions" = {
     "strings" = true;
@@ -77,7 +88,7 @@
   "workbench.editor.untitled.experimentalLanguageDetection" = true;
   "discord.workspaceExcludePatterns" = [ "nixpkgs" ];
   "code-runner.runInTerminal" = true;
-  "code-runner.executorMap" = with pkgs; {
+  "code-runner.executorMap" = {
     "javascript" = "${nodejs}/bin/node";
     "java" = "cd $dir && ${jre_minimal}/bin/javac $fileName && mv $fileNameWithoutExt $fileNameWithoutExt.o && ${jre_minimal}/bin/java $fileNameWithoutExt.o";
     "c" = "cd $dir && ${gcc}/bin/gcc $fileName -o $fileNameWithoutExt.o && $dir$fileNameWithoutExt.o";
