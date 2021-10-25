@@ -10,7 +10,7 @@ let inherit (pkgs) python3Packages; in
           ptpython
           requests
           scipy
-        ;
+          ;
       };
 
       python = pkgs.python3.withPackages packages;

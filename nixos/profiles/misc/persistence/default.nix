@@ -35,18 +35,18 @@ in
       ++ optionals services.postgresql.enable [ "/var/lib/postgresql" ]
       ++ optionals services.postgresqlBackup.enable [ "/var/backup/postgresql" ]
       ++ optionals
-        services.qbittorrent.enable
-        [
-          "/var/lib/qbittorrent/.config/qBittorrent/config"
-          "/var/lib/qbittorrent/.config/qBittorrent/data"
-        ]
+      services.qbittorrent.enable
+      [
+        "/var/lib/qbittorrent/.config/qBittorrent/config"
+        "/var/lib/qbittorrent/.config/qBittorrent/data"
+      ]
       ++ optionals services.spotifyd.enable [ services.spotifyd.settings.global.cache_path ]
       ++ optionals services.tailscale.enable [ "/var/lib/tailscale" ]
       ++ optionals services.teamviewer.enable [ "/var/lib/teamviewer" ]
       ++ optionals services.timesyncd.enable [ "/var/lib/systemd/timesync" ]
       ++ optionals
-        services.xserver.displayManager.sddm.enable
-        [ "/var/lib/sddm" ]
+      services.xserver.displayManager.sddm.enable
+      [ "/var/lib/sddm" ]
       ++ optionals virtualisation.anbox.enable [ "/var/lib/anbox" ]
       ++ optionals virtualisation.docker.enable [ "/var/lib/docker" ]
       ++ optionals virtualisation.libvirtd.enable [ "/var/lib/libvirt" ]

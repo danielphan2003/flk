@@ -15,6 +15,6 @@
           unrar
           unzip
           xz
-        ;
+          ;
       });
 }

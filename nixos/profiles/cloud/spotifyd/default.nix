@@ -1,4 +1,6 @@
-{ config, self, ... }: let inherit (config.age.secrets.spotify) path; in {
+{ config, self, ... }:
+let inherit (config.age.secrets.spotify) path; in
+{
   age.secrets.spotify.file = "${self}/secrets/nixos/profiles/cloud/spotify.age";
 
   systemd.services.spotifyd = {

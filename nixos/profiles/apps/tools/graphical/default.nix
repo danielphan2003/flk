@@ -9,12 +9,12 @@
         pywal
         ulauncher
         zathura
-      ;
+        ;
       inherit (pkgs)
         gparted
         trash-cli
         woeusb
-      ;
+        ;
     }
   ++
   (lib.optionals

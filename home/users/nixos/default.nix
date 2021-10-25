@@ -1,4 +1,6 @@
-{ hmUsers, ... }: let user = "nixos"; in {
+{ hmUsers, ... }:
+let user = "nixos"; in
+{
   home-manager.users."${user}" = hmUsers."${user}";
 
   users.users."${user}" = {

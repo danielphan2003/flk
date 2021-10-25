@@ -15,15 +15,18 @@ let
 
   motd = {}: {
 
-    generate = value: let
-      mc-motd = pkgs.latest.runCommand "mc-motd" {
-        nativeBuildInputs = [ pkgs.jq ];
-        value = toJSON value;
-        passAsFile = [ "value" ];
-      } ''
-        jq -rj . "$valuePath" --ascii-output > $out
-      '';
-    in replaceStrings [ "\"" ] [ "" ] (fileContents mc-motd);
+    generate = value:
+      let
+        mc-motd = pkgs.latest.runCommand "mc-motd"
+          {
+            nativeBuildInputs = [ pkgs.jq ];
+            value = toJSON value;
+            passAsFile = [ "value" ];
+          } ''
+          jq -rj . "$valuePath" --ascii-output > $out
+        '';
+      in
+      replaceStrings [ "\"" ] [ "" ] (fileContents mc-motd);
 
   };
 

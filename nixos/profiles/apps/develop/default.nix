@@ -12,7 +12,7 @@
       tig
       tokei
       rnix-lsp
-    ;
+      ;
   };
 
 }

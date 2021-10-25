@@ -2,6 +2,6 @@
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       nix-index
-    ;
+      ;
   };
 }

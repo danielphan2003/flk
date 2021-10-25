@@ -8,7 +8,8 @@ final: prev: {
         "x86_64-linux" = "linux-amd64";
         "aarch64-linux" = "linux-arm64";
       }.${system};
-    in prev.adguardhome.overrideAttrs (_: {
+    in
+    prev.adguardhome.overrideAttrs (_: {
       inherit (final.sources."adguardhome-${arch}") src version;
       meta = with prev.lib; {
         platforms = platforms.unix;

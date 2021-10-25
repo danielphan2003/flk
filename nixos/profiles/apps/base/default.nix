@@ -25,6 +25,6 @@
       wget
       whois
       wireguard-tools
-    ;
+      ;
   };
 }
