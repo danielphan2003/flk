@@ -4,7 +4,7 @@
 , spicetify-themes
 , writeText
 
-, theme ? "SpicetifyDefault"
+, theme ? ""
 , colorScheme ? "green-dark"
 
 , customApps ? { }
