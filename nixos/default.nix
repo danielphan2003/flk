@@ -9,16 +9,16 @@ in
     channelName = "nixos";
     imports = [ (digga.lib.importExportableModules ./modules) ];
     modules = with inputs; [
-      { lib.our = self.lib; }
+      bud.nixosModules.bud
+      ci-agent.nixosModules.agent-profile
       digga.nixosModules.bootstrapIso
       digga.nixosModules.nixConfig
-      ci-agent.nixosModules.agent-profile
       home.nixosModules.home-manager
-      ragenix.nixosModules.age
-      bud.nixosModules.bud
       "${impermanence}/nixos.nix"
-      qnr.nixosModules.local-registry
       nix-gaming.nixosModule
+      ragenix.nixosModules.age
+      "${peerix}/module.nix"
+      qnr.nixosModules.local-registry
       ({ latestModulesPath, waydroidModulesPath, ... }: {
         imports = [
           "${latestModulesPath}/config/swap.nix"
@@ -43,6 +43,8 @@ in
           "services/web-servers/caddy.nix"
           "tasks/filesystems.nix"
         ];
+
+        lib.our = self.lib;
       })
     ];
   };
@@ -110,6 +112,7 @@ in
         inherit nix ssh;
 
         inherit (apps) base;
+        inherit (apps.fonts) minimal;
       };
 
       openBased = base ++ attrValues {
@@ -140,6 +143,7 @@ in
 
       personal = attrValues {
         inherit (misc) peripherals;
+        inherit (apps.fonts) fancy;
       };
 
       graphics = work ++ attrValues {
@@ -174,7 +178,7 @@ in
       goPlay = play ++ mobile;
 
       ### Host suites
-      
+
       bootstrap = [ ]
         ++ openBased
         ++ networking
@@ -199,6 +203,7 @@ in
             grafana
             lvc-it-lib
             minecraft
+            peerix
             postgresql
             spotifyd
             vaultwarden
@@ -207,7 +212,7 @@ in
           inherit (apps.tools)
             compression
             file-systems
-          ;
+            ;
         };
 
       themachine = [ ]
@@ -224,6 +229,7 @@ in
             aria2
             calibre-server
             netdata
+            peerix
             ;
           inherit (graphical.themes) sefia;
           inherit (misc) disable-mitigations gnupg;

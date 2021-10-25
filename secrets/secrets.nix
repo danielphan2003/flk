@@ -37,6 +37,9 @@ in
 
   "nixos/profiles/cloud/vaultwarden.age".publicKeys = [ alita pik2 ] ++ [ danie themachine ];
 
+  "nixos/profiles/cloud/peerix/pik2.age".publicKeys = allKeys;
+  "nixos/profiles/cloud/peerix/themachine.age".publicKeys = allKeys;
+
   "nixos/profiles/network/tailscale/custom-doh.age".publicKeys = allKeys;
   "nixos/profiles/network/tailscale/themachine.age".publicKeys = [ danie themachine ];
   "nixos/profiles/network/tailscale/pik2.age".publicKeys = [ alita pik2 ];

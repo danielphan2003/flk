@@ -32,6 +32,7 @@ let
     beautysh
     firefox-nightly
     npmlock2nix
+    peerix
     rnix-lsp
     ;
 
@@ -100,7 +101,7 @@ in
   eww = with channels.latest; callPackage ./applications/misc/eww {
     inherit (final) sources;
     makeRustPlatform = makeRustPlatform {
-      inherit (final.fenix.latest) cargo rustc;
+      inherit (fenix.latest) cargo rustc;
     };
   };
 
@@ -148,6 +149,8 @@ in
 
   paper = callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
 
+  peerix = channels.latest.callPackage peerix { };
+
   plymouth-themes = callPackage ./data/misc/plymouth-themes { };
 
   pure = callPackage ./shells/zsh/pure { };
@@ -184,7 +187,7 @@ in
 
   vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
 
-  vscode-extensions = prev.vscode-extensions // (newPkgsSet "vscode-extensions");
+  vscode-extensions = channels.latest.vscode-extensions // (newPkgsSet "vscode-extensions");
 
   wgcf = callPackage ./applications/networking/wgcf { };
 
