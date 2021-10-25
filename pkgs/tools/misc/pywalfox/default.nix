@@ -14,13 +14,11 @@ python3.pkgs.buildPythonApplication {
 
     mkdir -p $out/chrome
     cp pywalfox/assets/css/* $out/chrome
-
-    mkdir -p $out/bin
-    cp pywalfox/bin/main.sh $out/bin/pywalfox-daemon.sh
   '';
 
   preFixup = ''
-    wrapProgram $out/bin/pywalfox-daemon.sh --prefix PYTHONPATH : $PYTHONPATH
+    makeWrapper $out/bin/pywalfox $out/bin/pywalfox-daemon.sh \
+      --add-flags start
   '';
 
   meta = with lib; {
