@@ -3,19 +3,21 @@ channels: final: prev: {
   __dontExport = true; # overrides clutter up actual creations
 
   inherit (channels.latest)
+    agenix
     android-tools
     anup
     cachix
     czkawka
+    dcompass
     deploy-rs
     dmenu
     fabric-installer
+    gomod2nix
     gst
     hakuneko
     linuxKernel
     lxc
     nixpkgs-fmt
-    nvchecker
     nwg-menu
     nwg-panel
     nwg-wrapper
@@ -27,7 +29,9 @@ channels: final: prev: {
     starship
     stylua
     sudo
+    wlfreerdp
     wlrctl
+    wlvncc
     ;
 
   inherit (channels) latest;

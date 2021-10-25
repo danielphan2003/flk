@@ -1,17 +1,9 @@
 channels: final: prev: {
-  wayland-protocols-master = channels.latest.wayland-protocols.overrideAttrs (_: {
-    inherit (prev.wayland-protocols-master) src version;
-  });
-
-  wlroots-eglstreams = prev.wlroots-eglstreams.override { wayland-protocols = final.wayland-protocols-master; };
-
-  wlroots = final.wlroots-eglstreams;
-
-  freerdp = prev.wlfreerdp;
+  freerdp = final.wlfreerdp;
 
   eww = prev.eww.override { enableWayland = true; };
 
-  sway-unwrapped = prev.sway-unwrapped.overrideAttrs (_: {
+  sway-unwrapped = channels.latest.sway-unwrapped.overrideAttrs (_: {
     inherit (final.sources.sway-borders) version src;
   });
 
@@ -20,17 +12,20 @@ channels: final: prev: {
       inherit (final.sources.xorgproto) src version;
     });
   in
-  (xwayland.override { wayland-protocols = final.wayland-protocols-master; }).overrideAttrs (o: {
+  (xwayland.override {
+    wayland-protocols = final.wayland-protocols-master;
+  }).overrideAttrs (o: {
     inherit (final.sources.xwayland) src version;
 
-    buildInputs = [
-      xorgproto
-      dbus
-      makeWrapper
-      prev.systemd
-    ]
-    ++ (with final.xorg; [ libxcvt libpciaccess ])
-    ++ o.buildInputs;
+    buildInputs =
+      [
+        xorgproto
+        dbus
+        makeWrapper
+        prev.systemd
+      ]
+      ++ (with final.xorg; [ libxcvt libpciaccess ])
+      ++ o.buildInputs;
 
     # Is this the right way to fix Xwayland not launching?
     # it says it can't use eglstream device, even though I'm not using nVidia...
