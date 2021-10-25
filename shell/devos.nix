@@ -33,12 +33,6 @@ in
   commands = with pkgs; [
     (devos nixUnstable)
     (devos agenix)
-    {
-      category = "devos";
-      name = pkgs.nvfetcher-bin.pname;
-      help = pkgs.nvfetcher-bin.meta.description;
-      command = "cd $PRJ_ROOT/pkgs; ${pkgs.nvfetcher-bin}/bin/nvfetcher -c ./sources.toml $@";
-    }
     (linter stylua)
     (linter nixpkgs-fmt)
     (linter editorconfig-checker)
