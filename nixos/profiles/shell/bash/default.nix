@@ -16,17 +16,4 @@
       eval "$(${pkgs.direnv}/bin/direnv hook bash)"
     '';
   };
-
-  fonts = lib.mkDefault {
-    fonts = builtins.attrValues {
-      inherit (pkgs)
-        powerline-fonts
-        dejavu_fonts
-        ;
-    };
-    fontconfig.defaultFonts = {
-      monospace = [ "DejaVu Sans Mono for Powerline" ];
-      sansSerif = [ "DejaVu Sans" ];
-    };
-  };
 }
