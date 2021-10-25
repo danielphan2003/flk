@@ -29,6 +29,7 @@ channels: final: prev: {
     starship
     stylua
     sudo
+    wayland-protocols-master
     wlfreerdp
     wlrctl
     wlvncc
