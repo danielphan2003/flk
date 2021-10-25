@@ -33,6 +33,7 @@
         latest.follows = "latest";
         nixlib.follows = "nixos";
         home-manager.follows = "home";
+        deploy.follows = "deploy";
       };
     };
 
@@ -55,7 +56,13 @@
       inputs.nixpkgs.follows = "latest";
     };
 
-    deploy.follows = "digga/deploy";
+    deploy = {
+      url = github:serokell/deploy-rs;
+      inputs = {
+        nixpkgs.follows = "latest";
+        utils.follows = "digga/flake-utils-plus/flake-utils";
+      };
+    };
 
     ragenix = {
       url = github:yaxitech/ragenix;
@@ -71,7 +78,7 @@
       url = github:berberman/nvfetcher;
       inputs = {
         nixpkgs.follows = "latest";
-        flake-compat.follows = "digga/deploy/flake-compat";
+        flake-compat.follows = "deploy/flake-compat";
         flake-utils.follows = "digga/flake-utils-plus/flake-utils";
       };
     };
@@ -94,7 +101,7 @@
         nix-darwin.follows = "darwin";
         nixos-20_09.follows = "nixos";
         nixos-unstable.follows = "latest";
-        flake-compat.follows = "digga/deploy/flake-compat";
+        flake-compat.follows = "deploy/flake-compat";
       };
     };
 
@@ -110,7 +117,7 @@
     eww = {
       url = github:elkowar/eww;
       inputs = {
-        flake-compat.follows = "digga/deploy/flake-compat";
+        flake-compat.follows = "deploy/flake-compat";
         nixpkgs.follows = "latest";
         flake-utils.follows = "digga/flake-utils-plus/flake-utils";
         fenix.follows = "fenix";
@@ -164,6 +171,8 @@
       flake = false;
     };
 
+    peerix = { url = github:cid-chan/peerix; flake = false; };
+
     qnr = { url = github:divnix/quick-nix-registry; };
 
     rnix-lsp = {
@@ -212,7 +221,6 @@
     , darwin
     , deploy
     , ragenix
-    , nvfetcher
     , nixos-hardware
 
       ###############################################################
@@ -228,6 +236,7 @@
     , nix-gaming
     , nixpkgs-wayland
       # , npmlock2nix
+      # , peerix
     , qnr
     , rnix-lsp
     , rust-overlay
@@ -244,29 +253,27 @@
         channels = {
           nixos = {
             imports = [ (digga.lib.importOverlays ./overlays) ];
-            overlays = [ ]
-              ++
-                [
-                  digga.overlays.patchedNix
-
-                  ragenix.overlay
-                  nvfetcher.overlay
-
-                  nixpkgs-wayland.overlay-egl
-                  dcompass.overlay
-
-                  vs-ext.overlay
-
-                  fenix.overlay
-                  naersk.overlay
-                  gomod2nix.overlay
-                ]
+            overlays =
+              [
+                digga.overlays.patchedNix
+                vs-ext.overlay
+              ]
               ++ (builtins.attrValues dan-nixpkgs.overlays)
               ++ [ (import ./pkgs/default.nix { inherit inputs; }) ];
           };
           latest = {
             overlays = [
               deploy.overlay
+
+              ragenix.overlay
+
+              dcompass.overlay
+
+              nixpkgs-wayland.overlay-egl
+
+              fenix.overlay
+              naersk.overlay
+              gomod2nix.overlay
             ];
           };
           waydroid = { };
