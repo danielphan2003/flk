@@ -1,0 +1,16 @@
+diff --git a/package.json b/package.json
+index 0e7baab..38628de 100644
+--- a/package.json
++++ b/package.json
+@@ -9,8 +9,10 @@
+         "webpack-cli": "^4.9.0"
+     },
+     "scripts": {
+-        "build": "webpack --mode=development"
++        "build": "@buildScript@"
+     },
++    "name": "@name@",
++    "version": "@version@",
+     "dependencies": {
+         "chroma-js": "^2.1.2",
+         "jquery": "^3.6.0",
