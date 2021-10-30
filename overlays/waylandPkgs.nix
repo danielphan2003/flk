@@ -3,36 +3,17 @@ channels: final: prev: {
 
   eww = prev.eww.override { enableWayland = true; };
 
-  sway-unwrapped = channels.latest.sway-unwrapped.overrideAttrs (_: {
+  sway-unwrapped = final.waylandPkgs.sway-unwrapped.overrideAttrs (_: {
     inherit (final.sources.sway-borders) version src;
   });
 
-  xwayland = with channels.latest; let
-    xorgproto = xorg.xorgproto.overrideAttrs (_: {
-      inherit (final.sources.xorgproto) src version;
-    });
-  in
-  (xwayland.override {
+  waylandPkgs = with channels.latest; waylandPkgs // {
+    wlroots = waylandPkgs.wlroots.override { inherit (final) xwayland; };
+    sway-unwrapped = waylandPkgs.sway-unwrapped.override { inherit (final) wlroots; };
+  };
+
+  xwayland = (prev.xwayland.override {
     wayland-protocols = final.wayland-protocols-master;
-  }).overrideAttrs (o: {
-    inherit (final.sources.xwayland) src version;
-
-    buildInputs =
-      [
-        xorgproto
-        dbus
-        makeWrapper
-        prev.systemd
-      ]
-      ++ (with final.xorg; [ libxcvt libpciaccess ])
-      ++ o.buildInputs;
-
-    # Is this the right way to fix Xwayland not launching?
-    # it says it can't use eglstream device, even though I'm not using nVidia...
-    postFixup = ''
-      wrapProgram $out/bin/Xwayland \
-        --add-flags ${prev.lib.escapeShellArg "-shm"}
-    '';
   });
 
   swaylock-effects = prev.swaylock-effects.overrideAttrs (_: {
@@ -43,7 +24,7 @@ channels: final: prev: {
     let
       inherit (final.sources.rofi-wayland) pname src version;
     in
-    channels.latest.rofi-unwrapped.overrideAttrs (o: with prev; {
+    prev.rofi-unwrapped.overrideAttrs (o: with prev; {
       inherit src version;
 
       pname = "${pname}-unwrapped";
@@ -55,7 +36,7 @@ channels: final: prev: {
           --run 'export XDG_DATA_DIRS="$(sed "s| |/share:|g" < <(echo $NIX_PROFILES))/share:$XDG_DATA_DIRS"'
       '';
 
-      buildInputs = o.buildInputs ++ [ wayland wayland-protocols ];
+      buildInputs = o.buildInputs ++ [ wayland wayland-protocols xcb-util-cursor ];
     });
 
   glfw = with prev; glfw.overrideAttrs (o: {

@@ -2,6 +2,8 @@ channels: final: prev: {
 
   __dontExport = true; # overrides clutter up actual creations
 
+  inherit (channels) latest;
+
   inherit (channels.latest)
     agenix
     android-tools
@@ -19,9 +21,7 @@ channels: final: prev: {
     lxc
     nixpkgs-fmt
     nwg-menu
-    nwg-panel
     nwg-wrapper
-    obs-studio
     qutebrowser
     rage
     scream
@@ -29,13 +29,65 @@ channels: final: prev: {
     starship
     stylua
     sudo
-    wayland-protocols-master
-    wlfreerdp
     wlrctl
-    wlvncc
     ;
 
-  inherit (channels) latest;
+  inherit (final.waylandPkgs)
+    aml
+    cage
+    clipman
+    drm_info
+    dunst
+    gebaar-libinput
+    glpaper
+    grim
+    gtk-layer-shell
+    i3status-rust
+    imv
+    kanshi
+    lavalauncher
+    libvncserver_master
+    mako
+    neatvnc
+    nwg-launchers
+    nwg-panel
+    obs-studio
+    obs-wlrobs
+    oguri
+    rootbar
+    sirula
+    slurp
+    swaybg
+    swayidle
+    swaylock
+    waybar
+    wayfire
+    wayland-protocols-master
+    waypipe
+    wayvnc
+    wdisplays
+    wev
+    wf-recorder
+    wl-clipboard
+    wl-gammactl
+    wlay
+    wldash
+    wlfreerdp
+    wlogout
+    wlr-randr
+    wlroots
+    wlroots-eglstreams
+    wlsunset
+    wlvncc
+    wofi
+    wshowkeys
+    wtype
+    xdg-desktop-portal-wlr
+    ;
+
+  obs-studio-plugins = channels.latest.obs-studio-plugins // {
+    wlrobs = final.obs-wlrobs;
+  };
 
   lib = channels.latest.lib.extend (lfinal: lprev: with lfinal; {
     options = lprev.options // {
@@ -45,10 +97,6 @@ channels: final: prev: {
         else { _type = "literalExample"; inherit text; };
     };
   });
-
-  obs-studio-plugins = channels.latest.obs-studio-plugins // {
-    wlrobs = final.obs-wlrobs;
-  };
 
   androidenv.androidPkgs_9_0.platform-tools = final.android-tools;
 
