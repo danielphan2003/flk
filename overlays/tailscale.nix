@@ -5,7 +5,7 @@ let buildGo117Module = with channels.latest; buildGoModule.override { go = go_1_
     ({ tailscale, hostName ? "ts-${prev.system}", customDoHPath ? null }: tailscale.override {
       buildGoModule = args: buildGo117Module (args // {
         inherit (final.sources.tailscale) pname src version;
-        vendorSha256 = "sha256-JOS+OalyrvO2Br5MrcmfCVbewdaeVXmanIAoM5eOpvQ=";
+        vendorSha256 = "sha256-QyGnPcM/KzSexULcww6P4E5WWAA1eVrsQfJs41tHlG0=";
         patches = [ ]
           ++
           (if customDoHPath != null
