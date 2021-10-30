@@ -158,11 +158,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1635110362,
-        "narHash": "sha256-AMW5DGU3OIi7xeNWCX/56ZhURG4fSb5dRe0cY3WJO9U=",
+        "lastModified": 1635561226,
+        "narHash": "sha256-oXNrXl9WpfwIt8a/GDYGTyj2pluhumR865Ts43wlY7E=",
         "owner": "danielphan2003",
         "repo": "nixpkgs",
-        "rev": "9562de448cfa6d184ab24285e5941ea2d1646385",
+        "rev": "68f56cc84df94e78bc525ed8d52c54df5231dfce",
         "type": "github"
       },
       "original": {
@@ -509,11 +509,11 @@
     },
     "latest": {
       "locked": {
-        "lastModified": 1634782485,
-        "narHash": "sha256-psfh4OQSokGXG0lpq3zKFbhOo3QfoeudRcaUnwMRkQo=",
+        "lastModified": 1635314702,
+        "narHash": "sha256-/CEuEaXFVl2vQ+o3lYzDPz4lfbHbMebyJqQ4jZ1PT30=",
         "ref": "nixos-unstable",
-        "rev": "34ad3ffe08adfca17fcb4e4a47bb5f3b113687be",
-        "revCount": 324423,
+        "rev": "a4bf44345706231f9dd56f85757499af1e940847",
+        "revCount": 325514,
         "type": "git",
         "url": "file:///nix/nixpkgs"
       },
@@ -636,11 +636,11 @@
     },
     "nixos": {
       "locked": {
-        "lastModified": 1635070614,
-        "narHash": "sha256-eRup9WsvSIhsRrSlNugPcQ7gfGOsbk3d4izufwVlz1Q=",
+        "lastModified": 1635373256,
+        "narHash": "sha256-6QERROygyZN2itA2JUZzhf+o2jfqd6ykJZHQcCAE0r4=",
         "ref": "release-21.05",
-        "rev": "3b1789322fcbcb5cf51228d732752714f1bf77da",
-        "revCount": 295402,
+        "rev": "d14d83a3691121642be1b0579cf3408a83c558d7",
+        "revCount": 295434,
         "type": "git",
         "url": "file:///nix/nixpkgs"
       },
@@ -763,15 +763,16 @@
     "npmlock2nix": {
       "flake": false,
       "locked": {
-        "lastModified": 1631558099,
-        "narHash": "sha256-xguvgtrIQHPxpc4J6EhfBnYtQDGJpt6hK1dN7KEi8R4=",
-        "owner": "nix-community",
+        "lastModified": 1600293620,
+        "narHash": "sha256-R/NOsf/DlH85Dgm57cH8YY5VnRzuufp8LUCHphlzhr0=",
+        "owner": "andir",
         "repo": "npmlock2nix",
-        "rev": "33eb3300561d724da64a46ab8e9a05a9cfa9264b",
+        "rev": "9ff4a8912138845b0ab248148f1f2474e9b21ccc",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "andir",
+        "ref": "yarn-support",
         "repo": "npmlock2nix",
         "type": "github"
       }

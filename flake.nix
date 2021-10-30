@@ -167,7 +167,7 @@
     };
 
     npmlock2nix = {
-      url = github:nix-community/npmlock2nix;
+      url = github:andir/npmlock2nix/yarn-support;
       flake = false;
     };
 
