@@ -119,7 +119,9 @@ in
 
   microsoft-edge-beta = patchBrowser microsoft-edge-beta { };
 
-  spotify-spicetified = patchBrowser spotify-spicetified { flags = waylandFlags; };
+  spotify-spicetified = patchBrowser spotify-spicetified {
+    flags = waylandFlags ++ [ "--enable-devtool" "--enable-developer-mode" ];
+  };
 
   teams = patchElectronApplication
     (teams.overrideAttrs (_: { inherit (sources.teams) src version; }))
