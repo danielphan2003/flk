@@ -16,7 +16,7 @@ rec {
   boolToString = x: if x then "1" else "0";
 
   makeLnCommands = type:
-    mapAttrsToList (name: path: "ln -sf ${path} ./${type}/${name}");
+    mapAttrsToList (name: path: "ln -sf ${path} $SPICETIFY_CONFIG/${type}/${name}");
 
   makeSpicetifyCommands = type: value:
     lineBreakConcat (makeLnCommands type value);

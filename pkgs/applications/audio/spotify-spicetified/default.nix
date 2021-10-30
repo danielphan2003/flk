@@ -69,9 +69,13 @@ spotify-unwrapped.overrideAttrs (o: {
 
     ${spicetifyLnCommands}
 
+    cat <<EOT >> "$SPICETIFY_CONFIG/$(spicetify-cli -c)"
+    [Setting]
+    prefs_path = $out/prefs
+    spotify_path = $out/share/spotify
+    EOT
+
     spicetify-cli config \
-      prefs_path                      "$out/prefs" \
-      spotify_path                    "$out/share/spotify" \
       inject_css                      ${boolToString injectCss} \
       replace_colors                  ${boolToString replaceColors} \
       overwrite_assets                ${boolToString overwriteAssets} \
@@ -87,7 +91,7 @@ spotify-unwrapped.overrideAttrs (o: {
 
     cat $extraConfigFile >> "$SPICETIFY_CONFIG/$(spicetify-cli -c)"
 
-    spicetify-cli backup apply enable-devtool update -ne
+    spicetify-cli backup apply enable-devtool
 
     find CustomApps/ -maxdepth 1 -type d -exec cp -r {} $out/share/spotify/Apps \;
 
