@@ -2,6 +2,7 @@
 let
   inherit (inputs) digga nixos nixos-hardware;
   inherit (builtins) attrValues;
+  inherit (self.lib) mkSuite;
 in
 {
   hostDefaults = {
@@ -19,7 +20,7 @@ in
       ragenix.nixosModules.age
       "${peerix}/module.nix"
       qnr.nixosModules.local-registry
-      ({ latestModulesPath, waydroidModulesPath, ... }: {
+      ({ config, pkgs, latestModulesPath, waydroidModulesPath, ... }: {
         imports = [
           "${latestModulesPath}/config/swap.nix"
           "${latestModulesPath}/config/xdg/portals/wlr.nix"
@@ -45,6 +46,11 @@ in
         ];
 
         lib.our = self.lib;
+
+        services.lvm.package =
+          if config.services.lvm.dmeventd.enable
+          then pkgs.latest.lvm2_dmeventd
+          else pkgs.latest.lvm2;
       })
     ];
   };
@@ -86,115 +92,55 @@ in
     };
   };
 
-  importables = rec {
-    hostConfigs = let hostConfigs' = nixos.lib.importTOML ./hosts/hosts.toml; in
-      hostConfigs' // {
-        hosts = nixos.lib.mapAttrs
-          (hostName: module: hostConfigs'.hosts."${hostName}" // {
-            tailnet_domain = "${hostName}.${hostConfigs'.tailscale.tailnet_alias}";
-            type = hostConfigs'.hosts."${hostName}".type or "permanant";
-          })
-          hostConfigs'.hosts;
+  importables =
+    let
+      hostConfigs = nixos.lib.importTOML ./hosts/hosts.toml;
+
+      profiles = digga.lib.rakeLeaves ./profiles // {
+        users = digga.lib.rakeLeaves ../home/users;
       };
 
-    profiles = digga.lib.rakeLeaves ./profiles // {
-      users = digga.lib.rakeLeaves ../home/users;
-    };
+      inherit (import ./suites { inherit (self) lib; inherit profiles; }) suites;
 
-    suites = with profiles; rec {
+      inherit (profiles)
+        apps
+        cloud
+        develop
+        graphical
+        laptop
+        misc
+        network
+        nix
+        shell
+        ssh
+        users
+        virt
+        ;
+    in
+    {
+      inherit profiles;
 
-      ### Profile suites
-
-      base = attrValues {
-        inherit (users) root;
-        inherit (misc) security;
-        inherit (shell) bash;
-        inherit nix ssh;
-
-        inherit (apps) base;
-        inherit (apps.fonts) minimal;
-      };
-
-      openBased = base ++ attrValues {
-        inherit (shell) zsh;
-
-        inherit (apps.tools) terminal;
-        inherit (apps.editors) neovim;
-      };
-
-      ephemeralCrypt = attrValues {
-        inherit (misc) persistence encryption;
-      };
-
-      networking = attrValues {
-        inherit (network) networkd qos;
-        inherit (network.dns) tailscale;
-      };
-
-      server = networking ++ attrValues {
-        inherit (misc) disable-docs;
-        inherit (virt) headless;
-      };
-
-      work = networking ++ attrValues {
-        inherit (virt) headless minimal;
-        inherit (apps) develop;
-      };
-
-      personal = attrValues {
-        inherit (misc) peripherals;
-        inherit (apps.fonts) fancy;
-      };
-
-      graphics = work ++ attrValues {
-        inherit (graphical) drivers qutebrowser;
-        inherit (apps) gnome qt;
-      };
-
-      modern = graphics ++ attrValues {
-        inherit (graphical) gtk pipewire greetd wayland misc;
-      };
-
-      legacy = graphics ++ attrValues {
-        inherit (graphical) awesome picom;
-        inherit (apps) x11;
-      };
-
-      producer = attrValues {
-        inherit (apps) im;
-        inherit (apps.chill) spotify;
-      };
-
-      mobile = attrValues {
-        inherit laptop;
-      };
-
-      play = attrValues {
-        inherit (graphical) gaming;
-        inherit (network) chromecast;
-        inherit (apps) wine;
-      };
-
-      goPlay = play ++ mobile;
-
-      ### Host suites
-
-      bootstrap = [ ]
-        ++ openBased
-        ++ networking
-        ++ attrValues
+      hostConfigs = nixos.lib.recursiveUpdate
+        hostConfigs
         {
-          inherit (users) nixos;
+          hosts = nixos.lib.mapAttrs
+            (hostName: module: {
+              tailnet_domain = "${hostName}.${hostConfigs.tailscale.tailnet_alias}";
+              type = hostConfigs.hosts."${hostName}".type or "permanant";
+            })
+            hostConfigs.hosts;
         };
 
-      NixOS = bootstrap;
+      suites = suites // {
+        bootstrap = suites.NixOS;
 
-      pik2 = [ ]
-        ++ openBased
-        ++ ephemeralCrypt
-        ++ server
-        ++ attrValues
-        {
+        pik2 = mkSuite {
+          inherit (suites)
+            openBased
+            ephemeralCrypt
+            server
+            ;
+
           inherit (users) alita;
           inherit (graphical) pipewire;
           inherit (cloud)
@@ -208,6 +154,7 @@ in
             spotifyd
             vaultwarden
             ;
+
           inherit (apps) rpi;
           inherit (apps.tools)
             compression
@@ -215,15 +162,16 @@ in
             ;
         };
 
-      themachine = [ ]
-        ++ openBased
-        ++ ephemeralCrypt
-        ++ modern
-        ++ personal
-        ++ producer
-        ++ play
-        ++ attrValues
-        {
+        themachine = mkSuite {
+          inherit (suites)
+            openBased
+            ephemeralCrypt
+            modern
+            personal
+            producer
+            play
+            ;
+
           inherit (users) danie;
           inherit (cloud)
             aria2
@@ -234,6 +182,7 @@ in
           inherit (graphical.themes) sefia;
           inherit (misc) disable-mitigations gnupg;
           inherit (virt) windows;
+
           inherit (apps)
             meeting
             remote
@@ -251,7 +200,6 @@ in
             graphical
             ;
         };
-
+      };
     };
-  };
 }

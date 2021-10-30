@@ -29,5 +29,6 @@ lib.makeExtensible (self: rec {
 
   inherit (trivial)
     ifttt
+    mkSuite
     ;
 })
