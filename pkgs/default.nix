@@ -165,6 +165,10 @@ in
 
   rainfox = callPackage ./data/misc/rainfox { };
 
+  # rustdesk = callPackage ./applications/networking/remote/rustdesk { };
+
+  # sciter = callPackage ./development/libraries/sciter { };
+
   sddm-chili = callPackage ./applications/display-managers/sddm/themes/chili { };
 
   spicetify-themes = callPackage ./data/misc/spicetify-themes { };
@@ -227,20 +231,6 @@ else { })
 
 {
 
-  npmlock2nix =
-    let
-      patchedNpmlock2nix = with final; applyPatches {
-        name = "npmlock2nix";
-        src = npmlock2nix;
-        patches = [
-          (fetchpatch {
-            name = "npmlock2nix-Git+https.patch";
-            url = "https://patch-diff.githubusercontent.com/raw/nix-community/npmlock2nix/pull/94.patch";
-            sha256 = "sha256-OCYKf9OJiuV9z39j2JWN1pvw9hVQZZsT85f1iuevTzE=";
-          })
-        ];
-      };
-    in
-    import patchedNpmlock2nix { pkgs = final; };
+  npmlock2nix = import npmlock2nix { pkgs = final; };
 
 }
