@@ -2,36 +2,16 @@
 , npmlock2nix
 , sources
 
-, applyPatches
 , nodejs
 , python3
-, substituteAll
 , yarn
 }:
 
 let
-  inherit (sources.dribbblish-dynamic-theme) pname version;
-
-  yarnLockFile = ./yarn.lock;
-
-  src = applyPatches {
-    inherit (sources.dribbblish-dynamic-theme) src;
-    patches = [
-      (substituteAll {
-        src = ./add-meta-build.patch;
-        name = pname;
-        version = "3.0.1+${version}";
-        buildScript = "webpack --mode=development --output-path=dist --stats-error-details";
-      })
-    ];
-    postPatch = ''
-      mkdir -p $out
-      ln -s ${yarnLockFile} $out/yarn.lock
-    '';
-  };
-
+  inherit (sources.dribbblish-dynamic-theme) pname src version;
   node_modules = npmlock2nix.internal.yarn.node_modules {
-    inherit src yarnLockFile;
+    inherit src;
+    yarnLockFile = ./yarn.lock;
     buildInputs = [ python3 ];
     preBuild = ''
       mkdir -p .node-gyp/${nodejs.version}
@@ -44,9 +24,6 @@ in
 
 npmlock2nix.build {
   inherit pname src version node_modules;
-
-  # so that we get a nice reference to node_modules without symlinks like `../../nix/store`
-  node_modules_mode = "copy";
 
   nativeBuildInputs = [ yarn ];
 
