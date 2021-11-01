@@ -171,7 +171,14 @@
       flake = false;
     };
 
-    peerix = { url = github:cid-chan/peerix; flake = false; };
+    peerix = {
+      url = github:danielphan2003/peerix/overlay;
+      inputs = {
+        nixpkgs.follows = "latest";
+        flake-compat.follows = "deploy/flake-compat";
+        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+      };
+    };
 
     qnr = { url = github:divnix/quick-nix-registry; };
 
@@ -236,7 +243,7 @@
     , nix-gaming
     , nixpkgs-wayland
       # , npmlock2nix
-      # , peerix
+    , peerix
     , qnr
     , rnix-lsp
     , rust-overlay
@@ -270,6 +277,8 @@
               dcompass.overlay
 
               nixpkgs-wayland.overlay-egl
+
+              peerix.overlay
 
               fenix.overlay
               naersk.overlay

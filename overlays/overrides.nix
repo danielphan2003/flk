@@ -22,6 +22,7 @@ channels: final: prev: {
     nixpkgs-fmt
     nwg-menu
     nwg-wrapper
+    peerix
     qutebrowser
     rage
     scream

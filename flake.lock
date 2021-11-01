@@ -158,11 +158,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1635561226,
-        "narHash": "sha256-oXNrXl9WpfwIt8a/GDYGTyj2pluhumR865Ts43wlY7E=",
+        "lastModified": 1635729087,
+        "narHash": "sha256-YzMvr/kXXp9CBmiPZDsVAnPsy8Be3fn2Z5+vgJq5A8M=",
         "owner": "danielphan2003",
         "repo": "nixpkgs",
-        "rev": "68f56cc84df94e78bc525ed8d52c54df5231dfce",
+        "rev": "d42d1ceac79dc87f77556911ce83638ad16a2e9d",
         "type": "github"
       },
       "original": {
@@ -428,6 +428,21 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1601282935,
+        "narHash": "sha256-WQAFV6sGGQxrRs3a+/Yj9xUYvhTpukQJIcMbIi7LCJ4=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "588973065fce51f4763287f0fda87a174d78bf48",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "globalRegistry": {
       "flake": false,
       "locked": {
@@ -536,6 +551,26 @@
       "original": {
         "owner": "kristapsdz",
         "repo": "lowdown",
+        "type": "github"
+      }
+    },
+    "mach-nix": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs_3",
+        "pypi-deps-db": "pypi-deps-db"
+      },
+      "locked": {
+        "lastModified": 1635348539,
+        "narHash": "sha256-SXrwF/KPz8McBN8kN+HTfGphE1hiRSr1mtXSVjPJr8o=",
+        "owner": "DavHau",
+        "repo": "mach-nix",
+        "rev": "98d001727542bb6142d0ab554fc30bd591b07c73",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DavHau",
+        "repo": "mach-nix",
         "type": "github"
       }
     },
@@ -760,6 +795,21 @@
         "type": "indirect"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1622797669,
+        "narHash": "sha256-xIyWeoYExzF0KNaKcqfxEX58fN4JTIQxTJWbsAujllc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1ca6b0a0cc38dbba0441202535c92841dd39d1ae",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-unstable",
+        "type": "indirect"
+      }
+    },
     "npmlock2nix": {
       "flake": false,
       "locked": {
@@ -824,17 +874,32 @@
       }
     },
     "peerix": {
-      "flake": false,
+      "inputs": {
+        "flake-compat": [
+          "deploy",
+          "flake-compat"
+        ],
+        "flake-utils": [
+          "digga",
+          "flake-utils-plus",
+          "flake-utils"
+        ],
+        "mach-nix": "mach-nix",
+        "nixpkgs": [
+          "latest"
+        ]
+      },
       "locked": {
-        "lastModified": 1634564795,
-        "narHash": "sha256-1QaZVp2ZQgbwbLbLHuEwzsVmVd12oPFmATEgjbpUSn0=",
-        "owner": "cid-chan",
+        "lastModified": 1635730338,
+        "narHash": "sha256-9ieK+YtY0x/iT+4h6al6LS2XZu+YyR3Owr0x2KepBAM=",
+        "owner": "danielphan2003",
         "repo": "peerix",
-        "rev": "6d2dc3280b81c53eb4a6598c859eecc34bdbf2b1",
+        "rev": "db651641fadd1f3e9a77818e87e20c1024fe227f",
         "type": "github"
       },
       "original": {
-        "owner": "cid-chan",
+        "owner": "danielphan2003",
+        "ref": "overlay",
         "repo": "peerix",
         "type": "github"
       }
@@ -877,6 +942,22 @@
       "original": {
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
+        "type": "github"
+      }
+    },
+    "pypi-deps-db": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1622970040,
+        "narHash": "sha256-u//RFnae/XMIhoy83G2uH2Qu/1LiUhVCdwwY1xj4Ufs=",
+        "owner": "DavHau",
+        "repo": "pypi-deps-db",
+        "rev": "be6591698c67a86a69c81fef72167e38d038a9fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DavHau",
+        "repo": "pypi-deps-db",
         "type": "github"
       }
     },

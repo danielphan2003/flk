@@ -149,8 +149,6 @@ in
 
   paper = callPackage ./tools/wayland/paper { inherit (channels.latest) rustPlatform; };
 
-  peerix = channels.latest.callPackage peerix { };
-
   plymouth-themes = callPackage ./data/misc/plymouth-themes { };
 
   pure = callPackage ./shells/zsh/pure { };

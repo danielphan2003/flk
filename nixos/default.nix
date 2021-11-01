@@ -18,7 +18,7 @@ in
       "${impermanence}/nixos.nix"
       nix-gaming.nixosModule
       ragenix.nixosModules.age
-      "${peerix}/module.nix"
+      peerix.nixosModules.peerix
       qnr.nixosModules.local-registry
       ({ config, pkgs, latestModulesPath, waydroidModulesPath, ... }: {
         imports = [

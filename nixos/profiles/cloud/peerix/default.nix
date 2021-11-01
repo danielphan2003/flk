@@ -11,11 +11,10 @@ in
     inherit group;
   };
 
-  nix.binaryCachePublicKeys = [ hostConfigs.hosts."${hostName}".binary_cache_public_key ];
-
   services.peerix = {
     enable = true;
     openFirewall = config.services.tailscale.enable;
     privateKeyFile = path;
+    publicKey = hostConfigs.hosts."${hostName}".binary_cache_public_key;
   };
 }
