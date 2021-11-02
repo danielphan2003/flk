@@ -172,7 +172,7 @@
     };
 
     peerix = {
-      url = github:danielphan2003/peerix/overlay;
+      url = github:cid-chan/peerix;
       inputs = {
         nixpkgs.follows = "latest";
         flake-compat.follows = "deploy/flake-compat";

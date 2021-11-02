@@ -158,11 +158,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1635729087,
-        "narHash": "sha256-YzMvr/kXXp9CBmiPZDsVAnPsy8Be3fn2Z5+vgJq5A8M=",
+        "lastModified": 1635734024,
+        "narHash": "sha256-+YMolyutKL9uBBOCtX73wg5bLun3Zkt2DHJyPXgO/dQ=",
         "owner": "danielphan2003",
         "repo": "nixpkgs",
-        "rev": "d42d1ceac79dc87f77556911ce83638ad16a2e9d",
+        "rev": "2957dae8f9a98f0a8af0730a1377028d599977a4",
         "type": "github"
       },
       "original": {
@@ -890,16 +890,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1635730338,
-        "narHash": "sha256-9ieK+YtY0x/iT+4h6al6LS2XZu+YyR3Owr0x2KepBAM=",
-        "owner": "danielphan2003",
+        "lastModified": 1635886719,
+        "narHash": "sha256-KKoid553+j2eaay24ppeCVRDo+wXbRH9qgZaGGFj17A=",
+        "owner": "cid-chan",
         "repo": "peerix",
-        "rev": "db651641fadd1f3e9a77818e87e20c1024fe227f",
+        "rev": "947dcda6ba2f353e576cf79574f21288228a32a3",
         "type": "github"
       },
       "original": {
-        "owner": "danielphan2003",
-        "ref": "overlay",
+        "owner": "cid-chan",
         "repo": "peerix",
         "type": "github"
       }
