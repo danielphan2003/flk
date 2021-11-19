@@ -25,6 +25,8 @@ in
 npmlock2nix.build {
   inherit pname src version node_modules;
 
+  COMMIT_HASH = lib.substring 0 7 version;
+
   nativeBuildInputs = [ yarn ];
 
   buildCommands = [ "yarn run build" ];
