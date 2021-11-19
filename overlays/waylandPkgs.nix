@@ -9,12 +9,9 @@ channels: final: prev: {
 
   waylandPkgs = with channels.latest; waylandPkgs // {
     wlroots = waylandPkgs.wlroots.override { inherit (final) xwayland; };
-    sway-unwrapped = waylandPkgs.sway-unwrapped.override { inherit (final) wlroots; };
   };
 
-  xwayland = (prev.xwayland.override {
-    wayland-protocols = final.wayland-protocols-master;
-  });
+  xwayland = channels.latest.xwayland.override { wayland-protocols = final.wayland-protocols-master; };
 
   swaylock-effects = prev.swaylock-effects.overrideAttrs (_: {
     inherit (final.sources.swaylock-effects) pname version src;
