@@ -1,0 +1,29 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0cf93758..1cf980bf 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -190,22 +190,17 @@ if(Launcher_LAYOUT_REAL STREQUAL "mac-bundle")
+ 
+ elseif(Launcher_LAYOUT_REAL STREQUAL "lin-nodeps")
+     set(BINARY_DEST_DIR "bin")
+-    set(LIBRARY_DEST_DIR "bin")
++    set(LIBRARY_DEST_DIR "lib")
+     set(PLUGIN_DEST_DIR "plugins")
+     set(BUNDLE_DEST_DIR ".")
+     set(RESOURCES_DEST_DIR ".")
+-    set(JARS_DEST_DIR "bin/jars")
++    set(JARS_DEST_DIR "share/${Launcher_Name}/jars")
+ 
+     # install as bundle with no dependencies included
+     set(INSTALL_BUNDLE "nodeps")
+ 
+     # Set RPATH
+     SET(Launcher_BINARY_RPATH "$ORIGIN/")
+-
+-    # Install basic runner script
+-    configure_file(launcher/Launcher.in "${CMAKE_CURRENT_BINARY_DIR}/LauncherScript" @ONLY)
+-    install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/LauncherScript" DESTINATION ${BUNDLE_DEST_DIR} RENAME ${Launcher_Name})
+-
+ elseif(Launcher_LAYOUT_REAL STREQUAL "win-bundle")
+     set(BINARY_DEST_DIR ".")
+     set(LIBRARY_DEST_DIR ".")

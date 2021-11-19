@@ -1,0 +1,13 @@
+diff --git a/notsecrets/CMakeLists.txt b/notsecrets/CMakeLists.txt
+index 16d44d4d..eb889185 100644
+--- a/notsecrets/CMakeLists.txt
++++ b/notsecrets/CMakeLists.txt
+@@ -7,7 +7,7 @@ set(Launcher_CommonName "UltimMC")
+ 
+ set(Launcher_Copyright "MultiMC Contributors" PARENT_SCOPE)
+ set(Launcher_Domain "multimc.org" PARENT_SCOPE)
+-set(Launcher_Name "${Launcher_CommonName}" PARENT_SCOPE)
++set(Launcher_Name "ultimmc" PARENT_SCOPE)
+ set(Launcher_DisplayName "${Launcher_CommonName} 5" PARENT_SCOPE)
+ set(Launcher_UserAgent "${Launcher_CommonName}/5.0" PARENT_SCOPE)
+ set(Launcher_ConfigFile "ultimmc.cfg" PARENT_SCOPE)
