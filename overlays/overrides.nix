@@ -8,6 +8,8 @@ channels: final: prev: {
     agenix
     android-tools
     anup
+    buildGo117Module
+    buildGoApplication
     cachix
     czkawka
     dcompass
@@ -19,14 +21,18 @@ channels: final: prev: {
     hakuneko
     linuxKernel
     lxc
+    nixUnstable
     nixpkgs-fmt
     nwg-menu
     nwg-wrapper
+    poetry
+    poetry2nix
     peerix
     qutebrowser
     rage
     scream
     scrcpy
+    sources
     starship
     stylua
     sudo
@@ -77,7 +83,6 @@ channels: final: prev: {
     wlogout
     wlr-randr
     wlroots
-    wlroots-eglstreams
     wlsunset
     wlvncc
     wofi
@@ -88,6 +93,10 @@ channels: final: prev: {
 
   obs-studio-plugins = channels.latest.obs-studio-plugins // {
     wlrobs = final.obs-wlrobs;
+  };
+
+  nixos-rebuild = prev.nixos-rebuild.override {
+    nix = final.nixUnstable;
   };
 
   lib = channels.latest.lib.extend (lfinal: lprev: with lfinal; {
