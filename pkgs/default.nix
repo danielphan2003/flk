@@ -12,12 +12,11 @@ let
     __splicedPackages
     lib
     recurseIntoAttrs
-    sources
     vimUtils
     vscode-utils
     ;
 
-  inherit (final) callPackage;
+  inherit (final) callPackage sources;
 
   inherit (lib)
     filterAttrs
@@ -117,15 +116,17 @@ in
 
   fs-diff = callPackage ./tools/file-systems/fs-diff { };
 
+  # guiscrcpy = callPackage ./misc/guiscrcpy { };
+
   interak = callPackage ./data/misc/interak { };
 
   leonflix = callPackage ./applications/video/leonflix { };
 
   libinih = callPackage ./development/libraries/libinih { };
 
-  lightcord = callPackage ./applications/networking/instant-messengers/lightcord {
-    # inherit (channels.latest) glibc;
-  };
+  # lightcord = callPackage ./applications/networking/instant-messengers/lightcord {
+  #   # inherit (channels.latest) glibc;
+  # };
 
   luaPackages = prev.luaPackages // {
     awestore = callPackage ./development/lua-modules/awestore { };
@@ -157,9 +158,9 @@ in
 
   pywalfox = callPackage ./tools/misc/pywalfox { };
 
-  quibble = callPackage ./applications/virtualization/quibble {
-    mingwGccs = with prev.pkgsCross; [ mingw32.buildPackages.gcc mingwW64.buildPackages.gcc ];
-  };
+  # quibble = callPackage ./applications/virtualization/quibble {
+  #   mingwGccs = with prev.pkgsCross; [ mingw32.buildPackages.gcc mingwW64.buildPackages.gcc ];
+  # };
 
   rainfox = callPackage ./data/misc/rainfox { };
 
@@ -177,6 +178,8 @@ in
 
   swayprop = callPackage ./tools/wayland/swayprop { };
 
+  # tailscale-systray = callPackage ./tools/misc/tailscale-systray { };
+
   trackma = callPackage ./applications/video/trackma { };
 
   ttf-segue-ui = callPackage ./data/fonts/ttf-segue-ui { };
@@ -184,8 +187,6 @@ in
   tuinitymc = callPackage ./games/tuinity { };
 
   user-icon = callPackage ./data/misc/user-icon { };
-
-  ventoy = callPackage ./tools/file-systems/ventoy { };
 
   vimPlugins = prev.vimPlugins // (newPkgsSet "vimPlugins");
 
@@ -198,8 +199,6 @@ in
   widevine-cdm = callPackage ./applications/networking/browsers/widevine-cdm { };
 
   wii-u-gc-adapter = callPackage ./misc/drivers/wii-u-gc-adapter { };
-
-  xorg = prev.xorg // (recurseIntoAttrs (lib.callPackageWith __splicedPackages ./servers/x11/xorg { }));
 }
 
 //
