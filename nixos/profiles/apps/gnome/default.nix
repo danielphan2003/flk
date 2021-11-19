@@ -1,6 +1,10 @@
 { pkgs, ... }: {
+  programs.file-roller.enable = true;
+
+  services.gnome.sushi.enable = true;
+
   environment.systemPackages = builtins.attrValues {
-    inherit (pkgs.gnome) file-roller nautilus;
+    inherit (pkgs.gnome) nautilus;
 
     inherit (pkgs)
       gnome-themes-extra
