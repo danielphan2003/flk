@@ -9,6 +9,7 @@
       lazygit
       less
       manix
+      pmbootstrap
       tig
       tokei
       rnix-lsp
