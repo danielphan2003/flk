@@ -27,8 +27,13 @@ in
           "${latestModulesPath}/misc/extra-arguments.nix"
           "${latestModulesPath}/programs/xwayland.nix"
           "${latestModulesPath}/services/audio/spotifyd.nix"
+          "${latestModulesPath}/services/networking/jibri/default.nix"
+          "${latestModulesPath}/services/networking/jicofo.nix"
+          "${latestModulesPath}/services/networking/jitsi-videobridge.nix"
+          "${latestModulesPath}/services/networking/prosody.nix"
           "${latestModulesPath}/services/networking/tailscale.nix"
           "${latestModulesPath}/services/security/vaultwarden/default.nix"
+          "${latestModulesPath}/services/web-apps/jitsi-meet.nix"
           "${latestModulesPath}/services/web-servers/caddy/default.nix"
           "${latestModulesPath}/tasks/filesystems.nix"
           "${waydroidModulesPath}/virtualisation/waydroid.nix"
@@ -39,8 +44,12 @@ in
           "misc/extra-arguments.nix"
           "programs/xwayland.nix"
           "services/audio/spotifyd.nix"
+          "services/networking/jicofo.nix"
+          "services/networking/jitsi-videobridge.nix"
+          "services/networking/prosody.nix"
           "services/networking/tailscale.nix"
           "services/security/bitwarden_rs/default.nix"
+          "services/web-apps/jitsi-meet.nix"
           "services/web-servers/caddy.nix"
           "tasks/filesystems.nix"
         ];
@@ -147,6 +156,7 @@ in
             caddy
             # calibre-server
             grafana
+            jitsi
             lvc-it-lib
             minecraft
             peerix

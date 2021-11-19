@@ -65,7 +65,7 @@ in
   services.resolved.dnssec = "false";
 
   services.caddy.virtualHosts."${tailnet_domain}" = {
-    extraConfig = ''
+    extraConfig = lib.mkBefore ''
       import common
       import logging ${tailnet_domain}
 

@@ -30,6 +30,8 @@ in
       ++ optionals services.dnscrypt-proxy2.enable [ "/var/lib/private/dnscrypt-proxy2" "/var/cache/private/dnscrypt-proxy2" ]
       ++ optionals services.fail2ban.enable [ "/var/lib/fail2ban" ]
       ++ optionals services.hercules-ci-agent.enable [ "/var/lib/hercules-ci-agent" ]
+      ++ optionals services.jitsi-meet.enable [ "/var/lib/jitsi-meet" ]
+      ++ optionals services.jitsi-meet.prosody.enable [ "/var/lib/prosody" ]
       ++ optionals services.minecraft-server.enable [ services.minecraft-server.dataDir ]
       ++ optionals services.netdata.enable [ "/var/lib/netdata" "/var/cache/netdata" ]
       ++ optionals services.postgresql.enable [ "/var/lib/postgresql" ]
@@ -59,7 +61,7 @@ in
         "/etc/machine-id"
         "/root/.local/share/nix/trusted-settings.json"
       ]
-      ++ optionals (environment.etc ? "xdg/gtk-3.0/settings.ini") [ "/etc/xdg/gtk-3.0/settings.ini" ];
+      ++ optionals (!environment.etc ? "xdg/gtk-3.0/settings.ini") [ "/etc/xdg/gtk-3.0/settings.ini" ];
   };
 
   fileSystems."/etc/ssh" = {
