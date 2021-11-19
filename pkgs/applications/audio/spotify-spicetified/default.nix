@@ -91,7 +91,7 @@ spotify-unwrapped.overrideAttrs (o: {
 
     cat $extraConfigFile >> "$SPICETIFY_CONFIG/$(spicetify-cli -c)"
 
-    spicetify-cli backup apply enable-devtool
+    spicetify-cli backup enable-devtool apply
 
     find CustomApps/ -maxdepth 1 -type d -exec cp -r {} $out/share/spotify/Apps \;
 
