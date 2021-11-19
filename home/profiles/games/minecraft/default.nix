@@ -18,9 +18,9 @@ let
   };
 in
 {
-  home.file.".local/share/multimc/mods" = {
+  home.file.".local/share/ultimmc/mods" = {
     source = "${modDir}/share/java";
     recursive = true;
   };
-  home.file.".local/share/multimc/lib/libglfw".source = "${pkgs.glfw}/lib";
+  home.file.".local/share/ultimmc/lib/libglfw".source = "${pkgs.glfw}/lib";
 }

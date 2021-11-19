@@ -8,7 +8,7 @@ let inherit (builtins) attrValues; in
 
   environment.systemPackages = attrValues {
     inherit (pkgs)
-      multimc
+      ultimmc
       # pcsx2
       qjoypad
       retroarchBare
