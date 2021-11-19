@@ -1,0 +1,260 @@
+From 6a4c6c448e9d33081d054cf3fcd76c7b22e1889b Mon Sep 17 00:00:00 2001
+From: Anjandev Momi <anjan@momi.ca>
+Date: Sun, 8 Aug 2021 23:14:39 -0400
+Subject: [PATCH 1/3] try to use doas if sudo is not installed
+
+---
+ pmb/chroot/root.py      |  2 +-
+ pmb/config/__init__.py  |  2 ++
+ pmb/config/init.py      |  4 ++++
+ pmb/helpers/cli.py      | 12 ++++++++++++
+ pmb/helpers/run.py      |  4 ++--
+ pmb/helpers/run_core.py |  1 +
+ pmb/parse/bootimg.py    |  5 +++--
+ test/test_run_core.py   |  4 ++--
+ 8 files changed, 27 insertions(+), 7 deletions(-)
+
+diff --git a/pmb/chroot/root.py b/pmb/chroot/root.py
+index b8181280..e531c679 100644
+--- a/pmb/chroot/root.py
++++ b/pmb/chroot/root.py
+@@ -71,7 +71,7 @@ def root(args, cmd, suffix="native", working_dir="/", output="log",
+     executables = executables_absolute_path()
+     cmd_chroot = [executables["chroot"], chroot, "/bin/sh", "-c",
+                   pmb.helpers.run.flat_cmd(cmd, working_dir)]
+-    cmd_sudo = ["sudo", "env", "-i", executables["sh"], "-c",
++    cmd_sudo = [pmb.config.sudo, "env", "-i", executables["sh"], "-c",
+                 pmb.helpers.run.flat_cmd(cmd_chroot, env=env_all)]
+     return pmb.helpers.run_core.core(args, msg, cmd_sudo, None, output,
+                                      output_return, check, True,
+diff --git a/pmb/config/__init__.py b/pmb/config/__init__.py
+index 1321279d..48b3c97e 100644
+--- a/pmb/config/__init__.py
++++ b/pmb/config/__init__.py
+@@ -10,6 +10,7 @@ import sys
+ from pmb.config.load import load
+ from pmb.config.save import save
+ from pmb.config.merge_with_args import merge_with_args
++from pmb.helpers.cli import which_sudo
+ 
+ 
+ #
+@@ -47,6 +48,7 @@ ondev_min_version = "0.2.0"
+ # in sync with README.md, and try to keep the list as small as possible. The
+ # idea is to run almost everything in Alpine chroots.
+ required_programs = ["git", "openssl", "ps"]
++sudo = which_sudo()
+ 
+ # Keys saved in the config file (mostly what we ask in 'pmbootstrap init')
+ config_keys = ["aports",
+diff --git a/pmb/config/init.py b/pmb/config/init.py
+index 74813ecd..d6a570d7 100644
+--- a/pmb/config/init.py
++++ b/pmb/config/init.py
+@@ -31,6 +31,10 @@ def require_programs():
+                            " pmbootstrap. Please install first:"
+                            f" {', '.join(missing)}")
+ 
++    if not pmb.config.sudo:
++        raise RuntimeError("Can't find sudo or doas required to run"
++                           " pmbootstrap. Please install sudo or doas")
++
+ 
+ def ask_for_work_path(args):
+     """
+diff --git a/pmb/helpers/cli.py b/pmb/helpers/cli.py
+index 0b984adb..6749a139 100644
+--- a/pmb/helpers/cli.py
++++ b/pmb/helpers/cli.py
+@@ -6,6 +6,7 @@ import os
+ import re
+ import readline
+ import sys
++import shutil
+ 
+ import pmb.config
+ 
+@@ -144,3 +145,14 @@ def progress_flush(args):
+     """
+     if pmb.config.is_interactive and not args.details_to_stdout:
+         sys.stdout.flush()
++
++
++def which_sudo():
++    """
++    Find whether sudo or doas is installed for commands that require root
++    """
++
++    if shutil.which('sudo') is not None:
++        return 'sudo'
++    elif shutil.which('doas') is not None:
++        return 'doas'
+diff --git a/pmb/helpers/run.py b/pmb/helpers/run.py
+index 0d6a7bd3..9100c3d7 100644
+--- a/pmb/helpers/run.py
++++ b/pmb/helpers/run.py
+@@ -62,7 +62,7 @@ def user(args, cmd, working_dir=None, output="log", output_return=False,
+ def root(args, cmd, working_dir=None, output="log", output_return=False,
+          check=None, env={}):
+     """
+-    Run a command on the host system as root, with sudo.
++    Run a command on the host system as root, with sudo or doas.
+ 
+     :param env: dict of environment variables to be passed to the command, e.g.
+                 {"JOBS": "5"}
+@@ -72,7 +72,7 @@ def root(args, cmd, working_dir=None, output="log", output_return=False,
+     """
+     if env:
+         cmd = ["sh", "-c", flat_cmd(cmd, env=env)]
+-    cmd = ["sudo"] + cmd
++    cmd = [pmb.config.sudo] + cmd
+ 
+     return user(args, cmd, working_dir, output, output_return, check, env,
+                 True)
+diff --git a/pmb/helpers/run_core.py b/pmb/helpers/run_core.py
+index e125979b..b90b3d87 100644
+--- a/pmb/helpers/run_core.py
++++ b/pmb/helpers/run_core.py
+@@ -224,6 +224,7 @@ def sudo_timer_iterate():
+     Run sudo -v and schedule a new timer to repeat the same.
+     """
+ 
++    # TODO: doas does not have a -v flag. What do?
+     subprocess.Popen(["sudo", "-v"]).wait()
+ 
+     timer = threading.Timer(interval=60, function=sudo_timer_iterate)
+diff --git a/pmb/parse/bootimg.py b/pmb/parse/bootimg.py
+index a713d47d..b6759592 100644
+--- a/pmb/parse/bootimg.py
++++ b/pmb/parse/bootimg.py
+@@ -79,8 +79,9 @@ def bootimg(args, path):
+     if not os.path.exists(path):
+         raise RuntimeError("Could not find file '" + path + "'")
+ 
+-    logging.info("NOTE: You will be prompted for your sudo password, so we can"
+-                 " set up a chroot to extract and analyze your boot.img file")
++    logging.info("NOTE: You will be prompted for your sudo/doas password, so"
++                 " we can set up a chroot to extract and analyze your"
++                 " boot.img file")
+     pmb.chroot.apk.install(args, ["file", "unpackbootimg"])
+ 
+     temp_path = pmb.chroot.other.tempfolder(args, "/tmp/bootimg_parser")
+diff --git a/test/test_run_core.py b/test/test_run_core.py
+index 06ed1eae..3867f951 100644
+--- a/test/test_run_core.py
++++ b/test/test_run_core.py
+@@ -81,7 +81,7 @@ def test_foreground_pipe(args):
+     assert ret == (-9, "first\n")
+ 
+     # Kill with output timeout as root
+-    cmd = ["sudo", "sh", "-c", "printf first; sleep 2; printf second"]
++    cmd = [pmb.config.sudo, "sh", "-c", "printf first; sleep 2; printf second"]
+     args.timeout = 0.3
+     ret = func(args, cmd, output_return=True, output_timeout=True,
+                sudo=True)
+@@ -97,7 +97,7 @@ def test_foreground_pipe(args):
+     # Check if all child processes are killed after timeout.
+     # The first command uses ps to get its process group id (pgid) and echo it
+     # to stdout. All of the test commands will be running under that pgid.
+-    cmd = ["sudo", "sh", "-c",
++    cmd = [pmb.config.sudo, "sh", "-c",
+            "pgid=$(ps -o pgid= | grep ^${1:-$$});echo $pgid | tr -d '\n';" +
+            "sleep 10 | sleep 20 | sleep 30"]
+     args.timeout = 0.3
+-- 
+GitLab
+
+
+From 8b52e9ef069a46ca5ce30e0b6f386eacd37050f9 Mon Sep 17 00:00:00 2001
+From: Anjandev Momi <anjan@momi.ca>
+Date: Sat, 23 Oct 2021 17:14:28 -0400
+Subject: [PATCH 2/3] Only offer to enable sudo_timer if user is using sudo
+
+---
+ pmb/config/init.py      | 20 +++++++++++---------
+ pmb/helpers/run_core.py |  2 +-
+ 2 files changed, 12 insertions(+), 10 deletions(-)
+
+diff --git a/pmb/config/init.py b/pmb/config/init.py
+index d6a570d7..76cf6436 100644
+--- a/pmb/config/init.py
++++ b/pmb/config/init.py
+@@ -424,15 +424,17 @@ def ask_for_additional_options(args, cfg):
+     cfg["pmbootstrap"]["ccache_size"] = answer
+ 
+     # Sudo timer
+-    logging.info("pmbootstrap does everything in Alpine Linux chroots, so"
+-                 " your host system does not get modified. In order to"
+-                 " work with these chroots, pmbootstrap calls 'sudo'"
+-                 " internally. For long running operations, it is possible"
+-                 " that you'll have to authorize sudo more than once.")
+-    answer = pmb.helpers.cli.confirm(args, "Enable background timer to prevent"
+-                                     " repeated sudo authorization?",
+-                                     default=args.sudo_timer)
+-    cfg["pmbootstrap"]["sudo_timer"] = str(answer)
++    if pmb.config.sudo == "sudo":
++        logging.info("pmbootstrap does everything in Alpine Linux chroots, so"
++                     " your host system does not get modified. In order to"
++                     " work with these chroots, pmbootstrap calls 'sudo'"
++                     " internally. For long running operations, it is possible"
++                     " that you'll have to authorize sudo more than once.")
++        answer = pmb.helpers.cli.confirm(args, "Enable background timer to"
++                                               " prevent repeated sudo"
++                                               " authorization?",
++                                         default=args.sudo_timer)
++        cfg["pmbootstrap"]["sudo_timer"] = str(answer)
+ 
+     # Mirrors
+     # prompt for mirror change
+diff --git a/pmb/helpers/run_core.py b/pmb/helpers/run_core.py
+index b90b3d87..3d0c31e4 100644
+--- a/pmb/helpers/run_core.py
++++ b/pmb/helpers/run_core.py
+@@ -305,7 +305,7 @@ def core(args, log_message, cmd, working_dir=None, output="log",
+     """
+     sanity_checks(output, output_return, check)
+ 
+-    if args.sudo_timer and sudo:
++    if args.sudo_timer and sudo and pmb.config.sudo == "sudo":
+         sudo_timer_start(args)
+ 
+     # Log simplified and full command (pmbootstrap -v)
+-- 
+GitLab
+
+
+From caa7a59e31362267f007330cc2209b26e1a872bc Mon Sep 17 00:00:00 2001
+From: Anjandev Momi <anjan@momi.ca>
+Date: Sat, 23 Oct 2021 17:33:41 -0400
+Subject: [PATCH 3/3] allow user to override doas for sudo with env variable
+
+---
+ pmb/helpers/cli.py | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/pmb/helpers/cli.py b/pmb/helpers/cli.py
+index 6749a139..088e85e2 100644
+--- a/pmb/helpers/cli.py
++++ b/pmb/helpers/cli.py
+@@ -150,9 +150,14 @@ def progress_flush(args):
+ def which_sudo():
+     """
+     Find whether sudo or doas is installed for commands that require root
++    Allows user to override preferred sudo with PMBOOT_SUDO env variable
+     """
++    supportedSudos = ['sudo', 'doas']
+ 
+-    if shutil.which('sudo') is not None:
+-        return 'sudo'
+-    elif shutil.which('doas') is not None:
+-        return 'doas'
++    userSetSudo = os.getenv("PMBOOT_SUDO")
++    if userSetSudo in supportedSudos and shutil.which(userSetSudo) is not None:
++        return userSetSudo
++
++    for sudo in supportedSudos:
++        if shutil.which(sudo) is not None:
++            return sudo
+-- 
+GitLab
+
