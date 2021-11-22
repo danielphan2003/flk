@@ -30,6 +30,7 @@ channels: final: prev: {
     peerix
     qutebrowser
     rage
+    realvnc-vnc-viewer
     scream
     scrcpy
     sources
@@ -81,8 +82,8 @@ channels: final: prev: {
     wldash
     wlfreerdp
     wlogout
-    wlr-randr
     wlroots
+    wlr-randr
     wlsunset
     wlvncc
     wofi
@@ -95,7 +96,7 @@ channels: final: prev: {
     wlrobs = final.obs-wlrobs;
   };
 
-  nixos-rebuild = prev.nixos-rebuild.override {
+  nixos-rebuild = channels.latest.nixos-rebuild.override {
     nix = final.nixUnstable;
   };
 
