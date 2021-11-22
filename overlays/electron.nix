@@ -12,6 +12,7 @@ let
   inherit (final)
     electron
     sources
+    wlroots
     ;
 
   inherit (prev)
@@ -32,7 +33,9 @@ let
     toList
     ;
 
-  enableWayland = true;
+  # see https://github.com/NixOS/nixpkgs/issues/137688
+  # at least Xwayland works without patching
+  enableWayland = wlroots.fixedChromium or ungoogled-chromium.version != "95.0.4638.69";
 
   extraOptions = [
     "--enable-accelerated-mjpeg-decode"
@@ -41,6 +44,7 @@ let
     "--enable-native-gpu-memory-buffers"
     "--enable-vulkan"
     "--enable-zero-copy"
+    "--ignore-gpu-blocklist"
   ];
 
   waylandFlags = [
