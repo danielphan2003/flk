@@ -42,6 +42,7 @@ in
         disabledModules = [
           "config/swap.nix"
           "misc/extra-arguments.nix"
+          "programs/sway.nix"
           "programs/xwayland.nix"
           "services/audio/spotifyd.nix"
           "services/networking/jicofo.nix"
@@ -157,7 +158,6 @@ in
             # calibre-server
             grafana
             jitsi
-            lvc-it-lib
             minecraft
             peerix
             postgresql
