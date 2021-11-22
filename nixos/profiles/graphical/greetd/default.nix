@@ -21,6 +21,8 @@ let
     '';
 
   swayConfig = pkgs.writeText "sway-greetd.conf" ''
+    xwayland false
+
     exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP GTK_IM_MODULE QT_IM_MODULE XMODIFIERS DBUS_SESSION_BUS_ADDRESS
 
     # `-l` activates layer-shell mode. Notice that `swaymsg exit` will run after gtkgreet.
