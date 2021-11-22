@@ -1,17 +1,33 @@
 { lib
 , npmlock2nix
 , sources
+, stdenv
 
 , nodejs
 , python3
-, yarn
 }:
 
 let
-  inherit (sources.dribbblish-dynamic-theme) pname src version;
-  node_modules = npmlock2nix.internal.yarn.node_modules {
-    inherit src;
-    yarnLockFile = ./yarn.lock;
+  inherit (sources.dribbblish-dynamic-theme) pname version;
+  packageJson = ./package.json;
+  packageLockJson = ./package-lock.json;
+
+  src = stdenv.mkDerivation {
+    inherit pname version packageLockJson;
+    inherit (sources.dribbblish-dynamic-theme) src;
+
+    dontBuild = true;
+    dontUnpack = true;
+
+    installPhase = ''
+      mkdir -p $out
+      cp -r $src/* $out
+      cp $packageLockJson $out/package-lock.json
+    '';
+  };
+
+  node_modules = npmlock2nix.node_modules {
+    inherit src packageJson packageLockJson;
     buildInputs = [ python3 ];
     preBuild = ''
       mkdir -p .node-gyp/${nodejs.version}
@@ -23,13 +39,9 @@ let
 in
 
 npmlock2nix.build {
-  inherit pname src version node_modules;
+  inherit pname src version node_modules packageJson packageLockJson;
 
   COMMIT_HASH = lib.substring 0 7 version;
-
-  nativeBuildInputs = [ yarn ];
-
-  buildCommands = [ "yarn run build" ];
 
   installPhase = ''
     mkdir -p $out/theme $out/extensions
