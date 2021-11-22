@@ -3,12 +3,25 @@ channels: final: prev: {
 
   eww = prev.eww.override { enableWayland = true; };
 
-  sway-unwrapped = final.waylandPkgs.sway-unwrapped.overrideAttrs (_: {
+  xdg-desktop-portal = channels.latest.xdg-desktop-portal.overrideAttrs (o: {
+    patches = prev.lib.init o.patches;
+    inherit (final.sources.xdg-desktop-portal) pname src version;
+  });
+
+  xdg-desktop-portal-gtk = channels.latest.xdg-desktop-portal-gtk.overrideAttrs (_: {
+    patches = [ ];
+    inherit (final.sources.xdg-desktop-portal-gtk) pname src version;
+  });
+
+  sway-unwrapped = (final.waylandPkgs.sway-unwrapped.override { inherit (final) wlroots; }).overrideAttrs (_: {
     inherit (final.sources.sway-borders) version src;
   });
 
   waylandPkgs = with channels.latest; waylandPkgs // {
-    wlroots = waylandPkgs.wlroots.override { inherit (final) xwayland; };
+    wlroots = (waylandPkgs.wlroots.override { inherit (final) xwayland; }).overrideAttrs (o: {
+      patches = (o.patches or [ ]) ++ prev.lib.our.getPatches ../pkgs/development/libraries/wlroots;
+      passthru.fixedChromium = true;
+    });
   };
 
   xwayland = channels.latest.xwayland.override { wayland-protocols = final.wayland-protocols-master; };
