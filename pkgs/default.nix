@@ -30,6 +30,7 @@ let
   inherit (inputs)
     beautysh
     firefox-nightly
+    manix
     npmlock2nix
     peerix
     rnix-lsp
@@ -220,6 +221,12 @@ else { })
 
 //
 
+(if matchSystem manix
+then manix.packages.${system}
+else { })
+
+//
+
 (if matchSystem rnix-lsp
 then rnix-lsp.packages.${system}
 else { })
@@ -228,6 +235,6 @@ else { })
 
 {
 
-  npmlock2nix = import npmlock2nix { pkgs = final; };
+  npmlock2nix = callPackage npmlock2nix { };
 
 }
