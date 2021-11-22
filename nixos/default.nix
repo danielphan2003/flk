@@ -25,6 +25,7 @@ in
           "${latestModulesPath}/config/swap.nix"
           "${latestModulesPath}/config/xdg/portals/wlr.nix"
           "${latestModulesPath}/misc/extra-arguments.nix"
+          "${latestModulesPath}/programs/sway.nix"
           "${latestModulesPath}/programs/xwayland.nix"
           "${latestModulesPath}/services/audio/spotifyd.nix"
           "${latestModulesPath}/services/networking/jibri/default.nix"
