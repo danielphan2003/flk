@@ -21,7 +21,6 @@
   /* override recipe: FF87+ use ETP Strict mode ***/
   "privacy.firstparty.isolate" = false; # 4001
   "network.cookie.cookieBehavior" = 5; # 2701
-  "browser.contentblocking.category" = "strict"; # 2701
 
   # Enable auto scroll
   "general.autoScroll" = true;
@@ -80,6 +79,7 @@
   "javascript.options.wasm" = true; # 2422 optional [some platforms may require this]
   "dom.webaudio.enabled" = true; # 2510
 
+  "privacy.sanitize.sanitizeOnShutdown" = false;
   "privacy.clearOnShutdown.cache" = false;
   "privacy.clearOnShutdown.cookies" = false;
   "privacy.clearOnShutdown.downloads" = false; # see note above

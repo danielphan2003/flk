@@ -47,10 +47,6 @@ in
       IsRelative=1
       Path=danie.default
       Default=1
-      [Profile1]
-      Name=test
-      IsRelative=1
-      Path=random.test
       [General]
       StartWithLastProfile=1
       Version=2
