@@ -36,7 +36,6 @@ in
     kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_5_14;
 
     initrd.availableKernelModules = [
-      "amdgpu"
       "ahci"
       "xhci_pci"
       "nvme"
@@ -62,7 +61,7 @@ in
       timeout = 1;
       systemd-boot.enable = true;
       systemd-boot.memtest86.enable = true;
-      systemd-boot.configurationLimit = 5;
+      systemd-boot.configurationLimit = 50;
       systemd-boot.consoleMode = "max";
       efi.canTouchEfiVariables = true;
     };
