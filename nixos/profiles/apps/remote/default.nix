@@ -7,6 +7,7 @@
     inherit (pkgs)
       anydesk
       freerdp
+      # realvnc-vnc-viewer
       scrcpy
       tigervnc
       ;
