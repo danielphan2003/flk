@@ -3,7 +3,7 @@ channels: final: prev: {
     ({ tailscale, hostName ? "ts-${prev.system}", customDoHPath ? null }: tailscale.override {
       buildGoModule = args: buildGo117Module (args // {
         inherit (final.sources.tailscale) pname src version;
-        vendorSha256 = "sha256-n8uNvqPBmoGwjEuNOqTsvZ7U4TniMyfcnAQguyyGMOM=";
+        vendorSha256 = "sha256-jB7NQye3//1+Sw8d1FhFK7fJMtDxIXg551syhh4Ymks=";
         patches = [ ]
           ++
           (if customDoHPath != null
