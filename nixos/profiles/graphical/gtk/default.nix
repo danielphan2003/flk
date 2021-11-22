@@ -13,7 +13,9 @@
   xdg.portal = {
     enable = true;
     gtkUsePortal = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = builtins.attrValues {
+      inherit (pkgs) xdg-desktop-portal-gtk xdg-desktop-portal-wlr;
+    };
   };
 
   services.dbus.enable = true;
@@ -23,8 +25,14 @@
 
   i18n.inputMethod = {
     enabled = "ibus";
-    ibus.engines = with pkgs.ibus-engines; [ bamboo uniemoji ];
+    ibus.engines = builtins.attrValues {
+      inherit (pkgs.ibus-engines) bamboo uniemoji;
+    };
   };
+
+  environment.systemPackages = [ pkgs.gnomeExtensions.appindicator ];
+
+  services.udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
 
   programs.gnupg.agent.pinentryFlavor = "gnome3";
 }
