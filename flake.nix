@@ -145,6 +145,14 @@
       flake = false;
     };
 
+    manix = {
+      url = github:kreisys/manix;
+      inputs = {
+        nixpkgs.follows = "latest";
+        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+      };
+    };
+
     naersk = {
       url = github:nix-community/naersk;
       inputs.nixpkgs.follows = "latest";
@@ -167,7 +175,7 @@
     };
 
     npmlock2nix = {
-      url = github:andir/npmlock2nix/yarn-support;
+      url = github:nix-community/npmlock2nix;
       flake = false;
     };
 
@@ -247,6 +255,7 @@
     , firefox-nightly
     , gomod2nix
       # , impermanence
+    , manix
     , naersk
     , nix-gaming
     , nixpkgs-wayland
