@@ -38,7 +38,7 @@ in
 {
   age.secrets.calibre-server-userdb = {
     file = calibre-server-userdb-age-key;
-    path = "/run/secrets/calibre-server/users.sqlite";
+    path = "/run/agenix/calibre-server/users.sqlite";
     owner = user;
     inherit group;
   };

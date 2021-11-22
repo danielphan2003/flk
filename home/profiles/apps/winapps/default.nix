@@ -1,6 +1,6 @@
 { ... }: {
   xdg.configFile."winapps/winapps.conf".text = ''
-    source /run/secrets/accounts
+    source /run/agenix/accounts
     RDP_USER="$MICROSOFT_DANIE_USER"
     RDP_PASS="$MICROSOFT_DANIE_PASSWORD"
     RDP_DOMAIN="uwu"

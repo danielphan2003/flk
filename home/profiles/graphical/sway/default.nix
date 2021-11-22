@@ -81,7 +81,7 @@ in
 
   services.wayvnc = {
     enable = true;
-    configFile = "/run/secrets/wayvnc/config";
+    configFile = "/run/agenix/wayvnc/config";
     maxFps = 60;
   };
 
