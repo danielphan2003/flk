@@ -6,13 +6,11 @@ let inherit (builtins) attrValues; in
   hardware.opengl = {
     setLdLibraryPath = true;
     enable = true;
-    driSupport = true;
-    driSupport32Bit = lib.mkDefault true;
     extraPackages = attrValues {
       inherit (pkgs)
+        libglvnd
         libGL_driver
-        rocm-opencl-icd
-        rocm-opencl-runtime
+        mesa
         ;
     };
   };
