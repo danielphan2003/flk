@@ -13,9 +13,7 @@
   xdg.portal = {
     enable = true;
     gtkUsePortal = true;
-    extraPortals = builtins.attrValues {
-      inherit (pkgs) xdg-desktop-portal-gtk xdg-desktop-portal-wlr;
-    };
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   services.dbus.enable = true;
