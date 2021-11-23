@@ -10,17 +10,18 @@ let
     ;
 
   inherit (final)
+    makeWrapper
     electron
     sources
+    symlinkJoin
     wlroots
+    writeShellScript
+    xdg-utils
     ;
 
   inherit (prev)
-    makeWrapper
     microsoft-edge-beta
     spotify-spicetified
-    symlinkJoin
-    writeShellScript
     ;
 
   inherit (prev.lib)
