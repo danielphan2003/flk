@@ -15,6 +15,7 @@ in
     enable = true;
     openFirewall = config.services.tailscale.enable;
     privateKeyFile = path;
+    group = "nogroup";
     publicKey = hostConfigs.hosts."${hostName}".binary_cache_public_key;
   };
 }
