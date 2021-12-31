@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   environment.systemPackages = builtins.attrValues
-    (if pkgs.system != "aarch64-linux"
+    (if pkgs.system == "x86_64-linux"
     then
       {
         inherit (pkgs) ouch;

@@ -1,47 +1,21 @@
-{ lib
-, npmlock2nix
-, sources
-, stdenv
-
-, nodejs
-, python3
-}:
-
+{ lib, mkYarnPackage, sources }:
 let
-  inherit (sources.dribbblish-dynamic-theme) pname version;
-  packageJson = ./package.json;
-  packageLockJson = ./package-lock.json;
-
-  src = stdenv.mkDerivation {
-    inherit pname version packageLockJson;
-    inherit (sources.dribbblish-dynamic-theme) src;
-
-    dontBuild = true;
-    dontUnpack = true;
-
-    installPhase = ''
-      mkdir -p $out
-      cp -r $src/* $out
-      cp $packageLockJson $out/package-lock.json
-    '';
-  };
-
-  node_modules = npmlock2nix.node_modules {
-    inherit src packageJson packageLockJson;
-    buildInputs = [ python3 ];
-    preBuild = ''
-      mkdir -p .node-gyp/${nodejs.version}
-      echo 9 > .node-gyp/${nodejs.version}/installVersion
-      ln -sfv ${nodejs}/include .node-gyp/${nodejs.version}
-      export npm_config_nodedir=${nodejs}
-    '';
-  };
+  inherit (sources.dribbblish-dynamic-theme) pname src version;
 in
-
-npmlock2nix.build {
-  inherit pname src version node_modules packageJson packageLockJson;
+mkYarnPackage {
+  inherit pname src version;
 
   COMMIT_HASH = lib.substring 0 7 version;
+
+  yarnLock = ./yarn.lock;
+
+  buildPhase = ''
+    yarn --offline build
+  '';
+
+  distPhase = "true";
+
+  configurePhase = "ln -s $node_modules node_modules";
 
   installPhase = ''
     mkdir -p $out/theme $out/extensions

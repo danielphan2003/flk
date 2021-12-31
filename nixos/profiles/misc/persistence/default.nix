@@ -30,8 +30,9 @@ in
       ++ optionals services.dnscrypt-proxy2.enable [ "/var/lib/private/dnscrypt-proxy2" "/var/cache/private/dnscrypt-proxy2" ]
       ++ optionals services.fail2ban.enable [ "/var/lib/fail2ban" ]
       ++ optionals services.hercules-ci-agent.enable [ "/var/lib/hercules-ci-agent" ]
+      ++ optionals services.jibri.enable [ users.users.jibri.home ]
       ++ optionals services.jitsi-meet.enable [ "/var/lib/jitsi-meet" ]
-      ++ optionals services.jitsi-meet.prosody.enable [ "/var/lib/prosody" ]
+      ++ optionals services.prosody.enable [ "/var/lib/prosody" ]
       ++ optionals services.minecraft-server.enable [ services.minecraft-server.dataDir ]
       ++ optionals services.netdata.enable [ "/var/lib/netdata" "/var/cache/netdata" ]
       ++ optionals services.postgresql.enable [ "/var/lib/postgresql" ]
@@ -52,7 +53,7 @@ in
       ++ optionals virtualisation.anbox.enable [ "/var/lib/anbox" ]
       ++ optionals virtualisation.docker.enable [ "/var/lib/docker" ]
       ++ optionals virtualisation.libvirtd.enable [ "/var/lib/libvirt" ]
-      ++ optionals virtualisation.waydroid.enable [ "/var/lib/waydroid" ]
+      ++ optionals virtualisation.waydroid.enable [ "/var/lib/waydroid" "/var/lib/misc" ]
     ;
 
     files = [ ]

@@ -1,6 +1,6 @@
 channels: final: prev:
 let
-  inherit (channels.latest)
+  inherit (prev)
     jibri
     jicofo
     jitsi-meet

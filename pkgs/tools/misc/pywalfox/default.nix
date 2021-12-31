@@ -16,10 +16,10 @@ python3.pkgs.buildPythonApplication {
     cp pywalfox/assets/css/* $out/chrome
   '';
 
-  preFixup = ''
-    makeWrapper $out/bin/pywalfox $out/bin/pywalfox-daemon.sh \
-      --add-flags start
-  '';
+  # preFixup = ''
+  #   makeWrapper $out/bin/pywalfox $out/bin/pywalfox-daemon.sh \
+  #     --add-flags start
+  # '';
 
   meta = with lib; {
     description = "Native app used alongside the Pywalfox browser extension";

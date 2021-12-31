@@ -33,7 +33,7 @@ let inherit (config.networking) domain hostName; in
     package = with pkgs; caddy.override {
       plugins = [ "github.com/caddy-dns/duckdns" ];
       buildGoModule = args: buildGoModule (args // {
-        vendorSha256 = "sha256-je1gx/b8mx0DVAM2jqVFBEOxNlwvPyxePjo8zoyrEI8=";
+        vendorSha256 = "sha256-ykMzMvRaF6nbWz2haZHKPwYJgAKsqp0fhzT7l1n7ge0=";
       });
     };
     virtualHosts."*.${domain}" = {

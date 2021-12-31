@@ -1,3 +1,3 @@
 final: prev: {
-  trackma = with prev; trackma.override { pillow = python3Packages.pillow-simd; };
+  trackma = prev.trackma.override { pillow = prev.python3Packages.pillow-simd; };
 }

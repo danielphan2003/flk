@@ -1,5 +1,5 @@
 channels: final: prev: {
-  droidcam = channels.latest.droidcam.overrideAttrs (o: {
+  droidcam = prev.droidcam.overrideAttrs (o: {
     postInstall = ''
       mkdir -p $out/share/applications
       substitute $src/droidcam.desktop $out/share/applications/droidcam.desktop \

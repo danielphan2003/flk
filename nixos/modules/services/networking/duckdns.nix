@@ -46,7 +46,7 @@ in
         EnvironmentFile = cfg.environmentFile;
       };
       script = ''
-        IPV6="$(${pkgs.iproute2}/bin/ip -o -6 addr list eth0 | ${pkgs.gnugrep}/bin/grep global | ${pkgs.gawk}/bin/awk '{print $4}' | ${pkgs.coreutils}/bin/cut -d/ -f1)"
+        IPV6="$(${pkgs.iproute2}/bin/ip -o -6 addr list eth0 | ${pkgs.gnugrep}/bin/grep 'global dynamic mngtmpaddr' | ${pkgs.gawk}/bin/awk '{print $4}' | ${pkgs.coreutils}/bin/cut -d/ -f1)"
 
         # Clear all old records
         ${pkgs.curl}/bin/curl -s "https://www.duckdns.org/update?domains=${cfg.domain}&token=${cfg.token}&clear=true&verbose=true"

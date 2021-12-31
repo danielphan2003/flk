@@ -10,5 +10,5 @@ with pkgs;
   { command = "${import-gsettings}"; always = true; }
   { command = "${coreutils}/bin/mkfifo $$SWAYSOCK.wob && ${coreutils}/bin/tail -f $$SWAYSOCK.wob | ${wob}/bin/wob"; }
   { command = "${flameshot}/bin/flameshot"; always = true; }
-  { command = "[ $(${ibus}/bin/ibus restart && exit) ] || ${ibus}/bin/ibus-daemon -drxR"; always = true; }
+  { command = "[ $(${ibus}/bin/ibus restart && exit) ] || ${ibus}/bin/ibus-daemon -drx"; always = true; }
 ]

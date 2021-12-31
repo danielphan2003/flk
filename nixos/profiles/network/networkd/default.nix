@@ -7,29 +7,29 @@
 }:
 
 let
-  inherit (lib) genAttrs mkForce optionalAttrs optionals remove;
+  inherit (lib) mapAttrs mkForce optionalAttrs optionals remove;
   inherit (builtins) attrNames removeAttrs;
 
   inherit (config.networking) hostName;
-  ip_addr = hostConfigs.hosts."${hostName}".ip_addr or "";
-  gateway = hostConfigs.hosts."${hostName}".gateway or "";
+  ip_addrs = hostConfigs.hosts."${hostName}".ip_addrs or [ ];
+  gateways = hostConfigs.hosts."${hostName}".gateways or [ ];
 
   privateConfig =
     let
       dhcpV4Config = {
-        # dont enforce me to use your crappy dns servers
+        # dont make me use your crappy dns servers
         UseDNS = false;
         Anonymize = true;
       };
     in
     {
       # on private networks, use global DHCP for IPv6
-      # static IPv6 is always provided with static IPv4
+      # note that static IPv6 is always provided with static IPv4
       DHCP = "ipv6";
 
       # use static IPv4 address
-      address = optionals (ip_addr != "") [ "${ip_addr}/24" ];
-      gateway = optionals (gateway != "") [ "${gateway}" ];
+      address = ip_addrs;
+      gateway = gateways;
 
       networkConfig = {
         DNSSEC =
@@ -83,8 +83,14 @@ in
         dhcpV4Config.RouteMetric = 2048; # Prefer wired
       };
     });
-    links = genAttrs
-      (attrNames config.systemd.network.networks)
-      (link: { inherit linkConfig; });
+    links = mapAttrs
+      (link: _: { inherit linkConfig; })
+      config.systemd.network.networks;
   };
+
+  # Wait for any interface to become available, not for all
+  systemd.services."systemd-networkd-wait-online".serviceConfig.ExecStart = [
+    ""
+    "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
+  ];
 }

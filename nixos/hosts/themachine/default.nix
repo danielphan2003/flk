@@ -33,7 +33,7 @@ in
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     tmpOnTmpfs = true;
-    kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_5_14;
+    kernelPackages = pkgs.linuxKernel.packages.linux_5_15;
 
     initrd.availableKernelModules = [
       "ahci"

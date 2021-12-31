@@ -17,51 +17,12 @@ in
       home.nixosModules.home-manager
       "${impermanence}/nixos.nix"
       nix-gaming.nixosModule
-      ragenix.nixosModules.age
+      agenix.nixosModules.age
       peerix.nixosModules.peerix
       qnr.nixosModules.local-registry
-      ({ config, pkgs, latestModulesPath, waydroidModulesPath, ... }: {
-        imports = [
-          "${latestModulesPath}/config/swap.nix"
-          "${latestModulesPath}/config/xdg/portals/wlr.nix"
-          "${latestModulesPath}/misc/extra-arguments.nix"
-          "${latestModulesPath}/programs/sway.nix"
-          "${latestModulesPath}/programs/xwayland.nix"
-          "${latestModulesPath}/services/audio/spotifyd.nix"
-          "${latestModulesPath}/services/networking/jibri/default.nix"
-          "${latestModulesPath}/services/networking/jicofo.nix"
-          "${latestModulesPath}/services/networking/jitsi-videobridge.nix"
-          "${latestModulesPath}/services/networking/prosody.nix"
-          "${latestModulesPath}/services/networking/tailscale.nix"
-          "${latestModulesPath}/services/security/vaultwarden/default.nix"
-          "${latestModulesPath}/services/web-apps/jitsi-meet.nix"
-          "${latestModulesPath}/services/web-servers/caddy/default.nix"
-          "${latestModulesPath}/tasks/filesystems.nix"
-          "${waydroidModulesPath}/virtualisation/waydroid.nix"
-        ];
-
-        disabledModules = [
-          "config/swap.nix"
-          "misc/extra-arguments.nix"
-          "programs/sway.nix"
-          "programs/xwayland.nix"
-          "services/audio/spotifyd.nix"
-          "services/networking/jicofo.nix"
-          "services/networking/jitsi-videobridge.nix"
-          "services/networking/prosody.nix"
-          "services/networking/tailscale.nix"
-          "services/security/bitwarden_rs/default.nix"
-          "services/web-apps/jitsi-meet.nix"
-          "services/web-servers/caddy.nix"
-          "tasks/filesystems.nix"
-        ];
-
-        lib.our = self.lib;
-
-        services.lvm.package =
-          if config.services.lvm.dmeventd.enable
-          then pkgs.latest.lvm2_dmeventd
-          else pkgs.latest.lvm2;
+      ({ latestModulesPath, ... }: {
+        imports = [ "${latestModulesPath}/virtualisation/waydroid.nix" ];
+        disabledModules = [ "virtualisation/waydroid.nix" ];
       })
     ];
   };
@@ -153,7 +114,7 @@ in
             ;
 
           inherit (users) alita;
-          inherit (graphical) pipewire;
+          # inherit (graphical) pipewire;
           inherit (cloud)
             caddy
             # calibre-server
@@ -162,7 +123,7 @@ in
             minecraft
             peerix
             postgresql
-            spotifyd
+            # spotifyd
             vaultwarden
             ;
 
@@ -192,9 +153,10 @@ in
             ;
           inherit (graphical.themes) sefia;
           inherit (misc) disable-mitigations gnupg;
-          inherit (virt) windows;
+          # inherit (virt) windows;
 
           inherit (apps)
+            develop
             meeting
             remote
             vpn

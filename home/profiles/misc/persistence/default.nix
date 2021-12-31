@@ -3,6 +3,7 @@
     "L /home/danie/.gnupg - - - - /mnt/danie/.gnupg"
     "L /home/danie/.ssh - - - - /mnt/danie/.ssh"
     "L /home/danie/.nixops - - - - /mnt/danie/.nixops"
+    "L /home/danie/.cache/spotify - - - - /mnt/danie/.cache/spotify"
     "L /home/danie/.local/share/keyrings - - - - /mnt/danie/.local/share/keyrings"
     "L /home/danie/.local/share/direnv - - - - /mnt/danie/.local/share/direnv"
     "L /home/danie/.local/share/libvirt - - - - /mnt/danie/.local/share/libvirt"

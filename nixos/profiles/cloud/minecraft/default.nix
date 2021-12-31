@@ -1,16 +1,18 @@
 { self, config, hostConfigs, lib, pkgs, ... }:
 let
-  inherit (lib) mkAfter mkForce optionalString;
+  inherit (lib) optionalAttrs;
   inherit (hostConfigs.hosts."${config.networking.hostName}") tailscale_ip;
 
+  inherit (config.services.minecraft-server) dataDir;
   inherit (config.services.minecraft-server.serverProperties) online-mode white-list;
 
   inherit (pkgs.formats.mc-motd) c f gen;
 
-  mkMcSecret = file: {
-    inherit file;
+  mkMcSecret = file: path: {
+    inherit file path;
+    symlink = false;
     owner = "minecraft";
-    group = "nogroup";
+    group = "minecraft";
   };
 in
 {
@@ -19,36 +21,25 @@ in
       (!config.services.tailscale.enable && white-list) || config.services.tailscale.enable;
     message = ''
       Minecraft servers should not be exposed to the Internet if
-      A) the server is not accessible via Tailscale and has not enabled whitelisting
-      or B) the server *is* accessible via Tailscale, so whitelisting doesn't matter.
+      A) the server is not accessible via a VPN like Tailscale and has not enabled whitelisting
+      or B) the server *is* accessible via a VPN like Tailscale, so whitelisting doesn't matter.
     '';
   }];
 
   age.secrets = {
-    minecraft-ops = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/ops.age";
-    minecraft-whitelist = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/whitelist.age";
+    minecraft-ops = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/ops.age" "${dataDir}/ops.json";
+  } // optionalAttrs (!online-mode && white-list) {
+    minecraft-whitelist = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/whitelist.age" "${dataDir}/whitelist.json";
   };
 
   environment.systemPackages = [ pkgs.fabric-installer ];
-
-  systemd.services.minecraft-server = {
-    preStart = mkAfter ''
-      ${optionalString (!online-mode && white-list) ''
-        # Use custom whitelist
-        unlink whitelist.json
-        ln -s ${config.age.secrets.minecraft-whitelist.path} whitelist.json
-      ''}
-      # Allow admins to grant other users op
-      cat ${config.age.secrets.minecraft-ops.path} > ops.json
-    '';
-  };
 
   services.minecraft-server = {
     enable = true;
     declarative = true;
     openFirewall = true;
     eula = true;
-    package = pkgs.tuinitymc;
+    package = pkgs.papermc-1_17_1;
 
     onDemand = {
       enable = true;

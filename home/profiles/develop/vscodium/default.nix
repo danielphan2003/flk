@@ -1,58 +1,47 @@
 { pkgs, lib, ... }:
-let inherit (builtins) attrValues; in
 {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
-    extensions = with pkgs.vscode-extensions; attrValues
-      ({
-        inherit (matklad) rust-analyzer-nightly;
-        inherit
-          ActiveFileInStatusBar
-          astro
-          awesome-flutter-snippets
-          # bracket-pair-colorizer-2
-          codeql
-          code-runner
-          codesnap
-          css-initial-value
-          dart-code
-          discord-presence
-          dotenv
-          eslint
-          even-better-toml
-          flutter
-          gitlens
-          html-css-class-completion
-          Kotlin
-          Material-theme
-          markdown-all-in-one
-          markdown-preview-enhanced
-          material-icon-theme
-          nix-ide
-          nix-env-selector
-          output-colorizer
-          nixpkgs-fmt
-          pascal
-          pascal-formatter
-          prettier
-          pubspec-assist
-          python
-          react-native
-          rest-client
-          svelte
-          tailwindcss
-          versionlens
-          ;
-      }
-      //
-      (if (builtins.elem pkgs.system pkgs.vscodium.meta.platforms) && (pkgs.system != "aarch64-linux")
-      then
-        {
-          inherit (ms-python) python;
-          inherit (ms-vscode) cpptools;
-        }
-      else { }));
+    extensions = with pkgs.vscode-extensions; [
+      roscop.activefileinstatusbar
+      astro-build.astro-vscode
+      nash.awesome-flutter-snippets
+      formulahendry.code-runner
+      github.vscode-codeql
+      adpyke.codesnap
+      ms-vscode.cpptools
+      dzhavat.css-initial-value
+      dart-code.dart-code
+      icrawl.discord-vscode
+      mikestead.dotenv
+      dbaeumer.vscode-eslint
+      tamasfe.even-better-toml
+      dart-code.flutter
+      eamodio.gitlens
+      zignd.html-css-class-completion
+      mathiasfrohlich.kotlin
+      vadimcn.vscode-lldb
+      yzhang.markdown-all-in-one
+      shd101wyy.markdown-preview-enhanced
+      zhuangtongfa.material-theme
+      pkief.material-icon-theme
+      jnoortheen.nix-ide
+      arrterian.nix-env-selector
+      b4dm4n.nixpkgs-fmt
+      ibm.output-colorizer
+      alefragnani.pascal
+      alefragnani.pascal-formatter
+      esbenp.prettier-vscode
+      jeroen-meijer.pubspec-assist
+      ms-python.python
+      msjsdiag.vscode-react-native
+      humao.rest-client
+      matklad.rust-analyzer-nightly
+      svelte.svelte-vscode
+      bradlc.vscode-tailwindcss
+      pflannery.vscode-versionlens
+    ];
     userSettings = import ./userSettings.nix pkgs;
     keybindings = import ./keybindings.nix;
   };

@@ -2,7 +2,7 @@
 buildGoModule rec {
   inherit (sources.doggo) pname src version;
 
-  vendorSha256 = "sha256-eyR1LuaMkyQqIaV4GN/7Nr1TkdHr+M3C3z/pyNF0Vo4=";
+  vendorSha256 = "sha256-RiRWU4KyAI+PDRILkj5ILsgF0dn8MdnkNV+ui9sdops=";
 
   ldflags = [ "-X main.buildVersion=${version}" ];
 

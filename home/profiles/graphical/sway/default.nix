@@ -113,10 +113,6 @@ in
       no_focus [app_id="avizo-service"]
       no_focus [app_id="waybar"]
 
-      border_images.focused           ${./shadows.png}
-      border_images.focused_inactive  ${./shadows.png}
-      border_images.unfocused         ${./shadows.png}
-      border_images.urgent            ${./shadows.png}
 
       exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP GTK_IM_MODULE QT_IM_MODULE XMODIFIERS DBUS_SESSION_BUS_ADDRESS
     '';

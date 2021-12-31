@@ -1,11 +1,11 @@
 channels: final: prev: {
   python3Packages = prev.python3Packages // (with prev.python3Packages; {
-    inherit (channels.latest.python3Packages) pyfakewebcam;
+    inherit (prev.python3Packages) pyfakewebcam;
 
     opencv-python = opencv4.overrideAttrs (_: { pname = "opencv-python"; });
 
     cfscrape = cfscrape.overrideAttrs (_: {
-      buildInputs = [ requests urllib3 ];
+      buildInputs = [ requests responses urllib3 ];
     });
 
     cmapy = cmapy.overrideAttrs (_: {

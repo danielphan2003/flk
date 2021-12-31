@@ -1,5 +1,5 @@
 channels: final: prev: {
-  zoom-us = channels.latest.zoom-us.overrideAttrs (_: {
+  zoom-us = prev.zoom-us.overrideAttrs (_: {
     inherit (final.sources.zoom-us) src version;
   });
 }

@@ -1,6 +1,6 @@
 channels: final: prev:
 let
-  inherit (channels.latest)
+  inherit (prev)
     discord-canary
     element-desktop
     signal-desktop
@@ -10,16 +10,17 @@ let
     ;
 
   inherit (final)
+    callPackage
     makeWrapper
     electron
     sources
     symlinkJoin
     wlroots
     writeShellScript
-    xdg-utils
     ;
 
   inherit (prev)
+    electron_16
     microsoft-edge-beta
     spotify-spicetified
     ;
@@ -34,9 +35,17 @@ let
     toList
     ;
 
+  inherit (builtins) compareVersions;
+
   # see https://github.com/NixOS/nixpkgs/issues/137688
+  # chromium >= 96.0.4664.55 and electron >= 16.0.2 should fix this
+  # note that proprietary packages like Spotify does not have this patch yet
   # at least Xwayland works without patching
-  enableWayland = wlroots.fixedChromium or ungoogled-chromium.version != "95.0.4638.69";
+  # see also ./waylandPkgs.nix
+  enableWayland = true;
+  # enableWayland = (compareVersions ungoogled-chromium.version "96.0.4664.45" >= 0
+  #   && compareVersions electron_16.version "16.0.2" >= 0)
+  #   || (wlroots.patchedChromium or false);
 
   extraOptions = [
     "--enable-accelerated-mjpeg-decode"
@@ -48,13 +57,13 @@ let
     "--ignore-gpu-blocklist"
   ];
 
-  waylandFlags = [
-    "--enable-features=UseOzonePlatform"
-    "--ozone-platform=wayland"
+  waylandFlags = optionals enableWayland [
+    "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer"
     "--enable-webrtc-pipewire-capturer"
+    "--ozone-platform=wayland"
   ];
 
-  defaultFlags = (optionals enableWayland waylandFlags) ++ extraOptions;
+  defaultFlags = waylandFlags ++ extraOptions;
 
   flagsCommand = concatStringsSep " ";
 
@@ -71,8 +80,6 @@ let
 
   patchElectron = bin: { flags ? defaultFlags }:
     let
-      # Very hacky, but works nonetheless
-      # substitutePhase = "substituteInPlace ${bin'} --replace '$@' '$@\" \"\" \$(${escapeShellArg (compatScript flags)}) \"'";
       wrapper = bin':
         let
           binName = last (splitString "/" bin');
@@ -87,26 +94,26 @@ let
     in
     concatMapStringsSep "\n" (x: wrapper x) (toList bin);
 
-  patchElectronApplication = pkg: bin: { flags ? defaultFlags }:
+  patchElectronApplication = drv: bin: { flags ? defaultFlags }:
     (symlinkJoin {
-      inherit (pkg) name;
-      paths = [ pkg ];
+      inherit (drv) name;
+      paths = [ drv ];
       buildInputs = [ makeWrapper ];
       postBuild = patchElectron bin { inherit flags; };
     }).overrideAttrs (_: {
-      inherit (pkg)
+      inherit (drv)
         meta
         name
         version
         ;
-      pname = pkg.pname or pkg.name;
+      pname = drv.pname or drv.name;
     });
 
-  patchBrowser = pkg: { flags ? defaultFlags }:
-    pkg.override { commandLineArgs = electronCompatFlags flags; };
+  patchBrowser = drv: { flags ? defaultFlags }:
+    drv.override { commandLineArgs = electronCompatFlags flags; };
 in
 {
-  element-desktop = element-desktop.override { inherit electron; };
+  element-desktop = element-desktop; # .override { inherit electron; };
 
   discord-canary = patchElectronApplication
     (discord-canary.overrideAttrs (_: { inherit (sources.discord-canary) pname src version; }))
@@ -116,7 +123,9 @@ in
   # TODO: signal still uses xwayland
   signal-desktop = patchElectronApplication signal-desktop "$out/bin/signal-desktop" { };
 
-  electron = patchElectronApplication channels.latest.electron "$out/lib/electron/electron" { };
+  electron = final.electron_16;
+
+  electron_16 = patchElectronApplication electron_16 "$out/lib/electron/electron" { };
 
   vscodium = patchElectronApplication vscodium "$out/bin/codium" { };
 

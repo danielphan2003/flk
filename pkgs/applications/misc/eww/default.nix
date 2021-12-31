@@ -1,6 +1,6 @@
 { lib
 , sources
-, makeRustPlatform
+, naersk
 , wrapGAppsHook
 , pkg-config
 , gtk3
@@ -17,8 +17,14 @@
 
 with lib;
 
-makeRustPlatform.buildRustPackage {
-  inherit (sources.eww) pname version src cargoLock;
+let
+  inherit (sources.eww) pname version src;
+in
+
+naersk.buildPackage {
+  inherit pname version;
+
+  root = src;
 
   cargoBuildFlags = optionals enableWayland [
     "--no-default-features"

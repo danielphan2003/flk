@@ -9,7 +9,7 @@ in
     nginx.enable = false;
     caddy.enable = true;
     config = {
-      preferredCodec = "vp9";
+      preferredCodec = "vp8";
       enforcePreferredCodec = true;
       desktopSharingFrameRate = {
         min = 30;

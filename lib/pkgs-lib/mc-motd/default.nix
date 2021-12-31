@@ -17,7 +17,7 @@ let
 
     generate = value:
       let
-        mc-motd = pkgs.latest.runCommand "mc-motd"
+        mc-motd = pkgs.runCommand "mc-motd"
           {
             nativeBuildInputs = [ pkgs.jq ];
             value = toJSON value;

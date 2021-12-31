@@ -11,6 +11,7 @@
       gst
       procs
       ripgrep
+      sd
       skim
       zsh-completions
       ;

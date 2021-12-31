@@ -1,58 +1,105 @@
-channels: final: prev: {
-  freerdp = final.wlfreerdp;
+final: prev:
+let
+  inherit (final)
+    lib
+    latest
+    sources
+    wlfreerdp
+    ;
 
-  eww = prev.eww.override { enableWayland = true; };
+  inherit (prev)
+    glfw-wayland
+    rofi-unwrapped
+    swaylock-effects
+    eww
+    ;
 
-  xdg-desktop-portal = channels.latest.xdg-desktop-portal.overrideAttrs (o: {
-    patches = prev.lib.init o.patches;
-    inherit (final.sources.xdg-desktop-portal) pname src version;
-  });
+  inherit (prev.lib.our) getPatches;
+in
+{
+  inherit (latest)
+    waylandPkgs
 
-  xdg-desktop-portal-gtk = channels.latest.xdg-desktop-portal-gtk.overrideAttrs (_: {
-    patches = [ ];
-    inherit (final.sources.xdg-desktop-portal-gtk) pname src version;
-  });
+    aml
+    cage
+    clipman
+    drm_info
+    dunst
+    gebaar-libinput
+    glpaper
+    grim
+    gtk-layer-shell
+    i3status-rust
+    imv
+    kanshi
+    lavalauncher
+    libvncserver_master
+    mako
+    neatvnc
+    nwg-launchers
+    nwg-panel
+    obs-studio
+    obs-wlrobs
+    oguri
+    rootbar
+    sirula
+    slurp
+    # sway-unwrapped
+    swaybg
+    swayidle
+    swaylock
+    waybar
+    wayfire
+    wayland-protocols-master
+    waypipe
+    wayvnc
+    wdisplays
+    wev
+    wf-recorder
+    wl-clipboard
+    wl-gammactl
+    wlay
+    wldash
+    wlfreerdp
+    wlogout
+    # wlroots
+    wlr-randr
+    wlsunset
+    wlvncc
+    wofi
+    wshowkeys
+    wtype
+    xdg-desktop-portal-wlr
+    ;
 
-  sway-unwrapped = (final.waylandPkgs.sway-unwrapped.override { inherit (final) wlroots; }).overrideAttrs (_: {
-    inherit (final.sources.sway-borders) version src;
-  });
+  freerdp = wlfreerdp;
 
-  waylandPkgs = with channels.latest; waylandPkgs // {
-    wlroots = (waylandPkgs.wlroots.override { inherit (final) xwayland; }).overrideAttrs (o: {
-      patches = (o.patches or [ ]) ++ prev.lib.our.getPatches ../pkgs/development/libraries/wlroots;
-      passthru.fixedChromium = true;
-    });
-  };
+  eww = eww.override { enableWayland = true; };
 
-  xwayland = channels.latest.xwayland.override { wayland-protocols = final.wayland-protocols-master; };
-
-  swaylock-effects = prev.swaylock-effects.overrideAttrs (_: {
-    inherit (final.sources.swaylock-effects) pname version src;
+  swaylock-effects = swaylock-effects.overrideAttrs (_: {
+    inherit (sources.swaylock-effects) pname version src;
   });
 
   rofi-unwrapped =
     let
-      inherit (final.sources.rofi-wayland) pname src version;
+      inherit (sources.rofi-wayland) pname src version;
     in
-    prev.rofi-unwrapped.overrideAttrs (o: with prev; {
+    rofi-unwrapped.overrideAttrs (o: {
       inherit src version;
 
       pname = "${pname}-unwrapped";
 
-      nativeBuildInputs = o.nativeBuildInputs ++ [ wayland-scanner makeWrapper meson ninja ];
+      nativeBuildInputs = o.nativeBuildInputs ++ [ prev.wayland-scanner prev.makeWrapper prev.meson prev.ninja ];
 
       postInstall = ''
         wrapProgram $out/bin/rofi \
           --run 'export XDG_DATA_DIRS="$(sed "s| |/share:|g" < <(echo $NIX_PROFILES))/share:$XDG_DATA_DIRS"'
       '';
 
-      buildInputs = o.buildInputs ++ [ wayland wayland-protocols xcb-util-cursor ];
+      buildInputs = o.buildInputs ++ [ prev.wayland prev.wayland-protocols prev.xcb-util-cursor ];
     });
 
-  glfw = with prev; glfw.overrideAttrs (o: {
-    patches = lib.our.getPatches final.sources.minecraft-wayland.src;
-    nativeBuildInputs = o.nativeBuildInputs ++ [ extra-cmake-modules ];
-    buildInputs = o.buildInputs ++ [ wayland wayland-protocols libxkbcommon ];
-    cmakeFlags = o.cmakeFlags ++ [ "-DGLFW_USE_WAYLAND=ON" ];
+  glfw-wayland = glfw-wayland.overrideAttrs (o: {
+    patches = lib.init (getPatches sources.minecraft-wayland.src);
   });
 }

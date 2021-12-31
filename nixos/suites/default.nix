@@ -79,7 +79,6 @@ let
         inherit networking;
 
         inherit (virt) headless minimal;
-        inherit (apps) develop;
       };
     in
     {

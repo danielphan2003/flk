@@ -1,13 +1,12 @@
-channels: final: prev: with channels.latest; {
-  vaultwarden = vaultwarden.override {
-    rustPlatform = rustPlatform // {
-      buildRustPackage = args:
-        rustPlatform.buildRustPackage (builtins.removeAttrs args [ "cargoSha256" ] // {
-          inherit (final.sources.vaultwarden) src version cargoLock;
-        });
+channels: final: prev: {
+  vaultwarden = prev.vaultwarden.override {
+    rustPlatform = prev.rustPlatform // {
+      buildRustPackage = args: prev.rustPlatform.buildRustPackage (builtins.removeAttrs args [ "cargoSha256" ] // {
+        inherit (final.sources.vaultwarden) src version cargoLock;
+      });
     };
   };
-  vaultwarden-vault = vaultwarden-vault.overrideAttrs (_: {
+  vaultwarden-vault = prev.vaultwarden-vault.overrideAttrs (_: {
     inherit (final.sources.vaultwarden-vault) src version;
   });
 }

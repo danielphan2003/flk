@@ -1,12 +1,11 @@
-{ stdenv
-, lib
-, sources
+{ lib
+, stdenv
 , patchelf
 , makeWrapper
+, sources
 
   # Linked dynamic libraries.
 , glib
-, glibc
 , fontconfig
 , freetype
 , pango
@@ -24,25 +23,22 @@
 , libXScrnSaver
 , libXcomposite
 , libxcb
-, alsa-lib
+, alsaLib
 , libXdamage
 , libXtst
 , libXrandr
 , libxshmfence
 , expat
 , cups
-, file
 , dbus
 , gtk3
 , gdk-pixbuf
 , gcc-unwrapped
 , at-spi2-atk
 , at-spi2-core
-, libuuid
 , libkrb5
 , libdrm
 , mesa
-, widevine-cdm
 , libxkbcommon
 , wayland # ozone/wayland
 
@@ -57,7 +53,6 @@
 
   # Loaded at runtime.
 , libexif
-, pciutils
 
   # Additional dependencies according to other distros.
   ## Ubuntu
@@ -105,7 +100,6 @@ let
   };
 
   deps = [
-    glibc
     glib
     fontconfig
     freetype
@@ -124,20 +118,18 @@ let
     libXScrnSaver
     libXcomposite
     libxcb
-    alsa-lib
+    alsaLib
     libXdamage
     libXtst
     libXrandr
     libxshmfence
     expat
     cups
-    file
     dbus
     gdk-pixbuf
     gcc-unwrapped.lib
     systemd
     libexif
-    pciutils
     liberation_ttf
     curl
     util-linux
@@ -154,7 +146,6 @@ let
     libcap
     at-spi2-atk
     at-spi2-core
-    libuuid
     libkrb5
     libdrm
     mesa
@@ -165,23 +156,12 @@ let
   ++ optional libvaSupport libva
   ++ optional vulkanSupport vulkan-loader
   ++ [ gtk3 ];
-  pname = "microsoft-edge-${channel}";
-  rpath = makeLibraryPath deps + ":" + makeSearchPathOutput "lib" "lib64" deps;
-  binpath = makeBinPath deps;
+
+  suffix = "-" + channel;
+
 in
-
 stdenv.mkDerivation {
-  inherit pname rpath binpath;
-
-  inherit (sources."${pname}") src version;
-
-  dontConfigure = true;
-  dontBuild = true;
-
-  unpackPhase = ''
-    ar x $src
-    tar xf data.tar.xz
-  '';
+  inherit (sources."microsoft-edge${suffix}") pname src version;
 
   nativeBuildInputs = [ patchelf makeWrapper ];
   buildInputs = [
@@ -194,25 +174,26 @@ stdenv.mkDerivation {
     gnome.adwaita-icon-theme
   ];
 
+  unpackPhase = ''
+    ar x $src
+    tar xf data.tar.xz
+  '';
+
+  rpath = makeLibraryPath deps + ":" + makeSearchPathOutput "lib" "lib64" deps;
+  binpath = makeBinPath deps;
+
   installPhase = ''
     case ${channel} in
-      beta) appname=msedge-beta  dist=beta     ;;
-      dev)  appname=msedge-dev   dist=dev      ;;
-      *)    appname=msedge       dist=stable   ;;
+      beta) appname=msedge-beta      dist=beta     ;;
+      dev)  appname=msedge-dev       dist=dev      ;;
     esac
 
-    exe=$out/bin/$pname
+    exe=$out/bin/microsoft-edge-$dist
 
     mkdir -p $out/bin $out/share
 
     cp -a opt/* $out/share
     cp -a usr/share/* $out/share
-
-    # ln -sf $out/share/microsoft/$appname/$pname $out/share/microsoft/$appname/microsoft-edge
-    ln -sf $out/share/microsoft/$appname/$pname $exe
-
-    rm -rf $out/share/doc
-    rm -rf $out/share/microsoft/$appname/cron
 
     # To fix --use-gl=egl:
     test -e $out/share/microsoft/$appname/libEGL.so
@@ -220,73 +201,41 @@ stdenv.mkDerivation {
     test -e $out/share/microsoft/$appname/libGLESv2.so
     ln -s libGLESv2.so $out/share/microsoft/$appname/libGLESv2.so.2
 
-    rm $out/share/microsoft/$appname/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so
-    ln -s ${widevine-cdm}/lib/libwidevinecdm.so $out/share/microsoft/$appname/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so
+    substituteInPlace $out/share/applications/microsoft-edge-$dist.desktop \
+      --replace /usr/bin/microsoft-edge-$dist $exe
+    substituteInPlace $out/share/gnome-control-center/default-apps/microsoft-edge-$dist.xml \
+      --replace /opt/microsoft/$appname/microsoft-edge-$dist $exe
+    substituteInPlace $out/share/menu/microsoft-edge-$dist.menu \
+      --replace /opt $out/share \
+      --replace $out/share/microsoft/$appname/microsoft-edge-$dist $exe
 
-    substituteInPlace $out/share/applications/$pname.desktop \
-      --replace "/usr/bin/$pname" "$exe"
-
-    substituteInPlace $out/share/gnome-control-center/default-apps/$pname.xml \
-      --replace /opt/microsoft/$appname/$pname $out/share/microsoft/$appname
-
-    substituteInPlace $out/share/menu/$pname.menu \
-      --replace /opt/microsoft/$appname/$pname $out/share/microsoft/$appname
-
-    substituteInPlace $out/share/microsoft/$appname/xdg-mime \
-      --replace "''${XDG_DATA_DIRS:-/usr/local/share:/usr/share}" "''${XDG_DATA_DIRS:-/run/current-system/sw/share}" \
-      --replace "xdg_system_dirs=/usr/local/share/:/usr/share/" "xdg_system_dirs=/run/current-system/sw/share/" \
-      --replace /usr/bin/file ${file}/bin/file
-
-    substituteInPlace $out/share/microsoft/$appname/default-app-block \
-      --replace /opt/microsoft/$appname/$pname $out/share/microsoft/$appname
-
-    substituteInPlace $out/share/microsoft/$appname/xdg-settings \
-      --replace "''${XDG_DATA_DIRS:-/usr/local/share:/usr/share}" "''${XDG_DATA_DIRS:-/run/current-system/sw/share}" \
-      --replace "''${XDG_CONFIG_DIRS:-/etc/xdg}" "''${XDG_CONFIG_DIRS:-/run/current-system/sw/etc/xdg}"
-
-    for icon_file in $out/share/microsoft/$appname/product_logo_[0-9]*.png; do
+    for icon_file in $out/share/microsoft/msedge*/product_logo_[0-9]*.png; do
       num_and_suffix="''${icon_file##*logo_}"
-      if [ $dist = "stable" ]; then
-        icon_size="''${num_and_suffix%.*}"
-      else
-        icon_size="''${num_and_suffix%_*}"
-      fi
+      icon_size="''${num_and_suffix%_*}"
       logo_output_prefix="$out/share/icons/hicolor"
       logo_output_path="$logo_output_prefix/''${icon_size}x''${icon_size}/apps"
       mkdir -p "$logo_output_path"
-      mv "$icon_file" "$logo_output_path/$appname.png"
+      mv "$icon_file" "$logo_output_path/microsoft-edge-$dist.png"
     done
-  '';
 
-  fixupPhase = ''
-    rpath="$rpath:$out/share/microsoft/$appname"
-
-    makeWrapper "$out/share/microsoft/$appname/msedge" "$exe" \
+    makeWrapper "$out/share/microsoft/$appname/microsoft-edge-$dist" "$exe" \
       --prefix LD_LIBRARY_PATH : "$rpath" \
       --prefix PATH            : "$binpath" \
       --prefix XDG_DATA_DIRS   : "$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH" \
       --add-flags ${escapeShellArg commandLineArgs}
 
-    for elf in $out/share/microsoft/$appname/{libsmartscreen.so,libGLESv2.so}; do
-      patchelf \
-        --set-rpath $rpath \
-        $elf
-    done
-
     for elf in $out/share/microsoft/$appname/{msedge,msedge-sandbox,msedge_crashpad_handler,nacl_helper}; do
-      patchelf \
-        --set-rpath $rpath \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        $elf
+      patchelf --set-rpath $rpath $elf
+      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $elf
     done
   '';
 
   meta = {
-    homepage = "https://www.microsoftedgeinsider.com/";
-    changelog = "https://www.microsoftedgeinsider.com/en-us/whats-new";
-    description = "Microsoft's fork of Chromium web browser";
+    description = "A freeware web browser developed by Google";
+    homepage = "https://www.microsoftedgeinsider.com";
     license = licenses.unfree;
+    maintainers = with maintainers; [ leo60228 ];
     platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.danielphan2003 ];
+    mainProgram = "microsoft-edge-${channel}";
   };
 }

@@ -33,4 +33,6 @@
   services.udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
 
   programs.gnupg.agent.pinentryFlavor = "gnome3";
+
+  services.dbus.packages = [ pkgs.gnome3.gnome-keyring pkgs.gcr ];
 }

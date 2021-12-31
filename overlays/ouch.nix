@@ -1,6 +1,6 @@
 channels: final: prev:
 let
-  inherit (channels.latest) ouch fenix makeRustPlatform;
+  inherit (prev) ouch fenix makeRustPlatform;
   rustPlatform = makeRustPlatform { inherit (fenix.latest) cargo rustc; };
 in
 {
