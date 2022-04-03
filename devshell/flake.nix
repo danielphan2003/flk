@@ -31,6 +31,7 @@
         docs = pkgWithCategory "docs";
         devos = pkgWithCategory "devos";
         legal = pkgWithCategory "legal";
+        utils = pkgWithCategory "utils";
       in {
         devShells.default = devshell.legacyPackages.mkShell (
           {
@@ -58,6 +59,11 @@
               (devos nixos-generators.defaultPackage)
               (devos deploy.defaultPackage)
               (devos nixpkgs.legacyPackages.cachix)
+              (utils {
+                name = "evalnix";
+                help = "Check Nix parsing";
+                command = "${nixpkgs.legacyPackages.fd}/bin/fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
+              })
               (docs nixpkgs.legacyPackages.mdbook)
             ];
 
