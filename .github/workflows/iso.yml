@@ -38,14 +38,14 @@ jobs:
       run: nix develop ./devshell -c $SHELL
 
     - name: Quick eval
-      run: evalnix
+      run: nix develop ./devshell -c evalnix
 
     - name: Build ISO for ${{ github.event.inputs.host }}
       run: |
         host="${{ github.event.inputs.host }}"
         format="${{ github.event.inputs.format }}"
         arch=$(nix eval --raw .\#nixosConfigurations.$host.pkgs.stdenv.hostPlatform.system)
-        iso_path="$(nixos-generate -f $format --system $arch --flake .\#$host)"
+        iso_path="$(nix develop ./devshell -c nixos-generate -f $format --system $arch --flake .\#$host)"
         echo "iso_path=$iso_path" >> $GITHUB_ENV
 
     - name: Generate artifact name
