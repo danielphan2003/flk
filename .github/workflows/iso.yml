@@ -7,6 +7,11 @@ on:
         required: true
         default: "bootstrap"
         type: string
+      format:
+        description: "ISO Format"
+        required: false
+        default: "install-iso"
+        type: string
 
 jobs:
   update_pkgs:
@@ -35,7 +40,9 @@ jobs:
     - name: Build ISO for host
       run: |
         host="${{ github.event.inputs.host }}"
-        iso_path="$(nix develop --command nixos-generate -f install-iso --system x86_64-linux --flake .\#$host)"
+        format="${{ github.event.inputs.format }}"
+        arch=$(nix eval --raw .\#nixosConfigurations.$host.pkgs.stdenv.hostPlatform.system)
+        iso_path="$(nix develop --command nixos-generate -f $format --system $arch --flake .\#$host)"
         echo "iso_path=$iso_path" >> $GITHUB_ENV
 
     - name: Generate artifact name
