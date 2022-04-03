@@ -8,13 +8,13 @@ on:
         default: "bootstrap"
         type: string
       format:
-        description: "ISO Format"
+        description: "ISO format"
         required: false
         default: "install-iso"
         type: string
 
 jobs:
-  update_pkgs:
+  build_iso:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.4
@@ -34,10 +34,10 @@ jobs:
         name: dan-cfg
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-    - name: Quick eval
-      run: nix develop --command evalnix
+    # - name: Quick eval
+    #   run: nix develop --command evalnix
 
-    - name: Build ISO for host
+    - name: Build ISO for ${{ github.event.inputs.host }}
       run: |
         host="${{ github.event.inputs.host }}"
         format="${{ github.event.inputs.format }}"
@@ -52,7 +52,7 @@ jobs:
         arch=$(nix eval --raw .\#nixosConfigurations.$host.pkgs.stdenv.hostPlatform.system)
         echo "artifact_name=$host-$nixosVersion-$arch.iso" >> $GITHUB_ENV
 
-    - name: Upload WSA
+    - name: Upload ISO
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.artifact_name }}
