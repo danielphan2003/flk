@@ -19,7 +19,7 @@
     (mapAttrs'
       (n: v: nameValuePair "@${n}@" v)
       removedArgs)
-    // extraSubstituters;
+    // args.extraSubstituters;
 
   substitutersNames = attrNames substituters;
 
