@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   theme = "Materia-dark";
   themePkgs = pkgs.materia-theme;
   font = "SF Pro Display 11";
@@ -7,9 +10,8 @@ let
   cursorPkgs = pkgs.bibata-cursors;
   icon = "Papirus";
   iconPkgs = pkgs.papirus-icon-theme;
-in
-{
-  home.packages = with pkgs; [ xdg_utils ];
+in {
+  home.packages = with pkgs; [xdg_utils];
 
   home.sessionVariables = {
     __GL_SHADER_DISK_CACHE_PATH = "$XDG_CACHE_HOME/nv";

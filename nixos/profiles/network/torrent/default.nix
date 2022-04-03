@@ -1,9 +1,11 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (config.services.qbittorrent) port;
   inherit (lib) mkAfter;
-in
-{
+in {
   services.qbittorrent = {
     enable = true;
     group = "media";
@@ -12,7 +14,7 @@ in
 
   users.users.qbittorrent.isSystemUser = true;
 
-  users.groups.media.members = [ "qbittorrent" ];
+  users.groups.media.members = ["qbittorrent"];
 
   environment.etc."xdg/qutebrowser/config.py".text = mkAfter ''
     c.url.searchengines['to'] = 'https://torrentz2.eu/search?f={}'

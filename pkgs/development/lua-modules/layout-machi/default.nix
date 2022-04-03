@@ -1,1 +1,1 @@
-{ sources }: sources.layout-machi.src
+{sources}: sources.layout-machi.src

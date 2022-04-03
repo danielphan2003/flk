@@ -1,13 +1,17 @@
-{ hmUsers, ... }:
-let user = "nixos"; in
 {
+  hmUsers,
+  lib,
+  ...
+}: let
+  user = "nixos";
+in {
   home-manager.users."${user}" = hmUsers."${user}";
 
   users.users."${user}" = {
     uid = 1000;
-    password = "nixos";
+    password = lib.mkDefault "nixos";
     description = "default";
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
   };
 }

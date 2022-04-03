@@ -1,1 +1,1 @@
-{ sources }: sources.bling.src
+{sources}: sources.bling.src

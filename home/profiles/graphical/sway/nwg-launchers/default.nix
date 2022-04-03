@@ -1,3 +1,3 @@
-{ pkgs, ... }: {
-  imports = [ ./bar ./dmenu ];
+{pkgs, ...}: {
+  imports = [./bar ./dmenu];
 }

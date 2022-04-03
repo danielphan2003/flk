@@ -1,5 +1,10 @@
-{ lib, stdenv, writeText, pywalfox, sources }:
-let
+{
+  lib,
+  stdenv,
+  writeText,
+  pywalfox,
+  sources,
+}: let
   auto_hide_tst = writeText "auto-hide-tst.css" ''
     /* Hide main tabs toolbar */
     #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
@@ -73,27 +78,27 @@ let
     }
   '';
 in
-stdenv.mkDerivation {
-  inherit (sources.flyingfox) pname src version;
-  inherit auto_hide_tst dim_unload_tab;
+  stdenv.mkDerivation {
+    inherit (sources.flyingfox) pname src version;
+    inherit auto_hide_tst dim_unload_tab;
 
-  pywalfox_css = "${pywalfox.out}/chrome";
+    pywalfox_css = "${pywalfox.out}/chrome";
 
-  installPhase = ''
-    cp -r ./ $out
-    cat $dim_unload_tab >> $out/chrome/userChrome.css
-    cat $pywalfox_css/userChrome.css >> $out/chrome/userChrome.css
-    # cat $auto_hide_tst >> $out/chrome/userChrome.css
-    cat $pywalfox_css/userContent.css >> $out/chrome/userContent.css
-  '';
+    installPhase = ''
+      cp -r ./ $out
+      cat $dim_unload_tab >> $out/chrome/userChrome.css
+      cat $pywalfox_css/userChrome.css >> $out/chrome/userChrome.css
+      # cat $auto_hide_tst >> $out/chrome/userChrome.css
+      cat $pywalfox_css/userContent.css >> $out/chrome/userContent.css
+    '';
 
-  patches = [ ./no-tabline.patch ];
+    patches = [./no-tabline.patch];
 
-  meta = with lib; {
-    description = "An opinionated set of configurations for firefox";
-    homepage = "https://flyingfox.netlify.app";
-    license = licenses.mit;
-    maintainers = [ danielphan2003 ];
-    platforms = platforms.all;
-  };
-}
+    meta = with lib; {
+      description = "An opinionated set of configurations for firefox";
+      homepage = "https://flyingfox.netlify.app";
+      license = licenses.mit;
+      maintainers = [danielphan2003];
+      platforms = platforms.all;
+    };
+  }

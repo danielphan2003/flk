@@ -1,7 +1,9 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
+    inherit
+      (pkgs)
       nix-index
+      yubikey-manager-qt
       ;
   };
 }

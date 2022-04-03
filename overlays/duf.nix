@@ -1,17 +1,20 @@
-final: prev: {
-  duf =
-    let
-      duf' =
-        { buildGoModule
-        , duf
-        , sources
-        }:
-        duf.override {
-          buildGoModule = args: buildGoModule (args // {
-            inherit (sources.duf) pname src version;
-            vendorSha256 = "sha256-6PV/v+rk63FIR2M0Q7EzqjVvWIwHtK6TQpEYxkXLQ50=";
-          });
-        };
-    in
-    final.callPackage duf' { inherit (prev) duf; };
+channels: final: prev: {
+  __dontExport = true; # overrides clutter up actual creations
+
+  duf = let
+    duf' = {
+      buildGoModule,
+      duf,
+      sources,
+    }:
+      duf.override {
+        buildGoModule = args:
+          buildGoModule (args
+            // {
+              inherit (sources.duf) pname src version;
+              vendorSha256 = "sha256-oihi7E67VQmym9U1gdD802AYxWRrSowhzBiKg0CBDPc=";
+            });
+      };
+  in
+    final.callPackage duf' {inherit (prev) duf;};
 }

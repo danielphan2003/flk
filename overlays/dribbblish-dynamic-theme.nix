@@ -1,4 +1,6 @@
 final: prev: {
+  __dontExport = true; # overrides clutter up actual creations
+
   dribbblish-dynamic-theme = prev.dribbblish-dynamic-theme.overrideAttrs (_: {
     # TODO: see https://github.com/morpheusthewhite/spicetify-themes/issues/467
     prePatch = ''

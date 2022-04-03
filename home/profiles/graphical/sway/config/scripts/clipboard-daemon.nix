@@ -1,4 +1,10 @@
-{ writeShellScript, ts, libnotify, wl-clipboard, clipman }:
+{
+  writeShellScript,
+  ts,
+  libnotify,
+  wl-clipboard,
+  clipman,
+}:
 writeShellScript "clipboard-daemon.sh" ''
   export XDG_RUNTIME_DIR=/run/user/`id -u`
   export WAYLAND_DISPLAY=wayland-1

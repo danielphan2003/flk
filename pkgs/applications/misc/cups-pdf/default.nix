@@ -1,8 +1,14 @@
-{ stdenv, lib, sources, cups, ghostscript }:
+{
+  stdenv,
+  lib,
+  sources,
+  cups,
+  ghostscript,
+}:
 stdenv.mkDerivation {
   inherit (sources.cups-pdf) pname src version;
 
-  buildInputs = [ cups ghostscript ];
+  buildInputs = [cups ghostscript];
 
   preBuild = ''
     sed '/#define CP_CONFIG_PATH/s@/etc/cups@/etc/cups-pdf@' -i src/cups-pdf.h
@@ -44,5 +50,4 @@ stdenv.mkDerivation {
     homepage = https://www.cups-pdf.de;
     license = licenses.gpl2;
   };
-
 }

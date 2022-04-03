@@ -1,14 +1,15 @@
-channels: final: prev:
-let
-  inherit (prev)
+channels: final: prev: let
+  inherit
+    (prev)
     jibri
     jicofo
     jitsi-meet
     jitsi-meet-prosody
     jitsi-videobridge
     ;
-in
-{
+in {
+  __dontExport = true; # overrides clutter up actual creations
+
   jibri = jibri.overrideAttrs (_: {
     inherit (final.sources.jibri) src version;
   });

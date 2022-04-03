@@ -1,4 +1,6 @@
 channels: final: prev: {
+  __dontExport = true; # overrides clutter up actual creations
+
   spicetify-cli = prev.spicetify-cli.overrideAttrs (_: {
     inherit (final.sources.spicetify-cli) pname version src;
     postInstall = ''
@@ -25,13 +27,19 @@ channels: final: prev: {
   });
 
   spotifyd = prev.spotifyd.override {
-    rustPackages = prev.rustPackages // {
-      rustPlatform = prev.rustPackages.rustPlatform // {
-        buildRustPackage = args: prev.rustPackages.rustPlatform.buildRustPackage
-          (builtins.removeAttrs args [ "cargoSha256" ] // {
-            inherit (final.sources.spotifyd) src version cargoLock;
-          });
+    rustPackages =
+      prev.rustPackages
+      // {
+        rustPlatform =
+          prev.rustPackages.rustPlatform
+          // {
+            buildRustPackage = args:
+              prev.rustPackages.rustPlatform.buildRustPackage
+              (builtins.removeAttrs args ["cargoSha256"]
+                // {
+                  inherit (final.sources.spotifyd) src version cargoLock;
+                });
+          };
       };
-    };
   };
 }

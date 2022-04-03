@@ -1,4 +1,8 @@
-{ self, pkgs, ... }: {
+{
+  self,
+  pkgs,
+  ...
+}: {
   programs.thefuck.enable = true;
 
   environment.shellAliases = {
@@ -37,7 +41,7 @@
     nixos-option = "nixos-option -I nixpkgs=${self}/lib/compat";
 
     # top
-    top = "btm";
+    top = "btop";
 
     # tailscale
     ts = "tailscale";
@@ -70,10 +74,10 @@
     yta = "yt -x -f bestaudio/best";
     ffmpeg = "ffmpeg -hide_banner";
 
-    f = ''fzf \
-      --preview-window=wrap \
-      --preview 'bat --style=numbers --theme='OneHalfDark' --color=always {}' \
-      --height=75% \
+    f = ''      fzf \
+            --preview-window=wrap \
+            --preview 'bat --style=numbers --theme='OneHalfDark' --color=always {}' \
+            --height=75% \
     '';
 
     # disk

@@ -6,7 +6,7 @@
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
   # Stop creating ~/Downloads!
-  "browser.download.dir" = "/home/danie/dl";
+  "browser.download.dir" = "~/dl";
 
   # Don't use the built-in password manager; a nixos user is more likely
   # using an external one (you are using one, right?).
@@ -18,7 +18,9 @@
   # Disable checking if Firefox is the default browser
   "browser.shell.checkDefaultBrowser" = false;
 
-  /* override recipe: FF87+ use ETP Strict mode ***/
+  /*
+   override recipe: FF87+ use ETP Strict mode **
+   */
   "privacy.firstparty.isolate" = false; # 4001
   "network.cookie.cookieBehavior" = 5; # 2701
 
@@ -45,11 +47,15 @@
   "media.ffvpx.enabled" = false;
   "media.rdd-vpx.enabled" = false;
 
-  /* override recipe: enable DRM and let me watch videos ***/
+  /*
+   override recipe: enable DRM and let me watch videos **
+   */
   # "media.gmp-widevinecdm.enabled" = true; # 1825 default commented out in user.js v86+
   "media.eme.enabled" = true; # 1830
 
-  /* override recipe: enable session restore ***/
+  /*
+   override recipe: enable session restore **
+   */
   "browser.startup.page" = 0; # 0102
   "browser.startup.homepage" = "moz-extension://fd275aeb-de2b-4a12-80b1-2f62e656d78c/index.html";
   "browser.newtabpage.enabled" = "moz-extension://fd275aeb-de2b-4a12-80b1-2f62e656d78c/index.html";
@@ -63,7 +69,9 @@
   # "privacy.cpd.cookies" = false; # 2804 optional
   # "privacy.cpd.formdata" = false; # 2804 optional
 
-  /* override recipe: enable web conferencing: Google Meet | JitsiMeet | BigBlueButton | Zoom | Discord ***/
+  /*
+   override recipe: enable web conferencing: Google Meet | JitsiMeet | BigBlueButton | Zoom | Discord **
+   */
   # IMPORTANT: uncheck "Prevent WebRTC from leaking local IP addresses" in uBlock Origin's settings
   # NOTE: if using RFP (4501)
   # some sites, e.g. Zoom, need a canvas site exception [Right Click>View Page Info>Permissions]
@@ -87,6 +95,8 @@
   "privacy.clearOnShutdown.offlineApps" = false; # Offline Website Data
   "privacy.clearOnShutdown.sessions" = false; # Active Logins
   "privacy.clearOnShutdown.siteSettings" = false; # Site Preferences
+
+  "privacy.resistFingerprinting" = false; # auto dark mode
 
   # Enable multi-pip
   "media.videocontrols.picture-in-picture.allow-multiple" = true;

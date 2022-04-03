@@ -1,4 +1,10 @@
-{ bash, coreutils, writeScript, gnused, playerctl }:
+{
+  bash,
+  coreutils,
+  writeScript,
+  gnused,
+  playerctl,
+}:
 writeScript "spotify" ''
 
   TEXT="Unknown"

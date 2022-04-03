@@ -1,4 +1,6 @@
-{ lib, pkgs }:
 {
-  mc-motd = import ./mc-motd { inherit lib pkgs; };
+  lib,
+  pkgs,
+}: {
+  mc-motd = import ./mc-motd {inherit lib pkgs;};
 }

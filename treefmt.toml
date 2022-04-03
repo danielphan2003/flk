@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2022 The Standard Authors
+# SPDX-FileCopyrightText: 2022 Kevin Amado <kamadorueda@gmail.com>
+#
+# SPDX-License-Identifier: Unlicense
+
+# One CLI to format the code tree - https://github.com/numtide/treefmt
+
+[formatter.nix]
+command = "alejandra"
+includes = ["*.nix"]
+
+[formatter.prettier]
+command = "prettier"
+options = ["--write"]
+includes = [
+    "*.css",
+    "*.js",
+    "*.json",
+    "*.jsx",
+    "*.md",
+    "*.mdx",
+    "*.scss",
+    "*.ts",
+    "*.yaml",
+]
+
+[formatter.shell]
+command = "shfmt"
+options = [
+    "-i",
+    "2",  # indent 2
+    "-s",  # simplify the code
+    "-w",  # write back to the file
+]
+includes = [
+    "*.sh",
+    "*.bash"
+]

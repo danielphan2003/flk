@@ -1,8 +1,8 @@
-{ config, ... }:
-let inherit (builtins) hashString substring; in
-{
+{config, ...}: let
+  inherit (builtins) hashString substring;
+in {
   ## Enable BBR module
-  boot.kernelModules = [ "tcp_bbr" ];
+  boot.kernelModules = ["tcp_bbr"];
 
   ## Network hardening and performance
   boot.kernel.sysctl = {

@@ -1,4 +1,8 @@
-{ lib, stdenv, sources }:
+{
+  lib,
+  stdenv,
+  sources,
+}:
 stdenv.mkDerivation {
   inherit (sources.rainfox) pname src version;
 
@@ -11,7 +15,7 @@ stdenv.mkDerivation {
     description = "It's like Photon, but better.";
     homepage = "https://github.com/1280px/rainfox";
     license = licenses.mit;
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
     platforms = platforms.all;
   };
 }

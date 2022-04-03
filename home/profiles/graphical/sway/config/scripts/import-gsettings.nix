@@ -1,7 +1,12 @@
-{ coreutils, glib, gnugrep, writeScript }:
+{
+  coreutils,
+  glib,
+  gnugrep,
+  writeScript,
+}:
 writeScript "import-gsettings.sh" ''
   # usage: import-gsettings
-  config="$HOME/.config/gtk-3.0/settings.ini"
+  config="~/.config/gtk-3.0/settings.ini"
 
   [ ! -f "$config" ] && exit 1
 

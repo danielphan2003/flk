@@ -1,6 +1,11 @@
-{ writeShellScriptBin, lib, sway, jq }:
+{
+  writeShellScriptBin,
+  lib,
+  sway,
+  jq,
+}:
 writeShellScriptBin "swayprop" ''
-  PATH="$PATH:${lib.makeBinPath [ sway jq ]}"
+  PATH="$PATH:${lib.makeBinPath [sway jq]}"
 
   ALL_NODES='recurse(.nodes[]?, .floating_nodes[]?) | select(.pid and .visible)'
   WINDOW_NAME='(.app_id // .window_properties.class)'

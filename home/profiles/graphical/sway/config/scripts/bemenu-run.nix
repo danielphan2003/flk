@@ -1,7 +1,12 @@
-{ writeShellScript, bemenu, sway, jq }:
+{
+  writeShellScript,
+  bemenu,
+  sway,
+  jq,
+}:
 writeShellScript "bemenu-run.sh" ''
-  if [ -f "$HOME/.cache/wal/colors.sh" ]; then
-    source $HOME/.cache/wal/colors.sh
+  if [ -f "~/.cache/wal/colors.sh" ]; then
+    source ~/.cache/wal/colors.sh
   else
     background='#1a1a1a'
     color5='#268bd2'

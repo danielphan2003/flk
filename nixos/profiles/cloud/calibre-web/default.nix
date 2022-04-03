@@ -1,10 +1,13 @@
-{ config, hostConfigs, lib, ... }:
-let
-  inherit (config.networking) hostName;
-  inherit (hostConfigs.hosts."${hostName}") tailnet_domain tailscale_ip;
-  inherit (config.services.calibre-web.listen) ip port;
-in
 {
+  config,
+  hostConfigs,
+  lib,
+  ...
+}: let
+  inherit (config.networking) domain hostName;
+  inherit (hostConfigs.hosts."${hostName}") tailscale_ip;
+  inherit (config.services.calibre-web.listen) ip port;
+in {
   services.calibre-web = {
     enable = true;
     openFirewall = true;
@@ -20,7 +23,10 @@ in
     };
   };
 
-  services.caddy.virtualHosts."${tailnet_domain}".extraConfig = lib.mkAfter ''
-    reverse_proxy /calibre* ${ip}:${toString port}
+  services.caddy.virtualHosts."calibre.${domain}".extraConfig = ''
+    import common
+    import NoSearchHeader
+    import useCloudflare
+    reverse_proxy ${ip}:${toString port}
   '';
 }

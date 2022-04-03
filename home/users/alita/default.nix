@@ -1,6 +1,11 @@
-{ self, config, hmUsers, ... }:
-let user = "alita"; in
 {
+  self,
+  config,
+  hmUsers,
+  ...
+}: let
+  user = "alita";
+in {
   home-manager.users."${user}" = hmUsers."${user}";
 
   age.secrets."${user}".file = "${self}/secrets/home/users/${user}.age";
@@ -8,7 +13,7 @@ let user = "alita"; in
   users.users."${user}" = {
     description = "Alita";
     isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" "kvm" "adbusers" "input" "podman" ];
+    extraGroups = ["wheel" "libvirtd" "kvm" "adbusers" "input" "podman"];
     passwordFile = config.age.secrets."${user}".path;
     openssh.authorizedKeys.keyFiles = [
       "${self}/secrets/ssh/${user}.pub"

@@ -1,8 +1,11 @@
-{ lib, pkgs, ... }: {
-  imports = [ ./cachix ];
+{
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [./cachix];
 
-  nix.systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" "recursive-nix" ];
-  nix.package = lib.mkForce pkgs.nixUnstable;
+  nix.systemFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm" "recursive-nix"];
 
   nix.localRegistry = {
     # Enable quick-nix-registry
@@ -18,8 +21,8 @@
     gc.automatic = true;
     optimise.automatic = true;
     useSandbox = true;
-    allowedUsers = [ "@wheel" ];
-    trustedUsers = [ "root" "@wheel" ];
+    allowedUsers = ["@wheel"];
+    trustedUsers = ["root" "@wheel"];
     extraOptions = ''
       min-free = 536870912
       keep-outputs = true

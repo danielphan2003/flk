@@ -1,23 +1,23 @@
-{ self, inputs, ... }:
-let
+{
+  self,
+  inputs,
+  ...
+}: let
   inherit (inputs) digga;
   inherit (builtins) attrValues;
-in
-{
-  imports = [ (digga.lib.importExportableModules ./modules) ];
+in {
+  imports = [(digga.lib.importExportableModules ./modules)];
 
   modules = with inputs; [
-    "${impermanence}/home-manager.nix"
+    impermanence.nixosModules.home-manager.impermanence
   ];
 
   importables = rec {
     profiles = digga.lib.rakeLeaves ./profiles;
     suites = with profiles; rec {
-
       ### Profile suites
 
-      ephemeral-identity = attrValues {
-        inherit (develop) auth;
+      ephemeral = attrValues {
         inherit (misc) xdg;
       };
 
@@ -33,14 +33,17 @@ in
 
       ### User suites
 
-      danie = [ ]
+      danie =
+        []
         ++ desktop
-        ++ ephemeral-identity
+        ++ ephemeral
         ++ streaming
         ++ attrValues
         {
           inherit (browsers) chromium edge;
-          inherit (develop)
+          inherit
+            (develop)
+            auth
             direnv
             git
             idea
@@ -48,7 +51,8 @@ in
             ;
           inherit (games) minecraft;
           inherit (graphical) awesome;
-          inherit (apps)
+          inherit
+            (apps)
             alacritty
             eww
             neovim
@@ -59,30 +63,27 @@ in
   };
 
   users = {
-    nixos = { ... }: { };
+    nixos = {...}: {};
 
-    danie = { suites, ... }:
-      let
-        gpgKey = "A3556DCE587353FB";
-      in
-      {
-        imports = suites.danie;
-        programs.gpg.settings.default-key = gpgKey;
-        services.gpg-agent.sshKeys = [ "251E48ED4B7C2CC2C02828EBF7BE3592FC4ECA17" ];
-        programs.git = {
-          userEmail = "danielphan.2003@gmail.com";
-          userName = "Daniel Phan";
-          signing = {
-            key = gpgKey;
-            signByDefault = true;
-          };
-          extraConfig = {
-            github.user = "danielphan2003";
-          };
+    danie = {suites, ...}: let
+      gpgKey = "FA6FA2660BEC2464";
+    in {
+      imports = suites.danie;
+      programs.gpg.settings.default-key = gpgKey;
+      programs.git = {
+        userEmail = "danielphan.2003@c-137.me";
+        userName = "Daniel Phan";
+        signing = {
+          key = gpgKey;
+          signByDefault = true;
         };
-        home.sessionVariables.BROWSER = "chromium-browser";
+        extraConfig = {
+          github.user = "danielphan2003";
+        };
       };
+      home.sessionVariables.BROWSER = "chromium-browser";
+    };
 
-    alita = { ... }: { };
+    alita = {...}: {};
   };
 }

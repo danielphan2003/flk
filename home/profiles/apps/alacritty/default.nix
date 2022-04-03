@@ -1,6 +1,6 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   xdg.configFile."alacritty/alacritty.yml".source = ./alacritty.yml;
-  home.packages = with pkgs; [ wezterm ];
+  home.packages = with pkgs; [wezterm];
   programs.alacritty = {
     enable = true;
     # settings = {

@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.services.uget-integrator;
   inherit (cfg) chromiumPath mozPath;
-in
-{
+in {
   options = {
     services.uget-integrator = {
       enable = mkOption {
@@ -34,13 +35,13 @@ in
     };
   };
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ uget uget-integrator ];
+    home.packages = with pkgs; [uget uget-integrator];
 
     systemd.user.services.uget-integrator = {
       Unit = {
         Description = "Native messaging host to integrate uGet Download Manager with web browsers";
-        After = [ "graphical-session-pre.target" ];
-        PartOf = [ "graphical-session.target" ];
+        After = ["graphical-session-pre.target"];
+        PartOf = ["graphical-session.target"];
       };
 
       Service = {
@@ -48,14 +49,12 @@ in
       };
 
       Install = {
-        WantedBy = [ "graphical-session.target" ];
+        WantedBy = ["graphical-session.target"];
       };
     };
 
-    home.file."${mozPath}/native-messaging-hosts/com.ugetdm.firefox.json".source =
-      "${pkgs.uget-integrator}/lib/mozilla/native-messaging-hosts/com.ugetdm.firefox.json";
+    home.file."${mozPath}/native-messaging-hosts/com.ugetdm.firefox.json".source = "${pkgs.uget-integrator}/lib/mozilla/native-messaging-hosts/com.ugetdm.firefox.json";
 
-    home.file."${chromiumPath}/NativeMessagingHosts/com.ugetdm.chrome.json".source =
-      "${pkgs.uget-integrator}/etc/chromium/native-messaging-hosts/com.ugetdm.chrome.json";
+    home.file."${chromiumPath}/NativeMessagingHosts/com.ugetdm.chrome.json".source = "${pkgs.uget-integrator}/etc/chromium/native-messaging-hosts/com.ugetdm.chrome.json";
   };
 }

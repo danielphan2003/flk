@@ -1,4 +1,3 @@
-{ lib }:
-{
-  mkWaybarColorModule = import mkWaybarColorModule { inherit lib; };
+{lib}: {
+  mkWaybarColorModule = import mkWaybarColorModule {inherit lib;};
 }

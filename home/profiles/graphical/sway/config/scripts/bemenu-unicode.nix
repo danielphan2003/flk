@@ -1,11 +1,12 @@
-{ coreutils
-, writeShellScript
-, libnotify
-, ydotool
-, sway
-, wl-clipboard
-, bemenu-run
-, unicode-emoji
+{
+  coreutils,
+  writeShellScript,
+  libnotify,
+  ydotool,
+  sway,
+  wl-clipboard,
+  bemenu-run,
+  unicode-emoji,
 }:
 writeShellScript "bemenu-unicode.sh" ''
   # Original from Luke Smith:

@@ -1,4 +1,8 @@
-{ stdenv, lib, sources }:
+{
+  stdenv,
+  lib,
+  sources,
+}:
 stdenv.mkDerivation {
   pname = "ttf-segue";
 
@@ -12,7 +16,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Install segoe-ui font on linux";
     homepage = "https://github.com/mrbvrz/segoe-ui-linux";
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
     license = licenses.unfree;
     platforms = platforms.all;
   };

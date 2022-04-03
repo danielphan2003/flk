@@ -1,7 +1,12 @@
-{ config, lib, profiles, ... }: {
-  imports = with profiles.network.dns; [ common disable-resolved ];
+{
+  config,
+  lib,
+  profiles,
+  ...
+}: {
+  imports = with profiles.network.dns; [common disable-resolved];
 
-  networking.nameservers = lib.mkAfter [ "127.0.0.1" ];
+  networking.nameservers = lib.mkAfter ["127.0.0.1"];
 
   services.adguardhome = {
     enable = true;
@@ -10,7 +15,7 @@
     openFirewall = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ config.services.adguardhome.port ];
+  networking.firewall.allowedTCPPorts = [config.services.adguardhome.port];
 
   # systemd-resolved is the default dns server, but for others to work it needs to be disabled
   services.resolved.enable = false;

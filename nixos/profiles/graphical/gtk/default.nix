@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  environment.pathsToLink = [ "/libexec" ];
+{pkgs, ...}: {
+  environment.pathsToLink = ["/libexec"];
 
   environment.sessionVariables = {
     # Theme settings
@@ -13,7 +13,7 @@
   xdg.portal = {
     enable = true;
     gtkUsePortal = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   services.dbus.enable = true;
@@ -28,11 +28,11 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.gnomeExtensions.appindicator ];
+  environment.systemPackages = [pkgs.gnomeExtensions.appindicator];
 
-  services.udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
+  services.udev.packages = [pkgs.gnome3.gnome-settings-daemon];
 
   programs.gnupg.agent.pinentryFlavor = "gnome3";
 
-  services.dbus.packages = [ pkgs.gnome3.gnome-keyring pkgs.gcr ];
+  services.dbus.packages = [pkgs.gnome3.gnome-keyring pkgs.gcr];
 }

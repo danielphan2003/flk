@@ -1,8 +1,14 @@
-{ config, pkgs, lib, ... }:
-let inherit (builtins) attrValues; in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (builtins) attrValues;
+in {
   environment.systemPackages = attrValues {
-    inherit (pkgs)
+    inherit
+      (pkgs)
       acpi
       lm_sensors
       wirelesstools
@@ -26,13 +32,13 @@ let inherit (builtins) attrValues; in
     enable = true;
     bindings = [
       {
-        keys = [ 225 ];
-        events = [ "key" ];
+        keys = [225];
+        events = ["key"];
         command = "${pkgs.light}/bin/light -A 5";
       }
       {
-        keys = [ 224 ];
-        events = [ "key" ];
+        keys = [224];
+        events = ["key"];
         command = "${pkgs.light}/bin/light -U 5";
       }
     ];

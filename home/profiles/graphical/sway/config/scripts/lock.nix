@@ -1,6 +1,12 @@
-{ lib, swaylock-effects, writeShellScript, doas, physlock }:
+{
+  lib,
+  swaylock-effects,
+  writeShellScript,
+  doas,
+  physlock,
+}:
 writeShellScript "lock.sh" ''
-  PATH="$PATH:${lib.makeBinPath [ doas swaylock-effects ]}"
+  PATH="$PATH:${lib.makeBinPath [doas swaylock-effects]}"
 
   function lock {
     . ~/.cache/wal/colors-oomox

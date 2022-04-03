@@ -1,13 +1,14 @@
-{ stdenv
-, lib
-, sources
-, systemd
-, dbus
-, libinih
-, pkgconfig
-, meson
-, ninja
-, polkit
+{
+  stdenv,
+  lib,
+  sources,
+  systemd,
+  dbus,
+  libinih,
+  pkgconfig,
+  meson,
+  ninja,
+  polkit,
 }:
 stdenv.mkDerivation {
   inherit (sources.gamemode) pname src version;
@@ -19,7 +20,7 @@ stdenv.mkDerivation {
     substituteInPlace lib/gamemode_client.h --replace 'dlopen("' 'dlopen("${placeholder "out"}/lib/'
   '';
 
-  buildInputs = [ meson ninja pkgconfig systemd dbus libinih ];
+  buildInputs = [meson ninja pkgconfig systemd dbus libinih];
 
   mesonFlags = ''
     -Dwith-util=false
@@ -30,7 +31,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Optimise Linux system performance on demand";
     homepage = "https://github.com/FeralInteractive/gamemode";
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
     license = licenses.bsd3;
     platforms = platforms.linux;
     broken = true;

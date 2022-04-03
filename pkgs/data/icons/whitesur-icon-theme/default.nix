@@ -1,13 +1,14 @@
-{ stdenv
-, lib
-, sources
-, sassc
-, optipng
-, inkscape
-, glib
-, gtk3
-, numix-icon-theme-circle
-, hicolor-icon-theme
+{
+  stdenv,
+  lib,
+  sources,
+  sassc,
+  optipng,
+  inkscape,
+  glib,
+  gtk3,
+  numix-icon-theme-circle,
+  hicolor-icon-theme,
 }:
 stdenv.mkDerivation {
   inherit (sources.whitesur-icon-theme) pname src version;
@@ -36,7 +37,7 @@ stdenv.mkDerivation {
     description = "MacOS Big Sur style icon theme for linux desktops";
     homepage = "https://github.com/vinceliuice/WhiteSur-icon-theme";
     license = licenses.gpl3;
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
     platforms = platforms.linux;
   };
 }

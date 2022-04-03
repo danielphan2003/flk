@@ -1,16 +1,18 @@
-{ pkgs, ... }: {
-  environment.shellAliases.dig = "doggo";
+{pkgs, ...}: {
+  # environment.shellAliases.dig = "doggo";
 
   environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
+    inherit
+      (pkgs)
       binutils
-      bottom
+      btop
       cachix
       coreutils
       curl
       direnv
       dnsutils
-      doggo
+      # doggo
+      
       fd
       git
       iptables

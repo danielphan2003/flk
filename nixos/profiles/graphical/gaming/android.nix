@@ -1,4 +1,10 @@
-{ pkgs, lib, config, waydroidModulesPath, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  waydroidModulesPath,
+  ...
+}: {
   # boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
   # initrd.availableKernelModules = [ "ashmem_linux" "binder_linux" ];
   # extraModprobeConfig = ''

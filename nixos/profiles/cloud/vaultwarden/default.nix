@@ -1,16 +1,15 @@
-{ self, config, hostConfigs, lib, pkgs, ... }:
-let
-  inherit (lib) concatStringsSep mkAfter;
-  inherit (config.networking) hostName domain;
-  inherit (config.services.vaultwarden.config) rocketPort websocketPort;
-
-  inherit (hostConfigs.hosts."${hostName}") tailnet_domain;
-
-  vaultwarden-age-key = "${self}/secrets/nixos/profiles/cloud/vaultwarden.age";
-in
 {
+  self,
+  config,
+  hostConfigs,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.services.vaultwarden.config;
+in {
   age.secrets.vaultwarden = {
-    file = vaultwarden-age-key;
+    file = "${self}/secrets/nixos/profiles/cloud/vaultwarden.age";
     owner = "vaultwarden";
     group = "vaultwarden";
   };
@@ -20,7 +19,7 @@ in
     dbBackend = "postgresql";
     environmentFile = config.age.secrets.vaultwarden.path;
     config = {
-      domain = "https://${tailnet_domain}/vault";
+      domain = "https://vault.${config.networking.domain}";
       invitationsAllowed = false;
       rocketPort = 8222;
       rocketLog = "critical";
@@ -37,13 +36,15 @@ in
   };
 
   services.postgresql = {
-    ensureDatabases = [ "vaultwarden" ];
-    ensureUsers = [{
-      name = "vaultwarden";
-      ensurePermissions = {
-        "DATABASE vaultwarden" = "ALL PRIVILEGES";
-      };
-    }];
+    ensureDatabases = ["vaultwarden"];
+    ensureUsers = [
+      {
+        name = "vaultwarden";
+        ensurePermissions = {
+          "DATABASE vaultwarden" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 
   services.logrotate.paths.vaultwarden = {
@@ -73,37 +74,19 @@ in
     '';
   };
 
-  services.caddy.virtualHosts =
-    let
-      handleWWW = ''
-        reverse_proxy 127.0.0.1:${toString rocketPort} {
-          header_up Host {host}
-          header_up X-Real-IP {remote_host}
-        }
-      '';
-      handleNotify = ''
-        reverse_proxy /notifications/hub 127.0.0.1:${toString websocketPort} {
-          header_up Host {host}
-        }
-      '';
-    in
-    {
-      "vault.${domain}" = {
-        serverAliases = [ "bw.${domain}" ];
-        extraConfig = ''
-          rewrite * /vault{uri}
-          ${handleWWW}
-          ${handleNotify}
-          respond /vault/admin* "The admin panel is disabled, please configure the 'ADMIN_TOKEN' variable to enable it"
-        '';
-      };
-      "${tailnet_domain}".extraConfig = mkAfter ''
-        handle /vault* {
-          ${handleWWW}
-        }
-        handle /vault/notifications/hub {
-          ${handleNotify}
-        }
-      '';
-    };
+  services.caddy.virtualHosts."${lib.removePrefix "https://" cfg.domain}".extraConfig = ''
+    import common
+    import useCloudflare
+
+    reverse_proxy 127.0.0.1:${toString cfg.rocketPort} {
+      header_up Host {host}
+      header_up X-Real-IP {remote_host}
+    }
+
+    reverse_proxy /notifications/hub 127.0.0.1:${toString cfg.websocketPort} {
+      header_up Host {host}
+    }
+
+    # respond /admin* "The admin panel is disabled, please configure the 'ADMIN_TOKEN' variable to enable it"
+  '';
 }

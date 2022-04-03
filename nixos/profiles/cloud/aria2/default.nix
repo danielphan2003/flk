@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  environment.systemPackages = builtins.attrValues { inherit (pkgs) aria2; };
+{pkgs, ...}: {
+  environment.systemPackages = builtins.attrValues {inherit (pkgs) aria2;};
 
   services.aria2 = {
     enable = true;

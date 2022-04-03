@@ -1,31 +1,23 @@
 channels: final: prev: {
-  tailscale =
-    let
-      tailscale' =
-        { buildGo117Module
-        , sources
-        , tailscale
-        , substituteAll
+  # __dontExport = true; # overrides clutter up actual creations
 
-        , hostName ? "ts-${prev.system}"
-        , customDoHPath ? null
-        }: tailscale.override {
-          buildGoModule = args: buildGo117Module (args // {
-            inherit (sources.tailscale) pname src version;
-            vendorSha256 = "sha256-ZbOxC8J843B8BMS/ZgfSZqU1YCUoWhPqbABzWZy3DMI=";
-            patches = [ ]
-              ++
-              (if customDoHPath != null
-              then
-                [
-                  (substituteAll {
-                    src = ../pkgs/servers/tailscale/custom-doh.patch;
-                    inherit hostName customDoHPath;
-                  })
-                ]
-              else [ ]);
-          });
-        };
-    in
-    final.callPackage tailscale' { inherit (prev) tailscale; };
+  tailscale = let
+    tailscale' = {
+      buildGo118Module,
+      sources,
+      tailscale,
+    }:
+      tailscale.override {
+        buildGoModule = args:
+          buildGo118Module (args
+            // {
+              inherit (sources.tailscale) pname src version;
+              vendorSha256 = "sha256-Wa+P/jSDwVTbBMY42/vreGZNwy9AsxgPbXTUz2tyYEc=";
+            });
+      };
+  in
+    final.callPackage tailscale' {
+      inherit (prev) tailscale;
+      inherit (channels.latest) buildGo118Module;
+    };
 }

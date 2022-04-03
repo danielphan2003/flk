@@ -1,4 +1,8 @@
-{ writeShellScript, ripgrep, playerctl }:
+{
+  writeShellScript,
+  ripgrep,
+  playerctl,
+}:
 writeShellScript "play-pause" ''
 
   PLAYER="$1"

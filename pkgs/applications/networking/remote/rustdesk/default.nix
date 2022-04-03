@@ -1,27 +1,26 @@
-{ rustPlatform
-, lib
-, sources
-, cmake
-, pkg-config
-
-, alsa-lib
-, gtk3
-, libvpx
-, libxcb
-, libxfixes
-, libyuv
-, nasm
-, opus
-, pulseaudio
-, sciter
-, xdotool
-, yasm
+{
+  rustPlatform,
+  lib,
+  sources,
+  cmake,
+  pkg-config,
+  alsa-lib,
+  gtk3,
+  libvpx,
+  libxcb,
+  libxfixes,
+  libyuv,
+  nasm,
+  opus,
+  pulseaudio,
+  sciter,
+  xdotool,
+  yasm,
 }:
-
 rustPlatform.buildRustPackage {
   inherit (sources.rustdesk) pname version src cargoLock;
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [cmake pkg-config];
 
   buildInputs = [
     alsa-lib
@@ -47,6 +46,6 @@ rustPlatform.buildRustPackage {
     description = "Yet another remote desktop software";
     homepage = "https://rustdesk.com";
     license = licenses.gpl3;
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
   };
 }

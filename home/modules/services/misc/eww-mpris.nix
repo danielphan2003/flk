@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.services.eww-mpris;
   inherit (cfg) package;
-in
-{
+in {
   options = {
     services.eww-mpris = {
       enable = mkEnableOption ''
@@ -30,12 +31,12 @@ in
     };
   };
   config = mkIf cfg.enable {
-    home.packages = [ package ];
+    home.packages = [package];
 
     systemd.user.services.eww-mpris = {
       Unit = {
         Description = "a media session service for eww";
-        After = [ "eww.service" ];
+        After = ["eww.service"];
       };
 
       Service = {
@@ -44,7 +45,7 @@ in
       };
 
       Install = {
-        WantedBy = [ "eww.service" ];
+        WantedBy = ["eww.service"];
       };
     };
   };

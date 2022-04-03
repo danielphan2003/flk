@@ -1,6 +1,13 @@
-{ self, config, hmUsers, lib, pkgs, ... }:
-let user = "danie"; in
 {
+  self,
+  config,
+  hmUsers,
+  lib,
+  pkgs,
+  ...
+}: let
+  user = "danie";
+in {
   home-manager.users."${user}" = hmUsers."${user}";
 
   services.greetd.settings = {
@@ -10,35 +17,34 @@ let user = "danie"; in
     };
   };
 
-  age.secrets = {
-    accounts = {
-      file = "${self}/secrets/home/profiles/accounts.age";
-      owner = user;
-      group = "users";
+  age.secrets = let
+    mkUserSecret = file: attrs:
+      {
+        inherit file;
+        owner = user;
+        group = "users";
+      }
+      // attrs;
+    mkProfileSecret = file: attrs: {
+      "${file}" =
+        mkUserSecret "${self}/secrets/home/profiles/${file}.age" {
+          path = "${config.users.users."${user}".home}/.config/${file}";
+          symlink = false;
+        }
+        // attrs;
     };
-    "${user}".file = "${self}/secrets/home/users/${user}.age";
-    "wayvnc/config" = {
-      file = "${self}/secrets/home/profiles/wayvnc/config.age";
-      owner = user;
-      group = "users";
-    };
-    "wayvnc/key.pem" = {
-      file = "${self}/secrets/home/profiles/wayvnc/key.pem.age";
-      owner = user;
-      group = "users";
-    };
-    "wayvnc/cert.pem" = {
-      file = "${self}/secrets/home/profiles/wayvnc/cert.pem.age";
-      owner = user;
-      group = "users";
-    };
-  };
+  in
+    {"${user}".file = "${self}/secrets/home/users/${user}.age";}
+    // (mkProfileSecret "accounts" {})
+    // (mkProfileSecret "wayvnc/config" {})
+    // (mkProfileSecret "wayvnc/key.pem" {})
+    // (mkProfileSecret "wayvnc/cert.pem" {});
 
   users.users."${user}" = {
     description = "Daniel Phan";
     isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" "kvm" "adbusers" "input" "podman" ];
+    extraGroups = ["wheel" "libvirtd" "kvm" "adbusers" "input" "podman"];
     passwordFile = config.age.secrets."${user}".path;
-    openssh.authorizedKeys.keyFiles = [ "${self}/secrets/ssh/${user}.pub" ];
+    openssh.authorizedKeys.keyFiles = ["${self}/secrets/ssh/${user}.pub"];
   };
 }

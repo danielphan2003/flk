@@ -1,6 +1,6 @@
-{ pkgs, ... }:
-let inherit (builtins) attrValues; in
-{
+{pkgs, ...}: let
+  inherit (builtins) attrValues;
+in {
   xdg.configFile = {
     "awesome" = {
       source = ./src;

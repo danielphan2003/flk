@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, sources
+{
+  stdenv,
+  lib,
+  sources,
   # options
   # , gtk-engine-murrine
-, sassc
-, optipng
-, inkscape
-, glib
+  sassc,
+  optipng,
+  inkscape,
+  glib,
   # , libxml2
-, alt ? "standard"
-, theme ? "default"
-, panel ? "default"
-, size ? "default"
+  alt ? "standard",
+  theme ? "default",
+  panel ? "default",
+  size ? "default",
 }:
 stdenv.mkDerivation {
   inherit (sources.whitesur-gtk-theme) pname src version;

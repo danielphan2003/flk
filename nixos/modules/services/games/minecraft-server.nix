@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.services.minecraft-server;
 
   inherit (cfg.onDemand) idleIfTime proxyPort proxyIp;
@@ -15,39 +17,37 @@ let
   serverIp = cfg.serverProperties.server-ip or "127.0.0.1";
 
   serverPort = cfg.serverProperties.server-port or 25567;
-in
-{
+in {
   options = {
     services.minecraft-server.onDemand = mkOption {
-      type = with types; submodule {
-        options = {
-          enable = mkOption {
-            type = bool;
-            default = false;
-            description = "Enable Minecraft Server Monitor daemon.";
-          };
-          idleIfTime = mkOption {
-            type = int;
-            default = 1 * 60;
-            description =
-              "Time in seconds. Idle the server if there is no player on it and this time is exceeded.";
-          };
-          proxyPort = mkOption {
-            type = port;
-            default = 25565;
-            description = ''
-              Port that players should connect to.
-              Must be different from `serverProperties.server-port` if `onDemand.proxyIp` is the same as `serverProperties.server-ip`.
-            '';
-          };
-          proxyIp = mkOption {
-            type = nullOr str;
-            default = "[::]";
-            description =
-              "Set a string to listen on specific IP. Default is all addresses";
+      type = with types;
+        submodule {
+          options = {
+            enable = mkOption {
+              type = bool;
+              default = false;
+              description = "Enable Minecraft Server Monitor daemon.";
+            };
+            idleIfTime = mkOption {
+              type = int;
+              default = 1 * 60;
+              description = "Time in seconds. Idle the server if there is no player on it and this time is exceeded.";
+            };
+            proxyPort = mkOption {
+              type = port;
+              default = 25565;
+              description = ''
+                Port that players should connect to.
+                Must be different from `serverProperties.server-port` if `onDemand.proxyIp` is the same as `serverProperties.server-ip`.
+              '';
+            };
+            proxyIp = mkOption {
+              type = nullOr str;
+              default = "[::]";
+              description = "Set a string to listen on specific IP. Default is all addresses";
+            };
           };
         };
-      };
       description = ''
         A daemon that monitors the actual Minecraft server.
         If the server is up and there is no player, then daemon shuts the server down.
@@ -65,17 +65,19 @@ in
     # In other words, restarting anything except the head of this chain would stop the chain completely but not restart it.
     # Conclusion: to manually restart our service, one must restart proxy-minecraft-server.
 
-    assertions = [{
-      assertion = proxyPort != serverPort;
-      message = ''
-        The `onDemand.proxyPort` must not be the same as `serverProperties.server-port`
-      '';
-    }];
+    assertions = [
+      {
+        assertion = proxyPort != serverPort;
+        message = ''
+          The `onDemand.proxyPort` must not be the same as `serverProperties.server-port`
+        '';
+      }
+    ];
 
     # We don't expose rcon and query port because we are unable to do so due to the PrivateNetwork setting
     networking.firewall = mkIf cfg.openFirewall {
-      allowedUDPPorts = [ proxyPort ];
-      allowedTCPPorts = [ proxyPort ];
+      allowedUDPPorts = [proxyPort];
+      allowedTCPPorts = [proxyPort];
     };
 
     systemd.services = {
@@ -110,20 +112,17 @@ in
 
       # This service serves as a bi-directional relay between the actual server and systemd socket
       proxy-minecraft-server = {
-        requires =
-          [ "minecraft-server.service" "proxy-minecraft-server.socket" ];
-        after =
-          [ "minecraft-server.service" "proxy-minecraft-server.socket" ];
+        requires = ["minecraft-server.service" "proxy-minecraft-server.socket"];
+        after = ["minecraft-server.service" "proxy-minecraft-server.socket"];
 
         # Share the same network namespace, so the network traffic could be reacheable.
         unitConfig.JoinsNamespaceOf = "minecraft-server.service";
         serviceConfig = {
-          ExecStart =
-            "${config.systemd.package}/lib/systemd/systemd-socket-proxyd ${serverIp}:${
-              toString serverPort
-            } -c ${toString maxPlayers} --exit-idle-time=${
-              toString idleIfTime
-            }";
+          ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd ${serverIp}:${
+            toString serverPort
+          } -c ${toString maxPlayers} --exit-idle-time=${
+            toString idleIfTime
+          }";
           PrivateTmp = true;
           PrivateNetwork = true;
         };
@@ -132,9 +131,9 @@ in
 
     systemd.sockets.proxy-minecraft-server = {
       # Listen on proxyIp
-      listenStreams = [ "${proxyIp}:${toString proxyPort}" ];
+      listenStreams = ["${proxyIp}:${toString proxyPort}"];
       # Start this socket on boot
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       # Don't start multiple instances of corresponding service.
       socketConfig.Accept = false;
     };

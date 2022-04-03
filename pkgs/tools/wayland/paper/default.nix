@@ -1,10 +1,18 @@
-{ rustPlatform, lib, sources, makeWrapper, pkg-config, fontconfig, wayland }:
+{
+  rustPlatform,
+  lib,
+  sources,
+  makeWrapper,
+  pkg-config,
+  fontconfig,
+  wayland,
+}:
 rustPlatform.buildRustPackage {
   inherit (sources.paper) pname version src cargoLock;
 
-  nativeBuildInputs = [ makeWrapper pkg-config ];
+  nativeBuildInputs = [makeWrapper pkg-config];
 
-  buildInputs = [ fontconfig ];
+  buildInputs = [fontconfig];
 
   postFixup = ''
     wrapProgram $out/bin/paper \
@@ -15,6 +23,6 @@ rustPlatform.buildRustPackage {
     description = "A wallpaper daemon for Wayland compositors implementing the layer-shell protocol.";
     homepage = "https://gitlab.com/snakedye/paper";
     license = licenses.mit;
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
   };
 }

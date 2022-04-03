@@ -1,15 +1,21 @@
-{ pkgs, lib, profiles, ... }:
-let
-  mkDoH = { uri, addr }: {
+{
+  pkgs,
+  lib,
+  profiles,
+  ...
+}: let
+  mkDoH = {
+    uri,
+    addr,
+  }: {
     inherit uri addr;
     timeout = 4;
     sni = false;
   };
-in
-{
-  imports = with profiles.network.dns; [ common disable-resolved ];
+in {
+  imports = with profiles.network.dns; [common disable-resolved];
 
-  networking.nameservers = lib.mkAfter [ "127.0.0.1" ];
+  networking.nameservers = lib.mkAfter ["127.0.0.1"];
 
   # Setup our local DNS
   services.dcompass = {

@@ -1,33 +1,35 @@
-{ lib, pkgs }:
-let
-  inherit (builtins)
+{
+  lib,
+  pkgs,
+}: let
+  inherit
+    (builtins)
     removeAttrs
     replaceStrings
     substring
     toJSON
     ;
 
-  inherit (lib)
+  inherit
+    (lib)
     fileContents
     mapAttrs'
     nameValuePair
     ;
 
   motd = {}: {
-
-    generate = value:
-      let
-        mc-motd = pkgs.runCommand "mc-motd"
-          {
-            nativeBuildInputs = [ pkgs.jq ];
-            value = toJSON value;
-            passAsFile = [ "value" ];
-          } ''
+    generate = value: let
+      mc-motd =
+        pkgs.runCommand "mc-motd"
+        {
+          nativeBuildInputs = [pkgs.jq];
+          value = toJSON value;
+          passAsFile = ["value"];
+        } ''
           jq -rj . "$valuePath" --ascii-output > $out
         '';
-      in
-      replaceStrings [ "\"" ] [ "" ] (fileContents mc-motd);
-
+    in
+      replaceStrings ["\""] [""] (fileContents mc-motd);
   };
 
   colors = {
@@ -62,29 +64,46 @@ let
     reset = "r";
   };
 
-  short = typeMap: { prefix ? "", cut ? 1, isFunction ? false }: mapAttrs'
+  short = typeMap: {
+    prefix ? "",
+    cut ? 1,
+    isFunction ? false,
+  }:
+    mapAttrs'
     (n: v:
       nameValuePair
-        "${prefix}${
-          if cut == -1 then n
-          else substring 0 cut n}"
-        (if isFunction then wrap: "§${v}${wrap}" else "§${v}"))
+      "${prefix}${
+        if cut == -1
+        then n
+        else substring 0 cut n
+      }"
+      (
+        if isFunction
+        then wrap: "§${v}${wrap}"
+        else "§${v}"
+      ))
     typeMap;
 
-  inherit (motd { }) generate;
-in
-{
+  inherit (motd {}) generate;
+in {
   inherit generate;
 
-  colors = short colors { cut = -1; };
+  colors = short colors {cut = -1;};
 
-  formats = short formats { cut = -1; isFunction = true; };
+  formats = short formats {
+    cut = -1;
+    isFunction = true;
+  };
 
   gen = generate;
 
-  c = (short (removeAttrs colors [ "dark" "light" ]) { })
-    // (short colors.dark { prefix = "d_"; })
-    // (short colors.light { prefix = "l_"; });
+  c =
+    (short (removeAttrs colors ["dark" "light"]) {})
+    // (short colors.dark {prefix = "d_";})
+    // (short colors.light {prefix = "l_";});
 
-  f = short formats { cut = 2; isFunction = true; };
+  f = short formats {
+    cut = 2;
+    isFunction = true;
+  };
 }

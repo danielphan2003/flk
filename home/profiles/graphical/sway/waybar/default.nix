@@ -1,16 +1,20 @@
-{ pkgs, lib, config, ... }:
-let
-  inherit (lib.our.pywal) mkWaybarColors;
-  modules = import ./modules { inherit lib pkgs; };
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  inherit (lib.our.pywal) mkWaybarColors;
+  modules = import ./modules {inherit lib pkgs;};
+in {
   programs.waybar = {
     enable = true;
     systemd.enable = true;
     settings = [
-      (modules // {
-        height = 40;
-      })
+      (modules
+        // {
+          height = 40;
+        })
     ];
     # style = ./style.css;
     style = mkWaybarColors {

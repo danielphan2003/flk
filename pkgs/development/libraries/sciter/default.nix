@@ -1,5 +1,6 @@
-{ stdenv
-, fetchurl
+{
+  stdenv,
+  fetchurl,
 }:
 stdenv.mkDerivation {
   pname = "sciter";
@@ -17,5 +18,4 @@ stdenv.mkDerivation {
     mkdir -p $out/share/sciter
     ln -s $src $out/share/sciter
   '';
-
 }

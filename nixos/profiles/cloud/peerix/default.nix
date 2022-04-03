@@ -1,10 +1,14 @@
-{ self, config, hostConfigs, pkgs, ... }:
-let
+{
+  self,
+  config,
+  hostConfigs,
+  pkgs,
+  ...
+}: let
   inherit (config.networking) hostName;
   inherit (config.age.secrets.peerix) path;
   inherit (config.services.peerix) user group;
-in
-{
+in {
   age.secrets.peerix = {
     file = "${self}/secrets/nixos/profiles/cloud/peerix/${hostName}.age";
     owner = user;

@@ -1,10 +1,11 @@
-{ python3
-, lib
-, wrapGAppsHook
-, gobject-introspection
-, glib
-, playerctl
-, eww
+{
+  python3,
+  lib,
+  wrapGAppsHook,
+  gobject-introspection,
+  glib,
+  playerctl,
+  eww,
 }:
 python3.pkgs.buildPythonApplication {
   name = "eww-mpris";
@@ -42,6 +43,6 @@ python3.pkgs.buildPythonApplication {
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ danielphan2003 ];
+    maintainers = with maintainers; [danielphan2003];
   };
 }

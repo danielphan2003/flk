@@ -1,33 +1,33 @@
-args@{ pkgs, lib, ... }:
-let
+args @ {
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (lib.our) mkWaybarModule;
 
-  mediaplayer = mkWaybarModule ./mediaplayer.nix { inherit pkgs; };
+  mediaplayer = mkWaybarModule ./mediaplayer.nix {inherit pkgs;};
 
-  play-pause = pkgs.callPackage ./play-pause.nix { };
+  play-pause = pkgs.callPackage ./play-pause.nix {};
 
-  media = player: icon:
-    let
-      patternNotDefault = "'^(?!firefox|spotify|vlc)([a-z0-9]+)'";
-      checkPlayer = "${pkgs.playerctl}/bin/playerctl -l";
-      checkIfNotDefault = '' [ "$(${checkPlayer} | ${pkgs.ripgrep}/bin/rg --pcre2 ${patternNotDefault})" ] '';
-      checkIfDefault = '' [ "$(${checkPlayer} | ${pkgs.gnugrep}/bin/grep ${player})" ] '';
-    in
-    {
-      format = "{icon} {}";
-      return-type = "json";
-      max-length = 55;
-      format-icons = {
-        Playing = "";
-        Paused = "";
-      };
-      exec = "${mediaplayer} ${player} ${icon}";
-      exec-if = "${checkIfNotDefault} || ${checkIfDefault}";
-      interval = 1;
-      on-click = "${play-pause} ${player}";
+  media = player: icon: let
+    patternNotDefault = "'^(?!firefox|spotify|vlc)([a-z0-9]+)'";
+    checkPlayer = "${pkgs.playerctl}/bin/playerctl -l";
+    checkIfNotDefault = ''[ "$(${checkPlayer} | ${pkgs.ripgrep}/bin/rg --pcre2 ${patternNotDefault})" ] '';
+    checkIfDefault = ''[ "$(${checkPlayer} | ${pkgs.gnugrep}/bin/grep ${player})" ] '';
+  in {
+    format = "{icon} {}";
+    return-type = "json";
+    max-length = 55;
+    format-icons = {
+      Playing = "";
+      Paused = "";
     };
-in
-{
+    exec = "${mediaplayer} ${player} ${icon}";
+    exec-if = "${checkIfNotDefault} || ${checkIfDefault}";
+    interval = 1;
+    on-click = "${play-pause} ${player}";
+  };
+in {
   modules-left = [
     "sway/workspaces"
     "custom/media#firefox"

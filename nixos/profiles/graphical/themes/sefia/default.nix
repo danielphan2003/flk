@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (lib) catAttrs attrValues;
 
   theme = {
@@ -33,25 +36,24 @@ let
   inherit (theme) gtk font cursor icon sddm;
 
   packages = catAttrs "package" (attrValues theme);
-in
-{
+in {
   environment.sessionVariables = {
-    GTK2_RC_FILES =
-      let
-        iconrc = pkgs.writeText "iconrc" ''
-          gtk-icon-theme-name="${icon.name}"
-          gtk-cursor-theme-name="${cursor.name}"
-        '';
-      in
-      [
-        "${iconrc}"
-        "${gtk.package}/share/themes/${gtk.name}/gtk-2.0/gtkrc"
-      ];
+    GTK2_RC_FILES = let
+      iconrc = pkgs.writeText "iconrc" ''
+        gtk-icon-theme-name="${icon.name}"
+        gtk-cursor-theme-name="${cursor.name}"
+      '';
+    in [
+      "${iconrc}"
+      "${gtk.package}/share/themes/${gtk.name}/gtk-2.0/gtkrc"
+    ];
   };
 
-  environment.systemPackages = packages ++ [
-    (pkgs.buildCursorTheme cursor.name)
-  ];
+  environment.systemPackages =
+    packages
+    ++ [
+      (pkgs.buildCursorTheme cursor.name)
+    ];
 
   environment.etc."xdg/gtk-3.0/settings.ini" = {
     text = ''

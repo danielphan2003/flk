@@ -1,4 +1,8 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix#L66
   boot.loader.systemd-boot.editor = false;
 
@@ -20,11 +24,11 @@
 
   security.doas.extraRules = [
     {
-      groups = [ "wheel" ];
+      groups = ["wheel"];
       keepEnv = true;
     }
     {
-      groups = [ "wheel" ];
+      groups = ["wheel"];
       cmd = "${pkgs.physlock}/bin/physlock";
       noPass = true;
       keepEnv = true;

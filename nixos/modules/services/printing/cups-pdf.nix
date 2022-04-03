@@ -1,9 +1,10 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.services.printing.cups-pdf;
 
   reminder = ''
@@ -13,15 +14,9 @@ let
     ### Read docs and find default config in
     ### ${pkgs.cups-pdf}/share/doc
   '';
-
-in
-
-{
-
+in {
   options = {
-
     services.printing.cups-pdf = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -32,7 +27,7 @@ in
 
       configurations = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         description = ''
           Configuration names and their associated definitions.
         '';
@@ -46,15 +41,12 @@ in
           }
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
-
-    environment.systemPackages = [ cups-pdf ];
-    services.printing.drivers = [ cups-pdf ];
+    environment.systemPackages = [cups-pdf];
+    services.printing.drivers = [cups-pdf];
 
     security.wrappers.cups-pdf = {
       source = "${cups-pdf}/lib/cups/backend.orig/cups-pdf";
@@ -69,13 +61,12 @@ in
     ###  copy several config files in your config directory, naming them
     ###  cups-pdf-<NAME>.conf, where <NAME> is a unique identifier for this instance.
     ###  You can then select the new instances as URI when creating a new printer in CUPS.
-    environment.etc = mapAttrs'
+    environment.etc =
+      mapAttrs'
       (name: value: {
         name = "cups-pdf/${name}.conf";
-        value = { text = reminder + value; };
+        value = {text = reminder + value;};
       })
       cfg.configurations;
-
   };
-
 }

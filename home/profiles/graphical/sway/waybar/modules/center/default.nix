@@ -1,4 +1,7 @@
-args@{ pkgs, lib, ... }:
-{
-  modules-center = [ ];
+args @ {
+  pkgs,
+  lib,
+  ...
+}: {
+  modules-center = [];
 }

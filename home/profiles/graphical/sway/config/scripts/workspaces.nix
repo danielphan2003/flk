@@ -1,4 +1,8 @@
-{ writeShellScript, sway-unwrapped, ... }:
+{
+  writeShellScript,
+  sway-unwrapped,
+  ...
+}:
 writeShellScript "workspaces.sh" ''
   if ! ${sway-unwrapped}/bin/swaymsg workspace $@; then
     if [ $@ -eq 1 ]; then

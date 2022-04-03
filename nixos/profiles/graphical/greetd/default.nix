@@ -1,10 +1,15 @@
-{ pkgs, config, ... }:
-let
+{
+  pkgs,
+  config,
+  ...
+}: let
   default_cmd = "${pkgs.greetd.gtkgreet}/bin/gtkgreet";
 
   backgroundDir = "/mnt/danie/Slideshows/Home";
 
-  generateCss = let opaque = "80"; in
+  generateCss = let
+    opaque = "80";
+  in
     pkgs.writeShellScript "generate-gtkgreet-css.sh" ''
       export HOME=$(${pkgs.coreutils}/bin/mktemp -d -t greetd-XXXXXXXXXX)
 
@@ -36,8 +41,7 @@ let
 
     include /etc/sway/config.d/*
   '';
-in
-{
+in {
   programs.sway.enable = true;
 
   services.greetd = {

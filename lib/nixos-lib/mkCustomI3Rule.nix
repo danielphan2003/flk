@@ -1,8 +1,10 @@
-{ lib }:
-rec {
-  rule = command: criteria: { command = command; criteria = criteria; };
+{lib}: rec {
+  rule = command: criteria: {
+    command = command;
+    criteria = criteria;
+  };
   floatingNoBorder = criteria: rule "floating enable, border none" criteria;
-  assign = n: id: { "${builtins.toString n}" = [ id ]; };
+  assign = n: id: {"${builtins.toString n}" = [id];};
   colorRule = background: border: childBorder: indicator: text: {
     background = background;
     border = border;

@@ -1,4 +1,8 @@
-{ stdenv, lib, sources }:
+{
+  stdenv,
+  lib,
+  sources,
+}:
 stdenv.mkDerivation {
   inherit (sources.pure) pname src version;
 
@@ -12,7 +16,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Pretty, minimal and fast ZSH prompt";
     homepage = "https://github.com/sindresorhus/pure";
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
     platforms = platforms.unix;
     license = licenses.mit;
   };

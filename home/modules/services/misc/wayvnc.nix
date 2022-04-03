@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.services.wayvnc;
   inherit (cfg) addr configFile maxFps;
-in
-{
+in {
   options = {
     services.wayvnc = {
       enable = mkOption {
@@ -41,26 +42,26 @@ in
     };
   };
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ wayvnc ];
+    home.packages = with pkgs; [wayvnc];
 
     systemd.user.services.wayvnc = {
       Unit = {
         Description = "a VNC server for wlroots based Wayland compositors";
-        After = [ "graphical-session-pre.target" ];
-        PartOf = [ "graphical-session.target" ];
+        After = ["graphical-session-pre.target"];
+        PartOf = ["graphical-session.target"];
       };
 
       Service = {
         Restart = "on-failure";
-        ExecStart = ''${pkgs.wayvnc}/bin/wayvnc \
-          ${optionalString (configFile != "") "-C ${configFile}"} \
-          -f ${assert asserts.assertMsg (maxFps > 0) "Rate limit for WayVNC must be a positive integer!"; toString maxFps} \
-          ${addr}
+        ExecStart = ''          ${pkgs.wayvnc}/bin/wayvnc \
+                    ${optionalString (configFile != "") "-C ${configFile}"} \
+                    -f ${assert asserts.assertMsg (maxFps > 0) "Rate limit for WayVNC must be a positive integer!"; toString maxFps} \
+                    ${addr}
         '';
       };
 
       Install = {
-        WantedBy = [ "graphical-session.target" ];
+        WantedBy = ["graphical-session.target"];
       };
     };
   };

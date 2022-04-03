@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   home.file.".gitconfig".text = config.xdg.configFile."git/config".text;
 
   programs.git = {
@@ -37,12 +37,9 @@
 
       # logging
       last = "log -1 HEAD";
-      lg =
-        "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-      plog =
-        "log --graph --pretty='format:%C(red)%d%C(reset) %C(yellow)%h%C(reset) %ar %C(green)%aN%C(reset) %s'";
-      tlog =
-        "log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative";
+      lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+      plog = "log --graph --pretty='format:%C(red)%d%C(reset) %C(yellow)%h%C(reset) %ar %C(green)%aN%C(reset) %s'";
+      tlog = "log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative";
       rank = "shortlog -sn --no-merges";
 
       # delete merged branches

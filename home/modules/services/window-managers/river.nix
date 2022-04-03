@@ -1,97 +1,83 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.wayland.windowManager.river;
 
-  keybindingsStr = { keybindings }:
+  keybindingsStr = {keybindings}:
     concatStringsSep "\n"
-      (flatten
-        (mapAttrsToList
-          (mode: keybinds:
-            mapAttrsToList
-              (keybind: cmd: "riverctl map ${mode} ${keybind} ${cmd}")
-              keybinds)
-          keybindings));
-
+    (flatten
+      (mapAttrsToList
+        (mode: keybinds:
+          mapAttrsToList
+          (keybind: cmd: "riverctl map ${mode} ${keybind} ${cmd}")
+          keybinds)
+        keybindings));
   # commonOptions = import ./lib/options.nix {
   #   inherit config lib cfg pkgs;
   #   moduleName = "sway";
   #   capitalModuleName = "Sway";
   # };
-
   # configModule = types.submodule {
   #   options = {
   #     inherit (commonOptions)
   #       fonts window floating focus assigns workspaceLayout
   #       workspaceAutoBackAndForth modifier keycodebindings colors bars startup
   #       gaps menu terminal defaultWorkspace workspaceOutputAssign;
-
   #     left = mkOption {
   #       type = types.str;
   #       default = "h";
   #       description = "Home row direction key for moving left.";
   #     };
-
   #     down = mkOption {
   #       type = types.str;
   #       default = "j";
   #       description = "Home row direction key for moving down.";
   #     };
-
   #     up = mkOption {
   #       type = types.str;
   #       default = "k";
   #       description = "Home row direction key for moving up.";
   #     };
-
   #     right = mkOption {
   #       type = types.str;
   #       default = "l";
   #       description = "Home row direction key for moving right.";
   #     };
-
   #     keybindings = mkOption {
   #       type = types.attrsOf (types.nullOr types.str);
   #       default = mapAttrs (n: mkOptionDefault) {
   #         "${cfg.config.modifier}+Return" = "exec ${cfg.config.terminal}";
   #         "${cfg.config.modifier}+Shift+q" = "kill";
   #         "${cfg.config.modifier}+d" = "exec ${cfg.config.menu}";
-
   #         "${cfg.config.modifier}+${cfg.config.left}" = "focus left";
   #         "${cfg.config.modifier}+${cfg.config.down}" = "focus down";
   #         "${cfg.config.modifier}+${cfg.config.up}" = "focus up";
   #         "${cfg.config.modifier}+${cfg.config.right}" = "focus right";
-
   #         "${cfg.config.modifier}+Left" = "focus left";
   #         "${cfg.config.modifier}+Down" = "focus down";
   #         "${cfg.config.modifier}+Up" = "focus up";
   #         "${cfg.config.modifier}+Right" = "focus right";
-
   #         "${cfg.config.modifier}+Shift+${cfg.config.left}" = "move left";
   #         "${cfg.config.modifier}+Shift+${cfg.config.down}" = "move down";
   #         "${cfg.config.modifier}+Shift+${cfg.config.up}" = "move up";
   #         "${cfg.config.modifier}+Shift+${cfg.config.right}" = "move right";
-
   #         "${cfg.config.modifier}+Shift+Left" = "move left";
   #         "${cfg.config.modifier}+Shift+Down" = "move down";
   #         "${cfg.config.modifier}+Shift+Up" = "move up";
   #         "${cfg.config.modifier}+Shift+Right" = "move right";
-
   #         "${cfg.config.modifier}+b" = "splith";
   #         "${cfg.config.modifier}+v" = "splitv";
   #         "${cfg.config.modifier}+f" = "fullscreen toggle";
   #         "${cfg.config.modifier}+a" = "focus parent";
-
   #         "${cfg.config.modifier}+s" = "layout stacking";
   #         "${cfg.config.modifier}+w" = "layout tabbed";
   #         "${cfg.config.modifier}+e" = "layout toggle split";
-
   #         "${cfg.config.modifier}+Shift+space" = "floating toggle";
   #         "${cfg.config.modifier}+space" = "focus mode_toggle";
-
   #         "${cfg.config.modifier}+1" = "workspace number 1";
   #         "${cfg.config.modifier}+2" = "workspace number 2";
   #         "${cfg.config.modifier}+3" = "workspace number 3";
@@ -101,7 +87,6 @@ let
   #         "${cfg.config.modifier}+7" = "workspace number 7";
   #         "${cfg.config.modifier}+8" = "workspace number 8";
   #         "${cfg.config.modifier}+9" = "workspace number 9";
-
   #         "${cfg.config.modifier}+Shift+1" =
   #           "move container to workspace number 1";
   #         "${cfg.config.modifier}+Shift+2" =
@@ -120,14 +105,11 @@ let
   #           "move container to workspace number 8";
   #         "${cfg.config.modifier}+Shift+9" =
   #           "move container to workspace number 9";
-
   #         "${cfg.config.modifier}+Shift+minus" = "move scratchpad";
   #         "${cfg.config.modifier}+minus" = "scratchpad show";
-
   #         "${cfg.config.modifier}+Shift+c" = "reload";
   #         "${cfg.config.modifier}+Shift+e" =
   #           "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
-
   #         "${cfg.config.modifier}+r" = "mode resize";
   #       };
   #       defaultText = "Default sway keybindings.";
@@ -148,7 +130,6 @@ let
   #         }
   #       '';
   #     };
-
   #     bindkeysToCode = mkOption {
   #       type = types.bool;
   #       default = false;
@@ -157,7 +138,6 @@ let
   #         Whether to make use of <option>--to-code</option> in keybindings.
   #       '';
   #     };
-
   #     input = mkOption {
   #       type = types.attrsOf (types.attrsOf types.str);
   #       default = { };
@@ -171,7 +151,6 @@ let
   #         for options.
   #       '';
   #     };
-
   #     output = mkOption {
   #       type = types.attrsOf (types.attrsOf types.str);
   #       default = { };
@@ -185,7 +164,6 @@ let
   #         for options.
   #       '';
   #     };
-
   #     seat = mkOption {
   #       type = types.attrsOf (types.attrsOf types.str);
   #       default = { };
@@ -199,7 +177,6 @@ let
   #         for options.
   #       '';
   #     };
-
   #     modes = mkOption {
   #       type = types.attrsOf (types.attrsOf types.str);
   #       default = {
@@ -225,7 +202,6 @@ let
   #     };
   #   };
   # };
-
   # wrapperOptions = types.submodule {
   #   options = let
   #     mkWrapperFeature = default: description:
@@ -246,21 +222,17 @@ let
   #     '';
   #   };
   # };
-
   # commonFunctions = import ./lib/functions.nix {
   #   inherit cfg lib;
   #   moduleName = "sway";
   # };
-
   # inherit (commonFunctions)
   #   keycodebindingsStr modeStr assignStr barStr gapsStr
   #   floatingCriteriaStr windowCommandsStr colorSetStr windowBorderString
   #   fontConfigStr keybindingDefaultWorkspace keybindingsRest workspaceOutputStr;
-
   # startupEntryStr = { command, always, ... }: ''
   #   ${if always then "exec_always" else "exec"} ${command}
   # '';
-
   # moduleStr = moduleType: name: attrs: ''
   #   ${moduleType} "${name}" {
   #   ${concatStringsSep "\n"
@@ -270,7 +242,6 @@ let
   # inputStr = moduleStr "input";
   # outputStr = moduleStr "output";
   # seatStr = moduleStr "seat";
-
   # configFile = pkgs.writeText "sway.conf" ((if cfg.config != null then
   #   with cfg.config; ''
   #     ${fontConfigStr fonts}
@@ -322,16 +293,13 @@ let
   #     exec "systemctl --user import-environment; systemctl --user start sway-session.target"
   #   '' else
   #     "") + cfg.extraConfig);
-
   # defaultSwayPackage = pkgs.sway.override {
   #   extraSessionCommands = cfg.extraSessionCommands;
   #   extraOptions = cfg.extraOptions;
   #   withBaseWrapper = cfg.wrapperFeatures.base;
   #   withGtkWrapper = cfg.wrapperFeatures.gtk;
   # };
-
-in
-{
+in {
   # meta.maintainers = with maintainers; [ alexarice sumnerevans ];
 
   # options.wayland.windowManager.sway = {

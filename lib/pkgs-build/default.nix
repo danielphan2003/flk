@@ -1,5 +1,4 @@
-{ lib }:
-{
+{lib}: {
   mkWaybarModule = import ./mkWaybarModule.nix;
-  wrapZshFunctions = import ./wrapZshFunctions.nix { inherit lib; };
+  wrapZshFunctions = import ./wrapZshFunctions.nix {inherit lib;};
 }

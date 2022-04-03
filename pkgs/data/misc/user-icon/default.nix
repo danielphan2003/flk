@@ -1,11 +1,13 @@
-{ stdenv
-, lib
-, username ? "nixos"
-, fetchurl ? null
-, icon ? fetchurl {
-    url = "https://nixos.org/favicon.png";
-    sha256 = "${lib.fakeSha256}";
-  }
+{
+  stdenv,
+  lib,
+  username ? "nixos",
+  fetchurl ? null,
+  icon ?
+    fetchurl {
+      url = "https://nixos.org/favicon.png";
+      sha256 = "${lib.fakeSha256}";
+    },
 }:
 stdenv.mkDerivation {
   name = "${username}-icon";

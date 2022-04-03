@@ -1,6 +1,13 @@
-{ writeShellScriptBin, lib, btrfs-progs, coreutils, gnused, util-linux }:
+{
+  writeShellScriptBin,
+  lib,
+  btrfs-progs,
+  coreutils,
+  gnused,
+  util-linux,
+}:
 writeShellScriptBin "fs-diff" ''
-  PATH="$PATH:${lib.makeBinPath [ btrfs-progs coreutils gnused util-linux ]}"
+  PATH="$PATH:${lib.makeBinPath [btrfs-progs coreutils gnused util-linux]}"
 
   set -euo pipefail
 

@@ -1,12 +1,13 @@
-{ coreutils
-, writeShellScript
-, sway
-, wf-recorder
-, slurp
-, jq
-, ffmpeg
-, libnotify
-, procps
+{
+  coreutils,
+  writeShellScript,
+  sway,
+  wf-recorder,
+  slurp,
+  jq,
+  ffmpeg,
+  libnotify,
+  procps,
 }:
 writeShellScript "screenshare.sh" ''
   ## Starts, stops and shows status for screensharing

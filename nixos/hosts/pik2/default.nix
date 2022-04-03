@@ -1,54 +1,29 @@
-{ self
-, config
-, lib
-, pkgs
-, suites
-, ...
-}:
-
-let inherit (config.networking) domain hostName; in
 {
+  self,
+  config,
+  lib,
+  pkgs,
+  suites,
+  ...
+}: let
+  inherit (config.networking) domain;
+in {
   imports = suites.pik2;
 
-  age.secrets.duckdns.file = "${self}/secrets/nixos/profiles/cloud/duckdns.age";
-
-  networking = {
-    domain = "${hostName}.duckdns.org";
-    wireless.enable = false;
-  };
+  networking.wireless.enable = false;
 
   services.openssh.openFirewall = true;
 
-  services.duckdns = {
-    enable = true;
-    domain = hostName;
-  };
+  networking.domain = "c-137.me";
 
-  systemd.services.caddy.serviceConfig = {
-    inherit (config.systemd.services.duckdns.serviceConfig) EnvironmentFile;
-  };
+  services.caddy.email = "acme@c-137.me";
 
-  services.caddy = {
-    email = "danielphan.2003+acme@gmail.com";
-    package = with pkgs; caddy.override {
-      plugins = [ "github.com/caddy-dns/duckdns" ];
-      buildGoModule = args: buildGoModule (args // {
-        vendorSha256 = "sha256-ykMzMvRaF6nbWz2haZHKPwYJgAKsqp0fhzT7l1n7ge0=";
-      });
-    };
-    virtualHosts."*.${domain}" = {
-      serverAliases = [ domain ];
-      extraConfig = ''
-        import common
-        import logging ${domain}
-
-        tls {
-          dns duckdns {env.DUCKDNS_GMAIL} {
-            override_domain ${hostName}
-          }
-        }
-      '';
-    };
+  services.caddy.package = pkgs.caddy.override {
+    plugins = [
+      "github.com/caddy-dns/cloudflare"
+      "github.com/danielphan2003/caddy-dynamicdns"
+    ];
+    vendorSha256 = "sha256-zIrOjnfvxDjJRK4JNBdGNCw8P09BmUS+1AljHJD1kVc=";
   };
 
   nix.maxJobs = 4;
@@ -66,7 +41,7 @@ let inherit (config.networking) domain hostName; in
   console.keyMap = "us";
 
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
+    kernelPackages = pkgs.linuxPackages_rpi4;
 
     initrd.availableKernelModules = [
       "pcie_brcmstb"
@@ -88,18 +63,18 @@ let inherit (config.networking) domain hostName; in
       "uas" # necessary for my UAS-enabled NVME-USB adapter
     ];
 
-    initrd.supportedFilesystems = [ "btrfs" ];
+    initrd.supportedFilesystems = ["btrfs"];
 
     kernelModules = config.boot.initrd.availableKernelModules;
 
-    supportedFilesystems = [ "btrfs" "ntfs" ];
+    supportedFilesystems = ["btrfs" "ntfs"];
 
     persistence.path = "/persist";
   };
 
   services.btrfs.autoScrub = {
     enable = true;
-    fileSystems = [ "/persist" ];
+    fileSystems = ["/persist"];
   };
 
   fileSystems = {
@@ -110,13 +85,14 @@ let inherit (config.networking) domain hostName; in
     "/persist" = {
       device = "/dev/mapper/system";
       fsType = "btrfs";
-      options = [ "subvol=persist" "compress=zstd" "noatime" ];
+      options = ["subvol=persist" "compress=zstd" "noatime"];
     };
   };
 
-  swapDevices =
-    [{
+  swapDevices = [
+    {
       device = "/dev/disk/by-partuuid/3044b508-d0b4-44f7-adb5-cfb10080e8df";
       randomEncryption.enable = true;
-    }];
+    }
+  ];
 }

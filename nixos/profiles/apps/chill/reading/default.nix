@@ -1,6 +1,7 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
+    inherit
+      (pkgs)
       calibre
       fanficfare
       ;

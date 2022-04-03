@@ -135,7 +135,7 @@ label:focus {
 
 * {
   border-radius: 0;
-  font-family: 'Inconsolata', 'M PLUS 2';
+  font-family: "Inconsolata", "M PLUS 2";
   padding-bottom: 5px;
   font-size: 9pt;
   min-height: 0px;
@@ -182,7 +182,13 @@ tooltip {
   border-radius: 15px;
 }
 
-#custom-power, #clock, #battery, #pulseaudio, #network, #workspaces, #tray {
+#custom-power,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#workspaces,
+#tray {
   background-color: #080808;
   padding: 10px 5px;
   margin: 0px 0px;

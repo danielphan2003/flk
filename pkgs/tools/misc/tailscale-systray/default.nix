@@ -1,16 +1,16 @@
-{ lib
-, buildGoApplication
-, sources
-
-, pkg-config
-, wrapGAppsHook
-, gobject-introspection
-, libappindicator
-, gtk-layer-shell
-, gtk3
-, pango
-, gdk-pixbuf
-, atk
+{
+  lib,
+  buildGoApplication,
+  sources,
+  pkg-config,
+  wrapGAppsHook,
+  gobject-introspection,
+  libappindicator,
+  gtk-layer-shell,
+  gtk3,
+  pango,
+  gdk-pixbuf,
+  atk,
 }:
 buildGoApplication {
   inherit (sources.tailscale-systray) pname src version;
@@ -19,10 +19,10 @@ buildGoApplication {
 
   modules = ./gomod2nix.toml;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  buildInputs = [ atk gtk3 gdk-pixbuf gtk-layer-shell pango libappindicator ];
-  nativeBuildInputs = [ pkg-config wrapGAppsHook gobject-introspection ];
+  buildInputs = [atk gtk3 gdk-pixbuf gtk-layer-shell pango libappindicator];
+  nativeBuildInputs = [pkg-config wrapGAppsHook gobject-introspection];
 
   postInstall = ''
     mkdir -p $out/share
@@ -37,6 +37,6 @@ buildGoApplication {
     description = "Linux port of tailscale system tray menu";
     homepage = "https://github.com/mattn/tailscale-systray";
     platforms = platforms.unix;
-    maintainers = [ maintainers.danielphan2003 ];
+    maintainers = [maintainers.danielphan2003];
   };
 }

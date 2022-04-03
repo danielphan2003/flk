@@ -1,4 +1,8 @@
-{ writeShellScript, bemenu-run, screenshare }:
+{
+  writeShellScript,
+  bemenu-run,
+  screenshare,
+}:
 writeShellScript "bemenu-screenshare.sh" ''
   ## Shows a dropdown menu to start, stop or view the status of screensharing
 

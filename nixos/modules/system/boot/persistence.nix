@@ -1,14 +1,15 @@
-{ config, lib, ... }:
-
-with lib;
-let
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
   cfg = config.boot.persistence;
   reminder = ''
     Do not use this module or profile misc.persistence
     unless your configuration follows mine exactly.
   '';
-in
-{
+in {
   options = {
     boot.persistence = {
       enable = mkOption {
@@ -26,7 +27,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -74,5 +74,4 @@ in
       umount /mnt
     '';
   };
-
 }

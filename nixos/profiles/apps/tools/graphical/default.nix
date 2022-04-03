@@ -1,23 +1,29 @@
-{ lib, pkgs, ... }: {
-  environment.pathsToLink = [ "/share/ulauncher" ];
+{
+  lib,
+  pkgs,
+  ...
+}: {
+  environment.pathsToLink = ["/share/ulauncher"];
 
-  environment.systemPackages = builtins.attrValues
+  environment.systemPackages =
+    builtins.attrValues
     {
-      inherit (pkgs)
+      inherit
+        (pkgs)
         czkawka
         libnotify
         pywal
         ulauncher
         zathura
         ;
-      inherit (pkgs)
+      inherit
+        (pkgs)
         gparted
         trash-cli
         woeusb
         ;
     }
-  ++
-  (lib.optionals
-    (pkgs.system == "x86_64-linux")
-    (with pkgs; [ etcher ]));
+    ++ (lib.optionals
+      (pkgs.system == "x86_64-linux")
+      (with pkgs; [etcher]));
 }

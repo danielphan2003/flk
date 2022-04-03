@@ -1,13 +1,17 @@
-{ pkgs, lib, config, ... }:
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   inherit (builtins) attrValues;
   inherit (lib) mkDefault mkForce optionalAttrs;
-in
-{
+in {
   environment.systemPackages = attrValues {
-    inherit (pkgs)
+    inherit
+      (pkgs)
       xdg-utils
-      nixos-icons# needed for gnome and pantheon about dialog, nixos-manual and maybe more
+      nixos-icons # needed for gnome and pantheon about dialog, nixos-manual and maybe more
       ;
   };
 

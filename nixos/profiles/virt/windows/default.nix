@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   systemd.tmpfiles.rules = [
     "f /dev/shm/scream 0660 danie qemu-libvirtd -"
   ];
@@ -10,7 +10,7 @@
       ExecStart = "${pkgs.scream}/bin/scream-ivshmem-pulse /dev/shm/scream";
       Restart = "always";
     };
-    wantedBy = [ "multi-user.target" ];
-    requires = [ "pulseaudio.service" ];
+    wantedBy = ["multi-user.target"];
+    requires = ["pulseaudio.service"];
   };
 }

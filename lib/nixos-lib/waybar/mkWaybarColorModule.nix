@@ -1,19 +1,19 @@
-{ lib }:
-templateCss: { type ? "span", ... }@args:
-let
-  inherit (builtins)
+{lib}: templateCss: {type ? "span", ...} @ args: let
+  inherit
+    (builtins)
     attrNames
     attrValues
     removeAttrs
     ;
 
-  inherit (lib)
+  inherit
+    (lib)
     mapAttrs'
     nameValuePair
     replaceStrings
     ;
 
-  removedArgs = removeAttrs args [ "extraSubstituters" ];
+  removedArgs = removeAttrs args ["extraSubstituters"];
 
   substituters =
     (mapAttrs'
@@ -27,4 +27,4 @@ let
 
   colorModule = replaceStrings substitutersNames substitutersValues templateCss;
 in
-colorModule
+  colorModule

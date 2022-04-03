@@ -1,11 +1,17 @@
-{ config, lib, options, pkgs, ... }: {
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}: {
   fonts.fontDir.enable = true;
 
   services.cron.systemCronJobs = [
     "*/20 * * * *      danie      $HOME/.local/bin/wal-set >> /tmp/wal-set.log"
   ];
 
-  environment.systemPackages = [ pkgs.xdg-desktop-portal ] ++ config.xdg.portal.extraPortals;
+  environment.systemPackages = [pkgs.xdg-desktop-portal] ++ config.xdg.portal.extraPortals;
 
   xdg.portal.wlr = {
     enable = true;

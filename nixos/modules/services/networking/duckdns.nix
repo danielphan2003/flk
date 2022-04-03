@@ -1,11 +1,12 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
-  cfg = config.services.duckdns;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.services.duckdns;
+in {
   options.services.duckdns = {
     enable = mkOption {
       type = types.bool;
@@ -57,8 +58,8 @@ in
     };
 
     systemd.timers.duckdns = {
-      wantedBy = [ "timers.target" ];
-      partOf = [ "duckdns.service" ];
+      wantedBy = ["timers.target"];
+      partOf = ["duckdns.service"];
       timerConfig.OnCalendar = "*:0/15";
     };
   };

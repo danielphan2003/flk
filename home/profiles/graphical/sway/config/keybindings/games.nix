@@ -1,7 +1,8 @@
-{ pkgs, mod }:
-let
-  gamecheat = pkgs.callPackage ../scripts/gamecheat.nix { };
-in
 {
+  pkgs,
+  mod,
+}: let
+  gamecheat = pkgs.callPackage ../scripts/gamecheat.nix {};
+in {
   "${mod}+g" = "exec ${gamecheat}";
 }

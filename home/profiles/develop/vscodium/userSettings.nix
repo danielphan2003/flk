@@ -1,15 +1,16 @@
-{ alacritty
-, nodejs
-, jre_minimal
-, gcc
-, python
-, ruby
-, go
-, lua
-, bash
-, rustc
-, ...
-}@pkgs: {
+{
+  alacritty,
+  nodejs,
+  jre_minimal,
+  gcc,
+  python,
+  ruby,
+  go,
+  lua,
+  bash,
+  rustc,
+  ...
+} @ pkgs: {
   "workbench.iconTheme" = "material-icon-theme";
   "gitlens.defaultDateFormat" = "H:mm:ss dd.MM.yy";
   "gitlens.hovers.currentLine.over" = "line";
@@ -44,7 +45,7 @@
     "PowerShell" = {
       "source" = "PowerShell";
       "icon" = "terminal-powershell";
-      "args" = [ "-NoLogo" ];
+      "args" = ["-NoLogo"];
     };
   };
   "terminal.integrated.experimentalUseTitleEvent" = true;
@@ -86,7 +87,7 @@
     "astro" = "html";
   };
   "workbench.editor.untitled.experimentalLanguageDetection" = true;
-  "discord.workspaceExcludePatterns" = [ "nixpkgs" ];
+  "discord.workspaceExcludePatterns" = ["nixpkgs"];
   "code-runner.runInTerminal" = true;
   "code-runner.executorMap" = {
     "javascript" = "${nodejs}/bin/node";

@@ -1,18 +1,20 @@
-{ lib }:
+{lib}:
 lib.makeExtensible (self: rec {
-  nixos-lib = import ./nixos-lib { inherit lib; };
+  nixos-lib = import ./nixos-lib {inherit lib;};
 
-  pkgs-build = import ./pkgs-build { inherit lib; };
+  pkgs-build = import ./pkgs-build {inherit lib;};
 
-  lists = import ./lists.nix { inherit lib; };
+  lists = import ./lists.nix {inherit lib;};
 
-  trivial = import ./trivial.nix { inherit lib; };
+  trivial = import ./trivial.nix {inherit lib;};
 
-  inherit (lists)
+  inherit
+    (lists)
     appendString
     ;
 
-  inherit (nixos-lib)
+  inherit
+    (nixos-lib)
     getNixFiles
     getNormalUsers
     getPatches
@@ -20,14 +22,17 @@ lib.makeExtensible (self: rec {
     mkFirefoxConfig
     pywal
     # waybar
+    
     ;
 
-  inherit (pkgs-build)
+  inherit
+    (pkgs-build)
     mkWaybarModule
     wrapZshFunctions
     ;
 
-  inherit (trivial)
+  inherit
+    (trivial)
     ifttt
     mkSuite
     ;

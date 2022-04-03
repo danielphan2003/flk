@@ -1,5 +1,4 @@
-{ mod }:
-{
+{mod}: {
   "${mod}+1" = "workspace number 1";
   "${mod}+2" = "workspace number 2";
   "${mod}+3" = "workspace number 3";

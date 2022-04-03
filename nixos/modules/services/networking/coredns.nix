@@ -1,12 +1,12 @@
-{ lib, config, ... }:
-
-with lib;
-
-let
+{
+  lib,
+  config,
+  ...
+}:
+with lib; let
   inherit (lib) mkDefault;
   cfg = config.within.coredns;
-in
-{
+in {
   options.within.coredns = {
     enable =
       mkEnableOption "Enables coreDNS for ad-blocking DNS and DNS in general";
@@ -29,14 +29,12 @@ in
     services.coredns = {
       enable = true;
 
-      config =
-        let
-          prom =
-            if cfg.prometheus.enable then
-              "prometheus ${cfg.addr}:${toString cfg.prometheus.port}"
-            else
-              "";
-        in
+      config = let
+        prom =
+          if cfg.prometheus.enable
+          then "prometheus ${cfg.addr}:${toString cfg.prometheus.port}"
+          else "";
+      in
         mkDefault ''
           . {
             bind ${cfg.addr}
@@ -54,6 +52,6 @@ in
         '';
     };
 
-    networking = mkIf cfg.addServer { nameservers = [ cfg.addr ]; };
+    networking = mkIf cfg.addServer {nameservers = [cfg.addr];};
   };
 }

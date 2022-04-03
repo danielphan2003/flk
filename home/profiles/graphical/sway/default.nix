@@ -1,12 +1,15 @@
-{ pkgs, config, lib, ... }:
-let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
   inherit (lib) attrValues;
   wal-set = pkgs.callPackage ./config/scripts/wal-set.nix {
     inherit (config.wayland.windowManager.sway.config) colors;
-    backgroundDir = "/mnt/danie/Slideshows/Home";
+    backgroundDir = "/mnt/${config.home.username}/Slideshows/Home";
   };
-in
-{
+in {
   imports = [
     ./gammastep
     ./kanshi
@@ -23,65 +26,71 @@ in
 
   services.gpg-agent.pinentryFlavor = "gnome3";
 
+  services.eww.package = pkgs.eww-wayland;
+
   home.packages = attrValues ({
-    inherit (pkgs)
-      # sway-dependent
-      swaylock-effects
-      swayidle
-      autotiling
-      swayprop
+      inherit
+        (pkgs)
+        # sway-dependent
+        
+        swaylock-effects
+        swayidle
+        autotiling
+        swayprop
+        # wm-independent
+        
+        avizo
+        flameshot
+        nwg-drawer
+        nwg-menu
+        nwg-panel
+        nwg-wrapper
+        paper
+        wmctrl
+        wlrctl
+        # misc
+        
+        dmenu
+        networkmanager_dmenu
+        tdrop
+        libappindicator-gtk3
+        gtk-layer-shell
+        ;
 
-      # wm-independent
-      avizo
-      flameshot
-      nwg-drawer
-      nwg-menu
-      nwg-panel
-      nwg-wrapper
-      paper
-      wmctrl
-      wlrctl
+      inherit
+        (pkgs.qt5)
+        # wayland-dependent
+        
+        qtwayland
+        ;
 
-      # misc
-      dmenu
-      networkmanager_dmenu
-      tdrop
-      libappindicator-gtk3
-      gtk-layer-shell
-      ;
-
-    inherit (pkgs.qt5)
-      # wayland-dependent
-      qtwayland
-      ;
-
-    inherit (pkgs)
-      clipman
-      grim
-      mako
-      nwg-launchers
-      slurp
-      swaybg
-      wdisplays
-      wf-recorder
-      wl-clipboard
-      wlvncc
-      wlr-randr
-      wofi
-      wtype
-      ;
-  }
-  //
-  (lib.optionalAttrs
-    (builtins.elem pkgs.system pkgs.lavalauncher.meta.platforms)
-    { inherit (pkgs) lavalauncher; }
-  ));
+      inherit
+        (pkgs)
+        clipman
+        grim
+        mako
+        nwg-launchers
+        slurp
+        swaybg
+        wdisplays
+        wf-recorder
+        wl-clipboard
+        wlvncc
+        wlr-randr
+        wofi
+        wtype
+        ;
+    }
+    // (
+      lib.optionalAttrs
+      (builtins.elem pkgs.system pkgs.lavalauncher.meta.platforms)
+      {inherit (pkgs) lavalauncher;}
+    ));
 
   services.avizo.enable = true;
 
   services.wayvnc = {
     enable = true;
-    configFile = "/run/agenix/wayvnc/config";
     maxFps = 60;
   };
 
@@ -117,7 +126,7 @@ in
       exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP GTK_IM_MODULE QT_IM_MODULE XMODIFIERS DBUS_SESSION_BUS_ADDRESS
     '';
 
-    config = import ./config { inherit pkgs config lib; };
+    config = import ./config {inherit pkgs config lib;};
   };
 
   home.file.".local/bin/wal-set".source = wal-set;

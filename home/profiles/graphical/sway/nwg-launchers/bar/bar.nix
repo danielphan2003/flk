@@ -1,11 +1,10 @@
-{ pkgs
-, username
-, ...
-}:
-let
-  lock = pkgs.callPackage ../../config/scripts/lock.nix { };
-in
-[
+{
+  pkgs,
+  username,
+  ...
+}: let
+  lock = pkgs.callPackage ../../config/scripts/lock.nix {};
+in [
   {
     name = "Lock screen";
     exec = lock;

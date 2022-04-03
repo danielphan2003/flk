@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   xdg.configFile."winapps/winapps.conf".text = ''
     source /run/agenix/accounts
     RDP_USER="$MICROSOFT_DANIE_USER"
@@ -6,7 +6,7 @@
     RDP_DOMAIN="uwu"
     RDP_NAME="uwu"
     RDP_IP="100.73.226.125"
-    SHARE_PATH="$HOME/docs"
+    SHARE_PATH="~/docs"
     # RDP_SCALE=100
     MULTIMON="false"
     # DEBUG="true"

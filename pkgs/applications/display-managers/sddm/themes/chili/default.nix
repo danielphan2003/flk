@@ -1,4 +1,8 @@
-{ stdenv, lib, sources }:
+{
+  stdenv,
+  lib,
+  sources,
+}:
 stdenv.mkDerivation {
   inherit (sources.sddm-chili) pname src version;
 
@@ -10,7 +14,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "The hottest theme around for SDDM";
     homepage = "https://github.com/MarianArlt/sddm-chili";
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

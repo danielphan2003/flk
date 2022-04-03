@@ -1,5 +1,11 @@
-{ self, lib, pkgs, profiles, ... }: {
-  imports = with profiles.shell; [ aliases ];
+{
+  self,
+  lib,
+  pkgs,
+  profiles,
+  ...
+}: {
+  imports = with profiles.shell; [aliases];
 
   environment.shellInit = ''
     export STARSHIP_CONFIG=${

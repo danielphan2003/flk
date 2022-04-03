@@ -1,0 +1,52 @@
+name: "Build ISO for host"
+on:
+  workflow_dispatch:
+    inputs:
+      host:
+        description: "Host name to build ISO for"
+        required: true
+        default: "bootstrap"
+        type: string
+
+jobs:
+  update_pkgs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.3.4
+
+    - uses: cachix/install-nix-action@v16
+      with:
+        install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.7.0pre20220127_558c4ee/install
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          system-features = nixos-test benchmark big-parallel kvm recursive-nix
+          substituters = https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o=
+        nix_path: nixpkgs=channel:nixos-unstable
+
+    - uses: cachix/cachix-action@v10
+      with:
+        name: dan-cfg
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+    - name: Quick eval
+      run: nix develop --command evalnix
+
+    - name: Build ISO for host
+      run: |
+        host="${{ github.event.inputs.host }}"
+        iso_path="$(nix develop --command nixos-generate -f install-iso --system x86_64-linux --flake .\#$host)"
+        echo "iso_path=$iso_path" >> $GITHUB_ENV
+
+    - name: Generate artifact name
+      run: |
+        host="${{ github.event.inputs.host }}"
+        nixosVersion="$(nix eval --raw .\#nixosConfigurations.$host.config.system.nixos.label)"
+        arch=$(nix eval --raw .\#nixosConfigurations.$host.pkgs.stdenv.hostPlatform.system)
+        echo "artifact_name=$host-$nixosVersion-$arch.iso" >> $GITHUB_ENV
+
+    - name: Upload WSA
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.artifact_name }}
+        path: ${{ env.iso_path }}

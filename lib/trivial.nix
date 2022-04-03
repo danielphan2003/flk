@@ -1,5 +1,4 @@
-{ lib }:
-{
+{lib}: {
   ifttt = cond: ifTrue: ifFalse:
     if cond
     then ifTrue

@@ -1,8 +1,13 @@
-{ stdenv, lib, sources, p7zip }:
+{
+  stdenv,
+  lib,
+  sources,
+  p7zip,
+}:
 stdenv.mkDerivation {
   name = "otf-apple";
 
-  buildInputs = [ p7zip ];
+  buildInputs = [p7zip];
 
   src = with sources; [
     sf-font-compact.src
@@ -36,7 +41,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Install SF and NY font on linux";
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
     license = licenses.unfree;
     platforms = platforms.all;
   };

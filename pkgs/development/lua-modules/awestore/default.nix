@@ -1,27 +1,32 @@
-{ lib, sources, luaPackages }:
-let lua = luaPackages.lua; in
-luaPackages.buildLuarocksPackage {
-  inherit lua;
+{
+  lib,
+  sources,
+  luaPackages,
+}: let
+  lua = luaPackages.lua;
+in
+  luaPackages.buildLuarocksPackage {
+    inherit lua;
 
-  inherit (sources.awestore) pname src version;
+    inherit (sources.awestore) pname src version;
 
-  disabled = (luaPackages.luaOlder "5.1");
-  propagatedBuildInputs = [ lua ];
+    disabled = luaPackages.luaOlder "5.1";
+    propagatedBuildInputs = [lua];
 
-  dontUnpack = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontBuild = true;
 
-  buildPhase = ":";
+    buildPhase = ":";
 
-  installPhase = ''
-    mkdir -p "$out/share/lua/${lua.luaversion}/awestore"
-    cp -r $src/src/* "$out/share/lua/${lua.luaversion}/awestore"
-  '';
+    installPhase = ''
+      mkdir -p "$out/share/lua/${lua.luaversion}/awestore"
+      cp -r $src/src/* "$out/share/lua/${lua.luaversion}/awestore"
+    '';
 
-  meta = with lib; {
-    homepage = "https://github.com/K4rakara/awestore";
-    description = "Sveltes store API for AwesomeWM";
-    maintainers = [ danielphan2003 ];
-    license.fullName = "MIT/X11";
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/K4rakara/awestore";
+      description = "Sveltes store API for AwesomeWM";
+      maintainers = [danielphan2003];
+      license.fullName = "MIT/X11";
+    };
+  }

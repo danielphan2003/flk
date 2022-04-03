@@ -1,3 +1,5 @@
 final: prev: {
-  vscode-extensions = prev.vscode-extensions // { };
+  __dontExport = true; # overrides clutter up actual creations
+
+  vscode-extensions = prev.vscode-extensions // {};
 }

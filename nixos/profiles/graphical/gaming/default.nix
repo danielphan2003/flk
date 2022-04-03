@@ -1,15 +1,17 @@
-{ pkgs, ... }:
-let inherit (builtins) attrValues; in
-{
+{pkgs, ...}: let
+  inherit (builtins) attrValues;
+in {
   imports = [
     ./android.nix
     ./udev.nix
   ];
 
   environment.systemPackages = attrValues {
-    inherit (pkgs)
+    inherit
+      (pkgs)
       ultimmc
       # pcsx2
+      
       qjoypad
       retroarchBare
       ;
@@ -32,6 +34,5 @@ let inherit (builtins) attrValues; in
   systemd.extraConfig = "DefaultLimitNOFILE=1048576";
 
   # improve wine performance
-  environment.sessionVariables = { WINEDEBUG = "-all"; };
-
+  environment.sessionVariables = {WINEDEBUG = "-all";};
 }

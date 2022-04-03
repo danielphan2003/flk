@@ -8,8 +8,9 @@
   };
 
   inputs = {
-    nixos.url = "nixpkgs/release-21.11";
+    nixos.url = "nixpkgs/nixos-21.11";
     latest.url = "nixpkgs/nixos-unstable";
+    nixlib.url = "github:nix-community/nixpkgs.lib";
 
     dan-nixpkgs = {
       url = github:danielphan2003/nixpkgs;
@@ -23,10 +24,11 @@
     };
 
     digga = {
-      url = github:divnix/digga/cleanup-dar;
+      url = github:divnix/digga;
       inputs = {
         nixpkgs.follows = "nixos";
-        nixlib.follows = "nixos";
+        latest.follows = "latest";
+        nixlib.follows = "nixlib";
         home-manager.follows = "home";
         deploy.follows = "deploy";
       };
@@ -43,7 +45,7 @@
 
     home = {
       url = github:nix-community/home-manager/release-21.11;
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = "nixlib";
     };
 
     darwin = {
@@ -60,12 +62,12 @@
     };
 
     agenix = {
-      url = github:ryantm/agenix; # github:yaxitech/ragenix;
+      url = github:yaxitech/ragenix;
       inputs = {
-        nixpkgs.follows = "nixos";
-        # flake-utils.follows = "digga/flake-utils-plus/flake-utils";
-        # rust-overlay.follows = "rust-overlay";
-        # naersk.follows = "naersk";
+        nixpkgs.follows = "latest";
+        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
+        rust-overlay.follows = "rust-overlay";
+        naersk.follows = "naersk";
       };
     };
 
@@ -73,14 +75,15 @@
       url = github:berberman/nvfetcher;
       inputs = {
         nixpkgs.follows = "nixos";
-        flake-compat.follows = "deploy/flake-compat";
         flake-utils.follows = "digga/flake-utils-plus/flake-utils";
       };
     };
 
-    nixos-hardware = { url = "github:nixos/nixos-hardware"; };
+    nixos-hardware = {url = "github:nixos/nixos-hardware";};
 
     ###############################################################
+
+    argonone-utils = {url = github:danielphan2003/argonone-utils/flake-nixosModules;};
 
     beautysh = {
       url = github:lovesegfault/beautysh;
@@ -88,16 +91,6 @@
         nixpkgs.follows = "nixos";
         flake-utils.follows = "digga/flake-utils-plus/flake-utils";
         poetry2nix.follows = "poetry2nix";
-      };
-    };
-
-    ci-agent = {
-      url = github:hercules-ci/hercules-ci-agent;
-      inputs = {
-        nix-darwin.follows = "darwin";
-        nixos-20_09.follows = "nixos";
-        nixos-unstable.follows = "nixos";
-        flake-compat.follows = "deploy/flake-compat";
       };
     };
 
@@ -110,18 +103,7 @@
       };
     };
 
-    eww = {
-      url = github:elkowar/eww;
-      inputs = {
-        flake-compat.follows = "deploy/flake-compat";
-        nixpkgs.follows = "nixos";
-        flake-utils.follows = "digga/flake-utils-plus/flake-utils";
-        fenix.follows = "fenix";
-        naersk.follows = "naersk";
-      };
-    };
-
-    fenix = { url = github:nix-community/fenix; };
+    fenix = {url = github:nix-community/fenix;};
 
     firefox-nightly = {
       url = github:colemickens/flake-firefox-nightly;
@@ -136,10 +118,7 @@
       };
     };
 
-    impermanence = {
-      url = github:nix-community/impermanence;
-      flake = false;
-    };
+    impermanence = {url = github:nix-community/impermanence;};
 
     manix = {
       url = github:kreisys/manix;
@@ -148,6 +127,8 @@
         flake-utils.follows = "digga/flake-utils-plus/flake-utils";
       };
     };
+
+    matrix-appservices = {url = github:Pacman99/nixpkgs/matrix-appservices;};
 
     naersk = {
       url = github:nix-community/naersk;
@@ -170,6 +151,24 @@
       };
     };
 
+    nixos-mailserver = {
+      url = gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-21.11;
+      inputs = {
+        utils.follows = "digga/flake-utils-plus/flake-utils";
+        nixpkgs.follows = "latest";
+        nixpkgs-21_11.follows = "nixos";
+      };
+    };
+
+    nixos-mailserver-latest = {
+      url = gitlab:simple-nixos-mailserver/nixos-mailserver;
+      inputs = {
+        utils.follows = "digga/flake-utils-plus/flake-utils";
+        nixpkgs.follows = "latest";
+        nixpkgs-21_11.follows = "nixos";
+      };
+    };
+
     npmlock2nix = {
       url = github:nix-community/npmlock2nix;
       flake = false;
@@ -179,7 +178,6 @@
       url = github:cid-chan/peerix;
       inputs = {
         nixpkgs.follows = "nixos";
-        flake-compat.follows = "deploy/flake-compat";
         flake-utils.follows = "digga/flake-utils-plus/flake-utils";
       };
     };
@@ -192,7 +190,7 @@
       };
     };
 
-    qnr = { url = github:divnix/quick-nix-registry; };
+    qnr = {url = github:divnix/quick-nix-registry;};
 
     rnix-lsp = {
       url = github:nix-community/rnix-lsp;
@@ -218,107 +216,97 @@
     };
   };
 
-  outputs =
-    { self
-
-    , nixos
-    , latest
-    , dan-nixpkgs
-
-    , digga
-    , bud
-    , home
-    , darwin
-    , deploy
-    , agenix
-    , nixos-hardware
-
-      ###############################################################
-
-    , beautysh
-    , ci-agent
-    , dcompass
-    , fenix
-    , firefox-nightly
-    , gomod2nix
-      # , impermanence
-    , manix
-    , naersk
-    , nix-gaming
-    , nixpkgs-wayland
-      # , npmlock2nix
-    , peerix
-    , poetry2nix
-    , qnr
-    , rnix-lsp
-    , rust-overlay
-    , devos-ext-lib
-    , ...
-    } @ inputs:
+  outputs = {
+    self,
+    nixos,
+    latest,
+    dan-nixpkgs,
+    digga,
+    bud,
+    home,
+    darwin,
+    deploy,
+    agenix,
+    nixos-hardware,
+    ###############################################################
+    argonone-utils,
+    beautysh,
+    dcompass,
+    fenix,
+    firefox-nightly,
+    gomod2nix,
+    impermanence,
+    manix,
+    matrix-appservices,
+    naersk,
+    nix-gaming,
+    nixpkgs-wayland,
+    nixos-mailserver,
+    nixos-mailserver-latest,
+    # , npmlock2nix
+    peerix,
+    poetry2nix,
+    qnr,
+    rnix-lsp,
+    rust-overlay,
+    devos-ext-lib,
+    ...
+  } @ inputs:
     digga.lib.mkFlake
-      {
-        inherit self inputs;
+    {
+      inherit self inputs;
 
-        channelsConfig = { allowUnfree = true; };
+      channelsConfig = {allowUnfree = true;};
 
-        channels = {
-          nixos = {
-            imports = [ (digga.lib.importOverlays ./overlays) ];
-            overlays = [
-              agenix.overlay
-
+      channels = {
+        nixos = {
+          imports = [(digga.lib.importOverlays ./overlays)];
+          overlays =
+            [
               dcompass.overlay
-
-              peerix.overlay
-
               fenix.overlay
               gomod2nix.overlay
               naersk.overlay
+              peerix.overlay
               poetry2nix.overlay
+              rust-overlay.overlay
             ]
             ++ (builtins.attrValues dan-nixpkgs.overlays)
-            ++ devos-ext-lib.overlays.minecraft-mods
-            ++ devos-ext-lib.overlays.papermc
-            ++ devos-ext-lib.overlays.python3Packages
-            ++ devos-ext-lib.overlays.vimPlugins
-            ++ devos-ext-lib.overlays.vscode-extensions
-            ++ [ (import ./pkgs/default.nix { inherit inputs; }) ];
-          };
-          latest = {
-            overlays = [ nixpkgs-wayland.overlay ];
-          };
+            ++ (builtins.attrValues devos-ext-lib.overlays)
+            ++ [(import ./pkgs {inherit inputs;})];
         };
+        latest = {
+          overlays = [
+            nixpkgs-wayland.overlay
+            agenix.overlay
+          ];
+        };
+      };
 
-        lib = import ./lib { lib = digga.lib // nixos.lib; };
+      ###############################################################
 
-        home = ./home;
+      lib = import ./lib {lib = digga.lib // nixos.lib;};
 
-        nixos = ./nixos;
+      home = ./home;
 
-        deploy = import ./deploy inputs;
+      nixos = ./nixos;
 
-        devshell = ./shell;
+      deploy = import ./deploy inputs;
 
-        homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
+      homeConfigurations = digga.lib.mkHomeConfigurations self.nixosConfigurations;
 
-        defaultTemplate = self.templates.bud;
-        templates.bud.path = ./.;
-        templates.bud.description = "bud template";
+      sharedOverlays = [
+        (final: prev: {
+          __dontExport = true;
+          lib = prev.lib.extend (lfinal: lprev: {
+            our = self.lib;
+          });
+        })
+      ];
 
-        sharedOverlays = [
-          (final: prev: {
-            __dontExport = true;
-            lib = prev.lib.extend (lfinal: lprev: {
-              our = self.lib;
-            });
-          })
-        ];
-
-        supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
-      }
-    //
-    {
-      budModules = { devos = import ./bud; };
+      supportedSystems = ["x86_64-linux" "aarch64-linux"];
     }
-  ;
+    // {
+      budModules = {devos = import ./bud;};
+    };
 }

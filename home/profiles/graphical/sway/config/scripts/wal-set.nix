@@ -1,19 +1,19 @@
-{ lib
-, coreutils
-, writeShellScript
-, feh
-, procps
-, util-linux
-, libnotify
-, pywalfox
-, pywal
-, sway
-, paper
-, swaybg
-, backgroundDir
-, colors
-}:
-let
+{
+  lib,
+  coreutils,
+  writeShellScript,
+  feh,
+  procps,
+  util-linux,
+  libnotify,
+  pywalfox,
+  pywal,
+  sway,
+  paper,
+  swaybg,
+  backgroundDir,
+  colors,
+}: let
   inherit (lib.our.mkCustomI3Rule) colorSetStr;
 
   clientColors = lib.concatStringsSep " ; " [
@@ -25,31 +25,31 @@ let
     "client.background ${colors.background}"
   ];
 in
-writeShellScript "wal-set.sh" ''
-  export swaySocket=''${XDG_RUNTIME_DIR:-/run/user/$UID}/sway-ipc.$UID.$(${procps}/bin/pgrep -x sway || ${coreutils}/bin/true).sock
+  writeShellScript "wal-set.sh" ''
+    export swaySocket=''${XDG_RUNTIME_DIR:-/run/user/$UID}/sway-ipc.$UID.$(${procps}/bin/pgrep -x sway || ${coreutils}/bin/true).sock
 
-  export DISPLAY=:0
+    export DISPLAY=:0
 
-  ${pywal}/bin/wal -i "${backgroundDir}" -stneq
+    ${pywal}/bin/wal -i "${backgroundDir}" -stneq
 
-  . $HOME/.cache/wal/colors.sh
+    . ~/.cache/wal/colors.sh
 
-  [ ! -S $swaySocket ] && ${feh}/bin/feh --bg-fill $(< $HOME/.cache/wal/wal) && exit
+    [ ! -S $swaySocket ] && ${feh}/bin/feh --bg-fill $(< ~/.cache/wal/wal) && exit
 
-  PID=$(${procps}/bin/pgrep paper)
+    PID=$(${procps}/bin/pgrep paper)
 
-  # guarantees to run within cron jobs
-  ${sway}/bin/swaymsg -s $swaySocket "exec ${paper}/bin/paper -i '$wallpaper'"
+    # guarantees to run within cron jobs
+    ${sway}/bin/swaymsg -s $swaySocket "exec ${paper}/bin/paper -i '$wallpaper'"
 
-  ${coreutils}/bin/sleep 0.2
+    ${coreutils}/bin/sleep 0.2
 
-  ${pywalfox}/bin/pywalfox update &
+    ${pywalfox}/bin/pywalfox update &
 
-  ${libnotify}/bin/notify-send "Applying theme for sway ⚡" &
+    ${libnotify}/bin/notify-send "Applying theme for sway ⚡" &
 
-  ${sway}/bin/swaymsg -s $swaySocket "${clientColors}" &
+    ${sway}/bin/swaymsg -s $swaySocket "${clientColors}" &
 
-  ${util-linux}/bin/kill -USR2 $(${procps}/bin/pgrep waybar) &
+    ${util-linux}/bin/kill -USR2 $(${procps}/bin/pgrep waybar) &
 
-  ${util-linux}/bin/kill $PID
-''
+    ${util-linux}/bin/kill $PID
+  ''

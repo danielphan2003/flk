@@ -1,10 +1,12 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let cfg = config.services.wii-u-gc-adapter;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.services.wii-u-gc-adapter;
+in {
   options.services.wii-u-gc-adapter = {
     enable = mkOption {
       type = types.bool;
@@ -32,7 +34,7 @@ in
       script = ''
         ${pkgs.wii-u-gc-adapter}/bin/wii-u-gc-adapter
       '';
-      unitConfig = { StopWhenUnneeded = true; };
+      unitConfig = {StopWhenUnneeded = true;};
     };
   };
 }

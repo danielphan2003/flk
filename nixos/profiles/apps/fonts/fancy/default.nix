@@ -1,9 +1,14 @@
-{ pkgs, profiles, ... }: {
-  imports = with profiles.apps.fonts; [ minimal ];
+{
+  pkgs,
+  profiles,
+  ...
+}: {
+  imports = with profiles.apps.fonts; [minimal];
 
   fonts = {
     fonts = builtins.attrValues {
-      inherit (pkgs)
+      inherit
+        (pkgs)
         font-awesome
         inter
         meslo-lgs-nf
@@ -12,16 +17,16 @@
         twitter-color-emoji
         ;
       nerdfonts = pkgs.nerdfonts.override {
-        fonts = [ "Iosevka" "FiraCode" "Inconsolata" "MPlus" ];
+        fonts = ["Iosevka" "FiraCode" "Inconsolata" "MPlus"];
       };
     };
     fontconfig = {
       enable = true;
       defaultFonts = {
-        emoji = [ "Font Awesome 5 Free" ];
-        monospace = [ "Iosevka Nerd Font" ];
-        serif = [ "New York Medium" ];
-        sansSerif = [ "SF Pro Text" ];
+        emoji = ["Font Awesome 5 Free"];
+        monospace = ["Iosevka Nerd Font"];
+        serif = ["New York Medium"];
+        sansSerif = ["SF Pro Text"];
       };
     };
   };

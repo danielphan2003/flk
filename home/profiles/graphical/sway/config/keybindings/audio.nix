@@ -1,12 +1,13 @@
-{ pkgs, mod }:
-let
+{
+  pkgs,
+  mod,
+}: let
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   volumectl = "${pkgs.avizo}/bin/volumectl";
 
   volume = cmd: "exec ${volumectl} ${cmd}";
   media = cmd: "exec ${playerctl} ${cmd}";
-in
-{
+in {
   # Control volume
   XF86AudioRaiseVolume = volume "+";
   "${mod}+Alt+Up" = volume "+";

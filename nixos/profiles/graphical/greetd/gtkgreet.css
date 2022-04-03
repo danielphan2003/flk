@@ -5,7 +5,7 @@ window {
 }
 
 box#body {
-  background-color: @bg@;
+  background-color: @bg @;
   border-radius: 10px;
   padding: 50px;
 }

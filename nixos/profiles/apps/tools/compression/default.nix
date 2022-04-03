@@ -1,13 +1,14 @@
-{ pkgs, ... }: {
-  environment.systemPackages = builtins.attrValues
-    (if pkgs.system == "x86_64-linux"
-    then
-      {
+{pkgs, ...}: {
+  environment.systemPackages =
+    builtins.attrValues
+    (
+      if pkgs.system == "x86_64-linux"
+      then {
         inherit (pkgs) ouch;
       }
-    else
-      {
-        inherit (pkgs)
+      else {
+        inherit
+          (pkgs)
           bzip2
           gzip
           lrzip
@@ -16,5 +17,6 @@
           unzip
           xz
           ;
-      });
+      }
+    );
 }

@@ -1,13 +1,13 @@
-final: prev:
-let
-  inherit (final)
+channels: final: prev: let
+  inherit
+    (final)
     lib
-    latest
     sources
     wlfreerdp
     ;
 
-  inherit (prev)
+  inherit
+    (prev)
     glfw-wayland
     rofi-unwrapped
     swaylock-effects
@@ -15,18 +15,21 @@ let
     ;
 
   inherit (prev.lib.our) getPatches;
-in
-{
-  inherit (latest)
-    waylandPkgs
+in {
+  __dontExport = true; # overrides clutter up actual creations
 
+  inherit
+    (channels.latest)
+    waylandPkgs
     aml
+    avizo
     cage
     clipman
     drm_info
     dunst
     gebaar-libinput
     glpaper
+    greetd
     grim
     gtk-layer-shell
     i3status-rust
@@ -36,7 +39,9 @@ in
     libvncserver_master
     mako
     neatvnc
+    nwg-drawer
     nwg-launchers
+    nwg-menu
     nwg-panel
     obs-studio
     obs-wlrobs
@@ -45,6 +50,7 @@ in
     sirula
     slurp
     # sway-unwrapped
+    
     swaybg
     swayidle
     swaylock
@@ -63,6 +69,7 @@ in
     wlfreerdp
     wlogout
     # wlroots
+    
     wlr-randr
     wlsunset
     wlvncc
@@ -74,29 +81,28 @@ in
 
   freerdp = wlfreerdp;
 
-  eww = eww.override { enableWayland = true; };
+  # eww = eww.override { enableWayland = true; };
 
   swaylock-effects = swaylock-effects.overrideAttrs (_: {
     inherit (sources.swaylock-effects) pname version src;
   });
 
-  rofi-unwrapped =
-    let
-      inherit (sources.rofi-wayland) pname src version;
-    in
+  rofi-unwrapped = let
+    inherit (sources.rofi-wayland) pname src version;
+  in
     rofi-unwrapped.overrideAttrs (o: {
       inherit src version;
 
       pname = "${pname}-unwrapped";
 
-      nativeBuildInputs = o.nativeBuildInputs ++ [ prev.wayland-scanner prev.makeWrapper prev.meson prev.ninja ];
+      nativeBuildInputs = o.nativeBuildInputs ++ [prev.wayland-scanner prev.makeWrapper prev.meson prev.ninja];
 
       postInstall = ''
         wrapProgram $out/bin/rofi \
           --run 'export XDG_DATA_DIRS="$(sed "s| |/share:|g" < <(echo $NIX_PROFILES))/share:$XDG_DATA_DIRS"'
       '';
 
-      buildInputs = o.buildInputs ++ [ prev.wayland prev.wayland-protocols prev.xcb-util-cursor ];
+      buildInputs = o.buildInputs ++ [prev.wayland prev.wayland-protocols prev.xcb-util-cursor];
     });
 
   glfw-wayland = glfw-wayland.overrideAttrs (o: {

@@ -1,12 +1,15 @@
-{ hostConfigs, lib, pkgs, profiles, ... }:
-let
-  inherit (lib) mkDefault mkForce;
-  package = pkgs.dnscrypt-proxy2;
-in
 {
-  imports = with profiles.network.dns; [ common disable-resolved ];
+  hostConfigs,
+  lib,
+  pkgs,
+  profiles,
+  ...
+}: let
+  package = pkgs.dnscrypt-proxy2;
+in {
+  imports = with profiles.network.dns; [common];
 
-  networking.nameservers = mkAfter [ "127.0.0.1" ];
+  networking.nameservers = ["127.0.0.1"];
 
   services.dnscrypt-proxy2 = {
     enable = true;
@@ -15,13 +18,13 @@ in
       server_names = [
         "dnscrypt-sg-blahdns-ipv4"
         "moulticast-sg-ipv4"
-        "yepdns-sg"
+        # "yepdns-sg"
         "dnscrypt-sg-blahdns-ipv6"
-        "moulticast-sg-ipv6"
+        # "moulticast-sg-ipv6"
         "yepdns-sg-ipv6"
       ];
 
-      listen_addresses = [ "[::]:53" ];
+      listen_addresses = ["[::]:53"];
 
       ipv6_servers = true;
 
@@ -38,8 +41,11 @@ in
       # this allows rewriting requests like *.beta.tailscale.net to be handled by Tailscale internal dns.
       # however, this only works for fully-qualified domains --> how to resolve partial domains?
       forwarding_rules = pkgs.writeText "forwarding-rules.txt" ''
-        ${hostConfigs.tailscale.suffix} 100.100.100.100
-        64.100.in-addr.arpa 100.100.100.100
+        facebook.com        208.67.222.222
+        facebook.net        208.67.222.222
+        fbcdn.net           208.67.222.222
+        fbsbx.com           208.67.222.222
+        messenger.com       208.67.222.222
       '';
 
       captive_portals.map_file = "${package.src}/dnscrypt-proxy/example-captive-portals.txt";
@@ -68,14 +74,18 @@ in
       };
 
       anonymized_dns = {
-        routes = [{
-          server_name = "*";
-          via = [
-            "anon-tiarap"
-            "anon-saldnssg01-conoha-ipv4"
-            "anon-tiarap-ipv6"
-          ];
-        }];
+        routes = [
+          {
+            server_name = "*";
+            via = [
+              # "anon-tiarap"
+              "anon-saldnssg01-conoha-ipv4"
+              "anon-tiarap-ipv6"
+              "anon-cs-berlin"
+              "anon-inconnu"
+            ];
+          }
+        ];
         skip_incompatible = true;
       };
     };

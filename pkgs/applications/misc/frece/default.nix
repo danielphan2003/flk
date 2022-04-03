@@ -1,4 +1,8 @@
-{ rustPlatform, lib, sources }:
+{
+  rustPlatform,
+  lib,
+  sources,
+}:
 rustPlatform.buildRustPackage {
   inherit (sources.frece) pname version src cargoLock;
 
@@ -6,6 +10,6 @@ rustPlatform.buildRustPackage {
     description = "Maintain a database sorted by frecency (frequency + recency) ";
     homepage = "https://github.com/YodaEmbedding/frece";
     license = licenses.mit;
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
   };
 }

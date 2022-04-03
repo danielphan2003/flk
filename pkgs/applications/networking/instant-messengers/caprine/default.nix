@@ -1,13 +1,19 @@
-{ stdenv, lib, pkgs, nodejs, makeDesktopItem, makeWrapper, electron }:
-
-let
+{
+  stdenv,
+  lib,
+  pkgs,
+  nodejs,
+  makeDesktopItem,
+  makeWrapper,
+  electron,
+}: let
   packageName = with lib;
     head
-      (map
-        (entry: "caprine-${entry.caprine}")
-        (filter
-          (entry: hasAttr "caprine" entry)
-          (importJSON ./node-packages.json)));
+    (map
+      (entry: "caprine-${entry.caprine}")
+      (filter
+        (entry: hasAttr "caprine" entry)
+        (importJSON ./node-packages.json)));
 
   nodePackages = import ./node-composition.nix {
     inherit pkgs nodejs;
@@ -25,27 +31,27 @@ let
     startupNotify = "true";
   };
 in
-nodePackages.${packageName}.override {
-  nativeBuildInputs = [ makeWrapper ];
+  nodePackages.${packageName}.override {
+    nativeBuildInputs = [makeWrapper];
 
-  npmFlags = "--ignore-scripts";
+    npmFlags = "--ignore-scripts";
 
-  postInstall = ''
-    # Compile Typescript sources
-    ./node_modules/typescript/bin/tsc
-    # Create desktop item
-    mkdir -p "$out/share/applications"
-    cp "${desktopItem}/share/applications/"* "$out/share/applications"
-    # Link scalable icon
-    mkdir -p "$out/share/icons/hicolor/scalable/apps"
-    ln -s "$PWD/media/Icon.svg" "$out/share/icons/hicolor/scalable/apps/caprine.svg"
-    # Create electron wrapper
-    makeWrapper ${electron}/bin/electron "$out/bin/caprine" \
-      --add-flags "$out/lib/node_modules/caprine"
-  '';
+    postInstall = ''
+      # Compile Typescript sources
+      ./node_modules/typescript/bin/tsc
+      # Create desktop item
+      mkdir -p "$out/share/applications"
+      cp "${desktopItem}/share/applications/"* "$out/share/applications"
+      # Link scalable icon
+      mkdir -p "$out/share/icons/hicolor/scalable/apps"
+      ln -s "$PWD/media/Icon.svg" "$out/share/icons/hicolor/scalable/apps/caprine.svg"
+      # Create electron wrapper
+      makeWrapper ${electron}/bin/electron "$out/bin/caprine" \
+        --add-flags "$out/lib/node_modules/caprine"
+    '';
 
-  meta = with lib; {
-    homepage = "https://sindresorhus.com/caprine";
-    maintainers = [ danielphan2003 ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://sindresorhus.com/caprine";
+      maintainers = [danielphan2003];
+    };
+  }

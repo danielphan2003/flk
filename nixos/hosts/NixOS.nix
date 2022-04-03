@@ -1,5 +1,8 @@
-{ config, suites, ... }:
 {
+  config,
+  suites,
+  ...
+}: {
   ### root password is empty by default ###
   imports = suites.NixOS;
 
@@ -11,5 +14,5 @@
     networkmanager.enable = true;
   };
 
-  fileSystems."/" = { device = "/dev/disk/by-label/nixos"; };
+  fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
 }

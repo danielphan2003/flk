@@ -1,19 +1,22 @@
-wrapper:
-{ lib, pkgs, ... }:
+wrapper: {
+  lib,
+  pkgs,
+  ...
+}:
 pkgs.stdenv.mkDerivation
-  {
-    name = "zsh-functions";
-    src = ./functions;
+{
+  name = "zsh-functions";
+  src = ./functions;
 
-    installPhase =
-      let basename = "\${file##*/}";
-      in
-      ''
-        mkdir $out
+  installPhase = let
+    basename = "\${file##*/}";
+  in ''
+    mkdir $out
 
-        for file in $src/*; do
-          substituteAll $file $out/${basename}
-          chmod 755 $out/${basename}
-        done
-      '';
-  } // wrapper
+    for file in $src/*; do
+      substituteAll $file $out/${basename}
+      chmod 755 $out/${basename}
+    done
+  '';
+}
+// wrapper

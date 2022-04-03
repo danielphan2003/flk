@@ -1,9 +1,16 @@
-{ self, config, hostConfigs, lib, pkgs, ... }:
-let
+{
+  self,
+  config,
+  hostConfigs,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) optionalAttrs;
   inherit (hostConfigs.hosts."${config.networking.hostName}") tailscale_ip;
 
   inherit (config.services.minecraft-server) dataDir;
+  inherit (config.services.minecraft-server.onDemand) proxyIp;
   inherit (config.services.minecraft-server.serverProperties) online-mode white-list;
 
   inherit (pkgs.formats.mc-motd) c f gen;
@@ -14,25 +21,30 @@ let
     owner = "minecraft";
     group = "minecraft";
   };
-in
-{
-  assertions = [{
-    assertion =
-      (!config.services.tailscale.enable && white-list) || config.services.tailscale.enable;
-    message = ''
-      Minecraft servers should not be exposed to the Internet if
-      A) the server is not accessible via a VPN like Tailscale and has not enabled whitelisting
-      or B) the server *is* accessible via a VPN like Tailscale, so whitelisting doesn't matter.
-    '';
-  }];
+in {
+  assertions = [
+    {
+      assertion =
+        (!config.services.tailscale.enable && white-list) || config.services.tailscale.enable;
+      message = ''
+        Minecraft servers should not be exposed to the Internet if
+        A) the server is not accessible via a VPN like Tailscale and has not enabled whitelisting
+        or B) the server *is* accessible via a VPN like Tailscale, so whitelisting doesn't matter.
+      '';
+    }
+  ];
 
-  age.secrets = {
-    minecraft-ops = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/ops.age" "${dataDir}/ops.json";
-  } // optionalAttrs (!online-mode && white-list) {
-    minecraft-whitelist = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/whitelist.age" "${dataDir}/whitelist.json";
-  };
+  age.secrets =
+    {
+      minecraft-ops = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/ops.age" "${dataDir}/ops.json";
+    }
+    // optionalAttrs (!online-mode && white-list) {
+      minecraft-whitelist = mkMcSecret "${self}/secrets/nixos/profiles/cloud/minecraft/whitelist.age" "${dataDir}/whitelist.json";
+    };
 
-  environment.systemPackages = [ pkgs.fabric-installer ];
+  environment.systemPackages = [pkgs.fabric-installer];
+
+  systemd.sockets.proxy-minecraft-server = lib.mkIf (proxyIp == tailscale_ip) {after = ["tailscaled.service"];};
 
   services.minecraft-server = {
     enable = true;
@@ -42,7 +54,7 @@ in
     package = pkgs.papermc-1_17_1;
 
     onDemand = {
-      enable = true;
+      enable = false;
       # idle after 1 minutes of inactivity
       # TuinityMC starts fast enough so users won't notice anything
       idleIfTime = 1 * 60;
@@ -68,7 +80,8 @@ in
       #                                                 |
       #               ⟹ S I M P World! ⟸            |
       # Trở thành hecker nk3 pn | danielphan.2003#1147 |
-      motd = with c; ""
+      motd = with c;
+        ""
         + "              "
         + (gen "${d_g}⟹ S ${d_a}I ${l_r}M ${d_p}P ${g}W${l_g}o${d_g}r${l_b}l${l_g}d${l_a}! ⟸")
         + "            "
@@ -86,7 +99,8 @@ in
       server-ip = "127.0.0.1";
 
       # We want to start the actual server with another port so our on-demand server management mechanism can work as expected.
-      server-port = 25567;
+      # server-port = 25567;
+      server-port = 25565;
 
       # I don't need access to the server terminal. This is not SAO: Fairy Dance.
       enable-rcon = false;

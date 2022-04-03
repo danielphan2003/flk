@@ -1,8 +1,9 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   documentation.dev.enable = true;
 
   environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
+    inherit
+      (pkgs)
       bc
       file
       gomod2nix
@@ -15,5 +16,4 @@
       rnix-lsp
       ;
   };
-
 }

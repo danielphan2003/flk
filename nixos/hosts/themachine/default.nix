@@ -1,20 +1,20 @@
-{ self
-, config
-, hostConfigs
-, lib
-, pkgs
-, suites
-, ...
-}:
-
-let
+{
+  self,
+  config,
+  hostConfigs,
+  lib,
+  pkgs,
+  suites,
+  ...
+}: let
   inherit (config.networking) hostName;
   inherit (hostConfigs.hosts."${hostName}") tailscale_ip;
-in
-{
+in {
   imports = suites.themachine;
 
   networking.wireless.enable = false;
+
+  networking.domain = "c-137.me";
 
   home-manager.users.danie.services.wayvnc.addr = tailscale_ip;
 
@@ -31,9 +31,9 @@ in
   console.keyMap = "us";
 
   boot = {
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
+    binfmt.emulatedSystems = ["aarch64-linux"];
     tmpOnTmpfs = true;
-    kernelPackages = pkgs.linuxKernel.packages.linux_5_15;
+    kernelPackages = pkgs.linuxPackages_5_17;
 
     initrd.availableKernelModules = [
       "ahci"
@@ -48,14 +48,14 @@ in
       "snd_aloop"
     ];
     kernelModules = config.boot.initrd.availableKernelModules;
-    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
 
     extraModprobeConfig = ''
       options v4l2loopback devices=2 exclusive_caps=1 video_nr=10 card_label="OBS"
     '';
 
-    initrd.supportedFilesystems = [ "btrfs" ];
-    supportedFilesystems = [ "btrfs" "ntfs" ];
+    initrd.supportedFilesystems = ["btrfs"];
+    supportedFilesystems = ["btrfs" "ntfs"];
 
     loader = {
       timeout = 1;
@@ -69,7 +69,7 @@ in
     plymouth = {
       enable = true;
       theme = "hexagon_dots_alt"; # or "connect";
-      themePackages = [ (pkgs.plymouth-themes.override { inherit (config.boot.plymouth) theme; }) ];
+      themePackages = [(pkgs.plymouth-themes.override {inherit (config.boot.plymouth) theme;})];
     };
 
     persistence.path = "/persist";
@@ -77,7 +77,7 @@ in
 
   services.btrfs.autoScrub = {
     enable = true;
-    fileSystems = [ "/mnt/cubum" "/mnt/danie" "/persist" ];
+    fileSystems = ["/mnt/cubum" "/mnt/danie" "/persist"];
   };
 
   fileSystems = {
@@ -88,26 +88,27 @@ in
     "/mnt/cubum" = {
       device = "/dev/disk/by-label/dandrive";
       fsType = "btrfs";
-      options = [ "subvol=cubum" "compress=zstd" "nossd" ];
+      options = ["subvol=cubum" "compress=zstd" "nossd"];
     };
     "/mnt/danie" = {
       device = "/dev/disk/by-label/dandrive";
       fsType = "btrfs";
       neededForBoot = true;
-      options = [ "subvol=danie" "compress=zstd" "nossd" ];
+      options = ["subvol=danie" "compress=zstd" "nossd"];
     };
     "/persist" = {
       device = "/dev/mapper/system";
       fsType = "btrfs";
-      options = [ "subvol=persist" "compress=zstd" "noatime" ];
+      options = ["subvol=persist" "compress=zstd" "noatime"];
     };
   };
 
-  fileSystems."/home".depends = [ "/mnt/danie" "/mnt/cubum" ];
+  fileSystems."/home".depends = ["/mnt/danie" "/mnt/cubum"];
 
-  swapDevices =
-    [{
+  swapDevices = [
+    {
       device = "/dev/disk/by-partuuid/90abac81-a5e9-4506-9fe5-a2c69500efd5";
       randomEncryption.enable = true;
-    }];
+    }
+  ];
 }

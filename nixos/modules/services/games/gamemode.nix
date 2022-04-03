@@ -1,10 +1,12 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let cfg = config.services.gamemode;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.services.gamemode;
+in {
   options.services.gamemode = {
     enable = mkOption {
       type = types.bool;
@@ -16,9 +18,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.gamemode ];
+    environment.systemPackages = [pkgs.gamemode];
 
-    services.dbus.packages = [ pkgs.gamemode ];
+    services.dbus.packages = [pkgs.gamemode];
 
     systemd.user.services.gamemoded = {
       description = "gamemoded";
@@ -30,8 +32,8 @@ in
         ExecStart = "${pkgs.gamemode}/bin/gamemoded";
       };
 
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
     };
   };
 }

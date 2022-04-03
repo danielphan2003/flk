@@ -80,17 +80,6 @@
   X-Forwarded-Proto "https"
 }
 
-(logging) {
-  log {
-    output file /var/log/caddy/caddy-{args.0}-access.log {
-      roll true
-      roll_size 1Mib
-      roll_local_time true
-      roll_keep_for 7d
-    }
-  }
-}
-
 (errors) {
   handle_errors {
     rewrite * /{http.error.status_code}
@@ -111,5 +100,18 @@
     import SecurityHeaders
   }
   import encoding
-  import errors
+}
+
+(useCloudflare) {
+  tls {
+    dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+  }
+}
+
+(matrix-well-known-header) {
+  # Headers
+  header Access-Control-Allow-Origin "*"
+  header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+  header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  header Content-Type "application/json"
 }

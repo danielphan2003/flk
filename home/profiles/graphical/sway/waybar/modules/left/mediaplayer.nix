@@ -1,4 +1,9 @@
-{ writeShellScript, ripgrep, playerctl, pango-escape-text }:
+{
+  writeShellScript,
+  ripgrep,
+  playerctl,
+  pango-escape-text,
+}:
 writeShellScript "mediaplayer" ''
 
   PLAYERCTL="${playerctl}/bin/playerctl"

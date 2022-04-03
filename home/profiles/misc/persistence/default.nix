@@ -1,4 +1,4 @@
-{ ... }: {
+{config, ...}: {
   systemd.user.tmpfiles.rules = [
     "L /home/danie/.gnupg - - - - /mnt/danie/.gnupg"
     "L /home/danie/.ssh - - - - /mnt/danie/.ssh"

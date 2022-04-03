@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   services.kanshi = {
     enable = true;
     profiles.default.outputs = [

@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   # TODO: maybe use wayland backend
   # environment.systemPackages = [ pkgs.westonLite ];
   services.xserver = {

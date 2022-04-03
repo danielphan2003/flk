@@ -1,4 +1,9 @@
-{ lib, stdenv, sources, theme ? "angular" }:
+{
+  lib,
+  stdenv,
+  sources,
+  theme ? "angular",
+}:
 stdenv.mkDerivation {
   inherit (sources.plymouth-themes) version src;
 
@@ -15,7 +20,7 @@ stdenv.mkDerivation {
     description = "A huge collection (80+) of plymouth themes ported from android bootanimations";
     homepage = "https://github.com/adi1090x/plymouth-themes";
     license = licenses.gpl3;
-    maintainers = [ danielphan2003 ];
+    maintainers = [danielphan2003];
     platforms = platforms.linux;
   };
 }

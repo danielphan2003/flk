@@ -1,11 +1,12 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
+    inherit
+      (pkgs)
       netdata
       ;
   };
 
-  networking.firewall.allowedTCPPorts = [ 19999 ];
+  networking.firewall.allowedTCPPorts = [19999];
 
   services.netdata = {
     enable = true;

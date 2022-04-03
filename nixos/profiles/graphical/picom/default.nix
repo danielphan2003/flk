@@ -21,7 +21,7 @@
     ];
 
     fade = true;
-    fadeSteps = [ 0.03 0.03 ];
+    fadeSteps = [0.03 0.03];
     fadeDelta = 3;
 
     inactiveOpacity = 1.0;
@@ -80,13 +80,13 @@
       detect-rounded-corners = true;
       detect-client-opacity = true;
 
-      unredir-if-possible-exclude = [ ];
+      unredir-if-possible-exclude = [];
 
       detect-transient = true;
       detect-client-leader = true;
       resize-damage = 1;
 
-      invert-color-include = [ ];
+      invert-color-include = [];
 
       glx-no-stencil = true;
       use-damage = true;
@@ -98,19 +98,37 @@
       show-all-xerrors = true;
 
       wintypes = {
-        tooltip = { fade = true; shadow = false; focus = false; };
-        normal = { shadow = false; };
-        dock = { shadow = false; };
-        dnd = { shadow = false; };
-        popup_menu = { shadow = true; focus = false; opacity = 0.90; };
-        dropdown_menu = { shadow = false; focus = false; };
-        above = { shadow = true; };
-        splash = { shadow = false; };
-        utility = { focus = false; shadow = false; blur-background = false; };
-        notification = { shadow = false; };
-        desktop = { shadow = false; blur-background = false; };
-        menu = { focus = false; };
-        dialog = { shadow = true; };
+        tooltip = {
+          fade = true;
+          shadow = false;
+          focus = false;
+        };
+        normal = {shadow = false;};
+        dock = {shadow = false;};
+        dnd = {shadow = false;};
+        popup_menu = {
+          shadow = true;
+          focus = false;
+          opacity = 0.90;
+        };
+        dropdown_menu = {
+          shadow = false;
+          focus = false;
+        };
+        above = {shadow = true;};
+        splash = {shadow = false;};
+        utility = {
+          focus = false;
+          shadow = false;
+          blur-background = false;
+        };
+        notification = {shadow = false;};
+        desktop = {
+          shadow = false;
+          blur-background = false;
+        };
+        menu = {focus = false;};
+        dialog = {shadow = true;};
       };
     };
   };
