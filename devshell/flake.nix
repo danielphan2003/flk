@@ -26,12 +26,17 @@
           treefmt
           ;
 
-        pkgWithCategory = category: package: {inherit package category;};
-        formatters = pkgWithCategory "formatters";
-        docs = pkgWithCategory "docs";
-        devos = pkgWithCategory "devos";
-        legal = pkgWithCategory "legal";
-        utils = pkgWithCategory "utils";
+        cmdWithCategory = category: attrs: attrs // {inherit category;};
+        pkgWithCategory = category: package: cmdWithCategory category {inherit package;};
+        withCategory = category: {
+          cmd = cmdWithCategory category;
+          pkg = pkgWithCategory category;
+        };
+        formatters = withCategory "formatters";
+        docs = withCategory "docs";
+        devos = withCategory "devos";
+        legal = withCategory "legal";
+        utils = withCategory "utils";
       in {
         devShells.default = devshell.legacyPackages.mkShell (
           {
@@ -50,21 +55,22 @@
             ];
 
             commands = [
-              (formatters nixpkgs.legacyPackages.treefmt)
-              (formatters nixpkgs.legacyPackages.editorconfig-checker)
-              (legal nixpkgs.legacyPackages.reuse)
-              (devos nixpkgs.legacyPackages.nix)
-              (devos nixpkgs.legacyPackages.age-plugin-yubikey)
-              (devos agenix.defaultPackage)
-              (devos nixos-generators.defaultPackage)
-              (devos deploy.defaultPackage)
-              (devos nixpkgs.legacyPackages.cachix)
-              (utils {
+              (formatters.pkg nixpkgs.legacyPackages.treefmt)
+              (formatters.pkg nixpkgs.legacyPackages.editorconfig-checker)
+              (legal.pkg nixpkgs.legacyPackages.reuse)
+              (devos.pkg nixpkgs.legacyPackages.nix)
+              (devos.pkg nixpkgs.legacyPackages.age-plugin-yubikey)
+              (devos.pkg agenix.defaultPackage)
+              (devos.pkg nixos-generators.defaultPackage)
+              (devos.pkg deploy.defaultPackage)
+              (devos.pkg nixpkgs.legacyPackages.cachix)
+              (utils.pkg nixpkgs.legacyPackages.fd)
+              (utils.cmd {
                 name = "evalnix";
                 help = "Check Nix parsing";
-                command = "${nixpkgs.legacyPackages.fd}/bin/fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
+                command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
               })
-              (docs nixpkgs.legacyPackages.mdbook)
+              (docs.pkg nixpkgs.legacyPackages.mdbook)
             ];
 
             imports = [
