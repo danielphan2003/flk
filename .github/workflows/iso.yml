@@ -1,4 +1,5 @@
 name: "Build ISO for host"
+
 on:
   workflow_dispatch:
     inputs:
@@ -7,19 +8,26 @@ on:
         required: true
         default: "bootstrap"
         type: string
+
       format:
-        description: "ISO format"
+        description: "Choose ISO format (see https://github.com/nix-community/nixos-generators/#supported-formats)"
         required: false
         default: "install-iso"
+        type: string
+
+      extraArgs:
+        description: "Extra arguments to pass to nixos-generator"
+        required: false
+        default: ""
         type: string
 
 jobs:
   build_iso:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.3.4
+    - uses: actions/checkout@master
 
-    - uses: cachix/install-nix-action@v16
+    - uses: cachix/install-nix-action@master
       with:
         install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.8.0pre20220314_a618097/install
         extra_nix_config: |
@@ -29,34 +37,38 @@ jobs:
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o=
         nix_path: nixpkgs=channel:nixos-unstable
 
-    - uses: cachix/cachix-action@v10
+    - uses: cachix/cachix-action@master
       with:
         name: dan-cfg
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
-    - name: Load DevShell
-      run: nix develop ./devshell -c $SHELL
+    - name: Quick Nix Eval
+      run: nix develop ./devshell --command evalnix
 
-    - name: Quick eval
-      run: nix develop ./devshell -c evalnix
+    - name: Set up env
+      run:
+        cat << 'EOF' >> "$GITHUB_ENV"
+        host="${{ github.event.inputs.host }}"
+        format="${{ github.event.inputs.format }}"
+        nixosVersion="$(nix eval --raw '.#nixosConfigurations.'\"$host\"'.config.system.nixos.label')"
+        arch="$(nix eval --raw '.#nixosConfigurations.'\"$host\"'.pkgs.stdenv.hostPlatform.system)"
+        EOF
 
     - name: Build ISO for ${{ github.event.inputs.host }}
       run: |
-        host="${{ github.event.inputs.host }}"
-        format="${{ github.event.inputs.format }}"
-        arch=$(nix eval --raw .\#nixosConfigurations.$host.pkgs.stdenv.hostPlatform.system)
-        iso_path="$(nix develop ./devshell -c nixos-generate -f $format --system $arch --flake .\#$host)"
-        echo "iso_path=$iso_path" >> $GITHUB_ENV
+        cat << 'EOF' >> "$GITHUB_ENV"
+        iso_path="$(nix develop ./devshell --command nixos-generate --format ${{ env.format }} --system ${{ env.arch }} --flake '.#'\"${{ env.host }}\"')"
+        EOF
 
     - name: Generate artifact name
       run: |
-        host="${{ github.event.inputs.host }}"
-        nixosVersion="$(nix eval --raw .\#nixosConfigurations.$host.config.system.nixos.label)"
-        arch=$(nix eval --raw .\#nixosConfigurations.$host.pkgs.stdenv.hostPlatform.system)
-        echo "artifact_name=$host-$nixosVersion-$arch.iso" >> $GITHUB_ENV
+        cat << 'EOF' >> "$GITHUB_ENV"
+        artifact_name="${{ env.format }}@${{ env.host }}-${{ env.nixosVersion }}-${{ env.arch }}.iso"
+        EOF
 
     - name: Upload ISO
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-        name: ${{ env.artifact_name }}
-        path: ${{ env.iso_path }}
+        name: "${{ env.artifact_name }}"
+        path: "${{ env.iso_path }}"
+        retention-days: 1
