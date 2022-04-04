@@ -15,7 +15,7 @@ on:
         default: "install-iso"
         type: string
 
-      extraArgs:
+      extra_args:
         description: "Extra arguments to pass to nixos-generator"
         required: false
         default: ""
@@ -46,25 +46,20 @@ jobs:
       run: nix develop ./devshell --command evalnix
 
     - name: Set up env
-      run:
-        cat << 'EOF' >> "$GITHUB_ENV"
-        host="${{ github.event.inputs.host }}"
-        format="${{ github.event.inputs.format }}"
-        nixosVersion="$(nix eval --raw '.#nixosConfigurations.'\"$host\"'.config.system.nixos.label')"
-        arch="$(nix eval --raw '.#nixosConfigurations.'\"$host\"'.pkgs.stdenv.hostPlatform.system)"
-        EOF
+      run: |
+        echo "extra_args=${{ github.event.inputs.extra_args }}" >> "$GITHUB_ENV"
+        echo "format=${{ github.event.inputs.format }}" >> "$GITHUB_ENV"
+        echo "host=${{ github.event.inputs.host }}" >> "$GITHUB_ENV"
+        echo "arch=$(nix eval --raw '.#nixosConfigurations.'\"${{ env.host }}\"'.pkgs.stdenv.hostPlatform.system)" >> "$GITHUB_ENV"
+        echo "nixosVersion=$(nix eval --raw '.#nixosConfigurations.'\"${{ env.host }}\"'.config.system.nixos.label')" >> "$GITHUB_ENV"
+        
 
     - name: Build ISO for ${{ github.event.inputs.host }}
       run: |
-        cat << 'EOF' >> "$GITHUB_ENV"
-        iso_path="$(nix develop ./devshell --command nixos-generate --format ${{ env.format }} --system ${{ env.arch }} --flake '.#'\"${{ env.host }}\"')"
-        EOF
+        echo "iso_path=$(nix develop ./devshell --command nixos-generate --format ${{ env.format }} --system ${{ env.arch }} --flake '.#'\"${{ env.host }}\"' ${{ env.extra_args }})" >> "$GITHUB_ENV"
 
     - name: Generate artifact name
-      run: |
-        cat << 'EOF' >> "$GITHUB_ENV"
-        artifact_name="${{ env.format }}@${{ env.host }}-${{ env.nixosVersion }}-${{ env.arch }}.iso"
-        EOF
+      run: echo "artifact_name=${{ env.format }}@${{ env.host }}-${{ env.nixosVersion }}-${{ env.arch }}.iso" >> "$GITHUB_ENV"
 
     - name: Upload ISO
       uses: actions/upload-artifact@v3
