@@ -50,13 +50,13 @@ jobs:
         echo "extra_args=${{ github.event.inputs.extra_args }}" >> "$GITHUB_ENV"
         echo "format=${{ github.event.inputs.format }}" >> "$GITHUB_ENV"
         echo "host=${{ github.event.inputs.host }}" >> "$GITHUB_ENV"
-        echo "arch=$(nix eval --raw '.#nixosConfigurations."'"${{ env.host }}"'".pkgs.stdenv.hostPlatform.system)'" >> "$GITHUB_ENV"
-        echo "nixosVersion=$(nix eval --raw '.#nixosConfigurations."'"${{ env.host }}"'".config.system.nixos.label')" >> "$GITHUB_ENV"
+        echo "arch=$(nix eval --raw '.#nixosConfigurations."${{ env.host }}".pkgs.stdenv.hostPlatform.system')" >> "$GITHUB_ENV"
+        echo "nixosVersion=$(nix eval --raw '.#nixosConfigurations."${{ env.host }}".config.system.nixos.label')" >> "$GITHUB_ENV"
         
 
     - name: Build ISO for ${{ github.event.inputs.host }}
       run: |
-        echo "iso_path=$(nix develop ./devshell --command nixos-generate --format ${{ env.format }} --system ${{ env.arch }} --flake '.#"'"${{ env.host }}"'"' ${{ env.extra_args }})" >> "$GITHUB_ENV"
+        echo "iso_path=$(nix develop ./devshell --command nixos-generate --format ${{ env.format }} --system ${{ env.arch }} --flake '.#\"${{ env.host }}\"' ${{ env.extra_args }})" >> "$GITHUB_ENV"
 
     - name: Generate artifact name
       run: echo "artifact_name=${{ env.format }}@${{ env.host }}-${{ env.nixosVersion }}-${{ env.arch }}.iso" >> "$GITHUB_ENV"
