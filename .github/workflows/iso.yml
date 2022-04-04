@@ -47,19 +47,27 @@ jobs:
 
     - name: Set up env
       run: |
-        echo "extra_args=${{ github.event.inputs.extra_args }}" >> "$GITHUB_ENV"
-        echo "format=${{ github.event.inputs.format }}" >> "$GITHUB_ENV"
-        echo "host=${{ github.event.inputs.host }}" >> "$GITHUB_ENV"
-        echo "arch=$(nix eval --raw .\#nixosConfigurations.${{ env.host }}.pkgs.stdenv.hostPlatform.system)" >> "$GITHUB_ENV"
-        echo "nixosVersion=$(nix eval --raw .\#nixosConfigurations.${{ env.host }}.config.system.nixos.label)" >> "$GITHUB_ENV"
-        
+        extra_args="${{ github.event.inputs.extra_args }}"
+        format="${{ github.event.inputs.format }}"
+        host="${{ github.event.inputs.host }}"
+        arch="$(nix eval --raw .\#nixosConfigurations.$host.pkgs.stdenv.hostPlatform.system)"
+        nixos_version="$(nix eval --raw .\#nixosConfigurations.$host.config.system.nixos.label)"
+
+        echo "extra_args=$extra_args" >> "$GITHUB_ENV"
+        echo "format=$format" >> "$GITHUB_ENV"
+        echo "host=$host" >> "$GITHUB_ENV"
+        echo "arch=$arch" >> "$GITHUB_ENV"
+        echo "nixos_version=$nixos_version" >> "$GITHUB_ENV"
 
     - name: Build ISO for ${{ github.event.inputs.host }}
       run: |
-        echo "iso_path=$(nix develop ./devshell --command nixos-generate --format ${{ env.format }} --system ${{ env.arch }} --flake .\#${{ env.host }} ${{ env.extra_args }})" >> "$GITHUB_ENV"
+        iso_path="$(nix develop ./devshell --command nixos-generate --format ${{ env.format }} --system ${{ env.arch }} --flake .\#${{ env.host }} ${{ env.extra_args }})"
+        echo "iso_path=$iso_path" >> "$GITHUB_ENV"
 
     - name: Generate artifact name
-      run: echo "artifact_name=${{ env.format }}@${{ env.host }}-${{ env.nixosVersion }}-${{ env.arch }}.iso" >> "$GITHUB_ENV"
+      run: |
+        artifact_name="${{ env.format }}@${{ env.host }}-${{ env.nixos_version }}-${{ env.arch }}.iso"
+        echo "artifact_name=$artifact_name" >> "$GITHUB_ENV"
 
     - name: Upload ISO
       uses: actions/upload-artifact@v3
