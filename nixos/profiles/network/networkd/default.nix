@@ -50,7 +50,7 @@
       networkConfig =
         privateConfig.networkConfig
         // {
-          IPv6PrivacyExtensions = "prefer-public";
+          IPv6PrivacyExtensions = "true";
         };
     };
 in {
@@ -69,7 +69,7 @@ in {
         "budstick-home-wired" =
           privateConfig
           // {
-            name = "en* eth*";
+            name = "enp* eth*";
             dhcpV4Config.RouteMetric = 1024; # Better be explicit
           };
       }
@@ -77,14 +77,14 @@ in {
         "budstick-home-wireless" =
           privateConfig
           // {
-            name = "wlan0";
-            matchConfig.SSID = ''"Cu Do"'';
+            name = "wlp*";
+            matchConfig.SSID = "Cu Do";
             dhcpV4Config.RouteMetric = 2048; # Prefer wired
           };
         "budstick-public-wireless" =
           publicConfig
           // {
-            name = "wlan0";
+            name = "wlp*";
             dhcpV4Config.RouteMetric = 2048; # Prefer wired
           };
       });

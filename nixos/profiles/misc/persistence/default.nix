@@ -24,6 +24,7 @@ in {
       ]
       ++ optionals hardware.bluetooth.enable ["/var/lib/bluetooth"]
       ++ optionals networking.networkmanager.enable ["/etc/NetworkManager/system-connections"]
+      ++ optionals networking.wireless.iwd.enable ["/var/lib/iwd"]
       ++ optionals services.adguardhome.enable ["/var/lib/private/AdGuardHome"]
       ++ optionals services.vaultwarden.enable ["/var/lib/bitwarden_rs"]
       ++ optionals services.calibre-server.enable ["/var/lib/calibre-server"]

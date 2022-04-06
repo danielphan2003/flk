@@ -14,6 +14,7 @@
   imports =
     [
       profiles.apps.fonts.fancy
+      profiles.laptop
     ]
     ++ suites.bootstrap;
 

@@ -58,8 +58,6 @@ in {
 
     services.power-profiles-daemon.enable = true;
 
-    boot.kernelParams = ["acpi_backlight=vendor"];
-
     services.supergfxd.enable = mkDefault true;
 
     systemd.services.asusd = {
@@ -81,5 +79,23 @@ in {
         RestartSec = "1s";
       };
     };
+
+    services.actkbd.bindings = [
+      {
+        keys = [230];
+        events = ["key"];
+        command = "${pkgs.asusctl}/bin/asusctl -n";
+      }
+      {
+        keys = [229];
+        events = ["key"];
+        command = "${pkgs.asusctl}/bin/asusctl -p";
+      }
+      {
+        keys = [202];
+        events = ["key"];
+        command = "${pkgs.asusctl}/bin/asusctl led-mode -n";
+      }
+    ];
   };
 }

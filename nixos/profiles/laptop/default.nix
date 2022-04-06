@@ -24,7 +24,24 @@ in {
     macAddress = "stable";
   };
 
-  networking.wireless.enable = true;
+  networking.wireless.enable = lib.mkForce (!config.networking.wireless.iwd.enable);
+
+  networking.wireless.iwd = {
+    enable = true;
+    settings = {
+      Network = {
+        EnableIPv6 = true;
+        RoutePriorityOffset = 300;
+      };
+      Settings = {
+        AutoConnect = true;
+      };
+      General = {
+        # randomizes mac-address every time iwd starts or the hardware is initially detected
+        AddressRandomization = "once";
+      };
+    };
+  };
 
   # to enable brightness keys 'keys' value may need updating per device
   programs.light.enable = true;
@@ -51,7 +68,6 @@ in {
 
   # power management features
   services.tlp = {
-    enable = !config.services.power-profiles-daemon.enable;
     settings = {
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -59,5 +75,12 @@ in {
     };
   };
 
-  services.logind.lidSwitch = "suspend";
+  services.logind = {
+    lidSwitch = "suspend";
+    extraConfig = ''
+      HandlePowerKey=suspend
+      HandlePowerKeyLongPress=poweroff
+      HandleSuspendKey=suspend
+    '';
+  };
 }
