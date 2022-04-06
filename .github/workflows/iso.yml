@@ -42,8 +42,8 @@ jobs:
         name: dan-cfg
         authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
-    - name: Quick Nix Eval
-      run: nix develop ./devshell --command evalnix
+    # - name: Quick Nix Eval
+    #   run: nix develop ./devshell --command evalnix
 
     - name: Set up env
       run: |
