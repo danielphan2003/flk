@@ -59,15 +59,17 @@ jobs:
         echo "arch=$arch" >> "$GITHUB_ENV"
         echo "nixos_version=$nixos_version" >> "$GITHUB_ENV"
 
-    - name: Build ISO for ${{ github.event.inputs.host }}
-      run: |
-        iso_path="$(nix develop ./devshell --command nixos-generate --format ${{ env.format }} --system ${{ env.arch }} --flake .\#${{ env.host }} ${{ env.extra_args }})"
-        echo "iso_path=$iso_path" >> "$GITHUB_ENV"
-
     - name: Generate artifact name
       run: |
         artifact_name="${{ env.format }}@${{ env.host }}-${{ env.nixos_version }}-${{ env.arch }}.iso"
         echo "artifact_name=$artifact_name" >> "$GITHUB_ENV"
+
+    - name: Build ISO for ${{ github.event.inputs.host }}
+      run: |
+        iso_path="$(nix develop ./devshell --command nixos-generate --format ${{ env.format }} --system ${{ env.arch }} --flake .\#${{ env.host }} ${{ env.extra_args }})"
+        ln -sF "$iso_path" "${{ env.artifact_name }}"
+        iso_path="${{ env.artifact_name }}"
+        echo "iso_path=$iso_path" >> "$GITHUB_ENV"
 
     - name: Upload ISO
       uses: actions/upload-artifact@v3
