@@ -1,5 +1,5 @@
 {
-    "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix",
+    "nixEnvSelector.nixFile": "${workspaceRoot}/devshell/flake.nix",
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true
