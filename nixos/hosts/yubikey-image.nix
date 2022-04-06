@@ -1,6 +1,6 @@
 # NixOS liveCD configuration to generate an iso to interact with Yubikey
 # To build the iso:
-# bud build yubikey-image iso
+# nixos-generate -f iso --system x86_64-linux --flake .\#yubikey-image
 {
   self,
   config,
@@ -12,13 +12,10 @@
 }: let
   mkVeryForce = lib.mkOverride 0;
 in {
-  # Utilizing the bare minimum version in this case. Can also use the graphical version as well
-  # Also adds in the specific nix-channel that was used to build the iso into the iso, just in case if ad-hoc packages are needed.
   imports = [
     profiles.apps.fonts.fancy
     "${nixosModulesPath}/profiles/hardened.nix"
     "${nixosModulesPath}/installer/cd-dvd/installation-cd-base.nix"
-    # "${nixosModulesPath}/virtualisation/qemu-vm.nix"
   ];
 
   isoImage.edition = "minimal";
@@ -181,9 +178,5 @@ in {
         fi
   '';
 
-  # # Need to switch to a different GPU driver than the default one (-vga std) so that Sway can launch:
-  # virtualisation = {
-  #   qemu.options = [ "-vga none -device virtio-gpu-pci" ];
-  #   memorySize = 4096;
-  # };
+  fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
 }

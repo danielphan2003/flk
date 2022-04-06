@@ -1,6 +1,4 @@
 final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   adguardhome = let
     system = prev.system or prev.stdenv.targetPlatform;
     arch =

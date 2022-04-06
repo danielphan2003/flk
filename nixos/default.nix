@@ -76,7 +76,12 @@ in {
       ];
       tests = [];
     };
-    rog-bootstrap = {};
+    rog-bootstrap = {
+      modules = [
+        asus-rog-strix-g733qs
+        common-gpu-nvidia-disable
+      ];
+    };
   };
 
   importables = let

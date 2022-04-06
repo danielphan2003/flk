@@ -1,6 +1,4 @@
 channels: final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   vaultwarden = prev.vaultwarden.override {
     rustPlatform =
       prev.rustPlatform

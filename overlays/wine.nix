@@ -1,6 +1,4 @@
 channels: final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   # wine = final.wineWowPackages.staging;
 
   # bottles = prev.bottles.overrideAttrs (o: {

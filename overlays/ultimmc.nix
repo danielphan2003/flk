@@ -1,6 +1,4 @@
 channels: final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   # i feel ashamed of myself
   ultimmc = let
     inherit (final.sources.ultimmc) pname src version;

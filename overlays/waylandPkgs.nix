@@ -16,8 +16,6 @@ channels: final: prev: let
 
   inherit (prev.lib.our) getPatches;
 in {
-  __dontExport = true; # overrides clutter up actual creations
-
   inherit
     (channels.latest)
     waylandPkgs
@@ -56,7 +54,6 @@ in {
     swaylock
     waybar
     wayfire
-    wayland-protocols-master
     waypipe
     wayvnc
     wdisplays

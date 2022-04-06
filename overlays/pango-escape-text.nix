@@ -1,6 +1,4 @@
 final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   pango-escape-text =
     prev.writers.writePython3 "pango-escape-text.py"
     {libraries = with prev.python3Packages; [pygobject3];} ''

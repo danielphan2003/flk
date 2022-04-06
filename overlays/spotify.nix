@@ -1,7 +1,5 @@
 channels: final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
-  spicetify-cli = prev.spicetify-cli.overrideAttrs (_: {
+  spicetify-cli = channels.latest.spicetify-cli.overrideAttrs (_: {
     inherit (final.sources.spicetify-cli) pname version src;
     postInstall = ''
       cp -r ./jsHelper ./Themes ./Extensions ./CustomApps ./globals.d.ts ./css-map.json $out/bin

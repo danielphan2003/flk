@@ -30,4 +30,5 @@ in {
       SHOW_WATERMARK_FOR_GUESTS = false;
     };
   };
+  systemd.services.prosody.reloadIfChanged = config.services.prosody.enable;
 }

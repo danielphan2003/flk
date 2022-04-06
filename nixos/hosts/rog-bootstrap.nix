@@ -1,3 +1,6 @@
+# NixOS liveCD configuration to generate an iso to interact with rog laptops
+# To build the iso:
+# nixos-generate -f iso --system x86_64-linux --flake .\#rog-bootstrap
 {
   config,
   profiles,
@@ -5,6 +8,7 @@
   nixosModulesPath,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   imports =
@@ -13,7 +17,7 @@
     ]
     ++ suites.bootstrap;
 
-  users.users.nixos.initialHashedPassword = "";
+  users.users.nixos.password = lib.mkForce "";
 
   boot.kernelPackages = pkgs.linuxPackages_5_17;
 
@@ -34,4 +38,12 @@
     bindsym Mod1+Return ${pkgs.wezterm}/bin/wezterm
     exec systemctl --user import-environment
   '';
+
+  systemd.services.battery-charge-threshold.enable = false;
+
+  services.xserver.videoDrivers = [];
+
+  hardware.nvidia.prime.offload.enable = false;
+
+  fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
 }

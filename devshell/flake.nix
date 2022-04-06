@@ -52,6 +52,7 @@
               nixpkgs.legacyPackages.shfmt
               nixpkgs.legacyPackages.nodePackages.prettier
               nixpkgs.legacyPackages.stylua
+              nixpkgs.legacyPackages.fd
             ];
 
             commands = [
@@ -64,12 +65,19 @@
               (devos.pkg nixos-generators.defaultPackage)
               (devos.pkg deploy.defaultPackage)
               (devos.pkg nixpkgs.legacyPackages.cachix)
-              (utils.pkg nixpkgs.legacyPackages.fd)
               (utils.cmd {
                 name = "evalnix";
                 help = "Check Nix parsing";
                 command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/null";
               })
+              (devos.cmd {
+                name = "repl";
+                help = "Run Nix Repl";
+                command = let
+                  repl = pkgs.callPackage ./repl {};
+                in "${repl}/bin/repl";
+              })
+              (devos.pkg (pkgs.callPackage ./flkup.nix {}))
               (docs.pkg nixpkgs.legacyPackages.mdbook)
             ];
 

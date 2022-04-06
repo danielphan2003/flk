@@ -115,8 +115,6 @@ channels: final: prev: let
   patchBrowser = drv: {flags ? defaultFlags}:
     drv.override {commandLineArgs = electronCompatFlags flags;};
 in {
-  __dontExport = true; # overrides clutter up actual creations
-
   element-desktop = element-desktop; # .override { inherit electron; };
 
   discord-canary =
@@ -143,8 +141,9 @@ in {
   };
 
   teams =
-    patchElectronApplication
-    (teams.overrideAttrs (_: {inherit (sources.teams) src version;}))
-    "$out/bin/teams"
-    {};
+    # patchElectronApplication
+    teams.overrideAttrs (_: {inherit (sources.teams) src version;})
+    # "$out/bin/teams"
+    # {}
+    ;
 }

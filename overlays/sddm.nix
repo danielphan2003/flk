@@ -1,6 +1,4 @@
 final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   libsForQt5 =
     prev.libsForQt5
     // {

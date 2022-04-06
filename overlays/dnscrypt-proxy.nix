@@ -1,6 +1,4 @@
 channels: final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   dnscrypt-proxy2 = prev.dnscrypt-proxy2.override {
     buildGoModule = args:
       prev.buildGoModule (args

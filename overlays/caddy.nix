@@ -1,6 +1,4 @@
 channels: final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   caddy = let
     caddy' = {
       buildGoModule,

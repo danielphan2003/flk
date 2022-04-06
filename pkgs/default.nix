@@ -198,6 +198,8 @@ in {
 
   steamcompmgr = callPackage ./applications/window-managers/steamcompmgr {};
 
+  supergfxctl = callPackage ./os-specific/linux/supergfxctl {};
+
   swayprop = callPackage ./tools/wayland/swayprop {};
 
   # tailscale-systray = callPackage ./tools/misc/tailscale-systray { };

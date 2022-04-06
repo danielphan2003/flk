@@ -6,8 +6,6 @@ channels: final: prev: let
     matrix-appservice-discord
     ;
 in {
-  __dontExport = true; # overrides clutter up actual creations
-
   cinny = channels.latest.cinny.overrideAttrs (_: {
     inherit (final.sources.cinny) src version;
   });

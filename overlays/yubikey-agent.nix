@@ -1,6 +1,4 @@
 final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   yubikey-agent = prev.yubikey-agent.override {
     buildGoModule = args:
       final.buildGoModule (args

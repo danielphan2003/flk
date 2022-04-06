@@ -56,6 +56,12 @@ in {
 
     environment.etc."asusd/asusd-ledmodes.toml".source = tomlFormat.generate "asusd-ledmodes.toml" cfg.ledmodes;
 
+    services.power-profiles-daemon.enable = true;
+
+    boot.kernelParams = ["acpi_backlight=vendor"];
+
+    services.supergfxd.enable = mkDefault true;
+
     systemd.services.asusd = {
       description = "Asus Control Daemon";
       wantedBy = ["multi-user.target"];

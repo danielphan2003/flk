@@ -1,6 +1,4 @@
 channels: final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   python3Packages =
     prev.python3Packages
     // (with prev.python3Packages; {

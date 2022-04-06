@@ -8,8 +8,6 @@ channels: final: prev: let
     jitsi-videobridge
     ;
 in {
-  __dontExport = true; # overrides clutter up actual creations
-
   jibri = jibri.overrideAttrs (_: {
     inherit (final.sources.jibri) src version;
   });

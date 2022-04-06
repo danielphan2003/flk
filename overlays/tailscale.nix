@@ -1,6 +1,4 @@
 channels: final: prev: {
-  # __dontExport = true; # overrides clutter up actual creations
-
   tailscale = let
     tailscale' = {
       buildGo118Module,
@@ -12,7 +10,7 @@ channels: final: prev: {
           buildGo118Module (args
             // {
               inherit (sources.tailscale) pname src version;
-              vendorSha256 = "sha256-Wa+P/jSDwVTbBMY42/vreGZNwy9AsxgPbXTUz2tyYEc=";
+              vendorSha256 = "sha256-5on+6kPmEY0wIz84wKfWEdS7/aMzbLSqM/8vIHuLxNQ=";
             });
       };
   in

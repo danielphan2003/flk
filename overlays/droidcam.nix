@@ -1,6 +1,4 @@
 channels: final: prev: {
-  __dontExport = true; # overrides clutter up actual creations
-
   droidcam = prev.droidcam.overrideAttrs (o: {
     postInstall = ''
       mkdir -p $out/share/applications

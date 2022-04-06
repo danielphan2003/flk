@@ -1,7 +1,7 @@
 let
   # set ssh public keys here for your system and user
   pik2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPX+ah50jmnLkmDPjSc7fN6+bLVdfPtABgncHgx9qwG5";
-  themachine = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQChwVJyCdn/aBvqXyTpuXfo/u75zjd+10YaCa9wLwFrVsEg28QOtVcc8sbDkfxHKCVt0pAY8EDwp5PLs1JkOss0lMAmSaVJMNIwIuhnZ0e8g7vhzo2ckdKpAPISyrC98aw5jws4yTMa6jTi+908xc0Y+d25IrI3mvIT1m3XmI8y22IEBo3hp7UQp6CfapqbCoJrErbFe9i14yJ5PaHfCV6PPKoRmGlg84CRw4S3k9RfKO/kea439cn6UvQocw7u59xemFGcbfC/WWi5mWOrt2L/VhCn87BqSCcDi5pNuByLai9VIPubN62rugwOErh3mf/lf6slHCAlPrLMiiQpHSrnS275/sGOOncG4ZbZ8dNO4j8z7dxKIsuzxBUxSIP5zPcxGEwxEDinaqoyyU1fD59G5QwDW4Od26q2xA/cct7z+REKe/lMyQnjQ99TMNaUB6/DAlaOZ7rzSrCNZYTrq07t1qvk4sH7FM9EMfKYOPvPnWbahoHYoVKTA2LPgsAXCNVZqTkHV6hgwsOVu70ueaGUHAKFVbwyutFjtL0vI0M93J2Wo1QG//DcgiDEtIn2x+LntdWAVC8l8dhEgpqlFcwyReDNJvV7sNAKPghXuUG6574WzHmYn0yyI0SMhQwdYC/V9q3zNAqptvWQv/hdlXmfmVuN49HK9cMBUwYJfWIs2Q==";
+  themachine = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+SPYr7r+FSy/IY/TI4VYOKFkZ2X5yjsj8eYSIuvDRO";
   systems = [themachine pik2];
 
   alita = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIENcgkaR9Eut882LrniZvXzZ26ik5JWZzyNG7odZ172d";
