@@ -61,22 +61,7 @@
           name = "enp* eth*";
           dhcpV4Config.RouteMetric = 1024; # Better be explicit
         };
-    }
-    // (optionalAttrs config.networking.wireless.iwd.enable {
-      "budstick-home-wireless" =
-        privateConfig
-        // {
-          name = "wlp*";
-          matchConfig.SSID = "Cu Do";
-          dhcpV4Config.RouteMetric = 2048; # Prefer wired
-        };
-      "budstick-public-wireless" =
-        publicConfig
-        // {
-          name = "wlp*";
-          dhcpV4Config.RouteMetric = 2048; # Prefer wired
-        };
-    });
+    };
 in {
   imports = with profiles.network.dns; [resolved];
 
