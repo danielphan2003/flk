@@ -62,7 +62,7 @@
           dhcpV4Config.RouteMetric = 1024; # Better be explicit
         };
     }
-    // (optionalAttrs config.networking.wireless.enable {
+    // (optionalAttrs config.networking.wireless.iwd.enable {
       "budstick-home-wireless" =
         privateConfig
         // {
