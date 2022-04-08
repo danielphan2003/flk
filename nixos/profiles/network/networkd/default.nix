@@ -64,14 +64,34 @@ in {
 
   systemd.network = {
     enable = true;
-    networks = {
-      "budstick-home-wired" =
-        privateConfig
-        // {
-          name = "enp* eth*";
-          dhcpV4Config.RouteMetric = 1024; # Better be explicit
-        };
-    };
+    networks =
+      {
+        "budstick-home-wired" =
+          privateConfig
+          // {
+            name = "enp* eth*";
+            dhcpV4Config.RouteMetric = 1024; # Better be explicit
+          };
+      }
+      // (optionalAttrs config.networking.wireless.enable {
+        "budstick-home-wireless" =
+          privateConfig
+          // {
+            name = "wlp*";
+            matchConfig.SSID = "Cu Do";
+            dhcpV4Config.RouteMetric = 2048; # Prefer wired
+          };
+        "budstick-public-wireless" =
+          publicConfig
+          // {
+            name = "wlp*";
+            dhcpV4Config.RouteMetric = 2048; # Prefer wired
+          };
+      });
+    links =
+      mapAttrs
+      (link: _: {inherit linkConfig;})
+      config.systemd.network.networks;
   };
 
   # Wait for any interface to become available, not for all
