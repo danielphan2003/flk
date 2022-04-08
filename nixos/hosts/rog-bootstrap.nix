@@ -26,9 +26,7 @@
 
   networking.domain = config.networking.hostName;
 
-  networking.wireless.enable = true;
-
-  networking.networkmanager.enable = !config.networking.wireless.enable;
+  networking.networkmanager.enable = !config.networking.wireless.iwd.enable;
 
   services.asusd.enable = true;
 
