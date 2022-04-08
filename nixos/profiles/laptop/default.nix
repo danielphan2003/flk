@@ -24,8 +24,6 @@ in {
     macAddress = "stable";
   };
 
-  networking.wireless.enable = lib.mkForce (!config.networking.wireless.iwd.enable);
-
   networking.wireless.iwd = {
     enable = true;
     settings = {
