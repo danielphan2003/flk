@@ -53,15 +53,6 @@
           IPv6PrivacyExtensions = "true";
         };
     };
-  networks =
-    {
-      "budstick-home-wired" =
-        privateConfig
-        // {
-          name = "enp* eth*";
-          dhcpV4Config.RouteMetric = 1024; # Better be explicit
-        };
-    };
 in {
   imports = with profiles.network.dns; [resolved];
 
@@ -72,12 +63,15 @@ in {
   };
 
   systemd.network = {
-    inherit networks;
     enable = true;
-    links =
-      mapAttrs
-      (link: _: {inherit linkConfig;})
-      networks;
+    networks = {
+      "budstick-home-wired" =
+        privateConfig
+        // {
+          name = "enp* eth*";
+          dhcpV4Config.RouteMetric = 1024; # Better be explicit
+        };
+    };
   };
 
   # Wait for any interface to become available, not for all
