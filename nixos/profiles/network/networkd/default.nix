@@ -50,7 +50,7 @@
       networkConfig =
         privateConfig.networkConfig
         // {
-          IPv6PrivacyExtensions = "true";
+          IPv6PrivacyExtensions = true;
         };
     };
 
