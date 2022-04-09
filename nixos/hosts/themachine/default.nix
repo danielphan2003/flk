@@ -12,8 +12,6 @@
 in {
   imports = suites.themachine;
 
-  networking.wireless.enable = false;
-
   networking.domain = "c-137.me";
 
   home-manager.users.danie.services.wayvnc.addr = tailscale_ip;

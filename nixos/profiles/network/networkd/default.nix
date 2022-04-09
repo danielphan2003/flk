@@ -53,6 +53,10 @@
           IPv6PrivacyExtensions = "true";
         };
     };
+
+  mkPrivateNetwork = attrs: privateConfig // attrs;
+
+  mkPublicNetwork = attrs: publicConfig // attrs;
 in {
   imports = with profiles.network.dns; [resolved];
 
@@ -64,30 +68,24 @@ in {
 
   systemd.network = {
     enable = true;
-    networks =
-      {
-        "budstick-home-wired" =
-          privateConfig
-          // {
-            name = "enp* eth*";
-            dhcpV4Config.RouteMetric = 1024; # Better be explicit
-          };
-      }
-      // (optionalAttrs config.networking.wireless.iwd.enable {
-        "budstick-home-wireless" =
-          privateConfig
-          // {
-            name = "wlp*";
-            matchConfig.SSID = "Cu Do";
-            dhcpV4Config.RouteMetric = 2048; # Prefer wired
-          };
-        "budstick-public-wireless" =
-          publicConfig
-          // {
-            name = "wlp*";
-            dhcpV4Config.RouteMetric = 2048; # Prefer wired
-          };
-      });
+    networks = {
+      "50-wired" = mkPrivateNetwork {
+        matchConfig.Type = "ether";
+        dhcpV4Config.RouteMetric = 1024; # Better be explicit
+      };
+      "60-home-wireless" = mkPrivateNetwork {
+        matchConfig = {
+          Type = "wlan";
+          # TODO: match "Cu Do" MAC address instead
+          SSID = "Cu Do";
+        };
+        dhcpV4Config.RouteMetric = 2048; # Prefer wired
+      };
+      "70-public-wireless" = mkPublicNetwork {
+        matchConfig.Type = "wlan";
+        dhcpV4Config.RouteMetric = 2048; # Prefer wired
+      };
+    };
     links =
       mapAttrs
       (link: _: {inherit linkConfig;})

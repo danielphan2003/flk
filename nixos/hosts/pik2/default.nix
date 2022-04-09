@@ -10,6 +10,7 @@
 in {
   imports = suites.pik2;
 
+  # TODO: create new wireless network for guests
   networking.wireless.enable = false;
 
   services.openssh.openFirewall = true;

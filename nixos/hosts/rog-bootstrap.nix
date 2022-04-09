@@ -26,8 +26,6 @@
 
   networking.domain = config.networking.hostName;
 
-  networking.networkmanager.enable = !config.networking.wireless.iwd.enable;
-
   services.asusd.enable = true;
 
   programs.sway.enable = true;
