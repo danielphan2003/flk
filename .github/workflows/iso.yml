@@ -66,8 +66,6 @@ jobs:
     - name: Build ISO for ${{ github.event.inputs.host }}
       run: |
         iso_path="$(nix develop ./devshell --command nixos-generate --format ${{ env.format }} --system ${{ env.arch }} --flake .\#${{ env.host }} ${{ env.extra_args }})"
-        ln -sF "$iso_path" "${{ env.artifact_name }}"
-        iso_path="$(pwd)/${{ env.artifact_name }}"
         echo "iso_path=$iso_path" >> "$GITHUB_ENV"
 
     - name: Upload ISO
