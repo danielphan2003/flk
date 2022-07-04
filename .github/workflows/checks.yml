@@ -1,4 +1,4 @@
-name: "Check & Cachix"
+name: Checks
 on:
   push:
     branches:
@@ -11,23 +11,25 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - uses: cachix/install-nix-action@master
+    - name: Install latest nix
+      uses: cachix/install-nix-action@v17
       with:
-        install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.8.0pre20220314_a618097/install
         extra_nix_config: |
           experimental-features = nix-command flakes
           system-features = nixos-test benchmark big-parallel kvm recursive-nix
           substituters = https://cache.nixos.org https://nrdxp.cachix.org https://nix-community.cachix.org https://dan-cfg.cachix.org
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o=
+        nix_path: nixpkgs=channel:nixos-unstable
 
-    - uses: cachix/cachix-action@master
+    - name: Setup nix drv cache
+      uses: cachix/cachix-action@v10
       with:
         name: dan-cfg
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-    # - run: nix flake check
-
-    # - run: nix build ".#nixosConfigurations.NixOS.config.system.build.toplevel"
-
-    - name: Quick Nix Eval
+    - name: Quick eval
       run: nix develop --show-trace --print-build-logs .#x86_64-linux.nixpkgs.devshells.default --command evalnix
+
+    - run: nix flake check --show-trace --print-build-logs
+
+    # - run: nix build --show-trace --print-build-logs ".#nixosConfigurations.NixOS.config.system.build.toplevel"
