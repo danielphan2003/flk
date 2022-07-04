@@ -1,6 +1,6 @@
 # flk
 
-flk ── which is cold and spike-y ── is a perfect place to build your dotfiles from the ground up!
+flk ─ which is cold and spike-y ─ is a perfect place to build your dotfiles from the ground up!
 
 This is where I maintain my one and only dotfiles for NixOS. It inherits pretty much the same logic as digga's [devos], with some clean up to keep the diffs clean.
 
