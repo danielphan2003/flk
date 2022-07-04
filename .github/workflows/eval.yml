@@ -1,0 +1,29 @@
+name: Check eval
+on:
+  push:
+    branches:
+      - main
+      - trying
+      - staging
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3.0.2
+
+    - name: Install latest nix
+      uses: cachix/install-nix-action@v17
+      with:
+        extra_nix_config: |
+          substituters = https://cache.nixos.org https://nix-community.cachix.org https://dan-cfg.cachix.org
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= dan-cfg.cachix.org-1:elcVKJWjnDs1zzZ/Fs93FLOFS13OQx1z0TxP0Q7PH9o=
+        nix_path: nixpkgs=channel:nixos-unstable
+
+    - name: Setup nix drv cache
+      uses: cachix/cachix-action@v10
+      with:
+        name: dan-cfg
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+    - name: Quick eval
+      run: nix develop --show-trace --print-build-logs .#x86_64-linux.nixpkgs.devshells.default --command evalnix
