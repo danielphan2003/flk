@@ -28,7 +28,7 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
     - name: Quick eval
-      run: nix develop --show-trace --print-build-logs .#x86_64-linux.nixpkgs.devshells.default --command evalnix
+      run: nix develop --show-trace --print-build-logs --command evalnix
 
     - run: nix flake check --show-trace --print-build-logs
 
