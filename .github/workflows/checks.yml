@@ -30,4 +30,4 @@ jobs:
     # - run: nix build ".#nixosConfigurations.NixOS.config.system.build.toplevel"
 
     - name: Quick Nix Eval
-      run: nix develop ./devshell --command evalnix
+      run: nix develop --show-trace --print-build-logs .#x86_64-linux.nixpkgs.devshells.default --command evalnix
