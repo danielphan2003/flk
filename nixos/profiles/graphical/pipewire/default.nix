@@ -21,7 +21,7 @@
     # needed for osu
     pulse.enable = true;
 
-    media-session.enable = true;
+    media-session.enable = lib.mkForce (!config.services.pipewire.wireplumber.enable);
 
     # the star of the show
     lowLatency.enable = true;

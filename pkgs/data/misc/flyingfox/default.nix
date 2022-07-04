@@ -3,7 +3,7 @@
   stdenv,
   writeText,
   pywalfox,
-  sources,
+  dan-nixpkgs,
 }: let
   auto_hide_tst = writeText "auto-hide-tst.css" ''
     /* Hide main tabs toolbar */
@@ -79,7 +79,7 @@
   '';
 in
   stdenv.mkDerivation {
-    inherit (sources.flyingfox) pname src version;
+    inherit (dan-nixpkgs.flyingfox) pname src version;
     inherit auto_hide_tst dim_unload_tab;
 
     pywalfox_css = "${pywalfox.out}/chrome";
@@ -98,7 +98,7 @@ in
       description = "An opinionated set of configurations for firefox";
       homepage = "https://flyingfox.netlify.app";
       license = licenses.mit;
-      maintainers = [danielphan2003];
+      maintainers = [maintainers.danielphan2003];
       platforms = platforms.all;
     };
   }

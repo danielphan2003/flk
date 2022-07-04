@@ -1,10 +1,10 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
 }:
 stdenv.mkDerivation {
-  inherit (sources.sddm-chili) pname src version;
+  inherit (dan-nixpkgs.sddm-chili) pname src version;
 
   installPhase = ''
     mkdir -p $out/share/sddm/themes/chili
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "The hottest theme around for SDDM";
     homepage = "https://github.com/MarianArlt/sddm-chili";
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

@@ -66,8 +66,7 @@ in {
     useDHCP = mkForce false;
   };
 
-  systemd.network = {
-    enable = true;
+  systemd.network = let
     networks = {
       "50-wired" = mkPrivateNetwork {
         matchConfig.Type = "ether";
@@ -86,10 +85,10 @@ in {
         dhcpV4Config.RouteMetric = 2048; # Prefer wired
       };
     };
-    links =
-      mapAttrs
-      (link: _: {inherit linkConfig;})
-      config.systemd.network.networks;
+  in {
+    inherit networks;
+    enable = true;
+    links = mapAttrs (link: _: {inherit linkConfig;}) networks;
   };
 
   # Wait for any interface to become available, not for all

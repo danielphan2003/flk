@@ -1,1 +1,1 @@
-{sources}: sources.spicetify-themes.src
+{dan-nixpkgs}: dan-nixpkgs.spicetify-themes.src

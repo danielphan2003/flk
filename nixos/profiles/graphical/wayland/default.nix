@@ -13,6 +13,8 @@
 
   environment.systemPackages = [pkgs.xdg-desktop-portal] ++ config.xdg.portal.extraPortals;
 
+  programs.hyprland.enable = true;
+
   xdg.portal.wlr = {
     enable = true;
     settings = {
@@ -51,5 +53,8 @@
     export QT_IM_MODULE=ibus
     export XMODIFIERS=@im=ibus
     export IBUS_DISCARD_PASSWORD_APPS='firefox,.*chrome.*'
+
+    # nixos specific wayland
+    export NIXOS_OZONE_WL=1
   '';
 }

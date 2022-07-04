@@ -1,6 +1,15 @@
 # Add gzip compression to requests
 (encoding) {
-  encode gzip zstd
+  encode zstd gzip
+}
+
+(CacheHeaders) {
+  Cache-Control "public, max-age=31536000"
+  defer
+}
+
+(NoCacheHeaders) {
+  Cache-Control "no-cache, no-store"
 }
 
 # Add Security headers
@@ -21,7 +30,6 @@
   # Enable cross-site filter (XSS) and tell browser to block detected attacks
   X-Xss-Protection "1; mode=block"
 
-  Cache-Control "no-cache, no-store"
   Feature-Policy `
     accelerometer 'none';
     ambient-light-sensor 'none';
@@ -83,9 +91,11 @@
 (errors) {
   handle_errors {
     rewrite * /{http.error.status_code}
-    reverse_proxy https://httpstatusdogs.com {
-      header_up Host httpstatusdogs.com
-    }
+    respond `c-137.me
+{http.error.status_code}. That's an error.
+
+The requested URL {uri} was not found on
+this server. That's all we know.`
   }
 }
 
@@ -100,6 +110,7 @@
     import SecurityHeaders
   }
   import encoding
+  import errors
 }
 
 (useCloudflare) {
@@ -108,7 +119,21 @@
   }
 }
 
-(matrix-well-known-header) {
+(proxyForwarded) {
+  header_up X-Forwarded-Port {http.request.port}
+  header_up X-Forwarded-Proto {http.request.scheme}
+  header_up X-Forwarded-TlsProto {tls_protocol}
+  header_up X-Forwarded-TlsCipher {tls_cipher}
+  header_up X-Forwarded-HttpsProto {proto}
+}
+
+(MatrixWellknownHeaders) {
+  header Cache-Control max-age=14400
+  header Access-Control-Allow-Origin "*"
+  header Content-Type "application/json"
+}
+
+(MatrixHeaders) {
   # Headers
   header Access-Control-Allow-Origin "*"
   header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"

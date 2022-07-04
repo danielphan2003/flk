@@ -1,10 +1,10 @@
 {
   lib,
-  sources,
+  dan-nixpkgs,
   buildGoModule,
 }:
 buildGoModule rec {
-  inherit (sources.doggo) pname src version;
+  inherit (dan-nixpkgs.doggo) pname src version;
 
   vendorSha256 = "sha256-RiRWU4KyAI+PDRILkj5ILsgF0dn8MdnkNV+ui9sdops=";
 

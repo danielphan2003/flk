@@ -1,7 +1,7 @@
 {
   rustPlatform,
   lib,
-  sources,
+  dan-nixpkgs,
   pkg-config,
   clangStdenv,
   clang,
@@ -9,7 +9,9 @@
   rocksdb,
 }:
 rustPlatform.buildRustPackage {
-  inherit (sources.conduit-toolbox) pname src version cargoLock;
+  inherit (dan-nixpkgs.conduit-toolbox) pname src version;
+
+  cargoLock = dan-nixpkgs.conduit-toolbox.cargoLock."Cargo.lock";
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 

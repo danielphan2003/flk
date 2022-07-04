@@ -1,9 +1,9 @@
 {
   lib,
   mkYarnPackage,
-  sources,
+  dan-nixpkgs,
 }: let
-  inherit (sources.dribbblish-dynamic-theme) pname src version;
+  inherit (dan-nixpkgs.dribbblish-dynamic-theme) pname src version;
 in
   mkYarnPackage {
     inherit pname src version;
@@ -30,7 +30,7 @@ in
     meta = with lib; {
       description = "A mod of Dribbblish theme for Spicetify with support for light/dark modes and album art based colors.";
       homepage = "https://github.com/JulienMaille/dribbblish-dynamic-theme";
-      maintainers = [danielphan2003];
+      maintainers = [maintainers.danielphan2003];
       platforms = platforms.all;
     };
   }

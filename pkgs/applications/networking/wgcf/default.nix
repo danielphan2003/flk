@@ -1,10 +1,10 @@
 {
   buildGoModule,
   lib,
-  sources,
+  dan-nixpkgs,
 }:
 buildGoModule {
-  inherit (sources.wgcf) pname src version;
+  inherit (dan-nixpkgs.wgcf) pname src version;
 
   subPackages = ["."];
 

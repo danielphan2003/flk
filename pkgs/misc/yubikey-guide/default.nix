@@ -1,9 +1,9 @@
 {
   runCommand,
-  sources,
+  dan-nixpkgs,
   pandoc,
 }: let
-  inherit (sources.yubikey-guide) pname src version;
+  inherit (dan-nixpkgs.yubikey-guide) pname src version;
 in
   runCommand "${pname}-${version}.html"
   {

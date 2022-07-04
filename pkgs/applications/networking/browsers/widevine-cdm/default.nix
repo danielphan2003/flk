@@ -1,7 +1,7 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   patchelf,
   gcc,
   glib,
@@ -12,7 +12,7 @@
   mkrpath = p: "${lib.makeSearchPathOutput "lib" "lib64" p}:${lib.makeLibraryPath p}";
 in
   stdenv.mkDerivation {
-    inherit (sources.widevine-cdm) pname src version;
+    inherit (dan-nixpkgs.widevine-cdm) pname src version;
 
     unpackCmd = "unzip -d ./src $curSrc";
 

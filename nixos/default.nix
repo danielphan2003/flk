@@ -11,30 +11,21 @@ in {
     imports = [(digga.lib.importExportableModules ./modules)];
     modules = with inputs; [
       agenix.nixosModules.age
-      bud.nixosModules.bud
       digga.nixosModules.bootstrapIso
       digga.nixosModules.nixConfig
       home.nixosModules.home-manager
       impermanence.nixosModules.impermanence
       "${matrix-appservices}/nixos/modules/services/misc/matrix-appservices/default.nix"
+      hyprland.nixosModules.default
       nix-gaming.nixosModule
       peerix.nixosModules.peerix
       qnr.nixosModules.local-registry
       ({
-        latestModulesPath,
+        nixpkgsModulesPath,
         pkgs,
         ...
       }: {
-        imports = [
-          "${latestModulesPath}/services/misc/matrix-conduit.nix"
-          "${latestModulesPath}/services/web-servers/caddy/default.nix"
-          "${latestModulesPath}/virtualisation/waydroid.nix"
-        ];
-
-        disabledModules = [
-          "services/web-servers/caddy/default.nix"
-          "virtualisation/waydroid.nix"
-        ];
+        system.stateVersion = "22.05";
       })
     ];
   };

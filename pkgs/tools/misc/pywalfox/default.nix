@@ -1,10 +1,10 @@
 {
   python3,
   lib,
-  sources,
+  dan-nixpkgs,
 }:
 python3.pkgs.buildPythonApplication {
-  inherit (sources.pywalfox) pname src version;
+  inherit (dan-nixpkgs.pywalfox) pname src version;
 
   preInstall = ''
     substituteInPlace pywalfox/install.py --replace "/usr" "$out"
@@ -29,6 +29,6 @@ python3.pkgs.buildPythonApplication {
     description = "Native app used alongside the Pywalfox browser extension";
     homepage = "https://github.com/frewacom/pywalfox-native";
     license = licenses.mpl20;
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
   };
 }

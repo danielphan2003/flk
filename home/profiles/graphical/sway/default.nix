@@ -7,7 +7,7 @@
   inherit (lib) attrValues;
   wal-set = pkgs.callPackage ./config/scripts/wal-set.nix {
     inherit (config.wayland.windowManager.sway.config) colors;
-    backgroundDir = "/mnt/${config.home.username}/Slideshows/Home";
+    backgroundDir = "/home/${config.home.username}/pics/wall";
   };
 in {
   imports = [
@@ -27,6 +27,13 @@ in {
   services.gpg-agent.pinentryFlavor = "gnome3";
 
   services.eww.package = pkgs.eww-wayland;
+
+  home.pointerCursor = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata_Ice";
+    gtk.enable = true;
+    x11.enable = true;
+  };
 
   home.packages = attrValues ({
       inherit
@@ -100,8 +107,8 @@ in {
     # already set system-wide
     package = null;
 
-    # already set system-wide
-    xwayland = false;
+    # # already set system-wide
+    # xwayland = false;
 
     wrapperFeatures = {
       base = true;
@@ -121,7 +128,6 @@ in {
       seat seat0 xcursor_theme Bibata_Ice 24
       no_focus [app_id="avizo-service"]
       no_focus [app_id="waybar"]
-
 
       exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP GTK_IM_MODULE QT_IM_MODULE XMODIFIERS DBUS_SESSION_BUS_ADDRESS
     '';

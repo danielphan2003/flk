@@ -3,9 +3,9 @@
   lib,
   cmake,
   mingwGccs,
-  sources,
+  dan-nixpkgs,
 }: let
-  inherit (sources.quibble) pname src version;
+  inherit (dan-nixpkgs.quibble) pname src version;
   cmakePath =
     if stdenv.isi686
     then "mingw-x86.cmake"

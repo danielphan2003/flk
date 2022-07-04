@@ -29,7 +29,7 @@ in {
         qute
         qutebrowser
         mpv
-        youtubeDL
+        youtube-dl
         ;
     };
   };

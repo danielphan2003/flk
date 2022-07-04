@@ -1,12 +1,12 @@
 {
   appimageTools,
   lib,
-  sources,
+  dan-nixpkgs,
   makeDesktopItem,
   gsettings-desktop-schemas,
   gtk3,
 }: let
-  inherit (sources.leonflix) pname src version;
+  inherit (dan-nixpkgs.leonflix) pname src version;
 
   name = "${pname}-${version}";
 
@@ -17,9 +17,7 @@
     comment = "free media thing";
     desktopName = "Leonflix";
     genericName = "Leonflix";
-    categories =
-      lib.concatMapStrings (x: x + ";")
-      ["AudioVideo"];
+    categories = ["AudioVideo"];
   };
 in
   appimageTools.wrapType2 {
@@ -44,6 +42,6 @@ in
       license = licenses.asl20;
       # Should be cross-platform, but for now we just grab the appimage
       platforms = ["x86_64-linux"];
-      maintainers = [danielphan2003];
+      maintainers = [maintainers.danielphan2003];
     };
   }

@@ -1,4 +1,4 @@
-channels: final: prev: let
+final: prev: let
   inherit
     (prev)
     jibri
@@ -9,22 +9,22 @@ channels: final: prev: let
     ;
 in {
   jibri = jibri.overrideAttrs (_: {
-    inherit (final.sources.jibri) src version;
+    inherit (final.dan-nixpkgs.jibri) src version;
   });
 
   jicofo = jicofo.overrideAttrs (_: {
-    inherit (final.sources.jicofo) src version;
+    inherit (final.dan-nixpkgs.jicofo) src version;
   });
 
   jitsi-meet = jitsi-meet.overrideAttrs (_: {
-    inherit (final.sources.jitsi-meet) src version;
+    inherit (final.dan-nixpkgs.jitsi-meet) src version;
   });
 
   jitsi-meet-prosody = jitsi-meet-prosody.overrideAttrs (_: {
-    inherit (final.sources.jitsi-meet-prosody) src version;
+    inherit (final.dan-nixpkgs.jitsi-meet-prosody) src version;
   });
 
   jitsi-videobridge = jitsi-videobridge.overrideAttrs (_: {
-    inherit (final.sources.jitsi-videobridge2) src version;
+    inherit (final.dan-nixpkgs.jitsi-videobridge2) src version;
   });
 }

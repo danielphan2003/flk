@@ -14,6 +14,7 @@ window:
     #general: Alacritty
 
   #gtk_theme_variant: None
+  opacity: 0.8
 
 scrolling:
   history: 10000
@@ -67,8 +68,6 @@ colors:
     magenta: '0xc678dd'
     cyan: '0x56b6c2'
     white: '0xdcdfe4'
-
-background_opacity: 0.8
 
 cursor:
   style: Beam

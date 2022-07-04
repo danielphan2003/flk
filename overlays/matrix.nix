@@ -1,38 +1,31 @@
-channels: final: prev: let
-  inherit (final) sources;
-
-  inherit
-    (prev)
-    matrix-appservice-discord
-    ;
+final: prev: let
+  inherit (final) dan-nixpkgs;
 in {
-  cinny = channels.latest.cinny.overrideAttrs (_: {
-    inherit (final.sources.cinny) src version;
+  cinny = builtins.throw "cinny now has a web version and a desktop version. Use them as cinny-web or cinny-desktop.";
+
+  cinny-web = prev.cinny.overrideAttrs (_: {
+    inherit (dan-nixpkgs.cinny) src version;
   });
 
-  matrix-appservice-discord = matrix-appservice-discord.overrideAttrs (_: {
-    inherit (sources.matrix-appservice-discord) src version;
+  matrix-appservice-discord = prev.matrix-appservice-discord.overrideAttrs (_: {
+    inherit (dan-nixpkgs.matrix-appservice-discord) src version;
     packageJSON = ../pkgs/servers/matrix-appservice-discord/package.json;
     yarnNix = ../pkgs/servers/matrix-appservice-discord/yarn-dependencies.nix;
   });
 
-  matrix-conduit = channels.latest.matrix-conduit;
-
-  # matrix-conduit =
-  #   let
-  #     matrix-conduit' =
-  #       { matrix-conduit
-  #       , rustPlatform
-  #       , lib
-  #       , sources
-  #       }:
-  #       matrix-conduit.override {
-  #         rustPlatform.buildRustPackage = args:
-  #           rustPlatform.buildRustPackage (builtins.removeAttrs args [ "cargoSha256" ] // {
-  #             inherit (sources.conduit) src version cargoLock;
-  #             pname = "matrix-${sources.conduit.pname}";
-  #           });
-  #       };
-  #   in
-  #   final.callPackage matrix-conduit' { inherit (channels.latest) matrix-conduit rustPlatform; };
+  matrix-conduit = let
+    inherit (final.dan-nixpkgs.conduit) src version cargoLock;
+  in
+    prev.matrix-conduit.override {
+      rustPlatform =
+        final.rustPlatform
+        // {
+          buildRustPackage = args:
+            final.rustPlatform.buildRustPackage (builtins.removeAttrs args ["cargoSha256"]
+              // {
+                inherit src version;
+                cargoLock = cargoLock."Cargo.lock";
+              });
+        };
+    };
 }

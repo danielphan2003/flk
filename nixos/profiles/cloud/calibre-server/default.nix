@@ -80,7 +80,7 @@ in {
     };
   };
 
-  services.caddy.virtualHosts."calibre-srv.${domain}".extraConfig = ''
+  services.caddy.virtualHosts."calibre.${domain}".extraConfig = ''
     import common
     import NoSearchHeader
     import useCloudflare

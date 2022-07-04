@@ -2,7 +2,7 @@ channels: final: prev: let
   inherit
     (final)
     lib
-    sources
+    dan-nixpkgs
     wlfreerdp
     ;
 
@@ -17,7 +17,7 @@ channels: final: prev: let
   inherit (prev.lib.our) getPatches;
 in {
   inherit
-    (channels.latest)
+    (channels.nixpkgs)
     waylandPkgs
     aml
     avizo
@@ -42,7 +42,8 @@ in {
     nwg-menu
     nwg-panel
     obs-studio
-    obs-wlrobs
+    # obs-wlrobs
+    
     oguri
     rootbar
     sirula
@@ -81,11 +82,11 @@ in {
   # eww = eww.override { enableWayland = true; };
 
   swaylock-effects = swaylock-effects.overrideAttrs (_: {
-    inherit (sources.swaylock-effects) pname version src;
+    inherit (dan-nixpkgs.swaylock-effects) pname version src;
   });
 
   rofi-unwrapped = let
-    inherit (sources.rofi-wayland) pname src version;
+    inherit (dan-nixpkgs.rofi-wayland) pname src version;
   in
     rofi-unwrapped.overrideAttrs (o: {
       inherit src version;
@@ -103,6 +104,6 @@ in {
     });
 
   glfw-wayland = glfw-wayland.overrideAttrs (o: {
-    patches = lib.init (getPatches sources.minecraft-wayland.src);
+    patches = lib.init (getPatches dan-nixpkgs.minecraft-wayland.src);
   });
 }

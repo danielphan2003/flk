@@ -83,18 +83,28 @@ in {
     services.actkbd.bindings = [
       {
         keys = [230];
-        events = ["key"];
+        events = ["key" "rep"];
         command = "${pkgs.asusctl}/bin/asusctl -n";
       }
       {
         keys = [229];
-        events = ["key"];
+        events = ["key" "rep"];
         command = "${pkgs.asusctl}/bin/asusctl -p";
       }
       {
         keys = [202];
-        events = ["key"];
+        events = ["key" "rep"];
         command = "${pkgs.asusctl}/bin/asusctl led-mode -n";
+      }
+      {
+        keys = [203];
+        events = ["key" "rep"];
+        command = "${pkgs.asusctl}/bin/asusctl profile -n";
+      }
+      {
+        keys = [224];
+        events = ["key" "rep"];
+        command = "";
       }
     ];
   };

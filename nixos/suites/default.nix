@@ -46,7 +46,7 @@
 
     networking = attrValues {
       inherit (network) networkd qos;
-      inherit (network.dns) tailscale;
+      inherit (network.vpn) tailscale;
     };
 
     personal = attrValues {
@@ -74,7 +74,7 @@
 
     play = attrValues {
       inherit (graphical) gaming;
-      inherit (network) chromecast;
+      inherit (network.discovery) chromecast;
       inherit (apps) wine;
     };
 
@@ -145,8 +145,10 @@ in {
           # matrix
           
           matrix-conduit
-          matrix-identity
-          minecraft
+          # matrix-identity
+          
+          # minecraft
+          
           # peerix
           
           postgresql
@@ -182,12 +184,19 @@ in {
         inherit
           (cloud)
           aria2
-          calibre-server
+          # calibre-server
+          
+          calibre-web
           netdata
           peerix
           ;
         inherit (graphical.themes) sefia;
         inherit (misc) disable-mitigations gnupg;
+        inherit
+          (network.vpn)
+          playit
+          zerotier
+          ;
         # inherit (virt) windows;
 
         inherit

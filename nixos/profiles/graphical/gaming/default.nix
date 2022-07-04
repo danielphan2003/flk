@@ -9,9 +9,11 @@ in {
   environment.systemPackages = attrValues {
     inherit
       (pkgs)
-      ultimmc
+      # ultimmc
+      
       # pcsx2
       
+      polymc
       qjoypad
       retroarchBare
       ;

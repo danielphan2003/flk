@@ -1,44 +1,20 @@
-channels: final: prev: let
+final: prev: let
   inherit
     (prev)
-    discord-canary
-    element-desktop
-    signal-desktop
-    teams
-    ungoogled-chromium
-    vscodium
+    # element-desktop
+    
+    # signal-desktop
+    
     ;
 
   inherit
     (final)
-    callPackage
-    makeWrapper
-    electron
-    sources
-    symlinkJoin
-    wlroots
-    writeShellScript
+    dan-nixpkgs
+    # wlroots
+    
     ;
 
-  inherit
-    (prev)
-    electron_16
-    microsoft-edge-beta
-    spotify-spicetified
-    ;
-
-  inherit
-    (prev.lib)
-    concatMapStringsSep
-    concatStringsSep
-    escapeShellArg
-    last
-    optionals
-    splitString
-    toList
-    ;
-
-  inherit (builtins) compareVersions;
+  l = final.lib // builtins;
 
   # see https://github.com/NixOS/nixpkgs/issues/137688
   # chromium >= 96.0.4664.55 and electron >= 16.0.2 should fix this
@@ -46,8 +22,8 @@ channels: final: prev: let
   # at least Xwayland works without patching
   # see also ./waylandPkgs.nix
   enableWayland = true;
-  # enableWayland = (compareVersions ungoogled-chromium.version "96.0.4664.45" >= 0
-  #   && compareVersions electron_16.version "16.0.2" >= 0)
+  # enableWayland = (l.compareVersions ungoogled-chromium.version "96.0.4664.45" >= 0
+  #   && l.compareVersions electron_18.version "16.0.2" >= 0)
   #   || (wlroots.patchedChromium or false);
 
   extraOptions = [
@@ -60,7 +36,7 @@ channels: final: prev: let
     "--ignore-gpu-blocklist"
   ];
 
-  waylandFlags = optionals enableWayland [
+  waylandFlags = l.optionals enableWayland [
     "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer"
     "--enable-webrtc-pipewire-capturer"
     "--ozone-platform=wayland"
@@ -68,10 +44,10 @@ channels: final: prev: let
 
   defaultFlags = waylandFlags ++ extraOptions;
 
-  flagsCommand = concatStringsSep " ";
+  flagsCommand = l.concatStringsSep " ";
 
   compatScript = flags:
-    writeShellScript "electron-compat-flags.sh" ''
+    prev.writeShellScript "electron-compat-flags.sh" ''
       if [[ -n $WAYLAND_DISPLAY ]]
       then
         echo ${flagsCommand flags}
@@ -84,22 +60,22 @@ channels: final: prev: let
 
   patchElectron = bin: {flags ? defaultFlags}: let
     wrapper = bin': let
-      binName = last (splitString "/" bin');
+      binName = l.last (l.splitString "/" bin');
     in ''
       mkdir -p $out/.bin-wrapped
       cp --copy-contents ${bin'} $out/.bin-wrapped/${binName}
       rm ${bin'}
       makeWrapper $out/.bin-wrapped/${binName} ${bin'} \
-        --add-flags ${escapeShellArg (electronCompatFlags flags)}
+        --add-flags ${l.escapeShellArg (electronCompatFlags flags)}
     '';
   in
-    concatMapStringsSep "\n" (x: wrapper x) (toList bin);
+    l.concatMapStringsSep "\n" (x: wrapper x) (l.toList bin);
 
   patchElectronApplication = drv: bin: {flags ? defaultFlags}:
-    (symlinkJoin {
+    (prev.symlinkJoin {
       inherit (drv) name;
       paths = [drv];
-      buildInputs = [makeWrapper];
+      buildInputs = [prev.makeWrapper];
       postBuild = patchElectron bin {inherit flags;};
     })
     .overrideAttrs (_: {
@@ -115,34 +91,33 @@ channels: final: prev: let
   patchBrowser = drv: {flags ? defaultFlags}:
     drv.override {commandLineArgs = electronCompatFlags flags;};
 in {
-  element-desktop = element-desktop; # .override { inherit electron; };
+  electron_12 = null;
 
-  discord-canary =
-    patchElectronApplication
-    (discord-canary.overrideAttrs (_: {inherit (sources.discord-canary) pname src version;}))
-    "$out/opt/DiscordCanary/DiscordCanary"
-    {};
+  discord-canary = prev.discord-canary.overrideAttrs (o: {
+    inherit (dan-nixpkgs.discord-canary) pname src version;
+    installPhase = ''
+      ${o.installPhase}
+      sed -i 's/exec/unset NIXOS_OZONE_WL\nexec/g' $out/opt/DiscordCanary/DiscordCanary
+    '';
+  });
 
-  # TODO: signal still uses xwayland
-  signal-desktop = patchElectronApplication signal-desktop "$out/bin/signal-desktop" {};
+  electron = final.electron_18;
 
-  electron = final.electron_16;
+  electron_18 = patchElectronApplication prev.electron_18 "$out/lib/electron/electron" {};
 
-  electron_16 = patchElectronApplication electron_16 "$out/lib/electron/electron" {};
+  vscodium = patchElectronApplication prev.vscodium "$out/bin/codium" {};
 
-  vscodium = patchElectronApplication vscodium "$out/bin/codium" {};
+  ungoogled-chromium = patchBrowser prev.ungoogled-chromium {};
 
-  ungoogled-chromium = patchBrowser ungoogled-chromium {};
+  microsoft-edge-beta = patchBrowser prev.microsoft-edge-beta {};
 
-  microsoft-edge-beta = patchBrowser microsoft-edge-beta {};
-
-  spotify-spicetified = patchBrowser spotify-spicetified {
+  spotify-spiced = patchBrowser prev.spotify-spiced {
     flags = waylandFlags ++ ["--enable-devtool" "--enable-developer-mode"];
   };
 
   teams =
     # patchElectronApplication
-    teams.overrideAttrs (_: {inherit (sources.teams) src version;})
+    prev.teams.overrideAttrs (_: {inherit (dan-nixpkgs.teams) src version;})
     # "$out/bin/teams"
     # {}
     ;

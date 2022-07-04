@@ -1,17 +1,19 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   rustPlatform,
   rust,
   pkg-config,
-  libudev,
+  udev,
 }:
 rustPlatform.buildRustPackage {
-  inherit (sources.supergfxctl) pname src version;
+  inherit (dan-nixpkgs.supergfxctl) pname src version;
+
+  # cargoLock = dan-nixpkgs.supergfxctl.cargoLock."Cargo.lock";
 
   nativeBuildInputs = [pkg-config];
-  buildInputs = [libudev];
+  buildInputs = [udev];
 
   doCheck = false;
 

@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.services.wayvnc;
-  inherit (cfg) addr configFile maxFps;
+  inherit (cfg) addr configFile maxFps port;
 in {
   options = {
     services.wayvnc = {
@@ -26,8 +26,8 @@ in {
         '';
       };
       configFile = mkOption {
-        type = types.str;
-        default = "~/.config/wayvnc/config";
+        type = types.path;
+        default = config.xdg.configFile."wayvnc/config".source;
         description = ''
           Custom path where wayvnc should look for its config.
         '';
@@ -39,10 +39,21 @@ in {
           Set the rate limit.
         '';
       };
+      port = mkOption {
+        type = types.int;
+        default = 5901;
+        description = ''
+          Set the port to listen on.
+        '';
+      };
     };
   };
   config = mkIf cfg.enable {
     home.packages = with pkgs; [wayvnc];
+
+    xdg.configFile."wayvnc/config".text = ''
+      port=${toString port}
+    '';
 
     systemd.user.services.wayvnc = {
       Unit = {

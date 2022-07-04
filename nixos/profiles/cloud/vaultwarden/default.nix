@@ -32,6 +32,10 @@ in {
       websocketAddress = "localhost";
       webVaultEnabled = true;
       databaseUrl = "postgresql://%2Frun%2Fpostgresql/vaultwarden";
+      smtpHost = "smtp.eu.mailgun.org";
+      smtpPort = 465;
+      smtpSecurity = "force_tls";
+      smtpFrom = "vaultwarden@${config.networking.domain}";
     };
   };
 
@@ -58,7 +62,7 @@ in {
     extraConfig = ''
       # Rotate when the size is bigger than 5MB
       rotate 4
-      size 5Ms
+      size 5M
       # Compress old log files
       compress
       # Truncate the original log file in place after creating a copy

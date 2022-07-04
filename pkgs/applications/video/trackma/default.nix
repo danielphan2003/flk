@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  sources,
+  dan-nixpkgs,
   python3Packages,
   withGtk ? true,
   wrapGAppsHook,
@@ -17,7 +17,7 @@
 in
   with python3Packages;
     buildPythonApplication rec {
-      inherit (sources.trackma) pname src version;
+      inherit (dan-nixpkgs.trackma) pname src version;
 
       nativeBuildInputs =
         []

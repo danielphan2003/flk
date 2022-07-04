@@ -1,12 +1,12 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   cups,
   ghostscript,
 }:
 stdenv.mkDerivation {
-  inherit (sources.cups-pdf) pname src version;
+  inherit (dan-nixpkgs.cups-pdf) pname src version;
 
   buildInputs = [cups ghostscript];
 

@@ -22,7 +22,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_5_17;
 
-  boot.loader.grub.enable = lib.mkDefault true;
+  boot.loader.grub.enable = lib.mkDefault false;
 
   networking.domain = config.networking.hostName;
 

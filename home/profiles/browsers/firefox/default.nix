@@ -77,6 +77,6 @@ in {
 
     "${mozPath}/native-messaging-hosts/pywalfox.json".source = "${pkgs.pywalfox}/lib/mozilla/native-messaging-hosts/pywalfox.json";
 
-    "${mozPath}/native-messaging-hosts/fx_cast_bridge.json".source = "${pkgs.fx_cast_bridge}/lib/mozilla/native-messaging-hosts/fx_cast_bridge.json";
+    # "${mozPath}/native-messaging-hosts/fx_cast_bridge.json".source = "${pkgs.fx_cast_bridg}/lib/mozilla/native-messaging-hosts/fx_cast_bridge.json";
   };
 }

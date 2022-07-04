@@ -14,9 +14,9 @@ in {
       inherit
         (pkgs)
         libglvnd
-        libGL_driver
         mesa
         ;
+      inherit (pkgs.mesa) drivers;
     };
   };
 }

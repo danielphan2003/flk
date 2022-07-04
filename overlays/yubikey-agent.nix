@@ -3,7 +3,7 @@ final: prev: {
     buildGoModule = args:
       final.buildGoModule (args
         // {
-          inherit (final.sources.yubikey-agent) src version;
+          inherit (final.dan-nixpkgs.yubikey-agent) src version;
           vendorSha256 = "sha256-dqUV0+exeLbL20geWX1gqoir+nGDuYKDASC6DcJJwI8=";
         });
   };

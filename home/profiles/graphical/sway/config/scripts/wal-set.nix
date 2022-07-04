@@ -9,7 +9,6 @@
   pywalfox,
   pywal,
   sway,
-  paper,
   swaybg,
   backgroundDir,
   colors,
@@ -36,10 +35,10 @@ in
 
     [ ! -S $swaySocket ] && ${feh}/bin/feh --bg-fill $(< ~/.cache/wal/wal) && exit
 
-    PID=$(${procps}/bin/pgrep paper)
+    PID=$(${procps}/bin/pgrep swaybg)
 
     # guarantees to run within cron jobs
-    ${sway}/bin/swaymsg -s $swaySocket "exec ${paper}/bin/paper -i '$wallpaper'"
+    ${sway}/bin/swaymsg -s $swaySocket "exec ${swaybg}/bin/swaybg -i '$wallpaper'"
 
     ${coreutils}/bin/sleep 0.2
 

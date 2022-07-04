@@ -35,10 +35,7 @@ in {
     };
   in
     {"${user}".file = "${self}/secrets/home/users/${user}.age";}
-    // (mkProfileSecret "accounts" {})
-    // (mkProfileSecret "wayvnc/config" {})
-    // (mkProfileSecret "wayvnc/key.pem" {})
-    // (mkProfileSecret "wayvnc/cert.pem" {});
+    // (mkProfileSecret "accounts" {});
 
   users.users."${user}" = {
     description = "Daniel Phan";

@@ -1,10 +1,10 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
 }:
 stdenv.mkDerivation {
-  inherit (sources.pure) pname src version;
+  inherit (dan-nixpkgs.pure) pname src version;
 
   buildPhase = "true";
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Pretty, minimal and fast ZSH prompt";
     homepage = "https://github.com/sindresorhus/pure";
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
     platforms = platforms.unix;
     license = licenses.mit;
   };

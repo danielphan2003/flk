@@ -1,6 +1,6 @@
 {
   lib,
-  sources,
+  dan-nixpkgs,
   naersk,
   wrapGAppsHook,
   pkg-config,
@@ -16,7 +16,7 @@
   enableWayland ? false,
 }:
 with lib; let
-  inherit (sources.eww) pname version src;
+  inherit (dan-nixpkgs.eww) pname version src;
 in
   naersk.buildPackage {
     inherit pname version;

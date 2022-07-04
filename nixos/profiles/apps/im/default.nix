@@ -9,6 +9,13 @@ in {
         
         tdesktop
         ;
+
+      cinny-desktop = pkgs.cinny-desktop.override {
+        conf = {
+          defaultHomeserver = 0;
+          homeserverList = ["c-137.me" "matrix.org"];
+        };
+      };
     }
     // (
       if pkgs.system == "x86_64-linux"

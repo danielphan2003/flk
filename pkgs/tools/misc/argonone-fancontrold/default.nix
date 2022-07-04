@@ -1,10 +1,10 @@
 {
   buildGoModule,
   lib,
-  sources,
+  dan-nixpkgs,
 }:
 buildGoModule {
-  inherit (sources.argonone-fancontrold) pname src version;
+  inherit (dan-nixpkgs.argonone-fancontrold) pname src version;
 
   vendorSha256 = "sha256-0xhHGJEPFpwjRA03C8rpuZ2sIXU50+PS6ifTRMSrHKM=";
 

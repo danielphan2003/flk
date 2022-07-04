@@ -9,7 +9,7 @@
     defaultHomeserver = 0;
     homeserverList = [domain];
   };
-  templatedCinnyWeb = pkgs.cinny.override {inherit conf;};
+  templatedCinnyWeb = pkgs.cinny-web.override {inherit conf;};
 in {
   services.caddy.virtualHosts."cinny.${domain}".extraConfig = ''
     import common

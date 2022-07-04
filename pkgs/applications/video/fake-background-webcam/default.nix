@@ -1,12 +1,12 @@
 {
   lib,
-  sources,
+  dan-nixpkgs,
   python3Packages,
   opencv,
 }:
 with python3Packages;
   buildPythonApplication rec {
-    inherit (sources.fake-background-webcam) pname src version;
+    inherit (dan-nixpkgs.fake-background-webcam) pname src version;
 
     propagatedBuildInputs = [
       cmapy

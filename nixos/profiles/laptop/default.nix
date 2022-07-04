@@ -45,18 +45,18 @@ in {
   programs.light.enable = true;
   services.actkbd = {
     enable = true;
-    bindings = [
-      {
-        keys = [225];
-        events = ["key"];
-        command = "${pkgs.light}/bin/light -A 5";
-      }
-      {
-        keys = [224];
-        events = ["key"];
-        command = "${pkgs.light}/bin/light -U 5";
-      }
-    ];
+    # bindings = [
+    #   {
+    #     keys = [225];
+    #     events = ["key"];
+    #     command = "${pkgs.light}/bin/light -A 5";
+    #   }
+    #   {
+    #     keys = [224];
+    #     events = ["key"];
+    #     command = "${pkgs.light}/bin/light -U 5";
+    #   }
+    # ];
   };
 
   sound.mediaKeys = lib.mkIf (!config.services.pipewire.pulse.enable) {

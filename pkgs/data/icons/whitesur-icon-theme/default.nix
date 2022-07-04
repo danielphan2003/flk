@@ -1,7 +1,7 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   sassc,
   optipng,
   inkscape,
@@ -11,7 +11,7 @@
   hicolor-icon-theme,
 }:
 stdenv.mkDerivation {
-  inherit (sources.whitesur-icon-theme) pname src version;
+  inherit (dan-nixpkgs.whitesur-icon-theme) pname src version;
 
   buildInputs = [
     sassc
@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     description = "MacOS Big Sur style icon theme for linux desktops";
     homepage = "https://github.com/vinceliuice/WhiteSur-icon-theme";
     license = licenses.gpl3;
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
     platforms = platforms.linux;
   };
 }

@@ -3,10 +3,10 @@ channels: final: prev: {
     caddy' = {
       buildGoModule,
       lib,
-      sources,
+      dan-nixpkgs,
       caddy,
       plugins ? [],
-      vendorSha256 ? "sha256-XUyKCttOpIMKgaVHJ9JApjItYFEJYxMyoWSYNKv5Elg=",
+      vendorSha256 ? lib.fakeSha256,
     }: let
       imports = lib.flip lib.concatMapStrings plugins (pkg: ''_ "${pkg}"'' + "\n");
 
@@ -24,29 +24,39 @@ channels: final: prev: {
         }
       '';
     in
-      caddy.override {
-        buildGoModule = args:
-          buildGoModule (args
-            // {
-              inherit (sources.caddy) src version;
+      if plugins == []
+      then caddy
+      else
+        caddy.override {
+          buildGoModule = args:
+            buildGoModule
+              (args // {
+                # inherit (dan-nixpkgs.caddy) src version;
 
-              inherit vendorSha256 main;
+                inherit vendorSha256;
 
-              pname = args.pname + lib.optionalString (plugins != []) "-with-plugins";
+                passthru.plugins = plugins;
 
-              overrideModAttrs = o: {
-                prePatch = ''echo '${main}' > cmd/caddy/main.go'';
-                postInstall = ''
-                  ${o.postInstall or ""}
-                  cp go.sum go.mod "$out"
+                pname = "${args.pname}-with-plugins";
+
+                overrideModAttrs = _: {
+                  preBuild = "echo '${main}' > cmd/caddy/main.go";
+                  postInstall = "cp go.sum go.mod $out";
+                };
+
+                postPatch = ''
+                  echo '${main}' > cmd/caddy/main.go
+                  cat cmd/caddy/main.go
                 '';
-              };
 
-              postPatch = ''echo "$main" > cmd/caddy/main.go'';
+                postConfigure = ''
+                  cp vendor/go.sum ./
+                  cp vendor/go.mod ./
+                '';
 
-              postConfigure = ''cp vendor/go.{sum,mod} .'';
-            });
-      };
+                doCheck = false;
+              });
+        };
   in
-    final.callPackage caddy' {inherit (channels.latest) caddy;};
+    final.callPackage caddy' {inherit (prev) caddy;};
 }

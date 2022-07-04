@@ -1,7 +1,7 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   p7zip,
 }:
 stdenv.mkDerivation {
@@ -9,7 +9,7 @@ stdenv.mkDerivation {
 
   buildInputs = [p7zip];
 
-  src = with sources; [
+  src = with dan-nixpkgs; [
     sf-font-compact.src
     sf-font-pro.src
     sf-mono.src
@@ -41,7 +41,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Install SF and NY font on linux";
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
     license = licenses.unfree;
     platforms = platforms.all;
   };

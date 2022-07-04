@@ -5,12 +5,12 @@
   cmake,
   fmt,
   zlib,
-  sources,
+  dan-nixpkgs,
   lzo,
   zstd,
 }:
 stdenv.mkDerivation {
-  inherit (sources.ntfs2btrfs) pname src version;
+  inherit (dan-nixpkgs.ntfs2btrfs) pname src version;
 
   buildInputs = [pkg-config cmake fmt zlib lzo zstd];
 

@@ -2,10 +2,10 @@
   stdenv,
   lib,
   substituteAll,
-  sources,
+  dan-nixpkgs,
 }:
 stdenv.mkDerivation {
-  inherit (sources.arkenfox-userjs) pname src version;
+  inherit (dan-nixpkgs.arkenfox-userjs) pname src version;
 
   dontBuild = true;
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Firefox privacy, security and anti-fingerprinting";
     homepage = "https://github.com/arkenfox/user.js";
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
     platforms = platforms.all;
     license = licenses.mit;
   };

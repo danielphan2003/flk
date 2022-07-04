@@ -2,7 +2,7 @@ channels: final: prev: {
   # wine = final.wineWowPackages.staging;
 
   # bottles = prev.bottles.overrideAttrs (o: {
-  #   inherit (final.sources.bottles) pname src version;
+  #   inherit (final.dan-nixpkgs.bottles) pname src version;
 
   #   propagatedBuildInputs = o.propagatedBuildInputs ++ builtins.attrValues {
   #     inherit (prev.python3Packages)

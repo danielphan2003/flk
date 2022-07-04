@@ -27,7 +27,7 @@
     desktopName = "Caprine";
     genericName = "IM Client";
     comment = "Elegant Facebook Messenger desktop app";
-    categories = "GTK;InstantMessaging;Network;";
+    categories = ["GTK" "InstantMessaging" "Network"];
     startupNotify = "true";
   };
 in
@@ -52,6 +52,6 @@ in
 
     meta = with lib; {
       homepage = "https://sindresorhus.com/caprine";
-      maintainers = [danielphan2003];
+      maintainers = [maintainers.danielphan2003];
     };
   }

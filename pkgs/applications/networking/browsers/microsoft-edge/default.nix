@@ -3,7 +3,7 @@
   stdenv,
   patchelf,
   makeWrapper,
-  sources,
+  dan-nixpkgs,
   # Linked dynamic libraries.
   glib,
   fontconfig,
@@ -149,7 +149,7 @@ with lib; let
   suffix = "-" + channel;
 in
   stdenv.mkDerivation {
-    inherit (sources."microsoft-edge${suffix}") pname src version;
+    inherit (dan-nixpkgs."microsoft-edge${suffix}") pname src version;
 
     nativeBuildInputs = [patchelf makeWrapper];
     buildInputs = [

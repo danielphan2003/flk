@@ -1,6 +1,6 @@
 {
   lib,
-  sources,
+  dan-nixpkgs,
   python3Packages,
   aria2,
   mpv,
@@ -8,7 +8,7 @@
 }:
 with python3Packages;
   buildPythonApplication rec {
-    inherit (sources.anime-downloader) pname src version;
+    inherit (dan-nixpkgs.anime-downloader) pname src version;
 
     propagatedBuildInputs = [
       aria2

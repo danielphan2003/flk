@@ -2,33 +2,13 @@
   inherit
     (final)
     callPackage
-    lib
     naersk
-    sources
+    dan-nixpkgs
     ;
 
-  inherit
-    (final)
-    minecraft-mods
-    papermc-pkgs
-    python3Packages
-    vimPlugins
-    vscode-extensions
-    ;
+  lib = final.lib // builtins;
 
-  inherit
-    (final)
-    minecraft-mods-builder
-    minecraft-utils
-    papermc-pkgs-builder
-    papermc-utils
-    python3Packages-builder
-    python3Packages-utils
-    vimPlugins-builder
-    vimUtils
-    vscode-extensions-builder
-    vscode-utils
-    ;
+  l = lib;
 
   inherit
     (inputs)
@@ -58,19 +38,30 @@ in {
 
   caprine = callPackage ./applications/networking/instant-messengers/caprine {};
 
+  cinny-desktop = callPackage ./applications/networking/instant-messengers/cinny/cinny-desktop.nix {
+    rustPlatform = final.makeRustPlatform {
+      inherit (final.fenix.stable) cargo rustc;
+    };
+  };
+
   conduit-toolbox = callPackage ./tools/servers/conduit-toolbox {};
+
+  dan-nixpkgs = let
+    dan-nixpkgs' = l.mapAttrs (k: v: v.default) inputs.dan-nixpkgs.x86_64-linux.nixpkgs;
+  in
+    dan-nixpkgs' // dan-nixpkgs'.all-packages;
 
   doggo = callPackage ./tools/networking/doggo {};
 
-  dribbblish-dynamic-theme = callPackage ./data/misc/dribbblish-dynamic-theme {inherit (channels.latest) mkYarnPackage;};
+  dribbblish-dynamic-theme = callPackage ./data/misc/dribbblish-dynamic-theme {};
 
   eww-mpris = callPackage ./applications/misc/eww/mpris.nix {};
 
   # fake-background-webcam = callPackage ./applications/video/fake-background-webcam { };
 
   firefox-nightly-bin =
-    # firefox-nightly.packages."${prev.system}".firefox-nightly-bin or
-    final.firefox-wayland;
+    firefox-nightly.packages.x86_64-linux.firefox-nightly-bin
+    or final.firefox-wayland;
 
   flyingfox = callPackage ./data/misc/flyingfox {};
 
@@ -82,15 +73,16 @@ in {
 
   # guiscrcpy = callPackage ./misc/guiscrcpy { };
 
+  hyprland = channels.nixpkgs.callPackage ./applications/window-managers/hyprland {
+    inherit dan-nixpkgs;
+    inherit (final.waylandPkgs) wlroots;
+  };
+
   interak = callPackage ./data/misc/interak {};
 
   leonflix = callPackage ./applications/video/leonflix {};
 
   libinih = callPackage ./development/libraries/libinih {};
-
-  # lightcord = callPackage ./applications/networking/instant-messengers/lightcord {
-  #   # inherit (prev) glibc;
-  # };
 
   luaPackages =
     prev.luaPackages
@@ -108,7 +100,7 @@ in {
 
   microsoft-edge-dev = final.microsoft-edge-beta.override {channel = "dev";};
 
-  minecraft-mods = minecraft-mods-builder sources.minecraft-mods {};
+  minecraft-mods = final.minecraft-mods-builder dan-nixpkgs.minecraft-mods {};
 
   npmlock2nix = callPackage npmlock2nix {};
 
@@ -118,12 +110,12 @@ in {
 
   paper = callPackage ./tools/wayland/paper {};
 
-  papermc-pkgs = papermc-pkgs-builder sources.papermc {prefix = "papermc-";};
+  papermc-pkgs = final.papermc-pkgs-builder dan-nixpkgs.papermc {prefix = "papermc-";};
 
-  papermc-utils = prev.papermc-utils.override {inherit (channels.latest) javaPackages;};
+  papermc-utils = prev.papermc-utils.override {inherit (channels.nixpkgs) javaPackages;};
 
   inherit
-    (papermc-pkgs)
+    (final.papermc-pkgs)
     # 1.8.x - 1.11.x
     
     papermc-1_8_8
@@ -168,15 +160,18 @@ in {
     
     papermc-1_18
     papermc-1_18_1
+    papermc-1_18_2
     ;
 
-  # papermc = final.papermc-1_18_1;
+  # papermc = final.papermc-1_18_2;
+
+  playit-agent = callPackage ./tools/networking/playit-agent {};
 
   plymouth-themes = callPackage ./data/misc/plymouth-themes {};
 
   pure = callPackage ./shells/zsh/pure {};
 
-  python3Packages = python3Packages-builder sources {prefix = "pythonPackages-";};
+  python3Packages = final.python3Packages-builder dan-nixpkgs.all-packages {prefix = "pythonPackages-";};
 
   pywalfox = callPackage ./tools/misc/pywalfox {};
 
@@ -186,15 +181,17 @@ in {
 
   rainfox = callPackage ./data/misc/rainfox {};
 
-  # rustdesk = callPackage ./applications/networking/remote/rustdesk { };
+  revanced-cli = callPackage ./tools/misc/revanced-cli {};
 
   # sciter = callPackage ./development/libraries/sciter { };
 
   sddm-chili = callPackage ./applications/display-managers/sddm/themes/chili {};
 
+  spicetify-marketplace = callPackage ./data/misc/spicetify-marketplace {};
+
   spicetify-themes = callPackage ./data/misc/spicetify-themes {};
 
-  spotify-spicetified = callPackage ./applications/audio/spotify-spicetified {};
+  spotify-spiced = callPackage ./applications/audio/spotify-spiced {};
 
   steamcompmgr = callPackage ./applications/window-managers/steamcompmgr {};
 
@@ -210,11 +207,11 @@ in {
 
   user-icon = callPackage ./data/misc/user-icon {};
 
-  vimPlugins = vimPlugins-builder sources {prefix = "vimPlugins-";};
+  vimPlugins = final.vimPlugins-builder dan-nixpkgs.all-packages {prefix = "vimPlugins-";};
 
-  vscode-extensions = vscode-extensions-builder sources.vscode-extensions {
-    pkgBuilder = vscode-utils.pkgBuilder';
-    filterSources = lib.vscode-extensions.filterSources';
+  vscode-extensions = final.vscode-extensions-builder dan-nixpkgs.vscode-extensions {
+    pkgBuilder = final.vscode-utils.pkgBuilder';
+    filterSources = l.vscode-extensions.filterSources';
   };
 
   wgcf = callPackage ./applications/networking/wgcf {};

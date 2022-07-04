@@ -26,7 +26,7 @@ in
       description = "An opinionated set of configurations for firefox";
       homepage = "https://interak.netlify.app";
       license = licenses.mit;
-      maintainers = [danielphan2003];
+      maintainers = [maintainers.danielphan2003];
       platforms = platforms.all;
     };
   }

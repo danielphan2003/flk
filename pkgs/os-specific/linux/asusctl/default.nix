@@ -1,17 +1,19 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   rustPlatform,
   rust,
   pkg-config,
-  libudev,
+  udev,
 }:
 rustPlatform.buildRustPackage {
-  inherit (sources.asusctl) pname src version cargoLock;
+  inherit (dan-nixpkgs.asusctl) pname src version;
+
+  cargoLock = dan-nixpkgs.asusctl.cargoLock."Cargo.lock";
 
   nativeBuildInputs = [pkg-config];
-  buildInputs = [libudev];
+  buildInputs = [udev];
 
   doCheck = false;
 

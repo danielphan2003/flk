@@ -11,7 +11,7 @@ final: prev: {
       .${system};
   in
     prev.adguardhome.overrideAttrs (_: {
-      inherit (final.sources."adguardhome-${arch}") src version;
+      inherit (final.dan-nixpkgs."adguardhome-${arch}") src version;
       meta = with prev.lib; {
         platforms = platforms.unix;
         license = licenses.gpl3Only;

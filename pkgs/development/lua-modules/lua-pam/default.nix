@@ -1,13 +1,13 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   lua,
   linux-pam,
   ...
 }:
 stdenv.mkDerivation {
-  inherit (sources.lua-pam) pname src version;
+  inherit (dan-nixpkgs.lua-pam) pname src version;
 
   nativeBuildInputs = [lua linux-pam];
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     description = "A module for lua to use PAM. ";
     homepage = "https://github.com/rmtt/lua-pam";
     license.fullName = "MIT/X11";
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
     platforms = platforms.unix;
   };
 }

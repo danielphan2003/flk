@@ -1,0 +1,18 @@
+diff --git a/tauri.conf.json b/tauri.conf.json
+index 431cd53..a453b93 100644
+--- a/tauri.conf.json
++++ b/tauri.conf.json
+@@ -4,10 +4,10 @@
+     "version": "2.0.4"
+   },
+   "build": {
+-    "distDir": "../cinny/dist",
++    "distDir": "@distDir@",
+     "devPath": "http://localhost:8080",
+-    "beforeDevCommand": "cd cinny && npm start",
+-    "beforeBuildCommand": "cd cinny && npm run build"
++    "beforeDevCommand": "",
++    "beforeBuildCommand": ""
+   },
+   "tauri": {
+     "bundle": {

@@ -1,12 +1,12 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   meson,
   ninja,
 }:
 stdenv.mkDerivation {
-  inherit (sources.libinih) pname src version;
+  inherit (dan-nixpkgs.libinih) pname src version;
 
   buildInputs = [meson ninja];
 
@@ -18,7 +18,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Simple .INI file parser in C";
     homepage = "https://github.com/benhoyt/inih";
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
     license = licenses.bsd3;
     platforms = platforms.all;
   };

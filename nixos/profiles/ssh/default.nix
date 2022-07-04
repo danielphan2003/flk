@@ -15,7 +15,7 @@
     enable = true;
     passwordAuthentication = false;
     allowSFTP = false;
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
     kexAlgorithms = [
       "curve25519-sha256@libssh.org"
       "diffie-hellman-group16-sha512"

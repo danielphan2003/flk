@@ -1,7 +1,7 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   # options
   # , gtk-engine-murrine
   sassc,
@@ -15,7 +15,7 @@
   size ? "default",
 }:
 stdenv.mkDerivation {
-  inherit (sources.whitesur-gtk-theme) pname src version;
+  inherit (dan-nixpkgs.whitesur-gtk-theme) pname src version;
 
   buildInputs = [
     # gtk-engine-murrine

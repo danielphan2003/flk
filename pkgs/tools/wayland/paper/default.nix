@@ -1,14 +1,16 @@
 {
   rustPlatform,
   lib,
-  sources,
+  dan-nixpkgs,
   makeWrapper,
   pkg-config,
   fontconfig,
   wayland,
 }:
 rustPlatform.buildRustPackage {
-  inherit (sources.paper) pname version src cargoLock;
+  inherit (dan-nixpkgs.paper) pname version src;
+
+  cargoLock = dan-nixpkgs.paper.cargoLock."Cargo.lock";
 
   nativeBuildInputs = [makeWrapper pkg-config];
 
@@ -23,6 +25,6 @@ rustPlatform.buildRustPackage {
     description = "A wallpaper daemon for Wayland compositors implementing the layer-shell protocol.";
     homepage = "https://gitlab.com/snakedye/paper";
     license = licenses.mit;
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
   };
 }

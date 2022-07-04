@@ -24,7 +24,7 @@ in {
       "github.com/caddy-dns/cloudflare"
       "github.com/danielphan2003/caddy-dynamicdns"
     ];
-    vendorSha256 = "sha256-zIrOjnfvxDjJRK4JNBdGNCw8P09BmUS+1AljHJD1kVc=";
+    vendorSha256 = "sha256-ZIprY/JtjtD+XSG89iGu+Ebjiq3XHaUaIwz3EsUy7og=";
   };
 
   nix.maxJobs = 4;

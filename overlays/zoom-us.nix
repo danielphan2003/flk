@@ -1,5 +1,5 @@
-channels: final: prev: {
+final: prev: {
   zoom-us = prev.zoom-us.overrideAttrs (_: {
-    inherit (final.sources.zoom-us) src version;
+    inherit (final.dan-nixpkgs.zoom-us) src version;
   });
 }

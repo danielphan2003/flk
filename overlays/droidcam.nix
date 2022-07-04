@@ -1,4 +1,4 @@
-channels: final: prev: {
+final: prev: {
   droidcam = prev.droidcam.overrideAttrs (o: {
     postInstall = ''
       mkdir -p $out/share/applications

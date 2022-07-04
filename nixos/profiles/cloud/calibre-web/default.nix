@@ -12,7 +12,8 @@ in {
     enable = true;
     openFirewall = true;
     listen = {
-      ip = tailscale_ip;
+      # ip = tailscale_ip;
+      ip = "127.0.0.1";
       port = 8083;
     };
     options = {

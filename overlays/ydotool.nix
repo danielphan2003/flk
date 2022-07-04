@@ -1,5 +1,5 @@
 final: prev: {
   ydotool = prev.ydotool.overrideAttrs (_: {
-    inherit (final.sources.ydotool) pname version src;
+    inherit (final.dan-nixpkgs.ydotool) pname version src;
   });
 }

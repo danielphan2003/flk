@@ -1,13 +1,13 @@
 {
   lib,
   stdenv,
-  sources,
+  dan-nixpkgs,
   theme ? "angular",
 }:
 stdenv.mkDerivation {
-  inherit (sources.plymouth-themes) version src;
+  inherit (dan-nixpkgs.plymouth-themes) version src;
 
-  pname = "${sources.plymouth-themes.pname}-${theme}";
+  pname = "${dan-nixpkgs.plymouth-themes.pname}-${theme}";
 
   installPhase = ''
     mkdir -p $out/share/plymouth/themes
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     description = "A huge collection (80+) of plymouth themes ported from android bootanimations";
     homepage = "https://github.com/adi1090x/plymouth-themes";
     license = licenses.gpl3;
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
     platforms = platforms.linux;
   };
 }

@@ -1,13 +1,13 @@
-channels: final: prev: {
-  spicetify-cli = channels.latest.spicetify-cli.overrideAttrs (_: {
-    inherit (final.sources.spicetify-cli) pname version src;
+final: prev: {
+  spicetify-cli = prev.spicetify-cli.overrideAttrs (_: {
+    inherit (final.dan-nixpkgs.spicetify-cli) pname version src;
     postInstall = ''
       cp -r ./jsHelper ./Themes ./Extensions ./CustomApps ./globals.d.ts ./css-map.json $out/bin
     '';
   });
 
-  spotify-unwrapped = prev.spotify-unwrapped.overrideAttrs (o: {
-    inherit (final.sources.spotify) src version;
+  spotify-unwrapped = prev.spotify-unwrapped.overrideAttrs (_: {
+    inherit (final.dan-nixpkgs.spotify) src version;
     unpackPhase = ''
       runHook preUnpack
       unsquashfs "$src" '/usr/share/spotify' '/usr/bin/spotify' '/meta/snap.yaml'
@@ -24,20 +24,16 @@ channels: final: prev: {
     '';
   });
 
+  spotify-unwrapped-1_1_83_954_gd226dfe8 = final.spotify-unwrapped.overrideAttrs (_: {
+    inherit (final.dan-nixpkgs.spotify-1_1_83_954_gd226dfe8) src version;
+  });
+
   spotifyd = prev.spotifyd.override {
-    rustPackages =
-      prev.rustPackages
-      // {
-        rustPlatform =
-          prev.rustPackages.rustPlatform
-          // {
-            buildRustPackage = args:
-              prev.rustPackages.rustPlatform.buildRustPackage
-              (builtins.removeAttrs args ["cargoSha256"]
-                // {
-                  inherit (final.sources.spotifyd) src version cargoLock;
-                });
-          };
-      };
+    rustPackages.rustPlatform.buildRustPackage = args:
+      final.rustPackages.rustPlatform.buildRustPackage
+        (builtins.removeAttrs args ["cargoSha256"] // {
+          inherit (final.dan-nixpkgs.spotifyd) src version;
+          cargoLock = final.dan-nixpkgs.spotifyd.cargoLock."Cargo.lock";
+        });
   };
 }

@@ -1,7 +1,7 @@
 {
   lib,
   buildGoApplication,
-  sources,
+  dan-nixpkgs,
   pkg-config,
   wrapGAppsHook,
   gobject-introspection,
@@ -13,7 +13,7 @@
   atk,
 }:
 buildGoApplication {
-  inherit (sources.tailscale-systray) pname src version;
+  inherit (dan-nixpkgs.tailscale-systray) pname src version;
 
   CGO_ENABLED = "1";
 

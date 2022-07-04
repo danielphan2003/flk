@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  sources,
+  dan-nixpkgs,
   makeWrapper,
   anime-downloader,
   trackma,
@@ -14,7 +14,7 @@
 }:
 with lib;
   stdenv.mkDerivation rec {
-    inherit (sources.adl) pname src version;
+    inherit (dan-nixpkgs.adl) pname src version;
 
     nativeBuildInputs = [makeWrapper];
 

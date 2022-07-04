@@ -1,10 +1,10 @@
 {
   lib,
   stdenv,
-  sources,
+  dan-nixpkgs,
 }:
 stdenv.mkDerivation {
-  inherit (sources.rainfox) pname src version;
+  inherit (dan-nixpkgs.rainfox) pname src version;
 
   installPhase = ''
     mkdir -p $out/chrome
@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     description = "It's like Photon, but better.";
     homepage = "https://github.com/1280px/rainfox";
     license = licenses.mit;
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
     platforms = platforms.all;
   };
 }

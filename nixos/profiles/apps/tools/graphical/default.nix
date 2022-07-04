@@ -22,8 +22,5 @@
         trash-cli
         woeusb
         ;
-    }
-    ++ (lib.optionals
-      (pkgs.system == "x86_64-linux")
-      (with pkgs; [etcher]));
+    };
 }

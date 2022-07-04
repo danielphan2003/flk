@@ -1,14 +1,14 @@
 {
   lib,
   poetry2nix,
-  sources,
+  dan-nixpkgs,
   python3Packages,
   scrcpy,
   xorg,
 }:
 with python3Packages;
   poetry2nix.mkPoetryApplication {
-    projectDir = sources.guiscrcpy.src;
+    projectDir = dan-nixpkgs.guiscrcpy.src;
 
     buildInputs = [scrcpy xorg.libXinerama];
 

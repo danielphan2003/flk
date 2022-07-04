@@ -13,7 +13,7 @@
       formulahendry.code-runner
       github.vscode-codeql
       adpyke.codesnap
-      ms-vscode.cpptools
+      # ms-vscode.cpptools
       dzhavat.css-initial-value
       dart-code.dart-code
       icrawl.discord-vscode

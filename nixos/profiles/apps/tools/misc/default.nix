@@ -3,6 +3,7 @@
     inherit
       (pkgs)
       nix-index
+      revanced-cli
       yubikey-manager-qt
       ;
   };

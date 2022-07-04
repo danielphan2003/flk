@@ -1,10 +1,10 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   SDL,
   SDL_image,
-  libudev,
+  udev,
   libXext,
   libXxf86vm,
   libXdamage,
@@ -15,12 +15,12 @@
   gnumake,
 }:
 stdenv.mkDerivation {
-  inherit (sources.steamcompmgr) pname src version;
+  inherit (dan-nixpkgs.steamcompmgr) pname src version;
 
   buildInputs = [
     SDL
     SDL_image
-    libudev
+    udev
     libXext
     libXxf86vm
     libXdamage
@@ -34,7 +34,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "SteamOS Compositor";
     homepage = "https://github.com/ChimeraOS/steamos-compositor-plus";
-    maintainers = [danielphan2003];
+    maintainers = [maintainers.danielphan2003];
     license = licenses.bsd2;
     platforms = platforms.linux;
   };

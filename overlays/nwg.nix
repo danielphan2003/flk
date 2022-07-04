@@ -1,5 +1,5 @@
-channels: final: prev: {
+final: prev: {
   nwg-drawer = prev.nwg-drawer.overrideAttrs (o: {
-    buildInputs = o.buildInputs ++ [prev.gdk-pixbuf];
+    buildInputs = o.buildInputs ++ [final.gdk-pixbuf];
   });
 }

@@ -1,6 +1,6 @@
 {
   lib,
-  sources,
+  dan-nixpkgs,
   luaPackages,
 }: let
   lua = luaPackages.lua;
@@ -8,7 +8,7 @@ in
   luaPackages.buildLuarocksPackage {
     inherit lua;
 
-    inherit (sources.awestore) pname src version;
+    inherit (dan-nixpkgs.awestore) pname src version;
 
     disabled = luaPackages.luaOlder "5.1";
     propagatedBuildInputs = [lua];
@@ -26,7 +26,7 @@ in
     meta = with lib; {
       homepage = "https://github.com/K4rakara/awestore";
       description = "Sveltes store API for AwesomeWM";
-      maintainers = [danielphan2003];
+      maintainers = [maintainers.danielphan2003];
       license.fullName = "MIT/X11";
     };
   }

@@ -14,11 +14,5 @@ in {
     inherit (pkgs) rofi;
   };
 
-  xsession = {
-    windowManager.awesome.enable = true;
-    pointerCursor = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata_Ice";
-    };
-  };
+  xsession.windowManager.awesome.enable = true;
 }

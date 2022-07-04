@@ -3,7 +3,7 @@ final: prev: {
     prev.libsForQt5
     // {
       sddm = prev.libsForQt5.sddm.overrideAttrs (_: {
-        inherit (final.sources.sddm) src version;
+        inherit (final.dan-nixpkgs.sddm) src version;
         patches = prev.lib.our.getPatches ../pkgs/applications/display-managers/sddm;
       });
     };

@@ -1,1 +1,1 @@
-{sources}: sources.layout-machi.src
+{dan-nixpkgs}: dan-nixpkgs.layout-machi.src

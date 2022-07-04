@@ -2,6 +2,7 @@
   self,
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
@@ -57,4 +58,15 @@ in {
       import useCloudflare
     '';
   };
+
+  services.cron.systemCronJobs = let
+    cloudflare-proxies = pkgs.writeShellApplication {
+      name = "cloudflare-proxies";
+      runtimeInputs = [pkgs.curl pkgs.gnused];
+      text = builtins.readFile ./cloudflare-proxies.bash;
+    };
+    caddyTemplates = "/var/lib/caddy/templates";
+  in [
+    ''*/30 * * * *      ${cfg.user}      mkdir -p ${caddyTemplates} && echo > ${caddyTemplates}/cloudflare-proxies && ${cloudflare-proxies}/bin/cloudflare-proxies >> ${caddyTemplates}/cloudflare-proxies''
+  ];
 }

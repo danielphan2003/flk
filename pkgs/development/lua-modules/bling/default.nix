@@ -1,1 +1,1 @@
-{sources}: sources.bling.src
+{dan-nixpkgs}: dan-nixpkgs.bling.src

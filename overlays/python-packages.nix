@@ -1,4 +1,4 @@
-channels: final: prev: {
+final: prev: {
   python3Packages =
     prev.python3Packages
     // (with prev.python3Packages; {

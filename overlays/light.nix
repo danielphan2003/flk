@@ -1,5 +1,5 @@
 final: prev: {
   light = prev.light.overrideAttrs (o: {
-    inherit (final.sources.light) pname src version;
+    inherit (final.dan-nixpkgs.light) pname src version;
   });
 }

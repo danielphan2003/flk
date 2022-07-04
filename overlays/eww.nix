@@ -1,9 +1,10 @@
-channels: final: prev: {
+final: prev: {
   eww = prev.eww.override {
     rustPlatform.buildRustPackage = args:
-      final.rustPlatform.buildRustPackage (builtins.removeAttrs args ["cargoSha256"]
-        // {
-          inherit (final.sources.eww) src version cargoLock;
+      final.rustPlatform.buildRustPackage
+        (builtins.removeAttrs args ["cargoSha256"] // {
+          inherit (final.dan-nixpkgs.eww) src version;
+          cargoLock = final.dan-nixpkgs.eww.cargoLock."Cargo.lock";
         });
   };
 

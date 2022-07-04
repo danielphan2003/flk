@@ -1,11 +1,11 @@
 {
   stdenv,
   lib,
-  sources,
+  dan-nixpkgs,
   kernel,
   kmod,
 }: let
-  inherit (sources.droidcam) pname src version;
+  inherit (dan-nixpkgs.droidcam) pname src version;
 in
   stdenv.mkDerivation {
     inherit src version;
@@ -26,7 +26,7 @@ in
       description = "A kernel module to create V4L2 loopback devices";
       homepage = "https://github.com/aramg/droidcam";
       license = licenses.gpl2;
-      maintainers = [danielphan2003];
+      maintainers = [maintainers.danielphan2003];
       platforms = platforms.linux;
     };
   }

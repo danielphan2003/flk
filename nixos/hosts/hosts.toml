@@ -10,15 +10,15 @@ type = "ephemeral"
 type = "ephemeral"
 
 [hosts.pik2]
-gateways = [ "10.0.0.1", "192.168.1.1" ]
-ip_addrs = [ "10.69.65.120/8", "192.168.1.2/24" ]
+gateways = [ "10.0.0.1" ]
+ip_addrs = [ "10.69.65.120/8" ]
 tailscale_ip = "100.69.65.120"
 tailscale_ipv6 = "fd7a:115c:a1e0:ab12:4843:cd96:6245:4178"
 binary_cache_public_key = "pik2-1:Hat4WLviXd5PywqBzmf/oShlRrafPHZXMtvy/KstRjs="
 
 [hosts.themachine]
-gateways = [ "10.0.0.1", "192.168.1.1" ]
-ip_addrs = [ "10.103.176.30/8", "192.168.1.11/24" ]
+gateways = [ "10.0.0.1" ]
+ip_addrs = [ "10.103.176.30/8" ]
 tailscale_ip = "100.103.176.30"
 tailscale_ipv6 = "fd7a:115c:a1e0:ab12:4843:cd96:6267:b01e"
 binary_cache_public_key = "themachine-1:p6yGZAWNBbSIlL6VX+SS6HuNXEeTu2vbgZGtDmi+h+s="
