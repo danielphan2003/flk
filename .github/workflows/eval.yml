@@ -1,4 +1,4 @@
-name: Check eval
+name: Try eval
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
       - trying
       - staging
 jobs:
-  checks:
+  try-eval:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3.0.2
@@ -26,4 +26,4 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
     - name: Quick eval
-      run: nix develop --show-trace --print-build-logs .#x86_64-linux.nixpkgs.devshells.default --command evalnix
+      run: nix develop --show-trace --print-build-logs --command evalnix
