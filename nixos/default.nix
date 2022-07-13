@@ -12,14 +12,13 @@ in {
     modules = with inputs; [
       agenix.nixosModules.age
       digga.nixosModules.bootstrapIso
-      digga.nixosModules.nixConfig
       home.nixosModules.home-manager
       impermanence.nixosModules.impermanence
-      "${matrix-appservices}/nixos/modules/services/misc/matrix-appservices/default.nix"
       hyprland.nixosModules.default
-      nix-gaming.nixosModule
+      nix-gaming.nixosModules.pipewireLowLatency
       peerix.nixosModules.peerix
       qnr.nixosModules.local-registry
+      # stylix.nixosModules.stylix
       ({
         nixpkgsModulesPath,
         pkgs,
@@ -32,7 +31,7 @@ in {
 
   imports = [(digga.lib.importHosts ./hosts)];
 
-  hosts = with nixos-hardware.nixosModules; {
+  hosts = {
     bootstrap = {
       tests = [];
     };
@@ -42,23 +41,22 @@ in {
     pik2 = {
       system = "aarch64-linux";
       modules = with inputs; [
-        argonone-utils.nixosModules.argonone-i2c
-        argonone-utils.nixosModules.argonone-power-button
-        raspberry-pi-4
-        {
+        nixos-hardware.nixosModules.raspberry-pi-4
+        ({nixpkgsModulesPath, ...}: {
+          imports = ["${nixpkgsModulesPath}/services/hardware/argonone.nix"];
           services.dnscrypt-proxy2.settings = {
             tls_cipher_suite = [52392 49199];
             max_clients = 10000;
           };
-        }
+        })
       ];
       tests = [];
     };
     themachine = {
       modules = [
-        common-cpu-amd
-        common-gpu-amd
-        common-pc-ssd
+        nixos-hardware.nixosModules.common-cpu-amd
+        nixos-hardware.nixosModules.common-gpu-amd
+        nixos-hardware.nixosModules.common-pc-ssd
         {
           services.dnscrypt-proxy2.settings = {
             max_clients = 10000;
@@ -69,8 +67,8 @@ in {
     };
     rog-bootstrap = {
       modules = [
-        asus-rog-strix-g733qs
-        common-gpu-nvidia-disable
+        nixos-hardware.nixosModules.asus-rog-strix-g733qs
+        nixos-hardware.nixosModules.common-gpu-nvidia-disable
       ];
     };
   };
@@ -83,16 +81,13 @@ in {
       // {
         users = digga.lib.rakeLeaves ../home/users;
       };
-  in {
-    inherit profiles;
 
-    inherit
-      (import ./suites {
-        inherit (self) lib;
-        inherit profiles;
-      })
-      suites
-      ;
+    suites = self.lib.importSuites ./suites {
+      inherit (self) lib;
+      inherit profiles;
+    };
+  in {
+    inherit profiles suites;
 
     hostConfigs =
       nixos.lib.recursiveUpdate

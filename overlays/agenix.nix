@@ -1,5 +1,5 @@
 channels: final: prev: {
-  ragenix = channels.nixpkgs.ragenix.override {
+  ragenix = prev.ragenix.override {
     plugins = [final.age-plugin-yubikey];
   };
 }

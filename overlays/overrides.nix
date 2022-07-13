@@ -3,6 +3,7 @@ channels: final: prev: {
 
   inherit
     (channels.nixpkgs)
+    argononed
     nix
     nix-du
     ;

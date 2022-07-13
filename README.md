@@ -4,6 +4,8 @@ flk ─ which is cold and spike-y ─ is a perfect place to build your dotfiles 
 
 This is where I maintain my one and only dotfiles for NixOS. It inherits pretty much the same logic as digga's [devos], with some clean up to keep the diffs clean.
 
+Note: I'm revamping my tree, so most of the changes haven't been reflected in docs yet.
+
 ## Getting started (wip)
 
 `flk` has some useful [packages] that you can use.
@@ -48,21 +50,12 @@ See [todos]
 - [JavaCafe01 dotfiles][javacafe01-dotfiles] for my attempt to switch from sway to awesome.
 
 [architecture-decisions]: ./docs/architecture-decisions
-
 [colemickens]: https://github.com/colemickens
-
 [devos]: https://github.com/divnix/digga/blob/main/examples/devos/flake.nix
-
 [eye-candies]: ./docs/eye-candies.md
-
 [javacafe01-dotfiles]: https://github.com/JavaCafe01/dotfiles
-
 [nrdxp]: https://github.com/nrdxp
-
 [nixos-modules]: ./docs/nixos/modules.md
-
 [overlays]: ./docs/overlays.md
-
 [packages]: ./docs/packages.md
-
 [todos]: ./docs/todos.md

@@ -40,7 +40,8 @@
   libdrm,
   mesa,
   libxkbcommon,
-  wayland, # ozone/wayland
+  wayland,
+  # ozone/wayland
   # Command line programs
   coreutils,
   # command line arguments which are always set e.g "--disable-gpu"

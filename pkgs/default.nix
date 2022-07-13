@@ -2,31 +2,24 @@
   inherit
     (final)
     callPackage
-    naersk
     dan-nixpkgs
     ;
 
-  lib = final.lib // builtins;
-
-  l = lib;
-
-  inherit
-    (inputs)
-    beautysh
-    firefox-nightly
-    manix
-    npmlock2nix
-    peerix
-    rnix-lsp
-    ;
+  l = final.lib // builtins;
 in {
-  # inherit (beautysh.packages.${prev.system}) beautysh;
+  inherit (inputs.agenix.packages."${prev.system}") ragenix;
 
-  inherit (manix.packages."${prev.system}") manix;
+  inherit (inputs.hyprland.packages."${prev.system}") hyprland;
 
-  inherit (rnix-lsp.packages."${prev.system}") rnix-lsp;
+  inherit (inputs.peerix.packages."${prev.system}") peerix;
+
+  inherit (inputs.poetry2nix.packages."${prev.system}") poetry poetry2nix;
+
+  inherit (inputs.rnix-lsp.packages."${prev.system}") rnix-lsp;
 
   adl = callPackage ./applications/video/adl {};
+
+  agenix = final.ragenix;
 
   anime-downloader = callPackage ./applications/video/anime-downloader {};
 
@@ -59,8 +52,10 @@ in {
 
   # fake-background-webcam = callPackage ./applications/video/fake-background-webcam { };
 
+  fenix = inputs.fenix.packages."${prev.system}";
+
   firefox-nightly-bin =
-    firefox-nightly.packages.x86_64-linux.firefox-nightly-bin
+    inputs.firefox-nightly.packages.x86_64-linux.firefox-nightly-bin
     or final.firefox-wayland;
 
   flyingfox = callPackage ./data/misc/flyingfox {};
@@ -71,12 +66,9 @@ in {
 
   fs-diff = callPackage ./tools/file-systems/fs-diff {};
 
-  # guiscrcpy = callPackage ./misc/guiscrcpy { };
+  gomod2nix = inputs.gomod2nix.packages."${prev.system}".default;
 
-  hyprland = channels.nixpkgs.callPackage ./applications/window-managers/hyprland {
-    inherit dan-nixpkgs;
-    inherit (final.waylandPkgs) wlroots;
-  };
+  # guiscrcpy = callPackage ./misc/guiscrcpy { };
 
   interak = callPackage ./data/misc/interak {};
 
@@ -102,7 +94,7 @@ in {
 
   minecraft-mods = final.minecraft-mods-builder dan-nixpkgs.minecraft-mods {};
 
-  npmlock2nix = callPackage npmlock2nix {};
+  npmlock2nix = callPackage inputs.npmlock2nix {};
 
   ntfs2btrfs = callPackage ./tools/file-systems/ntfs2btrfs {};
 
@@ -183,6 +175,8 @@ in {
 
   revanced-cli = callPackage ./tools/misc/revanced-cli {};
 
+  rust-analyzer-nightly = final.fenix.rust-analyzer-vscode-extension;
+
   # sciter = callPackage ./development/libraries/sciter { };
 
   sddm-chili = callPackage ./applications/display-managers/sddm/themes/chili {};
@@ -199,6 +193,8 @@ in {
 
   swayprop = callPackage ./tools/wayland/swayprop {};
 
+  swhkd = callPackage ./applications/window-managers/swhkd {};
+
   # tailscale-systray = callPackage ./tools/misc/tailscale-systray { };
 
   trackma = callPackage ./applications/video/trackma {};
@@ -209,10 +205,18 @@ in {
 
   vimPlugins = final.vimPlugins-builder dan-nixpkgs.all-packages {prefix = "vimPlugins-";};
 
-  vscode-extensions = final.vscode-extensions-builder dan-nixpkgs.vscode-extensions {
-    pkgBuilder = final.vscode-utils.pkgBuilder';
-    filterSources = l.vscode-extensions.filterSources';
-  };
+  vscode-extensions =
+    (final.vscode-extensions-builder dan-nixpkgs.vscode-extensions {
+      pkgBuilder = final.vscode-utils.pkgBuilder';
+      filterSources = l.vscode-extensions.filterSources';
+    })
+    // {
+      matklad =
+        prev.vscode-extensions.matklad
+        // {
+          rust-analyzer-nightly = final.fenix.rust-analyzer-vscode-extension;
+        };
+    };
 
   wgcf = callPackage ./applications/networking/wgcf {};
 

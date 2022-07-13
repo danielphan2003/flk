@@ -18,6 +18,6 @@ After all, I'm already using it for self hosting private web services e.g Vaultw
 
 ## Consequences
 
-Easier to manage, though I *have* to be the person to generate the invite link, and Tailscale limits sharing to 10 links per one device.
+Easier to manage, though I _have_ to be the person to generate the invite link, and Tailscale limits sharing to 10 links per one device.
 
 [tailscale]: https://tailscale.net

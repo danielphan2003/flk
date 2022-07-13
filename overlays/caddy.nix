@@ -30,7 +30,8 @@ channels: final: prev: {
         caddy.override {
           buildGoModule = args:
             buildGoModule
-              (args // {
+            (args
+              // {
                 # inherit (dan-nixpkgs.caddy) src version;
 
                 inherit vendorSha256;

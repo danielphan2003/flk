@@ -1,16 +1,13 @@
 {
   self,
-  digga,
-  nixos,
+  inputs,
   ...
-}: let
-  inherit (self) nixosConfigurations;
-in {
+}: {
   nodes = let
     nodesInfo =
-      nixos.lib.mapAttrs
+      inputs.nixos.lib.mapAttrs
       (host: module: {profiles.system.sshUser = "root";})
-      nixosConfigurations;
+      self.nixosConfigurations;
   in
-    digga.lib.mkDeployNodes nixosConfigurations nodesInfo;
+    inputs.digga.lib.mkDeployNodes self.nixosConfigurations nodesInfo;
 }

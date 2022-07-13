@@ -39,7 +39,7 @@
     (prefix "XDG_DATA_DIRS" "$out/share")
     (prefix "GIO_EXTRA_MODULES" "${lib.getLib glib-networking}/lib/gio/modules")
     (prefix "XDG_DATA_DIRS" "${gtk3}/share")
-    (prefix "GI_TYPELIB_PATH" 
+    (prefix "GI_TYPELIB_PATH"
       (lib.makeSearchPath "lib/girepository-1.0" [gtk3 atk gdk-pixbuf librsvg]))
   ];
 in

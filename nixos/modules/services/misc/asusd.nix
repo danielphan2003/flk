@@ -31,7 +31,8 @@ in {
       let
         # Convert packaged asusd-ledmodes.toml to JSON.
         json =
-          pkgs.runCommand "asusd-ledmodes.json" {
+          pkgs.runCommand "asusd-ledmodes.json"
+          {
             nativeBuildInputs = [pkgs.remarshal];
           } ''
             toml2json "${pkgs.asusctl}/etc/asusd/asusd-ledmodes.toml" "$out"

@@ -11,5 +11,4 @@ Some modules that may work for your use case:
 - Other...
 
 [cg-nat]: https://www.reddit.com/r/selfhosted/comments/9e707d/what_are_my_options_to_get_around_a_carrier_grade/
-
 [optin-state]: https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html

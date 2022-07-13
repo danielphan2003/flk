@@ -1995,8 +1995,7 @@
       sources."yargs-parser-20.2.9"
     ];
     buildInputs = globalBuildInputs;
-    meta = {
-    };
+    meta = {};
     production = false;
     bypassCache = true;
     reconstructLock = false;

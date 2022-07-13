@@ -53,7 +53,6 @@ in {
     swaybg
     swayidle
     swaylock
-    waybar
     wayfire
     waypipe
     wayvnc
@@ -105,5 +104,9 @@ in {
 
   glfw-wayland = glfw-wayland.overrideAttrs (o: {
     patches = lib.init (getPatches dan-nixpkgs.minecraft-wayland.src);
+  });
+
+  waybar = final.waylandPkgs.waybar.overrideAttrs (o: {
+    mesonFlags = o.mesonFlags ++ ["-Dexperimental=true"];
   });
 }

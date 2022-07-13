@@ -1,0 +1,10 @@
+[Unit]
+Description=swhkd hotkey daemon
+BindsTo=default.target
+
+[Service]
+Type=simple
+ExecStart=@out@
+
+[Install]
+WantedBy=default.target

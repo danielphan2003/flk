@@ -31,7 +31,8 @@ final: prev: {
   spotifyd = prev.spotifyd.override {
     rustPackages.rustPlatform.buildRustPackage = args:
       final.rustPackages.rustPlatform.buildRustPackage
-        (builtins.removeAttrs args ["cargoSha256"] // {
+      (builtins.removeAttrs args ["cargoSha256"]
+        // {
           inherit (final.dan-nixpkgs.spotifyd) src version;
           cargoLock = final.dan-nixpkgs.spotifyd.cargoLock."Cargo.lock";
         });

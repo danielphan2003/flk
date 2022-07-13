@@ -3,12 +3,67 @@
   config,
   lib,
   pkgs,
+  profiles,
   suites,
   ...
 }: let
   inherit (config.networking) domain;
 in {
-  imports = suites.pik2;
+  imports = lib.our.mkSuite {
+    suites = {
+      inherit
+        (suites)
+        ephemeral-crypt
+        open-based
+        server
+        ;
+    };
+
+    # desktop = {inherit (desktop) pipewire;};
+
+    hardware = {inherit (profiles.hardware) argonone;};
+
+    programs = {
+      inherit
+        (profiles.programs)
+        compression
+        file-systems
+        rpi
+        ;
+    };
+
+    services = {
+      inherit
+        (profiles.services)
+        caddy
+        # calibre-server
+        
+        cinny
+        etebase-server
+        grafana
+        # jitsi
+        
+        logrotate
+        # minecraft
+        
+        # matrix
+        
+        matrix-conduit
+        # matrix-identity
+        
+        # peerix
+        
+        postgresql
+        rss-bridge
+        # spotifyd
+        
+        vaultwarden
+        wkd
+        ;
+    };
+
+    users = {inherit (profiles.users) alita;};
+  };
 
   # TODO: create new wireless network for guests
   networking.wireless.enable = false;
@@ -27,7 +82,7 @@ in {
     vendorSha256 = "sha256-ZIprY/JtjtD+XSG89iGu+Ebjiq3XHaUaIwz3EsUy7og=";
   };
 
-  nix.maxJobs = 4;
+  nix.settings.max-jobs = 4;
 
   hardware.raspberry-pi."4" = {
     # Enable GPU acceleration
@@ -42,7 +97,7 @@ in {
   console.keyMap = "us";
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_rpi4;
+    kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
 
     initrd.availableKernelModules = [
       "pcie_brcmstb"

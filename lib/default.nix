@@ -4,9 +4,18 @@ lib.makeExtensible (self: rec {
 
   pkgs-build = import ./pkgs-build {inherit lib;};
 
+  attrsets = import ./attrsets.nix {inherit lib;};
+
   lists = import ./lists.nix {inherit lib;};
 
   trivial = import ./trivial.nix {inherit lib;};
+
+  inherit
+    (attrsets)
+    evalSuiteImports
+    importSuites
+    mkSuite
+    ;
 
   inherit
     (lists)
@@ -34,6 +43,5 @@ lib.makeExtensible (self: rec {
   inherit
     (trivial)
     ifttt
-    mkSuite
     ;
 })

@@ -4,13 +4,80 @@
   hostConfigs,
   lib,
   pkgs,
+  profiles,
   suites,
   ...
 }: let
   inherit (config.networking) hostName;
   inherit (hostConfigs.hosts."${hostName}") tailscale_ip;
 in {
-  imports = suites.themachine;
+  imports = lib.our.mkSuite {
+    suites = {
+      inherit
+        (suites)
+        ephemeral-crypt
+        open-based
+        modern
+        personal
+        play
+        producer
+        ;
+    };
+
+    gui.themes = {inherit (profiles.gui.themes) sefia;};
+
+    networking.vpns = {
+      inherit
+        (profiles.networking.vpns)
+        playit
+        zerotier
+        ;
+    };
+
+    programs = {
+      inherit
+        (profiles.programs)
+        audio
+        compression
+        develop
+        file-systems
+        gnupg
+        graphical
+        meeting
+        misc
+        remote
+        vpn
+        yubikey
+        ;
+    };
+
+    programs.chill = {
+      inherit
+        (profiles.programs.chill)
+        reading
+        watching
+        weebs
+        ;
+    };
+
+    security = {inherit (profiles.security) disable-mitigations;};
+
+    services = {
+      inherit
+        (profiles.services)
+        aria2
+        # calibre-web
+        
+        netdata
+        # peerix
+        
+        ;
+    };
+
+    users = {inherit (profiles.users) danie;};
+
+    # virtualisation = {inherit (profiles.virtualisation) windows;};
+  };
 
   networking.domain = "c-137.me";
 
@@ -22,8 +89,6 @@ in {
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
 
-  nix.maxJobs = 4;
-
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "Asia/Ho_Chi_Minh";
   console.keyMap = "us";
@@ -31,7 +96,7 @@ in {
   boot = {
     binfmt.emulatedSystems = ["aarch64-linux"];
     tmpOnTmpfs = true;
-    kernelPackages = pkgs.linuxPackages_5_18;
+    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
 
     initrd.availableKernelModules = [
       "ahci"
@@ -66,8 +131,9 @@ in {
 
     plymouth = {
       enable = true;
-      theme = "hexagon_dots_alt"; # or "connect";
-      themePackages = [(pkgs.plymouth-themes.override {inherit (config.boot.plymouth) theme;})];
+      # to be overriden by profiles.gui.themes.sefia
+      theme = lib.mkDefault "hexagon_dots_alt"; # or "connect";
+      themePackages = lib.mkDefault [(pkgs.plymouth-themes.override {inherit (config.boot.plymouth) theme;})];
     };
 
     persistence.path = "/persist";

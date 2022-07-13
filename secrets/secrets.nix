@@ -23,6 +23,10 @@ in {
 
   "nixos/profiles/cloud/cloudflare.age".publicKeys = [alita pik2] ++ [danie themachine];
 
+  "nixos/profiles/cloud/etebase-server/superuser.env.age".publicKeys = [alita pik2] ++ [danie themachine];
+
+  "nixos/profiles/cloud/etebase-server/secret.txt.age".publicKeys = [alita pik2] ++ [danie themachine];
+
   "nixos/profiles/cloud/duckdns.age".publicKeys = [alita pik2] ++ [danie themachine];
 
   "nixos/profiles/cloud/minecraft/ops.age".publicKeys = [alita pik2] ++ [danie themachine];

@@ -27,7 +27,8 @@ in {
       // attrs;
     mkProfileSecret = file: attrs: {
       "${file}" =
-        mkUserSecret "${self}/secrets/home/profiles/${file}.age" {
+        mkUserSecret "${self}/secrets/home/profiles/${file}.age"
+        {
           path = "${config.users.users."${user}".home}/.config/${file}";
           symlink = false;
         }

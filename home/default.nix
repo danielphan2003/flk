@@ -12,75 +12,40 @@ in {
     impermanence.nixosModules.home-manager.impermanence
   ];
 
-  importables = rec {
-    profiles = digga.lib.rakeLeaves ./profiles;
-    suites = with profiles; rec {
-      ### Profile suites
+  importables =
+    let
+      profiles = digga.lib.rakeLeaves ./profiles;
 
-      ephemeral = attrValues {
-        inherit (misc) xdg;
+      suites = self.lib.importSuites ./suites {
+        inherit (self) lib;
+        inherit profiles;
       };
-
-      desktop = attrValues {
-        inherit (browsers) firefox;
-        inherit (graphical) sway;
-        inherit (apps) udiskie uget;
-      };
-
-      streaming = attrValues {
-        inherit (apps) obs-studio;
-      };
-
-      ### User suites
-
-      danie =
-        []
-        ++ desktop
-        ++ ephemeral
-        ++ streaming
-        ++ attrValues
-        {
-          inherit (browsers) chromium edge;
-          inherit
-            (develop)
-            auth
-            direnv
-            git
-            idea
-            vscodium
-            ;
-          inherit (games) minecraft;
-          inherit (graphical) awesome;
-          inherit
-            (apps)
-            alacritty
-            eww
-            neovim
-            winapps
-            ;
-        };
-    };
-  };
+    in
+    {inherit profiles suites;};
 
   users = {
     nixos = {...}: {};
 
-    danie = {suites, ...}: let
+    danie = {lib, profiles, suites, ...}: let
       gpgKey = "FA6FA2660BEC2464";
     in {
-      imports = suites.danie;
+      imports = lib.our.mkSuite (import ./users/danie/suite.nix {inherit profiles suites;});
+
       programs.gpg.settings.default-key = gpgKey;
+
       programs.git = {
         userEmail = "danielphan.2003@c-137.me";
+
         userName = "Daniel Phan";
+
         signing = {
           key = gpgKey;
           signByDefault = true;
         };
-        extraConfig = {
-          github.user = "danielphan2003";
-        };
+
+        extraConfig.github.user = "danielphan2003";
       };
+
       home.sessionVariables.BROWSER = "chromium-browser";
     };
 
