@@ -1,0 +1,1 @@
+{...}: {services.swhks.enable = true;}

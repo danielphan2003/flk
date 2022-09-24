@@ -1,3 +1,0 @@
-{pkgs, ...}: {
-  imports = [./bar ./dmenu];
-}

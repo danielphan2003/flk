@@ -1,0 +1,28 @@
+From 3608a87f13917b6483adcdc53e165d7ea379378e Mon Sep 17 00:00:00 2001
+From: edef <edef@edef.eu>
+Date: Tue, 14 Jun 2022 17:35:57 +0000
+Subject: [PATCH] ssh/agent: match OpenSSH extensionAgentMsg, not IETF draft
+
+The OpenSSH wire format just suffixes the raw extension body,
+without a nested string.
+
+Fixes golang/go#51689
+
+Change-Id: Ic224cedb934ba0563abca9a45a6be1c67769ed6d
+---
+
+diff --git a/ssh/agent/client.go b/ssh/agent/client.go
+index 3c4d18a..eb6bc71 100644
+--- a/ssh/agent/client.go
++++ b/ssh/agent/client.go
+@@ -226,7 +226,9 @@
+ 
+ type extensionAgentMsg struct {
+ 	ExtensionType string `sshtype:"27"`
+-	Contents      []byte
++	// NOTE: this matches OpenSSH's PROTOCOL.agent, not the IETF draft [PROTOCOL.agent],
++	// so that it matches what OpenSSH actually implements in the wild.
++	Contents []byte `ssh:"rest"`
+ }
+ 
+ // Key represents a protocol 2 public key as defined in

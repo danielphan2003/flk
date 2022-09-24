@@ -3,7 +3,7 @@
 - [x] Caddy reverse proxy with Tailscale! See [tailscale/tailscale#1235][tailscale-reverse-proxy] for updates.
       Currently services is only accessible via subpaths (i.e. `/vault`, `/grafana` etc.), but that's good enough.
 
-- [x] Automatically update packages via [dan-nixpkgs][dan-nixpkgs].
+- [x] Automatically update packages via [fog][fog].
 
 - [ ] [Unlock LUKS file systems via Tor][tor-luks-unlock].
 
@@ -39,6 +39,6 @@
 
 - More...
 
-[dan-nixpkgs]: https://github.com/danielphan2003/nixpkgs
+[fog]: https://github.com/danielphan2003/fog
 [tailscale-reverse-proxy]: https://github.com/tailscale/tailscale/issues/1235
 [tor-luks-unlock]: https://nixos.wiki/wiki/Remote_LUKS_Unlocking

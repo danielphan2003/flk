@@ -5,6 +5,17 @@
 
 # One CLI to format the code tree - https://github.com/numtide/treefmt
 
+[formatter.lua]
+command = "stylua"
+options = [
+    "--column-width", "120",
+    "--indent-type", "Spaces",
+    "--indent-width", "4",
+    "--line-endings", "Unix",
+    "--quote-style", "AutoPreferDouble",
+]
+includes = ["*.lua"]
+
 [formatter.nix]
 command = "alejandra"
 includes = ["*.nix"]
@@ -34,5 +45,5 @@ options = [
 ]
 includes = [
     "*.sh",
-    "*.bash"
+    "*.bash",
 ]

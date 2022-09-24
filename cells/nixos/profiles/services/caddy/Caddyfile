@@ -1,0 +1,141 @@
+# Add gzip compression to requests
+(encoding) {
+  encode zstd gzip
+}
+
+(CacheHeaders) {
+  Cache-Control "public, max-age=31536000"
+  defer
+}
+
+(NoCacheHeaders) {
+  Cache-Control "no-cache, no-store"
+}
+
+# Add Security headers
+(SecurityHeaders) {
+  # Server name removing
+  -Server
+  ## Server site.com
+  X-Content-Type-Options "nosniff"
+
+  # Disallow the site to be rendered within a frame (clickjacking protection)
+  X-Frame-Options "SAMEORIGIN"
+  Referrer-Policy "no-referrer"
+  # Referrer-Policy "no-referrer-when-downgrade"
+
+  # Enable HTTP Strict Transport Security (HSTS)
+  Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Enable cross-site filter (XSS) and tell browser to block detected attacks
+  X-Xss-Protection "1; mode=block"
+
+  Feature-Policy `
+    accelerometer 'none';
+    ambient-light-sensor 'none';
+    autoplay 'none';
+    camera 'none';
+    encrypted-media 'none';
+    focus-without-user-activation 'none';
+    geolocation 'none';
+    gyroscope 'none';
+    magnetometer 'none';
+    microphone 'none';
+    midi 'none';
+    payment 'none';
+    picture-in-picture 'none';
+    speaker 'none';
+    sync-xhr 'none';
+    usb 'none';
+    vr 'none'
+  `
+
+  Permissions-Policy `
+    accelerometer=(),
+    ambient-light-sensor=(),
+    autoplay=(),
+    camera=(),
+    encrypted-media=(),
+    focus-without-user-activation=(),
+    geolocation=(),
+    gyroscope=(),
+    magnetometer=(),
+    microphone=(),
+    midi=(),
+    payment=(),
+    picture-in-picture=(),
+    speaker=(),
+    sync-xhr=(),
+    usb=(),
+    vr=()
+  `
+
+  Content-Security-Policy `
+    upgrade-insecure-requests;
+    base-uri 'self';
+    default-src 'none';
+    font-src 'self';
+    form-action 'self';
+    frame-ancestors 'self';
+    object-src 'self';
+    require-trusted-types-for 'script';
+    script-src 'self';
+    style-src 'self';
+  `
+
+  X-Permitted-Cross-Domain-Policies "none"
+  X-Download-Options "noopen"
+  X-Forwarded-Proto "https"
+}
+
+(errors) {
+  handle_errors {
+    rewrite * /{err.status_code}
+    respond `{host}
+{err.status_code}. That's an error.
+
+The requested URL {uri} was not found on
+this server. That's all we know.`
+  }
+}
+
+(NoSearchHeader) {
+  header {
+    X-Robots-Tag "noindex, noarchive, nofollow"
+  }
+}
+
+(common) {
+  header {
+    import SecurityHeaders
+  }
+  import encoding
+  import errors
+}
+
+(useCloudflare) {
+  tls {
+    dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+  }
+}
+
+(proxyForwarded) {
+  header_up X-Forwarded-Port {http.request.port}
+  header_up X-Forwarded-Proto {http.request.scheme}
+  header_up X-Forwarded-TlsProto {tls_protocol}
+  header_up X-Forwarded-TlsCipher {tls_cipher}
+  header_up X-Forwarded-HttpsProto {proto}
+}
+
+(MatrixWellknownHeaders) {
+  header Cache-Control max-age=14400
+  header Access-Control-Allow-Origin "*"
+  header Content-Type "application/json"
+}
+
+(MatrixHeaders) {
+  header Access-Control-Allow-Origin "*"
+  header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+  header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  header Content-Type "application/json"
+}

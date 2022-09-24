@@ -1,0 +1,6 @@
+{
+  inputs,
+  cell
+}: {
+  allowUnfree = true;
+}
