@@ -9,8 +9,8 @@ in {
 
   matrix-appservice-discord = prev.matrix-appservice-discord.overrideAttrs (_: {
     inherit (fog.matrix-appservice-discord) src version;
-    packageJSON = ../pkgs/servers/matrix-appservice-discord/package.json;
-    yarnNix = ../pkgs/servers/matrix-appservice-discord/yarn-dependencies.nix;
+    packageJSON = ../packages/servers/matrix-appservice-discord/package.json;
+    yarnNix = ../packages/servers/matrix-appservice-discord/yarn-dependencies.nix;
   });
 
   matrix-conduit = prev.matrix-conduit.override {

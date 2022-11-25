@@ -95,7 +95,8 @@ in {
     patches = lib.init (lib.flk.getPatchFiles fog.minecraft-wayland.src);
   });
 
-  waybar = final.waylandPkgs.waybar.overrideAttrs (o: {
-    mesonFlags = o.mesonFlags ++ ["-Dexperimental=true"];
-  });
+  waybar = final.waylandPkgs.waybar;
+  #.overrideAttrs (o: {
+  #  mesonFlags = o.mesonFlags ++ ["-Dexperimental=true"];
+  #});
 }

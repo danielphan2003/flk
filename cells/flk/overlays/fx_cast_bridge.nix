@@ -1,6 +1,6 @@
 final: prev: {
   fx_cast_bridge = prev.fx_cast_bridge.overrideAttrs (_: let
-    nodeEnv = import ../pkgs/tools/misc/fx_cast/node-env.nix {
+    nodeEnv = import ../packages/tools/misc/fx_cast/node-env.nix {
       inherit (final.pkgs) nodejs stdenv lib python2 runCommand writeTextFile writeShellScript;
       inherit (final) pkgs;
 
@@ -10,7 +10,7 @@ final: prev: {
         else null;
     };
 
-    nodePackages = import ../pkgs/tools/misc/fx_cast/node-packages.nix {
+    nodePackages = import ../packages/tools/misc/fx_cast/node-packages.nix {
       inherit (final.pkgs) fetchurl nix-gitignore stdenv lib fetchgit;
       inherit nodeEnv;
 

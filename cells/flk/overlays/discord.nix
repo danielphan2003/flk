@@ -23,17 +23,17 @@ final: prev: {
     inherit (final.sources.betterdiscordctl) src version;
   });
 
-  discord-canary = prev.discord-canary.overrideAttrs (o: {
-    inherit (final.fog.discord-canary) pname src version;
+  # discord-canary = prev.discord-canary.overrideAttrs (o: {
+  #   inherit (final.fog.discord-canary) pname src version;
 
-    # every discord wayland is currently broken in wlroots
-    installPhase = ''
-      ${o.installPhase}
-      sed -i 's/exec/unset NIXOS_OZONE_WL\nexec/g' $out/opt/DiscordCanary/DiscordCanary
-    '';
+  #   # every discord wayland is currently broken in wlroots
+  #   installPhase = ''
+  #     ${o.installPhase}
+  #     sed -i 's/exec/unset NIXOS_OZONE_WL\nexec/g' $out/opt/DiscordCanary/DiscordCanary
+  #   '';
 
-    postInstall = ''
-      cp -f ${final.openasar} $out/opt/${o.meta.mainProgram}/resources/app.asar
-    '';
-  });
+  #   postInstall = ''
+  #     cp -f ${final.openasar} $out/opt/${o.meta.mainProgram}/resources/app.asar
+  #   '';
+  # });
 }

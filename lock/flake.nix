@@ -1,4 +1,3 @@
-
 {
   # linters: nix
   inputs = {

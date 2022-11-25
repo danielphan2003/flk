@@ -22,7 +22,7 @@ final: prev: {
         #     sha256 = "kh8SBR+cqsov/B0A2YXLJVq1F171qoSRUKbBPHjPRHI=";
         #   })
         #   (substituteAll {
-        #     src = ../pkgs/tools/inputmethods/ibus/fix-paths.patch;
+        #     src = ../packages/tools/inputmethods/ibus/fix-paths.patch;
         #     pythonInterpreter = python3Runtime.interpreter;
         #     pythonSitePackages = python3.sitePackages;
         #   })
@@ -42,7 +42,7 @@ final: prev: {
 
       uniemoji = prev.ibus-engines.uniemoji.overrideAttrs (_: {
         inherit (final.fog.uniemoji) pname version src;
-        patches = prev.lib.getPatchFiles ../pkgs/tools/inputmethods/ibus-engines/ibus-uniemoji;
+        patches = prev.lib.flk.getPatchFiles ../packages/tools/inputmethods/ibus-engines/ibus-uniemoji;
       });
     };
   in
