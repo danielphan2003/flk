@@ -27,8 +27,6 @@ in
       vscode-extensions
       ;
 
-    devos-ext-lib = inputs.devos-ext-lib.overlays.default;
-
     nixpkgs-wayland = inputs.nixpkgs-wayland.overlays.default;
 
     gomod2nix = inputs.gomod2nix.overlays.default;
